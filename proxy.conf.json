@@ -1,0 +1,7 @@
+{
+  "/": {
+    "target": "http://localhost:6080",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
