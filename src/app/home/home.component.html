@@ -1,5 +1,11 @@
 <div *ngFor="let c of custList">
-<p> {{c.account}} {{c.name}} {{c.email}} {{c.phone}} {{c.address}}{{c.status}}</p>
+<p>帳號: {{c.account}}</p>
+<p>姓名: {{c.name}}</p>
+<p>Email: {{c.email}}</p> 
+<p>手機: {{c.phone}}</p> 
+<p>地址: {{c.address}}</p> 
+<p>狀態: {{c.status == 1 ? "正常": "停權"}}</p>
+<P>=====================================================================</P>
 </div>
 
 
