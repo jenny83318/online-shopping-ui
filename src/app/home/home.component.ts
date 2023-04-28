@@ -5,11 +5,12 @@ import { Request } from '../service/JolService.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 custList:any=[];
-
+isOpen:boolean = false;
+isSlide:boolean = false;
   constructor(private jolService: JolService) { }
 
   ngOnInit() {
@@ -25,5 +26,11 @@ custList:any=[];
       this.custList = res.custList
 
     });
+  }
+  showMenu(){
+    this.isOpen = this.isOpen == false ? true : false;
+  }
+  showSlideBar(){
+    this.isSlide = this.isSlide == false ?  true : false;
   }
 }
