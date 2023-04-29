@@ -2,12 +2,14 @@ import { JolService } from './../service/JolService.service';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Request } from '../service/JolService.service';
+import * as $ from 'jquery';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit 
+{
 custList:any=[];
 isOpen:boolean = false;
 isSlide:boolean = false;
@@ -32,5 +34,6 @@ isSlide:boolean = false;
   }
   showSlideBar(){
     this.isSlide = this.isSlide == false ?  true : false;
+    
   }
 }
