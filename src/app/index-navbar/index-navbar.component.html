@@ -1,24 +1,10 @@
-<nav
-  class="navbar navbar-expand-lg"
->
-  <div
-    class="container"
-  >
-    <div
-      class="wrapper"
-    >
-      <a
-        [routerLink]="['/']"
-        class="homelink"
-        href="#pablo"
-      >
-        Notus Angular
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <div class="wrapper">
+      <a [routerLink]="['/']" class="homelink" href="#pablo">
+        <img src="assets/img/JOLBoutique-logo.png" style="width: 130px" />
       </a>
-      <button
-        class="navbar-toggle"
-        type="button"
-        (click)="setNavbarOpen()"
-      >
+      <button class="navbar-toggle" type="button" (click)="setNavbarOpen()">
         <i class="fas fa-bars"></i>
       </button>
     </div>
@@ -28,62 +14,36 @@
       id="example-navbar-warning"
     >
       <ul class="leftUrl">
-        <li class="flex items-center">
-          <a
-            class="customLink"
-            href="https://www.creative-tim.com/learning-lab/tailwind/angular/overview/notus?ref=na-index-navbar"
-          >
-            <i
-              class="file-icon far fa-file-alt"
-            ></i>
-            Docs
-          </a>
-        </li>
+        <li class="flex items-center customLink">所有商品</li>
+      </ul>
+      <ul class="leftUrl">
+        <li class="flex items-center customLink"> 最新商品</li>
+      </ul>
+      <ul class="leftUrl">
+        <li class="flex items-center customLink"> 熱銷商品</li>
+      </ul>
+      <ul class="leftUrl">
+        <li class="flex items-center customLink"> 居家系列</li>
+      </ul>
+      <ul class="leftUrl">
+        <li class="flex items-center customLink"> Catwalk</li>
       </ul>
       <ul class="rightUl rightUl-lg">
-        <li class="flex items-center">
+        <li class="flex items-center customLink">願望清單</li>
+        <li class="flex items-center customLink">
           <app-index-dropdown class="block"></app-index-dropdown>
         </li>
-        <li class="flex items-center">
-          <a
-            class="customLink"
-            href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdemos.creative-tim.com%2Fnotus-angular%2F"
-            target="_blank"
-          >
-            <i class="text-blueGray-400 fab fa-facebook text-lg leading-lg"></i>
-            <span class="lg:hidden inline-block ml-2">Share</span>
-          </a>
+        <li class="flex items-center customLink">
+          <input type="text" class="lg:hidden inline-block ml-2 search-input ">
+          <i class="text-blueGray-400 fa fa-search text-lg leading-lg "></i>
         </li>
-
         <li class="flex items-center">
-          <a
-            class="customLink"
-            href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdemos.creative-tim.com%2Fnotus-angular%2F&text=Start%20your%20development%20with%20a%20Free%20Tailwind%20CSS%20and%20Angular%20UI%20Kit%20and%20Admin.%20Let%20Notus%20Angular%20amaze%20you%20with%20its%20cool%20features%20and%20build%20tools%20and%20get%20your%20project%20to%20a%20whole%20new%20level."
-            target="_blank"
-          >
-            <i class="text-blueGray-400 fab fa-twitter text-lg leading-lg"></i>
-            <span class="lg:hidden inline-block ml-2">Tweet</span>
-          </a>
+          <i class="text-blueGray-400 fa fa-shopping-bag text-lg leading-lg customLink"></i>
+          <span class="lg:hidden inline-block ml-2">購物清單</span>
         </li>
-
         <li class="flex items-center">
-          <a
-            class="customLink"
-            href="https://github.com/creativetimofficial/notus-angular?ref=na-index-navbar"
-            target="_blank"
-          >
-            <i class="text-blueGray-400 fab fa-github text-lg leading-lg"></i>
-            <span class="lg:hidden inline-block ml-2">Star</span>
-          </a>
-        </li>
-
-        <li class="flex items-center">
-          <button
-            class="bg-red-600 text-white active:bg-red-700 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
-            type="button"
-          >
-            <i class="fas fa-arrow-alt-circle-down"></i> Download
-          </button>
+          <i class="text-blueGray-400 fa fa-user text-lg leading-lg customLink"></i>
+          <span class="lg:hidden inline-block ml-2">jenny83318</span>
         </li>
       </ul>
     </div>

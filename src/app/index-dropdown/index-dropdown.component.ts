@@ -4,6 +4,7 @@ import { createPopper } from "@popperjs/core";
 @Component({
   selector: "app-index-dropdown",
   templateUrl: "./index-dropdown.component.html",
+  styleUrls: ['./index-dropdown.component.scss','./../../assets/styles/tailwind.css']
 })
 export class IndexDropdownComponent implements OnInit {
   dropdownPopoverShow = false;
