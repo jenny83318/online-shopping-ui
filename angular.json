@@ -20,28 +20,24 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [ "chart.js" ],
             "outputPath": "dist/",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "aot": false,
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
               "src/styles.scss",
-              "src/assets/sass/main.scss",
-              "src/assets/css/main.css",
-              "src/assets/css/fontawesome-all.min.css"
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "src/assets/styles/tailwind.css"
             ],
             "scripts": [
-              "src/assets/js/breakpoints.min.js",
-              "src/assets/js/browser.min.js",
-              "src/assets/js/jquery.min.js",
-              "src/assets/js/main.js",
-              "src/assets/js/util.js"
             ]
           },
           "configurations": {

@@ -1,0 +1,13 @@
+<a class="title" href="#pablo" (click)="toggleDropdown($event)" #btnDropdownRef>會員專區</a>
+<div
+  class="popover"
+  [ngClass]="dropdownPopoverShow ? 'block' : 'hidden'"
+  #popoverDropdownRef
+>
+  <span class="layout">訂單管理</span>
+  <div class="divider"></div>
+  <span class="layout">修改會員資料</span>
+  <div class="divider"></div>
+  <span class="layout">立即結帳 </span>
+  <a class="item">登出</a>
+</div>

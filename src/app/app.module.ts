@@ -9,12 +9,25 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BlockUIModule } from 'ng-block-ui';
 import { DatePipe } from '@angular/common';
 import { BlockuiComponent } from './blockui/blockui.component';
+import { IndexComponent } from "./index/index.component";
+import { FooterComponent } from "./footers/footer/footer.component";
+import { FooterSmallComponent } from "./footers/footer-small/footer-small.component";
+import { IndexNavbarComponent } from "./index-navbar/index-navbar.component";
+import { IndexDropdownComponent } from "./index-dropdown/index-dropdown.component";
+import { SidebarComponent } from "./sidebar/sidebar.component";
 
 @NgModule({
    declarations: [
       AppComponent,
       HomeComponent,
-      BlockuiComponent
+      BlockuiComponent,
+      AppComponent,
+    IndexDropdownComponent,
+    SidebarComponent,
+    FooterComponent,
+    FooterSmallComponent,
+    IndexNavbarComponent,
+    IndexComponent,
    ],
    imports: [
 	 BrowserModule,
