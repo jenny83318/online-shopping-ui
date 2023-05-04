@@ -1,7 +1,7 @@
 import { JolService } from './../service/JolService.service';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Request } from '../service/JolService.service';
+import { Request } from '../model/Request';
 
 @Component({
   selector: 'app-home',
