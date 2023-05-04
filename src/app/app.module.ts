@@ -10,11 +10,9 @@ import { BlockUIModule } from 'ng-block-ui';
 import { DatePipe } from '@angular/common';
 import { BlockuiComponent } from './blockui/blockui.component';
 import { IndexComponent } from "./index/index.component";
-import { FooterComponent } from "./footers/footer/footer.component";
-import { FooterSmallComponent } from "./footers/footer-small/footer-small.component";
-import { IndexNavbarComponent } from "./index-navbar/index-navbar.component";
-import { IndexDropdownComponent } from "./index-dropdown/index-dropdown.component";
-import { SidebarComponent } from "./sidebar/sidebar.component";
+import { HeaderComponent } from './header/header.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
    declarations: [
@@ -22,12 +20,11 @@ import { SidebarComponent } from "./sidebar/sidebar.component";
       HomeComponent,
       BlockuiComponent,
       AppComponent,
-    IndexDropdownComponent,
-    SidebarComponent,
-    FooterComponent,
-    FooterSmallComponent,
-    IndexNavbarComponent,
-    IndexComponent,
+      FooterComponent,
+      IndexComponent,
+      HeaderComponent,
+      DropdownComponent,
+      FooterComponent
    ],
    imports: [
 	 BrowserModule,

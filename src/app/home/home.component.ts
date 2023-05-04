@@ -2,7 +2,7 @@ import { JolService } from './../service/JolService.service';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Request } from '../service/JolService.service';
-import * as $ from 'jquery';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
