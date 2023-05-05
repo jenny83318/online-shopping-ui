@@ -20,7 +20,7 @@ isSlide:boolean = false;
   }
 
   getHomeData(){
-    const body =  {type: 0}
+    const body =  {type: "ALL"}
     let request = new Request("jenny83318",body);
     console.log('request', request)
     this.jolService.getData(environment.JOLSERVER + environment.CUST, request).subscribe(res => {
