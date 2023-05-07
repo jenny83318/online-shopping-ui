@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  JOLSERVER: "/jolserver/api/json",
-  CUST:"/customer"
+  JOLSERVER: "/jolserver/api/json"
 };
 
 /*

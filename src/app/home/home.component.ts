@@ -1,32 +1,52 @@
 import { JolService } from './../service/JolService.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Request } from '../model/Request';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  // template: '<img *ngIf="imageUrl" [src]="imageUrl" alt="Dynamic Image">'
 })
 export class HomeComponent implements OnInit
 {
 custList:any=[];
 isOpen:boolean = false;
 isSlide:boolean = false;
-  constructor(private jolService: JolService) { }
+imageUrl: SafeUrl;
+  constructor(private jolService: JolService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.getHomeData();
+    this.getProductData()
   }
 
   getHomeData(){
     const body =  {type: "ALL"}
-    let request = new Request("jenny83318",body);
+    let request = new Request("JOLCustomerInfo","jenny83318",body);
     console.log('request', request)
-    this.jolService.getData(environment.JOLSERVER + environment.CUST, request).subscribe(res => {
+    this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
       console.log('res',res);
       this.custList = res.custList
 
+    });
+  }
+  getProductData(){
+    const body =  {type: "ALL"}
+    let request = new Request("JOLProductInfo","jenny83318",body);
+    console.log('request', request)
+    this.jolService.getData(environment.JOLSERVER , request).subscribe(res => {
+      console.log('res',res);
+      this.custList = res.productList
+      let byteData = this.custList[0].byteArrayList[0];
+      const binaryData = new TextEncoder().encode('your binary data here');
+      console.log('byteData',byteData)
+      const blob = new Blob([byteData], { type: 'image/png' }); // 創建 Blob 對象
+      this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(
+        URL.createObjectURL(blob) // 創建圖片 URL
+      );
     });
   }
   showMenu(){

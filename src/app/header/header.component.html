@@ -14,7 +14,13 @@
       id="example-navbar-warning"
     >
       <ul class="leftUrl">
-        <li class="flex items-center customLink">所有商品</li>
+        <li class="flex items-center customLink">
+          <button mat-button [matMenuTriggerFor]="menu">所有商品</button>
+          <mat-menu #menu="matMenu"  xPosition="after" yPosition="below">
+            <button mat-menu-item>Item 1</button>
+            <button mat-menu-item>Item 2</button>
+          </mat-menu>
+        </li>
       </ul>
       <ul class="leftUrl">
         <li class="flex items-center customLink"> 最新商品</li>
