@@ -16,6 +16,7 @@ import { FooterComponent } from './footer/footer.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
    declarations: [
@@ -35,8 +36,9 @@ import { MatButtonModule } from '@angular/material/button';
 	 BrowserAnimationsModule,
 	 AppRoutingModule,
     BrowserAnimationsModule,
-    BrowserModule, 
-    MatMenuModule, 
+    BrowserModule,
+    MatMenuModule,
+    MatDialogModule,
     MatIconModule,
     MatButtonModule,
 	 BlockUIModule.forRoot({

@@ -8,7 +8,6 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  // template: '<img *ngIf="imageUrl" [src]="imageUrl" alt="Dynamic Image">'
 })
 export class HomeComponent implements OnInit
 {
@@ -16,11 +15,13 @@ custList:any=[];
 isOpen:boolean = false;
 isSlide:boolean = false;
 imageUrl: SafeUrl;
+img:any;
+base64Title:String="data:image/jpeg;base64,";
   constructor(private jolService: JolService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    this.getHomeData();
-    this.getProductData()
+    // this.getHomeData();
+    // this.getProductData()
   }
 
   getHomeData(){
@@ -41,12 +42,13 @@ imageUrl: SafeUrl;
       console.log('res',res);
       this.custList = res.productList
       let byteData = this.custList[0].byteArrayList[0];
-      const binaryData = new TextEncoder().encode('your binary data here');
-      console.log('byteData',byteData)
-      const blob = new Blob([byteData], { type: 'image/png' }); // 創建 Blob 對象
-      this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(
-        URL.createObjectURL(blob) // 創建圖片 URL
-      );
+      this.img=this.base64Title+byteData;
+      // const binaryData = new TextEncoder().encode('your binary data here');
+      // console.log('byteData',byteData)
+      // const blob = new Blob([byteData], { type: 'image/png' }); // 創建 Blob 對象
+      // this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(
+      //   URL.createObjectURL(blob) // 創建圖片 URL
+      // );
     });
   }
   showMenu(){

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, Input } from "@angular/core";
 import { createPopper } from "@popperjs/core";
 
 @Component({
@@ -8,9 +8,10 @@ import { createPopper } from "@popperjs/core";
 })
 export class DropdownComponent implements OnInit {
   dropdownPopoverShow = false;
+  @ViewChild("popoverDropdownRef", { static: false }) popoverDropdownRef: ElementRef;
   @ViewChild("btnDropdownRef", { static: false }) btnDropdownRef: ElementRef;
-  @ViewChild("popoverDropdownRef", { static: false })
-  popoverDropdownRef: ElementRef;
+  @Input() title:any;
+
   ngOnInit() {}
   toggleDropdown(event) {
     event.preventDefault();
