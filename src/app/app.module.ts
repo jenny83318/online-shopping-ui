@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BlockUIModule } from 'ng-block-ui';
 import { DatePipe } from '@angular/common';
 import { BlockuiComponent } from './blockui/blockui.component';
-import { IndexComponent } from "./index/index.component";
 import { HeaderComponent } from './header/header.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { FooterComponent } from './footer/footer.component';
@@ -25,7 +24,6 @@ import {MatDialogModule} from '@angular/material/dialog';
       BlockuiComponent,
       AppComponent,
       FooterComponent,
-      IndexComponent,
       HeaderComponent,
       DropdownComponent,
       FooterComponent

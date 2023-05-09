@@ -17,110 +17,51 @@
     <div class="justify-center flex flex-wrap"> -->
       <div class="imgDiv">
         <div class="flex flex-wrap">
-          <div class="imgWrapper">
-            <h5 class="heading">Login Page</h5>
+          <div class="imgWrapper" *ngFor="let prod of prodList">
             <a [routerLink]="['/login']">
               <div class="card">
-                <img alt="..." class="img" [src]="img" />
+                <img alt="..." class="img" [src]="prod.img[0]" (mouseover)="mouseOverImg(prod.prodId)" (mouseleave)="mouseLeaveImg(prod.prodId)"/>
+                <h5 class="heading">{{prod.name}}</h5>
+                <p style="text-align: center;">NT${{prod.price}}</p>
               </div>
             </a>
           </div>
-        <div class="imgWrapper">
-          <h5 class="heading">Profile Page</h5>
-          <a [routerLink]="['/profile']">
-            <div class="card">
-              <img alt="..." class="img" src="assets/img/profile.jpg" />
-            </div>
-          </a>
-        </div>
-        <div class="imgWrapper">
-          <h5 class="heading">Profile Page</h5>
-          <a [routerLink]="['/profile']">
-            <div class="card">
-              <img alt="..." class="img" src="assets/img/profile.jpg" />
-            </div>
-          </a>
-        </div>
-        <div class="imgWrapper">
-          <h5 class="heading">Landing Page</h5>
-          <a [routerLink]="['/landing']">
-            <div class="card">
-              <img alt="..." class="img" src="assets/img/landing.jpg" />
-            </div>
-          </a>
-        </div>
-        <div class="imgWrapper">
-          <h5 class="heading">Landing Page</h5>
-          <a [routerLink]="['/landing']">
-            <div class="card">
-              <img alt="..." class="img" src="assets/img/landing.jpg" />
-            </div>
-          </a>
-        </div>
-        <div class="imgWrapper">
-          <h5 class="heading">Landing Page</h5>
-          <a [routerLink]="['/landing']">
-            <div class="card">
-              <img alt="..." class="img" src="assets/img/landing.jpg" />
-            </div>
-          </a>
-        </div>
-        <div class="imgWrapper">
-          <h5 class="heading">Landing Page</h5>
-          <a [routerLink]="['/landing']">
-            <div class="card">
-              <img alt="..." class="img" src="assets/img/landing.jpg" />
-            </div>
-          </a>
-        </div>
-        <div class="imgWrapper">
-          <h5 class="heading">Landing Page</h5>
-          <a [routerLink]="['/landing']">
-            <div class="card">
-              <img alt="..." class="img" src="assets/img/landing.jpg" />
-            </div>
-          </a>
-        </div>
-        <div class="imgWrapper">
-          <h5 class="heading">Landing Page</h5>
-          <a [routerLink]="['/landing']">
-            <div class="card">
-              <img alt="..." class="img" src="assets/img/landing.jpg" />
-            </div>
-          </a>
-        </div>
-        <div class="imgWrapper">
-          <h5 class="heading">Landing Page</h5>
-          <a [routerLink]="['/landing']">
-            <div class="card">
-              <img alt="..." class="img" src="assets/img/landing.jpg" />
-            </div>
-          </a>
-        </div>
-        <div class="imgWrapper">
-          <h5 class="heading">Landing Page</h5>
-          <a [routerLink]="['/landing']">
-            <div class="card">
-              <img alt="..." class="img" src="assets/img/landing.jpg" />
-            </div>
-          </a>
-        </div>
-        <div class="imgWrapper">
-          <h5 class="heading">Landing Page</h5>
-          <a [routerLink]="['/landing']">
-            <div class="card">
-              <img alt="..." class="img" src="assets/img/landing.jpg" />
-            </div>
-          </a>
-        </div>
-        <div class="imgWrapper">
-          <h5 class="heading">Landing Page</h5>
-          <a [routerLink]="['/landing']">
-            <div class="card">
-              <img alt="..." class="img" src="assets/img/landing.jpg" />
-            </div>
-          </a>
-        </div>
+          <div class="imgWrapper" *ngFor="let prod of prodList">
+            <a [routerLink]="['/login']">
+              <div class="card">
+                <img alt="..." class="img" [src]="prod.img[0]" (mouseover)="mouseOverImg(prod.prodId)" (mouseleave)="mouseLeaveImg(prod.prodId)"/>
+                <h5 class="heading">{{prod.name}}</h5>
+                <p style="text-align: center;">NT${{prod.price}}</p>
+              </div>
+            </a>
+          </div>
+          <div class="imgWrapper" *ngFor="let prod of prodList">
+            <a [routerLink]="['/login']">
+              <div class="card">
+                <img alt="..." class="img" [src]="prod.img[0]" (mouseover)="mouseOverImg(prod.prodId)" (mouseleave)="mouseLeaveImg(prod.prodId)"/>
+                <h5 class="heading">{{prod.name}}</h5>
+                <p style="text-align: center;">NT${{prod.price}}</p>
+              </div>
+            </a>
+          </div>
+          <div class="imgWrapper" *ngFor="let prod of prodList">
+            <a [routerLink]="['/login']">
+              <div class="card">
+                <img alt="..." class="img" [src]="prod.img[0]" (mouseover)="mouseOverImg(prod.prodId)" (mouseleave)="mouseLeaveImg(prod.prodId)"/>
+                <h5 class="heading">{{prod.name}}</h5>
+                <p style="text-align: center;">NT${{prod.price}}</p>
+              </div>
+            </a>
+          </div>
+          <div class="imgWrapper" *ngFor="let prod of prodList">
+            <a [routerLink]="['/login']">
+              <div class="card">
+                <img alt="..." class="img" [src]="prod.img[0]" (mouseover)="mouseOverImg(prod.prodId)" (mouseleave)="mouseLeaveImg(prod.prodId)"/>
+                <h5 class="heading">{{prod.name}}</h5>
+                <p style="text-align: center;">NT${{prod.price}}</p>
+              </div>
+            </a>
+          </div>
       </div>
     </div>
   <!-- </div>

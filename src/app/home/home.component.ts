@@ -12,6 +12,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 export class HomeComponent implements OnInit
 {
 custList:any=[];
+prodList:any=[];
 isOpen:boolean = false;
 isSlide:boolean = false;
 imageUrl: SafeUrl;
@@ -20,8 +21,8 @@ base64Title:String="data:image/jpeg;base64,";
   constructor(private jolService: JolService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    // this.getHomeData();
-    // this.getProductData()
+    this.getHomeData();
+    this.getProductData()
   }
 
   getHomeData(){
@@ -40,16 +41,33 @@ base64Title:String="data:image/jpeg;base64,";
     console.log('request', request)
     this.jolService.getData(environment.JOLSERVER , request).subscribe(res => {
       console.log('res',res);
-      this.custList = res.productList
-      let byteData = this.custList[0].byteArrayList[0];
-      this.img=this.base64Title+byteData;
-      // const binaryData = new TextEncoder().encode('your binary data here');
-      // console.log('byteData',byteData)
-      // const blob = new Blob([byteData], { type: 'image/png' }); // 創建 Blob 對象
-      // this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(
-      //   URL.createObjectURL(blob) // 創建圖片 URL
-      // );
+      this.prodList = res.productList
+      this.prodList.forEach((prod:any) => {
+        prod.img =[];
+        for(let i = 0; i < prod.imgList.length; i++){
+          prod.img.push(this.base64Title + prod.imgList[i]);
+        }
+      });
     });
+  }
+  mouseOverImg(prodId:any) {
+    this.prodList.forEach((prod:any) => {
+    if(prod.prodId == prodId){
+      let img = prod.img[0];
+      prod.img[0] = prod.img[1];
+      prod.img[1] = img;
+    }
+   });
+  }
+
+  mouseLeaveImg(prodId:any) {
+    this.prodList.forEach((prod:any) => {
+      if(prod.prodId == prodId){
+        let img = prod.img[0];
+        prod.img[0] = prod.img[1];
+        prod.img[1] = img;
+      }
+     });
   }
   showMenu(){
     this.isOpen = this.isOpen == false ? true : false;
