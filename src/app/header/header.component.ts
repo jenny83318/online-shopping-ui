@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -8,7 +9,7 @@ import {MatDialog} from '@angular/material/dialog';
 export class HeaderComponent implements OnInit {
   navbarOpen = false;
   title:any="最新商品"
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog,  private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -16,12 +17,8 @@ export class HeaderComponent implements OnInit {
     this.navbarOpen = !this.navbarOpen;
   }
 
-  // openDialog() {
-  //   const dialogRef = this.dialog.open(HeaderComponent);
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log(`Dialog result: ${result}`);
-  //   });
-  // }
+  logIn(){
+    this.router.navigate(['/login']);
+  }
 
 }

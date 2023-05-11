@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg">
   <div class="container">
     <div class="wrapper">
-      <a [routerLink]="['/']" class="homelink" href="#pablo">
+      <a class="homelink" href="#pablo">
         <img src="assets/img/JOLBoutique-logo.png" style="width: 150px" />
       </a>
       <button class="navbar-toggle" type="button" (click)="setNavbarOpen()">
@@ -60,8 +60,8 @@
           <i class="text-blueGray-400 fa fa-shopping-bag text-lg leading-lg customLink"></i>
           <span class="lg:hidden inline-block ml-2">購物清單</span>
         </li>
-        <li class="flex items-center">
-          <i class="text-blueGray-400 fa fa-user text-lg leading-lg customLink"></i>
+        <li class="flex items-center" (click)="logIn()">
+          <i class="text-blueGray-400 fa fa-user text-lg leading-lg customLink" ></i>
           <span class="lg:hidden inline-block ml-2">jenny83318</span>
       </ul>
     </div>

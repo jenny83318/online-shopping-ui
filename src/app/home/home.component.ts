@@ -11,7 +11,6 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 })
 export class HomeComponent implements OnInit
 {
-custList:any=[];
 prodList:any=[];
 isOpen:boolean = false;
 isSlide:boolean = false;
@@ -21,20 +20,9 @@ base64Title:String="data:image/jpeg;base64,";
   constructor(private jolService: JolService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    this.getHomeData();
     this.getProductData()
   }
 
-  getHomeData(){
-    const body =  {type: "ALL"}
-    let request = new Request("JOLCustomerInfo","jenny83318",body);
-    console.log('request', request)
-    this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
-      console.log('res',res);
-      this.custList = res.custList
-
-    });
-  }
   getProductData(){
     const body =  {type: "ALL"}
     let request = new Request("JOLProductInfo","jenny83318",body);
