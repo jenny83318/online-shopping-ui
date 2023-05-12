@@ -1,0 +1,116 @@
+
+.loading_box{
+  background-color: #ffffffe4;
+  opacity: 1;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  z-index: 1000;
+}
+.loading_card{
+  margin-top: 42vh;
+  text-align: center;
+}
+.loading_card img{
+  width: 80px;
+}
+.loading_card p{
+  color: #656565;
+  letter-spacing: .5px;
+  font-size: 18px;
+  margin: 0 auto;
+  z-index: 1100;
+  margin-top: 5px;
+}
+@keyframes ldio {
+  0% { opacity: 1 }
+  100% { opacity: 0 }
+}
+.ldio span {
+    left: 38px;
+    top: 12px;
+    position: absolute;
+    animation: ldio linear 1s infinite;
+    background: #656565;
+    width: 4px;
+    height: 15px;
+    border-radius: 5.28px / 5.28px;
+    transform-origin: 7px 28px;
+}
+.ldio span:nth-child(1) {
+  transform: rotate(0deg);
+  animation-delay: -0.9166666666666666s;
+
+}
+.ldio span:nth-child(2) {
+  transform: rotate(30deg);
+  animation-delay: -0.8333333333333334s;
+
+}
+.ldio span:nth-child(3) {
+  transform: rotate(60deg);
+  animation-delay: -0.75s;
+
+}
+.ldio span:nth-child(4) {
+  transform: rotate(90deg);
+  animation-delay: -0.6666666666666666s;
+
+}
+.ldio span:nth-child(5) {
+  transform: rotate(120deg);
+  animation-delay: -0.5833333333333334s;
+
+}
+.ldio span:nth-child(6) {
+  transform: rotate(150deg);
+  animation-delay: -0.5s;
+
+}
+.ldio span:nth-child(7) {
+  transform: rotate(180deg);
+  animation-delay: -0.4166666666666667s;
+
+}
+.ldio span:nth-child(8) {
+  transform: rotate(210deg);
+  animation-delay: -0.3333333333333333s;
+
+}
+.ldio span:nth-child(9) {
+  transform: rotate(240deg);
+  animation-delay: -0.25s;
+
+}
+.ldio span:nth-child(10) {
+  transform: rotate(270deg);
+  animation-delay: -0.16666666666666666s;
+
+}
+.ldio span:nth-child(11) {
+  transform: rotate(300deg);
+  animation-delay: -0.08333333333333333s;
+
+}
+.ldio span:nth-child(12) {
+  transform: rotate(330deg);
+  animation-delay: 0s;
+
+}
+.loadingio-spinner-spinner{
+  width: 100px;
+  height: 74px;
+  display: inline-block;
+  overflow: hidden;
+  background: none;
+}
+.ldio {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0;
+}
+.ldio div { box-sizing: content-box; }
+

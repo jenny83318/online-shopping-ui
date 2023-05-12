@@ -11,17 +11,18 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  account:any;
-  password:any;
-  isRember:boolean = false;
-  constructor(private jolService: JolService,  private router: Router) { }
+  account: any;
+  password: any;
+  isRember: boolean = false;
+  constructor(private jolService: JolService, private router: Router) { }
 
   ngOnInit() {
-
-      if(sessionStorage.getItem('isRember') == "true"){
-        this.account = sessionStorage.getItem('account');
-        this.password =sessionStorage.getItem('password');
-      }
+    // sessionStorage.setItem('token', 'ef8c1dad-ac81-42ec-8f29-f5ad7a357016');
+    if (sessionStorage.getItem('isRember') == "true") {
+      this.account = sessionStorage.getItem('account');
+      this.password = sessionStorage.getItem('password');
+      this.isRember = true;
+    }
   }
   // getHomeData(){
   //   const body =  {type: "ALL"}
@@ -33,54 +34,41 @@ export class LoginComponent implements OnInit {
 
   //   });
   // }
-  remberMe(){
-    this.isRember =true;
+  remberMe() {
+    this.isRember = true;
   }
-  logIn(){
-    if(this.isRember){
+  logIn() {
+    if (this.account == "") {
+      alert('請輸入帳號')
+    } else if (this.password == "") {
+      alert('請輸入密碼')
+    } else {
       sessionStorage.setItem('isRember', this.isRember.toString());
-      sessionStorage.setItem('account', this.account);
-      sessionStorage.setItem('password', this.password);
-
-    }
-    const body =  {
-      password: this.password,
-      token: sessionStorage.getItem('token'),
-      type:""
-    };
-    let request = new Request("LogIn",this.account,body);
-    console.log('request', request)
-    this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
-      console.log('res',res);
-      if(res.code == 200){
-        this.jolService.loginData.account = this.account;
-        this.jolService.loginData.password = this.password;
-        this.jolService.loginData.token = res.token;
-        sessionStorage.setItem('token', res.token);
-        this.router.navigate(['/']);
-      }else{
-        alert(res.msg);
+      if (this.isRember) {
+        sessionStorage.setItem('account', this.account);
+        sessionStorage.setItem('password', this.password);
       }
-    });
-  }
-
-  logOut() {
-    if (this.jolService.loginData.account != "") {
       const body = {
-        type: "CLEAN",
-        password: this.jolService.loginData.password,
-        token: sessionStorage.getItem('token')
+        password: this.password,
+        token: sessionStorage.getItem('token'),
+        type: ""
       };
-      let request = new Request("LogIn", this.jolService.loginData.account, body);
+      let request = new Request("LogIn", this.account, body);
       console.log('request', request)
       this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
-        if(res.code == 200){
-          sessionStorage.removeItem('token');
-          console.log('res', res);
-        }else{
-          alert("系統異常")
+        console.log('res', res);
+        if (res.code == 200) {
+          this.jolService.loginData.account = this.account;
+          this.jolService.loginData.password = this.password;
+          this.jolService.loginData.token = res.token;
+          sessionStorage.setItem('token', res.token);
+          this.router.navigate(['/']);
+        } else {
+          alert(res.msg);
         }
       });
     }
   }
+
+
 }

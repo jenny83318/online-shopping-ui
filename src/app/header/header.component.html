@@ -8,11 +8,8 @@
         <i class="fas fa-bars"></i>
       </button>
     </div>
-    <div
-      class="lg:flex flex-grow items-center"
-      [ngClass]="{ hidden: !navbarOpen, block: navbarOpen }"
-      id="example-navbar-warning"
-    >
+    <div class="lg:flex flex-grow items-center" [ngClass]="{ hidden: !navbarOpen, block: navbarOpen }"
+      id="example-navbar-warning">
       <ul class="leftUrl">
         <li class="flex items-center customLink">
           所有商品
@@ -38,8 +35,8 @@
       <ul class="leftUrl">
         <!-- <li class="flex items-center customLink"> 熱銷商品</li> -->
         <li class="flex items-center customLink">
-        <app-dropdown class="block" [title]="title"></app-dropdown>
-      </li>
+          <app-dropdown class="block" [title]="title"></app-dropdown>
+        </li>
       </ul>
       <ul class="leftUrl">
         <li class="flex items-center customLink"> 居家系列</li>
@@ -60,12 +57,11 @@
           <i class="text-blueGray-400 fa fa-shopping-bag text-lg leading-lg customLink"></i>
           <span class="lg:hidden inline-block ml-2">購物清單</span>
         </li>
+        <li class="flex items-center customLink" (click)="logOut()">登出</li>
         <li class="flex items-center" (click)="logIn()">
-          <i class="text-blueGray-400 fa fa-user text-lg leading-lg customLink" ></i>
+          <i class="text-blueGray-400 fa fa-user text-lg leading-lg customLink"></i>
           <span class="lg:hidden inline-block ml-2">jenny83318</span>
       </ul>
     </div>
   </div>
 </nav>
-
-

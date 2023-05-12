@@ -11,10 +11,7 @@ import { DropdownComponent } from './../dropdown/dropdown.component';
   ],
   exports: [FooterComponent],
   imports: [
-    CommonModule,
-    BlockUIModule.forRoot({
-      template:BlockuiComponent,
-   })
+    CommonModule
   ]
 })
 export class FooterModule { }

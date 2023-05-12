@@ -16,18 +16,18 @@
             <label class="label" for="emailAddress">
               <img src="assets/img/JOLBoutique-logo.png" class="labelIcon"><span>帳號*</span>
             </label>
-            <input type="email" class="input" id="emailAddress" placeholder="請輸入您的帳號"  name="account" [(ngModel)]="account">
+            <input type="email" class="input" id="emailAddress" placeholder="請輸入您的帳號" name="account" [(ngModel)]="account">
           </div>
           <div class="inputContainer">
             <label class="label" for="emailAddress">
               <img src="assets/img/PCShort.gif" class="labelIcon"><span>密碼*</span>
             </label>
-            <input type="password" class="input" id="emailAddress" placeholder="請輸入您的密碼" name="password"  [(ngModel)]="password">
+            <input type="password" class="input" id="emailAddress" placeholder="請輸入您的密碼" name="password" [(ngModel)]="password">
           </div>
           <div class="OptionsContainer">
             <div class="checkboxContainer">
-              <input type="checkbox" id="RememberMe" class="checkbox">
-              <label for="RememberMe" (click)="remberMe()">記住我</label>
+              <input type="checkbox" id="RememberMe" class="checkbox" (click)="remberMe()" name="isRember" [(ngModel)]="isRember">
+              <label for="RememberMe" >記住我</label>
             </div>
             <a href="#" class="ForgotPasswordLink">忘記密碼?</a>
           </div>

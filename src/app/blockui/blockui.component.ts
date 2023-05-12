@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-blockui',
   templateUrl: './blockui.component.html',
-  styleUrls: ['./blockui.component.css']
+  styleUrls: ['./blockui.component.scss']
 })
 export class BlockuiComponent implements OnInit {
   message = "Loading...";
