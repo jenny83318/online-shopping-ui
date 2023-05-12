@@ -10,8 +10,8 @@
 <block-ui [template]="block"></block-ui>
 <app-header></app-header>
 <section class="header">
-  <img class="banner" src="assets/img/PCShort.gif" alt="..." />
-  <!-- <section class="section"> -->
+  <img class="banner" src="assets/img/PCShorter.gif" alt="..." />
+  <section class="section">
   <!-- <div class="container mx-auto">
     <div class="justify-center flex flex-wrap"> -->
       <div class="imgDiv">
@@ -25,46 +25,10 @@
               </div>
             </a>
           </div>
-          <div class="imgWrapper" *ngFor="let prod of prodList">
-            <a [routerLink]="['/login']">
-              <div class="card">
-                <img alt="..." class="img" [src]="prod.img[0]" (mouseover)="mouseOverImg(prod.prodId)" (mouseleave)="mouseLeaveImg(prod.prodId)"/>
-                <h5 class="heading">{{prod.name}}</h5>
-                <p style="text-align: center;">NT${{prod.price}}</p>
-              </div>
-            </a>
-          </div>
-          <div class="imgWrapper" *ngFor="let prod of prodList">
-            <a [routerLink]="['/login']">
-              <div class="card">
-                <img alt="..." class="img" [src]="prod.img[0]" (mouseover)="mouseOverImg(prod.prodId)" (mouseleave)="mouseLeaveImg(prod.prodId)"/>
-                <h5 class="heading">{{prod.name}}</h5>
-                <p style="text-align: center;">NT${{prod.price}}</p>
-              </div>
-            </a>
-          </div>
-          <div class="imgWrapper" *ngFor="let prod of prodList">
-            <a [routerLink]="['/login']">
-              <div class="card">
-                <img alt="..." class="img" [src]="prod.img[0]" (mouseover)="mouseOverImg(prod.prodId)" (mouseleave)="mouseLeaveImg(prod.prodId)"/>
-                <h5 class="heading">{{prod.name}}</h5>
-                <p style="text-align: center;">NT${{prod.price}}</p>
-              </div>
-            </a>
-          </div>
-          <div class="imgWrapper" *ngFor="let prod of prodList">
-            <a [routerLink]="['/login']">
-              <div class="card">
-                <img alt="..." class="img" [src]="prod.img[0]" (mouseover)="mouseOverImg(prod.prodId)" (mouseleave)="mouseLeaveImg(prod.prodId)"/>
-                <h5 class="heading">{{prod.name}}</h5>
-                <p style="text-align: center;">NT${{prod.price}}</p>
-              </div>
-            </a>
-          </div>
       </div>
     </div>
-  <!-- </div>
-</div> -->
-<!-- </section> -->
-  </section>
+  <!-- </div> -->
+<!-- </div> -->
+</section>
+</section>
 <app-footer></app-footer>

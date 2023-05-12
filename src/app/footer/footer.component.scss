@@ -1,0 +1,40 @@
+.liherf {
+    color: #9b9191;
+    font-weight: 600;
+    display: block;
+    padding-bottom: 2px;
+    font-size: 0.875rem;
+  }
+  
+  .li-herfs:hover {
+    color: #9b9191;
+  }
+  .hr-border {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-color: #9d9494;
+    height: 15px;
+    border-top: 2px solid #9b9191;
+    width: 95%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .text-lg {
+    font-size: 0.75rem;
+    line-height: 1.5rem;
+}
+.text-3xl {
+    font-size: 1rem;
+    font-weight: bolder;
+    line-height: 2.25rem;
+}
+.li-container {
+    display: block;
+    text-transform: uppercase;
+    color: black;
+    font-size: 0.875rem; /* 相當於 14px */
+    font-weight: 600;
+    margin-bottom: 0.5rem; /* 相當於 8px */
+  }
+  

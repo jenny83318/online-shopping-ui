@@ -36,6 +36,7 @@ export class HeaderComponent implements OnInit {
         if(res.code == 200){
           sessionStorage.removeItem('token');
           console.log('res', res);
+          alert('您已登出')
         }else{
           alert("系統異常")
         }
