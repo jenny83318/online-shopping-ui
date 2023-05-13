@@ -63,12 +63,14 @@
   text-align: center;
 }
 .imgWrapper {
-  width: 50%;
+  width: 100%;
   padding-left: 1rem;
   padding-right: 1rem;
   height: auto;
   margin-top: auto;
 }
+
+
 @media (min-width: 210px) {
   .imgDiv {
     margin-top: 89%;
@@ -83,15 +85,24 @@
   .imgDiv {
     margin-top: 72%;
   }
+  .imgWrapper {
+    width: 50%;
+  }
 }
 @media (min-width: 740px) {
   .imgDiv {
     margin-top: 68%;
   }
+  .imgWrapper {
+    width: 50%;
+  }
 }
 @media (min-width: 960px) {
   .imgDiv {
     margin-top: 70%;
+  }
+  .imgWrapper {
+    width: 50%;
   }
 }
 @media (min-width: 1024px) {

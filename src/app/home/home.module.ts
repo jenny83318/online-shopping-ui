@@ -10,10 +10,15 @@ import { BlockUIModule } from 'ng-block-ui';
 import { CommonModule } from '@angular/common';
 import { HeaderModule } from '../header/header.module';
 import { FooterModule } from '../footer/footer.module';
+import { PreloadImageDirective } from "./../preload-image.directive"
+import { CardComponent } from '../card/card.component';
+
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    PreloadImageDirective,
+    CardComponent
   ],
   imports: [
     CommonModule,
