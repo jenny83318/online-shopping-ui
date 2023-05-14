@@ -15,7 +15,7 @@
 
 .LoginPageInnerContainer .ImageContianer {
   width: 25%;
-  background-color: #e1dfec;
+  background-color:#f2e8c0;
   min-height: 100%;
   padding: 5%;
   display: flex;
@@ -33,7 +33,6 @@
   background-color: white;
   min-height: 100%;
   padding: 5%;
-  background: url(https://i.imgur.com/BKyjjFa.png) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -46,18 +45,19 @@
 }
 
 .LoginPageInnerContainer .LoginFormContainer .header {
+  padding-right: 10%;
   font-size: 32px;
   font-weight: 500;
 }
 
 .LoginPageInnerContainer .LoginFormContainer .subHeader {
-  color: #9aa4ad;
+  color: #e798dd;
   margin-top: 5px;
   margin-bottom: 40px;
 }
 
 .LoginPageInnerContainer .LoginFormContainer .inputContainer {
-  color: #3f3f45;
+  color: #000000;
   margin: 20px 0px;
 }
 
@@ -81,8 +81,10 @@
   width: calc(100% - 20px);
   font-size: 15px;
   padding: 10px;
-  border: 1px solid #d6d7db;
-  border-radius: 5px;
+  border-bottom: 1px solid #000000;
+  border-top: none;
+  border-left: none;
+  border-right: none;
   margin-top: 5px;
   outline: 0px !important;
 }
@@ -106,7 +108,7 @@
   height: 15px;
   margin: 0px;
   display: block;
-  border: 1px solid #d6d7db;
+  border: 1px solid #000000;
 }
 
 .LoginPageInnerContainer .LoginFormContainer .checkboxContainer {
@@ -118,7 +120,7 @@
 .LoginPageInnerContainer .LoginFormContainer .checkboxContainer label {
   display: block;
   padding: 0px 5px;
-  color: #9aa4ad;
+  color: #000000;
 }
 
 .LoginPageInnerContainer .LoginFormContainer .ForgotPasswordLink {
@@ -134,16 +136,33 @@
   border-radius: 20px;
   font-weight: bold;
   color: white;
-  background-color: #2e1f7a;
+  background-color: #cb9b63;
   border: 0px;
   outline: 0px;
   cursor: pointer;
 }
 
 .LoginFormContainer .LoginFormInnerContainer .LoginButton:active {
-  background-color: #4520ff;
+  background-color: #917c33;
 }
 
+.LoginFormContainer .LoginFormInnerContainer .SignUpButton {
+  margin-top: 30px;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border-radius: 20px;
+  font-weight: bold;
+  color: white;
+  background-color: #f1cda4;
+  border: 0px;
+  outline: 0px;
+  cursor: pointer;
+}
+
+.LoginFormContainer .LoginFormInnerContainer .SignUpButton:active {
+  background-color: #d7c37a;
+}
 
 @media only screen and (max-width: 1200px) {
   .LoginPageInnerContainer .ImageContianer {
@@ -165,7 +184,7 @@
 }
 
 .LoginPageContainer::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #ffffff;
 }
 
 .LoginPageContainer::-webkit-scrollbar-thumb {
@@ -174,4 +193,8 @@
 
 .LoginPageContainer::-webkit-scrollbar-thumb:hover {
   background: #4520ff;
+}
+
+input:focus{
+  outline: none;
 }

@@ -15,4 +15,7 @@ export class JolService {
     return this.httpClient.post<any>(url, request, httpHeaders);
 
   }
+  resetLoginData(){
+    this.loginData ={account:"", password:"", token:""};
+  }
 }

@@ -13,15 +13,23 @@ export class HeaderComponent implements OnInit {
   navbarOpen = false;
   title:any="最新商品"
   constructor(public dialog: MatDialog,  private router: Router, private jolService: JolService) {}
-
-  ngOnInit(): void {}
+  logInData:any
+  ngOnInit(): void {
+    console.log('this.jolService.loginData',this.jolService.loginData)
+    this.logInData = this.jolService.loginData;
+  }
 
   setNavbarOpen() {
     this.navbarOpen = !this.navbarOpen;
   }
 
   logIn(){
-    this.router.navigate(['/login']);
+    console.log('this.jolService.loginData',this.jolService.loginData)
+    if(this.jolService.loginData.account != ""){
+
+    }else{
+      this.router.navigate(['/login']);
+    }
   }
   logOut() {
     if (this.jolService.loginData.account != "") {
@@ -35,6 +43,8 @@ export class HeaderComponent implements OnInit {
       this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
         if(res.code == 200){
           sessionStorage.removeItem('token');
+          this.jolService.resetLoginData();
+          this.logInData = this.jolService.loginData;
           console.log('res', res);
           alert('您已登出')
         }else{

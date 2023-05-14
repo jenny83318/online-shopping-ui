@@ -2,14 +2,17 @@
   <div class="container">
     <div class="wrapper">
       <a class="homelink" href="#pablo">
-        <img src="assets/img/JOLBoutique-logo.png" style="width: 150px" />
+        <img src="assets/img/JOLBoutique-logo.png" style="width: 200px" />
       </a>
       <button class="navbar-toggle" type="button" (click)="setNavbarOpen()">
         <i class="fas fa-bars"></i>
       </button>
     </div>
-    <div class="lg:flex flex-grow items-center" [ngClass]="{ hidden: !navbarOpen, block: navbarOpen }"
-      id="example-navbar-warning">
+    <div
+      class="lg:flex flex-grow items-center"
+      [ngClass]="{ hidden: !navbarOpen, block: navbarOpen }"
+      id="example-navbar-warning"
+    >
       <ul class="leftUrl">
         <li class="flex items-center customLink">
           所有商品
@@ -39,28 +42,60 @@
         </li>
       </ul>
       <ul class="leftUrl">
-        <li class="flex items-center customLink"> 居家系列</li>
+        <li class="flex items-center customLink">居家系列</li>
       </ul>
       <ul class="leftUrl">
-        <li class="flex items-center customLink"> Catwalk</li>
+        <li class="flex items-center customLink">Catwalk</li>
       </ul>
       <ul class="rightUl rightUl-lg">
-        <li class="flex items-center customLink">願望清單</li>
+        <li class="flex items-center customLink">
+          <input type="text" class="lg:hidden inline-block ml-2 search-input" />
+          <i
+            class="text-blueGray-400 fa fa-search text-lg leading-lg"
+            style="font-size: 1.5rem"
+          ></i>
+        </li>
+        <li class="flex items-center">
+          <i
+            class="text-blueGray-400 fa fa-shopping-bag text-lg leading-lg customLink"
+            style="font-size: 1.5rem"
+          ></i>
+          <span class="lg:hidden inline-block ml-2">購物清單</span>
+        </li>
+        <li class="flex items-center" (click)="logIn()">
+          <i
+            *ngIf="logInData.account == ''"
+            class="text-blueGray-400 fa fa-user text-lg leading-lg customLink"
+            style="font-size: 1.5rem"
+          ></i>
+          <button mat-button [matMenuTriggerFor]="menu">
+            <i
+              *ngIf="logInData.account != ''"
+              class="text-blueGray-400 fa fa-user text-lg leading-lg customLink"
+              style="font-size: 1.5rem"
+            ></i>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item style="padding-left: 10px;">會員管理</button>
+            <hr>
+            <button mat-menu-item style="padding-left: 10px;">訂單管理</button>
+            <hr>
+            <button mat-menu-item style="padding-left: 10px;" (click)="logOut()">登出</button>
+          </mat-menu>
+          <span class="lg:hidden inline-block ml-2">{{
+            logInData.account == "" ? "登入會員" : logInData.account
+          }}</span>
+        </li>
+        <li class="flex items-center">
+          <i
+            class="text-blueGray-400 fa fa-heart text-lg leading-lg customLink"
+            style="font-size: 1.5rem"
+          ></i>
+          <span class="lg:hidden inline-block ml-2">願望清單</span>
+        </li>
         <li class="flex items-center customLink">
           <app-dropdown class="block"></app-dropdown>
         </li>
-        <li class="flex items-center customLink">
-          <input type="text" class="lg:hidden inline-block ml-2 search-input ">
-          <i class="text-blueGray-400 fa fa-search text-lg leading-lg "></i>
-        </li>
-        <li class="flex items-center">
-          <i class="text-blueGray-400 fa fa-shopping-bag text-lg leading-lg customLink"></i>
-          <span class="lg:hidden inline-block ml-2">購物清單</span>
-        </li>
-        <li class="flex items-center customLink" (click)="logOut()">登出</li>
-        <li class="flex items-center" (click)="logIn()">
-          <i class="text-blueGray-400 fa fa-user text-lg leading-lg customLink"></i>
-          <span class="lg:hidden inline-block ml-2">jenny83318</span>
       </ul>
     </div>
   </div>

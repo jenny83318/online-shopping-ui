@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   password: any;
   isRember: boolean = false;
   constructor(private jolService: JolService, private router: Router) { }
+  isSignUp:boolean =false;
 
   ngOnInit() {
     // sessionStorage.setItem('token', 'ef8c1dad-ac81-42ec-8f29-f5ad7a357016');
@@ -70,5 +71,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  showSignUp(){
+    this.isSignUp = this.isSignUp? false: true;
+  }
 
 }

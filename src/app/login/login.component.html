@@ -2,14 +2,14 @@
 <div class="LoginPageContainer">
   <div class="LoginPageInnerContainer">
     <div class="ImageContianer">
-      <img src="assets/img/PCShort.gif" class="GroupImage">
+      <img src="assets/img/123.jpg" class="GroupImage">
     </div>
-    <div class="LoginFormContainer">
+    <div class="LoginFormContainer" *ngIf="! isSignUp">
       <div class="LoginFormInnerContainer">
-        <div class="LogoContainer">
+        <!-- <div class="LogoContainer">
           <img src="assets/img/JOLBoutique-logo.png" class="logo">
-        </div>
-        <header class="header">登入</header>
+        </div> -->
+        <h5 class="header">登入</h5>
         <header class="subHeader">Welcome to <b>animal planet!</b> Please Enter your Details</header>
         <form>
           <div class="inputContainer">
@@ -32,6 +32,40 @@
             <a href="#" class="ForgotPasswordLink">忘記密碼?</a>
           </div>
           <button class="LoginButton" (click)="logIn()">登入</button>
+          <button class="SignUpButton" (click)="showSignUp()">註冊會員</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="LoginFormContainer" *ngIf="isSignUp">
+      <div class="LoginFormInnerContainer">
+        <!-- <div class="LogoContainer">
+          <img src="assets/img/JOLBoutique-logo.png" class="logo">
+        </div> -->
+        <h5 class="header">註冊</h5>
+        <header class="subHeader">Welcome to <b>animal planet!</b> Please Enter your Details</header>
+        <form>
+          <div class="inputContainer">
+            <label class="label" for="emailAddress">
+              <img src="assets/img/PCShort.gif" class="labelIcon"><span>ACCOUNT*</span>
+            </label>
+            <input type="email" class="input" id="emailAddress" placeholder="請輸入您的帳號" name="account" [(ngModel)]="account">
+          </div>
+          <div class="inputContainer">
+            <label class="label" for="emailAddress">
+              <img src="assets/img/PCShort.gif" class="labelIcon"><span>PASSWORD*</span>
+            </label>
+            <input type="password" class="input" id="emailAddress" placeholder="請輸入您的密碼" name="password" [(ngModel)]="password">
+          </div>
+          <div class="OptionsContainer">
+            <div class="checkboxContainer">
+              <input type="checkbox" id="RememberMe" class="checkbox" (click)="remberMe()" name="isRember" [(ngModel)]="isRember">
+              <label for="RememberMe" >記住我</label>
+            </div>
+            <a href="#" class="ForgotPasswordLink">忘記密碼?</a>
+          </div>
+          <button class="LoginButton">註冊</button>
+          <button class="SignUpButton" (click)="showSignUp()">登入會員</button>
         </form>
       </div>
     </div>
