@@ -5,6 +5,7 @@ import { Request } from '../model/Request';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { BlockuiComponent } from './../blockui/blockui.component';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,7 @@ export class HomeComponent implements OnInit {
   img: any;
   base64Title: String = "data:image/jpeg;base64,";
   filePath:string="file://D:/Develop/Projects/JOLUI/prodImg/prod"
-  constructor(private jolService: JolService, private sanitizer: DomSanitizer) { }
+  constructor(private jolService: JolService, private sanitizer: DomSanitizer,public dialog: MatDialog) { }
 
   ngOnInit() {
     this.getProductData()

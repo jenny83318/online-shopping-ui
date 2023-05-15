@@ -38,6 +38,9 @@
   -o-background-size: cover;
   background-size: cover;
 }
+.signUpContainer{
+  margin-top: 80px;
+}
 
 .LoginPageInnerContainer .LoginFormContainer .LogoContainer .logo {
   height: 60px;
@@ -81,10 +84,7 @@
   width: calc(100% - 20px);
   font-size: 15px;
   padding: 10px;
-  border-bottom: 1px solid #000000;
-  border-top: none;
-  border-left: none;
-  border-right: none;
+  border: none;
   margin-top: 5px;
   outline: 0px !important;
 }
@@ -197,4 +197,18 @@
 
 input:focus{
   outline: none;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+input:focus {
+ outline: none;
+ border:none;
 }

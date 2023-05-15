@@ -12,7 +12,7 @@ import { Request } from '../model/Request';
 export class HeaderComponent implements OnInit {
   navbarOpen = false;
   title:any="最新商品"
-  constructor(public dialog: MatDialog,  private router: Router, private jolService: JolService) {}
+  constructor(private dialog: MatDialog,  private router: Router, private jolService: JolService) {}
   logInData:any
   ngOnInit(): void {
     console.log('this.jolService.loginData',this.jolService.loginData)
@@ -46,11 +46,23 @@ export class HeaderComponent implements OnInit {
           this.jolService.resetLoginData();
           this.logInData = this.jolService.loginData;
           console.log('res', res);
-          alert('您已登出')
+          this.openDialog();
+          // alert('您已登出')
         }else{
           alert("系統異常")
         }
       });
     }
   }
+
+  openDialog() {
+    this.dialog.open(DialogElementsExampleDialog);
+  }
+
+}
+@Component({
+  selector: 'message.component.html',
+  templateUrl: './../message/message.component.html',
+})
+export class DialogElementsExampleDialog {
 }

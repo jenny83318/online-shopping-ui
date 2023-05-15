@@ -6,28 +6,25 @@
     </div>
     <div class="LoginFormContainer" *ngIf="! isSignUp">
       <div class="LoginFormInnerContainer">
-        <!-- <div class="LogoContainer">
-          <img src="assets/img/JOLBoutique-logo.png" class="logo">
-        </div> -->
         <h5 class="header">登入</h5>
         <header class="subHeader">Welcome to <b>animal planet!</b> Please Enter your Details</header>
-        <form>
+        <form class="example-form">
           <div class="inputContainer">
-            <label class="label" for="emailAddress">
-              <img src="assets/img/JOLBoutique-logo.png" class="labelIcon"><span>帳號*</span>
-            </label>
-            <input type="email" class="input" id="emailAddress" placeholder="請輸入您的帳號" name="account" [(ngModel)]="account">
+            <mat-form-field class="example-full-width">
+              <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">帳號*</mat-label>
+              <input matInput class="input" placeholder="請輸入您的帳號" name="account" [(ngModel)]="account">
+            </mat-form-field>
           </div>
           <div class="inputContainer">
-            <label class="label" for="emailAddress">
-              <img src="assets/img/PCShort.gif" class="labelIcon"><span>密碼*</span>
-            </label>
-            <input type="password" class="input" id="emailAddress" placeholder="請輸入您的密碼" name="password" [(ngModel)]="password">
+            <mat-form-field class="example-full-width">
+              <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">密碼*</mat-label>
+              <input matInput class="input" placeholder="請輸入您的密碼"  name="password" [(ngModel)]="password">
+            </mat-form-field>
           </div>
           <div class="OptionsContainer">
             <div class="checkboxContainer">
-              <input type="checkbox" id="RememberMe" class="checkbox" (click)="remberMe()" name="isRember" [(ngModel)]="isRember">
-              <label for="RememberMe" >記住我</label>
+              <input type="checkbox" id="RememberMe" class="checkbox" (click)="remberMe()" name="isRember"  [(ngModel)]="isRember">
+              <label for="RememberMe">記住我</label>
             </div>
             <a href="#" class="ForgotPasswordLink">忘記密碼?</a>
           </div>
@@ -38,33 +35,60 @@
     </div>
 
     <div class="LoginFormContainer" *ngIf="isSignUp">
-      <div class="LoginFormInnerContainer">
-        <!-- <div class="LogoContainer">
-          <img src="assets/img/JOLBoutique-logo.png" class="logo">
-        </div> -->
+      <div class="LoginFormInnerContainer signUpContainer">
         <h5 class="header">註冊</h5>
         <header class="subHeader">Welcome to <b>animal planet!</b> Please Enter your Details</header>
-        <form>
+        <form class="example-form">
           <div class="inputContainer">
-            <label class="label" for="emailAddress">
-              <img src="assets/img/PCShort.gif" class="labelIcon"><span>ACCOUNT*</span>
-            </label>
-            <input type="email" class="input" id="emailAddress" placeholder="請輸入您的帳號" name="account" [(ngModel)]="account">
+            <mat-form-field class="example-full-width">
+              <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">姓名*</mat-label>
+              <input matInput class="input" placeholder="請輸入您的姓名" name="name" [(ngModel)]="signUpData.name">
+            </mat-form-field>
           </div>
           <div class="inputContainer">
-            <label class="label" for="emailAddress">
-              <img src="assets/img/PCShort.gif" class="labelIcon"><span>PASSWORD*</span>
-            </label>
-            <input type="password" class="input" id="emailAddress" placeholder="請輸入您的密碼" name="password" [(ngModel)]="password">
+            <mat-form-field class="example-full-width">
+              <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">帳號*</mat-label>
+              <input matInput class="input" placeholder="請輸入您的帳號" name="account" [(ngModel)]="signUpData.account">
+            </mat-form-field>
           </div>
-          <div class="OptionsContainer">
-            <div class="checkboxContainer">
-              <input type="checkbox" id="RememberMe" class="checkbox" (click)="remberMe()" name="isRember" [(ngModel)]="isRember">
-              <label for="RememberMe" >記住我</label>
-            </div>
-            <a href="#" class="ForgotPasswordLink">忘記密碼?</a>
+          <div class="inputContainer">
+            <mat-form-field class="example-full-width">
+              <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">密碼*</mat-label>
+              <input matInput class="input" placeholder="請輸入您的密碼" name="password" [(ngModel)]="signUpData.password">
+            </mat-form-field>
           </div>
-          <button class="LoginButton">註冊</button>
+          <div class="inputContainer">
+            <mat-form-field class="example-full-width">
+              <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">再次輸入密碼*</mat-label>
+              <input matInput class="input" placeholder="請再次輸入您的密碼" name="repassword" [(ngModel)]="signUpData.repassword">
+            </mat-form-field>
+          </div>
+          <div class="inputContainer">
+            <mat-form-field class="example-full-width">
+              <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">手機</mat-label>
+              <input matInput class="input" placeholder="請輸入您的手機" name="phone" [(ngModel)]="signUpData.phone">
+            </mat-form-field>
+          </div>
+          <div class="inputContainer">
+            <mat-form-field class="example-full-width">
+              <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">Email*</mat-label>
+              <input class="input" type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                placeholder="請輸入email" name="name" [(ngModel)]="signUpData.email">
+              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                請輸入正確的email
+              </mat-error>
+              <mat-error *ngIf="emailFormControl.hasError('required')">
+                信箱欄位<strong>必填</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="inputContainer">
+            <mat-form-field class="example-full-width">
+              <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">地址</mat-label>
+              <input matInput class="input" placeholder="請輸入您的寄送地址" name="name" [(ngModel)]="signUpData.address">
+            </mat-form-field>
+          </div>
+          <button class="LoginButton" (click)="signUp()">註冊</button>
           <button class="SignUpButton" (click)="showSignUp()">登入會員</button>
         </form>
       </div>
