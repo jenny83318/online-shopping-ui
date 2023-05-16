@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, Input } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { JolService } from '../service/JolService.service';
 import { environment } from 'src/environments/environment';
 import { Request } from '../model/Request';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -12,8 +13,11 @@ import { Request } from '../model/Request';
 export class HeaderComponent implements OnInit {
   navbarOpen = false;
   title:any="最新商品"
-  constructor(private dialog: MatDialog,  private router: Router, private jolService: JolService) {}
   logInData:any
+  isMsg:boolean = false;
+
+  constructor(private dialog: MatDialog,  private router: Router, private jolService: JolService) {}
+
   ngOnInit(): void {
     console.log('this.jolService.loginData',this.jolService.loginData)
     this.logInData = this.jolService.loginData;
@@ -46,7 +50,7 @@ export class HeaderComponent implements OnInit {
           this.jolService.resetLoginData();
           this.logInData = this.jolService.loginData;
           console.log('res', res);
-          this.openDialog();
+         this.isMsg = true;
           // alert('您已登出')
         }else{
           alert("系統異常")
@@ -56,13 +60,23 @@ export class HeaderComponent implements OnInit {
   }
 
   openDialog() {
-    this.dialog.open(DialogElementsExampleDialog);
+    this.dialog.open(DialogElementsExampleDialog, { disableClose: true });
   }
 
+  closeMsg(msg:string){
+    if(msg == "close"){
+      this.dialog.closeAll();
+    }
+  }
 }
+
 @Component({
   selector: 'message.component.html',
   templateUrl: './../message/message.component.html',
 })
 export class DialogElementsExampleDialog {
-}
+
+  close(){
+    console.log('=======close===============')
+  }
+ }

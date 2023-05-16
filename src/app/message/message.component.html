@@ -1,5 +1,33 @@
-<h1 mat-dialog-title>Dialog with elements</h1>
-<div mat-dialog-content>This dialog showcases the title, close, content and actions elements.</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
-</div>
+<section class="popCon">
+  <div class="popBox">
+
+    <ul>
+      <li>
+        <span class="orange">取價</span>
+        <p>
+          - 委託類型為「先買後賣」→取最佳一檔的賣出價。
+        </p>
+        <p>
+          - 委託類型為「先賣後買」→取最佳一檔的買進價。
+        </p>
+      </li>
+      <li>
+        <span class="red">買進IOC</span>
+        <p>
+          IOC : 須立即成交(允許部分成交)，否則取消。
+        </p>
+      </li>
+      <li>
+        <span class="green">賣出ROD</span>
+        <p>
+          ROD : 掛單到收盤均有效。
+        </p>
+      </li>
+    </ul>
+
+    <div class="BtnBox col2">
+      <button mat-button class="btn blueBtn" (click)="close()" >我知道了</button>
+    </div>
+  </div>
+  <div class="closeBg" (click)="close()"></div>
+</section>

@@ -11,6 +11,13 @@
 			width: device-width;
 		}
 
+    app-header,app-home{
+      position: fixed;
+      z-index: 1000000001;
+      width: 100%;
+      top: 0px;
+      left: 0px;
+    }
 	// MSIE: Prevents scrollbar from overlapping content.
 		body {
 			-ms-overflow-style: scrollbar;

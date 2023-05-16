@@ -1,0 +1,48 @@
+.popBox{
+  position: relative;
+  overflow: inherit;
+  padding: 0px;
+  ul{
+    padding: 24px 20px 16px ;
+    li{
+      margin-bottom: 12px;
+      span{
+        border-radius: 14px;
+
+        font-size: 14px;
+        color: #fff;
+        padding: 7px 10px 4px;
+        margin-bottom: 4px;
+        display: block;
+        width: max-content;
+        line-height: 14px;
+        &.orange{
+          background-color: #f69257;
+        }
+        &.red{
+          background-color: #f41159;
+        }
+        &.green{
+          background-color: #52b931;
+        }
+      }
+    }
+  }
+  p{
+    margin-left: 6px;
+    margin-bottom: 0;
+
+  }
+  i{
+    position: absolute;
+    top: -26px;
+    right: 10px;
+  }
+  .BtnBox{
+    justify-content: center;
+    padding: 2px 20px 20px;
+    button{
+      border-radius: 8px;
+    }
+  }
+}
