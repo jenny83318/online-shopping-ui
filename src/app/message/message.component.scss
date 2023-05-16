@@ -6,43 +6,50 @@
     padding: 24px 20px 16px ;
     li{
       margin-bottom: 12px;
-      span{
-        border-radius: 14px;
-
-        font-size: 14px;
-        color: #fff;
-        padding: 7px 10px 4px;
-        margin-bottom: 4px;
-        display: block;
-        width: max-content;
-        line-height: 14px;
-        &.orange{
-          background-color: #f69257;
-        }
-        &.red{
-          background-color: #f41159;
-        }
-        &.green{
-          background-color: #52b931;
-        }
-      }
     }
   }
   p{
     margin-left: 6px;
     margin-bottom: 0;
+    font-size: 20px;
+    text-align: center;
+    color: #703c08;
+    font-weight: bolder;
+  }
 
-  }
-  i{
-    position: absolute;
-    top: -26px;
-    right: 10px;
-  }
   .BtnBox{
     justify-content: center;
     padding: 2px 20px 20px;
+    padding-top: 30px;
+    
     button{
-      border-radius: 8px;
+      border: 1px solid black;
+      font-size: 20px;
+      border: 1px, solid;
+      color: #000;
+      margin-bottom: 4px;
+      line-height: 25px;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      width: 100%;
+    }
+    button:focus{
+      outline: none;
     }
   }
+ 
+}
+
+.logo{
+  padding-top: 20px;
+  width: 120px;
+  padding-bottom: 30px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

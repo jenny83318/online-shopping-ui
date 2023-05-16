@@ -11,14 +11,14 @@
         <form class="example-form">
           <div class="inputContainer">
             <mat-form-field class="example-full-width">
-              <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">帳號*</mat-label>
+              <mat-label class="label" style="font-size: 15px;"><img src="assets/img/PCShort.gif" class="labelIcon">帳號*</mat-label>
               <input matInput class="input" placeholder="請輸入您的帳號" name="account" [(ngModel)]="account">
             </mat-form-field>
           </div>
           <div class="inputContainer">
             <mat-form-field class="example-full-width">
               <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">密碼*</mat-label>
-              <input matInput class="input" placeholder="請輸入您的密碼"  name="password" [(ngModel)]="password">
+              <input type="password" matInput class="input" placeholder="請輸入您的帳號" name="password" [(ngModel)]="password">
             </mat-form-field>
           </div>
           <div class="OptionsContainer">
@@ -42,7 +42,7 @@
           <div class="inputContainer">
             <mat-form-field class="example-full-width">
               <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">姓名*</mat-label>
-              <input matInput class="input" placeholder="請輸入您的姓名" name="name" [(ngModel)]="signUpData.name">
+              <input matInput class="input" placeholder="請輸入您的姓名" name="userName" [(ngModel)]="signUpData.userName">
             </mat-form-field>
           </div>
           <div class="inputContainer">
@@ -54,13 +54,13 @@
           <div class="inputContainer">
             <mat-form-field class="example-full-width">
               <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">密碼*</mat-label>
-              <input matInput class="input" placeholder="請輸入您的密碼" name="password" [(ngModel)]="signUpData.password">
+              <input type="password" matInput class="input" placeholder="請輸入您的密碼" name="password" [(ngModel)]="signUpData.password">
             </mat-form-field>
           </div>
           <div class="inputContainer">
             <mat-form-field class="example-full-width">
               <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">再次輸入密碼*</mat-label>
-              <input matInput class="input" placeholder="請再次輸入您的密碼" name="repassword" [(ngModel)]="signUpData.repassword">
+              <input type="password" matInput class="input" placeholder="請再次輸入您的密碼" name="repassword" [(ngModel)]="signUpData.repassword">
             </mat-form-field>
           </div>
           <div class="inputContainer">

@@ -75,6 +75,7 @@
 
 .LoginPageInnerContainer .LoginFormContainer .inputContainer .label .labelIcon {
   width: 20px;
+  font-size: 15px;
   margin-right: 10px;
   display: block;
 }
@@ -211,4 +212,8 @@ input:focus{
 input:focus {
  outline: none;
  border:none;
+}
+
+.label{
+  font-size: 15px;
 }

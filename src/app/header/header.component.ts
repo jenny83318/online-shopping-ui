@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { JolService } from '../service/JolService.service';
 import { environment } from 'src/environments/environment';
 import { Request } from '../model/Request';
+import { MessageComponent } from '../message/message.component';
+import { SearchComponent } from '../search/search.component';
 
 @Component({
   selector: 'app-header',
@@ -14,13 +16,13 @@ export class HeaderComponent implements OnInit {
   navbarOpen = false;
   title:any="最新商品"
   logInData:any
-  isMsg:boolean = false;
-
+  isLogin:boolean = false;
   constructor(private dialog: MatDialog,  private router: Router, private jolService: JolService) {}
 
   ngOnInit(): void {
     console.log('this.jolService.loginData',this.jolService.loginData)
     this.logInData = this.jolService.loginData;
+    this.isLogin = this.jolService.isLogin;
   }
 
   setNavbarOpen() {
@@ -49,34 +51,19 @@ export class HeaderComponent implements OnInit {
           sessionStorage.removeItem('token');
           this.jolService.resetLoginData();
           this.logInData = this.jolService.loginData;
+          this.jolService.isLogin = false;
+          this.isLogin =false;
           console.log('res', res);
-         this.isMsg = true;
+          this.dialog.open(MessageComponent, { data: {msg:"登出成功"}});
           // alert('您已登出')
         }else{
-          alert("系統異常")
+          this.dialog.open(MessageComponent, { data:{msg:"登出異常" }});
         }
       });
     }
   }
 
-  openDialog() {
-    this.dialog.open(DialogElementsExampleDialog, { disableClose: true });
-  }
-
-  closeMsg(msg:string){
-    if(msg == "close"){
-      this.dialog.closeAll();
-    }
+  search(){
+    this.dialog.open(SearchComponent);
   }
 }
-
-@Component({
-  selector: 'message.component.html',
-  templateUrl: './../message/message.component.html',
-})
-export class DialogElementsExampleDialog {
-
-  close(){
-    console.log('=======close===============')
-  }
- }

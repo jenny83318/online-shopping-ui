@@ -11,13 +11,15 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
    declarations: [
       AppComponent,
       BlockuiComponent,
-      AppComponent
+      AppComponent,
+      SearchComponent
    ],
    imports: [
 	 BrowserModule,

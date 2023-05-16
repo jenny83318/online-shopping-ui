@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-
+import { Component, OnInit, Input, Output, EventEmitter,Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-message',
@@ -8,13 +9,15 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class MessageComponent implements OnInit {
 
-  constructor() { }
-
-  @Input() parent:any;
-  @Output() message = new EventEmitter();
+  constructor( public dialogRef: MatDialogRef<MessageComponent>,
+    private router: Router,
+     @Inject(MAT_DIALOG_DATA) public data: any) { }
   ngOnInit() {
   }
   close(){
-    this.parent.isMsg = false;
+    this.dialogRef.close();
+    if(this.data.fun != undefined){
+      this.router.navigate(['/' + this.data.fun]);
+    }
   }
 }

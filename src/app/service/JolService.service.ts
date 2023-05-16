@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class JolService {
 
+  isLogin:boolean = false;
   loginData:any = {account:"", password:"", token:""};
 
   constructor(private httpClient: HttpClient) { }

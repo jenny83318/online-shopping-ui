@@ -1,4 +1,3 @@
-<app-message [parent]="this" *ngIf="isMsg"></app-message>
 <nav class="navbar navbar-expand-lg">
   <div class="container">
     <div class="wrapper">
@@ -40,35 +39,34 @@
         <li class="flex items-center customLink">Catwalk</li>
       </ul>
       <ul class="rightUl rightUl-lg">
-        <li class="flex items-center customLink">
-          <input type="text" class="lg:hidden inline-block ml-2 search-input" />
-          <i class="text-blueGray-400 fa fa-search text-lg leading-lg" style="font-size: 1.5rem"></i>
+        <li class="flex items-center search">
+          <input type="text" class="search-input" />
+          <button  (click)="search()">
+            <i class="text-blueGray-400 fa fa-search text-lg leading-lg customLink" style="font-size: 1.5rem"></i>
+          </button>
         </li>
         <li class="flex items-center">
           <i class="text-blueGray-400 fa fa-shopping-bag text-lg leading-lg customLink" style="font-size: 1.5rem"></i>
-          <span class="lg:hidden inline-block ml-2">購物清單</span>
+          <button class="lg:hidden inline-block ml-2">購物清單</button>
         </li>
-        <li class="flex items-center" (click)="logIn()">
-          <i *ngIf="logInData.account == ''" class="text-blueGray-400 fa fa-user text-lg leading-lg customLink"
-            style="font-size: 1.5rem"></i>
-          <button mat-button [matMenuTriggerFor]="menu">
-            <i *ngIf="logInData.account != ''" class="text-blueGray-400 fa fa-user text-lg leading-lg customLink"
-              style="font-size: 1.5rem"></i>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item class="menuItem">會員管理</button>
-            <hr>
-            <button mat-menu-item class="menuItem">訂單管理</button>
-            <hr>
-            <button mat-menu-item class="menuItem" (click)="logOut()">登出</button>
-          </mat-menu>
-          <span class="lg:hidden inline-block ml-2">{{
-            logInData.account == "" ? "登入會員" : logInData.account
-            }}</span>
+        <li class="flex items-center" *ngIf="! isLogin" (click)="logIn()">
+          <i class="text-blueGray-400 fa fa-user text-lg leading-lg customLink" style="font-size: 1.5rem"></i>
+            <button class="lg:hidden inline-block ml-2">登入會員</button>
+        </li>
+        <li class="flex items-center" *ngIf="isLogin" mat-button [matMenuTriggerFor]="menu">
+          <i class="text-blueGray-400 fa fa-user text-lg leading-lg customLink" style="font-size: 1.5rem"></i>
+            <button class="lg:hidden inline-block ml-2"> {{logInData.account}}</button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item class="menuItem">會員管理</button>
+              <hr>
+              <button mat-menu-item class="menuItem">訂單管理</button>
+              <hr>
+              <button mat-menu-item class="menuItem" (click)="logOut()">登出</button>
+            </mat-menu>
         </li>
         <li class="flex items-center">
           <i class="text-blueGray-400 fa fa-heart text-lg leading-lg customLink" style="font-size: 1.5rem"></i>
-          <span class="lg:hidden inline-block ml-2">願望清單</span>
+          <button class="lg:hidden inline-block ml-2">願望清單</button>
         </li>
       </ul>
     </div>
