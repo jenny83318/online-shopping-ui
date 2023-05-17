@@ -38,6 +38,7 @@
               "src/assets/styles/tailwind.css"
             ],
             "scripts": [
+              "src/assets/js/product.js"
             ]
           },
           "configurations": {

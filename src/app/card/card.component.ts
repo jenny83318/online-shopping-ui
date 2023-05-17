@@ -1,35 +1,42 @@
-import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
-
+import { PreloadImageDirective } from './../preload-image.directive';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  date = new Date().getFullYear();
-  constructor() { }
-isOnload:boolean = false;
-  @Input() prod:any;
-  @Input() home:any;
+
+  @Input() prod: any;
   @Output() messageEvent = new EventEmitter<string>();
+  isOnload: boolean = false;
+
+  constructor( private router: Router) { }
+
   ngOnInit() {
   }
-  mouseOverImg(prodId: any) {
-        const img = new Image();
-        img.src = this.prod.img[1];
-        img.onload = () => {
-            this.prod.imgUrl = this.prod.img[1];
-        };
+  mouseOverImg() {
+    const img = new Image();
+    img.src = this.prod.img[1];
+    img.onload = () => {
+      this.prod.imgUrl = this.prod.img[1];
+    };
   }
 
-  mouseLeaveImg(prodId: any) {
+  mouseLeaveImg() {
     const img = new Image();
     img.src = this.prod.img[0];
     img.onload = () => {
       this.prod.imgUrl = this.prod.img[0];
     };
   }
-  onLoadImg(){
+  onLoadImg() {
     this.messageEvent.emit('load');
+  }
+
+  toProduct(){
+    console.log('================================')
+    this.router.navigate(['/product']);
   }
 }

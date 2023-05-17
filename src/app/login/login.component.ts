@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
 
   constructor(private jolService: JolService, private router: Router, private dialog: MatDialog) { }
   ngOnInit() {
-    // sessionStorage.setItem('token', 'ef8c1dad-ac81-42ec-8f29-f5ad7a357016');
     if (sessionStorage.getItem('isRember') == "true") {
       this.account = sessionStorage.getItem('account');
       this.password = sessionStorage.getItem('password');
@@ -106,9 +105,8 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
         }else{
           this.dialog.open(MessageComponent, { data: {msg:"註冊失敗", fun:""}});
         }
-        // this.custList = res.custList
       });
-      
+
     }
   }
   showSignUp() {

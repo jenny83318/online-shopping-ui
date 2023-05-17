@@ -1,5 +1,5 @@
-    <div class="card" >
-      <img  class="img" [appPreloadImage]="prod.imgUrl" (mouseover)="mouseOverImg(prod.prodId)" (mouseleave)="mouseLeaveImg(prod.prodId)" (load)="onLoadImg()" onerror="this.onerror=null; this.src='/assets/img/noImg.png'" />
-      <h5 class="heading">{{prod.name}}</h5>
-      <p style="text-align: center;">NT${{prod.price}}</p>
-    </div>
+<div class="card" (click)="toProduct()">
+  <img class="img" [appPreloadImage]="prod.imgUrl" (mouseover)="mouseOverImg()" (mouseleave)="mouseLeaveImg()" (load)="onLoadImg()" onerror="this.onerror=null; this.src='/assets/img/noImg.png'" />
+  <h5 class="heading"  (click)="toProduct()">{{prod.name}}</h5>
+  <p style="text-align: center;">NT${{prod.price}}</p>
+</div>

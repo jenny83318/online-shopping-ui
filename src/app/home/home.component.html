@@ -1,33 +1,15 @@
-<!--  <div *ngFor="let c of custList">
-<p>帳號: {{c.account}}</p>
-<p>姓名: {{c.name}}</p>
-<p>Email: {{c.email}}</p>
-<p>手機: {{c.phone}}</p>
-<p>地址: {{c.address}}</p>
-<p>狀態: {{c.status == 1 ? "正常": "停權"}}</p>
-<P>=====================================================================</P>
-</div> -->
 <block-ui [template]="block"></block-ui>
 <app-header></app-header>
 <section class="header">
   <img class="banner" src="/assets/img/PCShorter.gif" alt="..." />
   <section class="section">
-  <!-- <div class="container mx-auto">
-    <div class="justify-center flex flex-wrap"> -->
-      <div class="imgDiv">
-        <div class="flex flex-wrap">
-          <div class="imgWrapper" *ngFor="let prod of prodList">
-          <app-card [prod]="prod" (messageEvent)="receiveMessage($event)"></app-card>
-              <!-- <div class="card" >
-                <img  class="img" [appPreloadImage]="prod.imgUrl" (load)="onImageLoad()" (mouseover)="mouseOverImg(prod.prodId)" (mouseleave)="mouseLeaveImg(prod.prodId)"/>
-                <h5 class="heading">{{prod.name}}</h5>
-                <p style="text-align: center;">NT${{prod.price}}</p>
-              </div> -->
-          </div>
+    <div class="imgDiv">
+      <div class="flex flex-wrap">
+        <div class="imgWrapper" *ngFor="let prod of prodList">
+          <app-card [prod]="prod" (messageEvent)="loadImageFinish($event)"></app-card>
+        </div>
       </div>
     </div>
-  <!-- </div> -->
-<!-- </div> -->
-</section>
+  </section>
 </section>
 <app-footer></app-footer>

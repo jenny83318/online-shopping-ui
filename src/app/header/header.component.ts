@@ -30,13 +30,9 @@ export class HeaderComponent implements OnInit {
   }
 
   logIn(){
-    console.log('this.jolService.loginData',this.jolService.loginData)
-    if(this.jolService.loginData.account != ""){
-
-    }else{
       this.router.navigate(['/login']);
-    }
   }
+  
   logOut() {
     if (this.jolService.loginData.account != "") {
       const body = {
@@ -54,8 +50,7 @@ export class HeaderComponent implements OnInit {
           this.jolService.isLogin = false;
           this.isLogin =false;
           console.log('res', res);
-          this.dialog.open(MessageComponent, { data: {msg:"登出成功"}});
-          // alert('您已登出')
+          this.dialog.open(MessageComponent, { data: {msg:"您已登出"}});
         }else{
           this.dialog.open(MessageComponent, { data:{msg:"登出異常" }});
         }
