@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { JolService } from './../service/JolService.service';
+import { Component, Input, OnInit } from '@angular/core';
 import { BlockuiComponent } from './../blockui/blockui.component';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
@@ -8,13 +9,14 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
-  
+
   @BlockUI() blockUI!: NgBlockUI;
   block = BlockuiComponent;
-
-  constructor() { }
+  prod:any;
+  constructor(private jolService:JolService) { }
 
   ngOnInit() {
+    this.prod = this.jolService.prod;
   }
 
 }

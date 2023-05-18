@@ -1,4 +1,4 @@
-import { PreloadImageDirective } from './../preload-image.directive';
+import { JolService } from './../service/JolService.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 @Component({
@@ -12,7 +12,7 @@ export class CardComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<string>();
   isOnload: boolean = false;
 
-  constructor( private router: Router) { }
+  constructor( private router: Router, private jolService:JolService) { }
 
   ngOnInit() {
   }
@@ -36,7 +36,7 @@ export class CardComponent implements OnInit {
   }
 
   toProduct(){
-    console.log('================================')
+    this.jolService.prod = this.prod;
     this.router.navigate(['/product']);
   }
 }

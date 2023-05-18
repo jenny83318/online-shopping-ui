@@ -8,6 +8,7 @@ export class JolService {
 
   isLogin:boolean = false;
   loginData:any = {account:"", password:"", token:""};
+  prod:any;
 
   constructor(private httpClient: HttpClient) { }
 
