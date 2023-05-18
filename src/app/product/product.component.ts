@@ -13,10 +13,15 @@ export class ProductComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
   block = BlockuiComponent;
   prod:any;
+  qty:number = 0
+
   constructor(private jolService:JolService) { }
 
   ngOnInit() {
     this.prod = this.jolService.prod;
   }
 
+  changeQty(isPlus:boolean){
+    this.qty = isPlus ? this.qty += 1 : this.qty <=0 ? 0 :this.qty-=1
+  }
 }

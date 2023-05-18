@@ -61,4 +61,7 @@ export class HeaderComponent implements OnInit {
   search(){
     this.dialog.open(SearchComponent);
   }
+  toHome(){
+    this.router.navigate(['/']);
+  }
 }

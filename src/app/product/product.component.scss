@@ -14,13 +14,16 @@
 }
 
 .LoginPageInnerContainer .ImageContianer {
-  width: 40%;
+  width: 50%;
   background-color:#ffffff;
-  min-height: 100%;
+  // min-height: 100%;
   // padding: 5%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 81px;
+  // justify-content: center;
+  // align-items: center;
 }
 
 .LoginPageInnerContainer .ImageContianer .GroupImage {
@@ -97,11 +100,12 @@
 
 .LoginFormContainer {
   display: flex;
-  align-items: center;
+  margin-top: 81px;
 }
 
 .LoginFormInnerContainer {
-  max-width: 500px;
+  max-width:800px;
+  width: 100%;
 }
 
 .LoginPageInnerContainer .LoginFormContainer .checkbox {
@@ -133,7 +137,7 @@
   }
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 1080px) {
   .LoginPageInnerContainer .ImageContianer {
       display: none;
   }
@@ -167,7 +171,7 @@ input:focus{
 
 .example-form {
   min-width: 150px;
-  max-width: 500px;
+  max-width: 800px;
   width: 100%;
 }
 
@@ -182,3 +186,99 @@ input:focus {
 .label{
   font-size: 15px;
 }
+
+.price{
+  font-size: 24px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    color: #a75500;
+    font-weight: 300;
+}
+
+.size{
+  font-size: 24px;
+  padding: 5px;
+  font-family: Rubik;
+}
+
+.sizeWrapper{
+  width: 70px;
+  display: -webkit-inline-box;
+  margin-bottom: 40px;
+  font-family: Rubik;
+}
+
+.btnWrapper{
+  width: 48%;
+  display: -webkit-inline-box;
+  text-align: center;
+  margin-right: 2%;
+  padding: 1rem;
+  margin-bottom: 40px;
+  border: 1px solid gray;
+  font-family: Rubik;
+}
+.frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  margin-top: -200px;
+  margin-left: -200px;
+  border-radius: 2px;
+	box-shadow: 4px 8px 16px 0 rgba(0,0,0,0.1);
+	overflow: hidden;
+  background: #fff;
+  color: #333;
+	font-family: 'Open Sans', Helvetica, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+	display: flex;
+	border: 1px solid gray;
+  background: #ffffff;
+  width: 98%;
+  padding: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+h1 {
+	margin: 0;
+	padding: 0;
+	user-select: none;
+}
+
+.col-1 {
+	width: 45%;
+}
+
+.col-2 {
+	width: 25%;
+}
+
+.col > button, .number {
+	width: 100%;
+	background: #ffffff;
+	border: 0px;
+	text-align: center;
+}
+
+.btn {
+	font-family: sans-serif;
+	font-size: 2em;
+}
+.minusbtn{
+  font-size: 3em;
+}
+
+button {
+	color: #000000;
+	user-select: none;
+	outline: none;
+}
+
