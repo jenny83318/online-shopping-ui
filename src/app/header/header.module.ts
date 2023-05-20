@@ -14,7 +14,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatIconModule,
     MatMenuModule,
     MatDialogModule,
-    MessageModule
+    MessageModule,
   ],
   declarations: [
     HeaderComponent

@@ -37,6 +37,6 @@ export class CardComponent implements OnInit {
 
   toProduct(){
     this.jolService.prod = this.prod;
-    this.router.navigate(['/product']);
+    this.router.navigate(['/product'], { skipLocationChange: true });
   }
 }

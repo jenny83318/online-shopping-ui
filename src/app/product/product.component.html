@@ -23,34 +23,27 @@
             onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
           />
         </div>
-        <div style="position: absolute">
-          <h5 class="header">{{ prod.name }}</h5>
-          <p class="price">NT${{ prod.price }}</p>
-          <ul class="sizeWrapper">
-            <li class="size">
-              <button>XS</button>
+        <div class="outerWrapper">
+<div><button class="wishBtn"> <i class="fa fa-heart"></i></button></div>
+          <ul class="header">
+            
+            <li>{{ prod.name }}</li>
+            <li>NT${{ prod.price }}</li>
+          </ul>
+
+          <ul class="sizeWrapper" *ngFor="let s of sizeList">
+            <li
+              class="size"
+              (click)="chooseSize(s)"
+              [class.selected]="size === s"
+            >
+              <button>{{ s }}</button>
             </li>
+           
           </ul>
           <ul class="sizeWrapper">
-            <li class="size">
-              <button>S</button>
-            </li>
-          </ul>
-          <ul class="sizeWrapper">
-            <li class="size">
-              <button>M</button>
-            </li>
-          </ul>
-          <ul class="sizeWrapper">
-            <li class="size">
-              <button>L</button>
-            </li>
-          </ul>
-          <ul class="sizeWrapper">
-            <li class="size">
-              <button>XL</button>
-            </li>
-          </ul>
+          <!-- <li><button class="wishBtn"> <i class="fa fa-heart"></i></button></li> -->
+        </ul>
           <div class="center container">
             <div class="button col col-1">
               <button
@@ -74,47 +67,61 @@
             <div class="btnWrapper">
               <button style="width: 100%">立即結帳</button>
             </div>
-            <div class="btnWrapper">
+            <div class="btnWrapper cart" (click)="addCart()">
               <button style="width: 100%">加入購物車</button>
             </div>
           </div>
           <div>
-            <mat-tab-group animationDuration="0ms">
+            <mat-tab-group
+              animationDuration="0ms"
+              (selectedTabChange)="tabChanged($event)"
+            >
               <mat-tab label="商品資訊">
-                <br />
-                <br />
-                <p>此款版型合身*基於衛生考量無提供退貨服務</p>
-                <p>
-                  MIT台灣製造/柔滑舒適涼感牛奶絲/ 上薄下厚一片式胸墊/
-                  胸墊可拆/彈性美感細肩帶/ 肩帶不可調
-                </p>
-                <p>*實品顏色依單品照為主</p>
-                <p>尼龍 84% 彈性纖維 16%</p>
-                <p>厚薄:適中</p>
-                <p>彈性:佳</p>
-                <p>素材產地 / 台灣</p>
-                <p>加工產地 / 台灣</p>
+                <div class="tabContent">
+                  <p>
+                    <br />
+                    <br />
+                    此款版型合身*基於衛生考量無提供退貨服務<br />
+                    MIT台灣製造/柔滑舒適涼感牛奶絲/ 上薄下厚一片式胸墊
+                    胸墊可拆/彈性美感細肩帶/ 肩帶不可調<br /><br />
+                    *實品顏色依單品照為主<br />
+                    尼龍 84% 彈性纖維 16%<br />
+                    厚薄:適中<br />
+                    彈性:佳<br />
+                    素材產地 / 台灣<br />
+                    加工產地 / 台灣<br />
+                  </p>
+                </div>
               </mat-tab>
               <mat-tab label="洗滌資訊">
-                <br />
-                <br />
-                1.深淺色請分開洗滌，以避免造成互相移染。<br />
-                2.請採低溫手洗，以保持商品型態。<br />
-                3.洗滌時，水溫請低於30℃，勿大力搓揉；請使用中性洗劑；請勿浸泡。<br />
-                4.請勿使用漂白劑、螢光增白劑及衣物柔軟劑，以免破壞布料。<br />
-                5.清洗後請快速調整商品型態並平放陰乾即可，不可擰扭，勿直接曝曬於陽光下<br />
-                6.此類商品不可熨燙。
+                <div class="tabContent">
+                  <p>
+                    <br />
+                    <br />
+                    1.深淺色請分開洗滌，以避免造成互相移染。<br />
+                    2.請採低溫手洗，以保持商品型態。<br />
+                    3.洗滌時，水溫請低於30℃，勿大力搓揉；請使用中性洗劑；請勿浸泡。<br />
+                    4.請勿使用漂白劑、螢光增白劑及衣物柔軟劑，以免破壞布料。<br />
+                    5.清洗後請快速調整商品型態並平放陰乾即可，不可擰扭，勿直接曝曬於陽光下<br />
+                    6.此類商品不可熨燙。
+                  </p>
+                </div>
               </mat-tab>
-              <mat-tab label="尺寸指南"> Content 3 </mat-tab>
+              <mat-tab label="尺寸指南" >
+                <div class="tabContent">
+                  <img style="width: 670px" src="/assets/img/size.png" />
+                </div>
+              </mat-tab>
+              <mat-tab label="" [disabled]="true"> </mat-tab>
             </mat-tab-group>
           </div>
-          <div class="upImage">
-            <img
-              class="img"
-              [src]="this.prod.img[1]"
-              onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
-            />
-          </div>
+        </div>
+        <div class="upImage">
+          <img
+            class="img"
+            [src]="this.prod.img[1]"
+            onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
+          />
         </div>
       </div>
     </div>

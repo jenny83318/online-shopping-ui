@@ -45,13 +45,14 @@
             <i class="text-blueGray-400 fa fa-search text-lg leading-lg customLink" style="font-size: 1.5rem"></i>
           </button>
         </li>
-        <li class="flex items-center">
-          <button>
+        <li class="flex items-center" (click)="toCartItem()">
+          <button class="cart-icon">
             <i class="text-blueGray-400 fa fa-shopping-bag text-lg leading-lg customLink" style="font-size: 1.5rem"></i>
+            <span class="cart-count" *ngIf="cartCount > 0">{{cartCount}}</span>
           </button>
           <button class="lg:hidden inline-block ml-2">購物清單</button>
         </li>
-        <li class="flex items-center" *ngIf="! isLogin" (click)="logIn()">
+        <li class="flex items-center" *ngIf="! isLogin" (click)="toLogIn()">
           <button>
             <i class="text-blueGray-400 fa fa-user text-lg leading-lg customLink" style="font-size: 1.5rem"></i>
           </button>

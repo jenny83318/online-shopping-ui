@@ -1,0 +1,54 @@
+<block-ui [template]="block"></block-ui>
+<app-header></app-header>
+<app-header></app-header>
+<div class="wrap cf">
+    <div class="heading cf">
+        <h1>Shopping Cart</h1>
+        <a href="#" class="continue">繼續購物</a>
+    </div>
+    <div class="cart">
+        <ul class="cartWrap">
+            <li class="items" *ngFor="let c of cartList; let i = index" [ngClass]="i % 2 == 0 ? 'even' : 'odd'">
+                <div class="infoWrap">
+                    <div class="cartSection">
+                        <img class="img" [src]="c.img[0]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'" class="itemImg" (load)="onLoadImg(i)"/>
+                        <p class="itemNumber">#QUE-007544-002</p>
+                        <h3>{{ c.name }}</h3>
+                        <p>尺寸: {{c.size}} &nbsp; &nbsp;</p>
+                        <p>
+                            數量:<input type="text" class="qty" [placeholder]="c.qty" /> x ${{c.price}}
+                        </p>
+                        <p class="stockStatus">有庫存</p>
+                    </div>
+                    <div class="prodTotal cartSection">
+                        <p>${{ c.qty * c.price }}</p>
+                    </div>
+                    <div class="cartSection removeWrap">
+                        <a href="#" class="remove">x</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="promoCode">
+        <label for="promo">Have A Promo Code?</label><input type="text" name="promo" placholder="Enter Code" />
+        <a href="#" class="btn"></a>
+    </div>
+    <div class="subtotal cf">
+        <ul>
+            <li class="totalRow">
+                <span class="label">商品總金額</span><span class="value">${{sum}}</span>
+            </li>
+
+            <li class="totalRow">
+                <span class="label">運費</span><span class="value">$60</span>
+            </li>
+            <li class="totalRow final">
+                <span class="label">總金額</span><span class="value">${{sum+60 }}</span>
+            </li>
+            <li class="totalRow"><a href="#" class="btn continue">Checkout</a></li>
+        </ul>
+    </div>
+</div>
+<app-footer></app-footer>

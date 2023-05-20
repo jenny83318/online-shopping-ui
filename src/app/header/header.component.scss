@@ -142,3 +142,19 @@ button:focus {
 .search{
   margin-right: -150px;
 }
+
+.cart-icon {
+  position: relative;
+  display: inline-block;
+}
+
+.cart-count {
+  position: absolute;
+  top: -3px;
+  right: -2px;
+  background-color: #a06262;
+  color: white;
+  width: 20px;
+  border-radius: 50%;
+  font-size: 12px;
+}

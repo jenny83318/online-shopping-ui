@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Request } from '../model/Request';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
 export class JolService {
-
+  cartChange = new EventEmitter<number>();
   isLogin:boolean = false;
   loginData:any = {account:"", password:"", token:""};
   prod:any;
+  cartNum:number = 0
 
   constructor(private httpClient: HttpClient) { }
 
@@ -19,5 +20,9 @@ export class JolService {
   }
   resetLoginData(){
     this.loginData ={account:"", password:"", token:""};
+  }
+  setCartNum( cartNum:number) {
+    this.cartNum = cartNum;
+    this.cartChange.emit(this.cartNum);
   }
 }
