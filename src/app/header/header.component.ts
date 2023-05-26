@@ -28,6 +28,34 @@ export class HeaderComponent implements OnInit {
     console.log('this.jolService.loginData', this.jolService.loginData);
     this.logInData = this.jolService.loginData;
     this.isLogin = this.jolService.isLogin;
+    if(this.isLogin == false){
+      if(localStorage.getItem('account')!= undefined){
+        const body = {
+        password:  localStorage.getItem('password'),
+        token: localStorage.getItem('token'),
+        type: ""
+      };
+      let request = new Request("LogIn", localStorage.getItem('account'), body);
+      console.log('request', request)
+      this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
+        console.log('res', res);
+        if (res.code == 200) {
+          this.logInData.account = localStorage.getItem('account');
+          this.logInData.password = localStorage.getItem('password');
+          this.logInData.token = localStorage.getItem('token');
+          this.isLogin = true;
+          this.jolService.loginData = this.logInData;
+          this.jolService.isLogin = true;
+          this.jolService.loginData.token = res.token;
+          localStorage.setItem('token', res.token);
+          this.router.navigate(['/']);
+        } else {
+          alert(res.msg);
+          this.jolService.isLogin = false;
+        }
+      });
+    }
+    }
     if (this.isLogin) {
       this.getCartData();
       this.jolService.cartChange.subscribe((count) => {
@@ -45,7 +73,7 @@ export class HeaderComponent implements OnInit {
       const body = {
         type: 'CLEAN',
         password: this.jolService.loginData.password,
-        token: sessionStorage.getItem('token'),
+        token: localStorage.getItem('token'),
       };
       let request = new Request(
         'LogIn',
@@ -57,7 +85,9 @@ export class HeaderComponent implements OnInit {
         .getData(environment.JOLSERVER, request)
         .subscribe((res) => {
           if (res.code == 200) {
-            sessionStorage.removeItem('token');
+            localStorage.removeItem('token');
+            localStorage.removeItem('account');
+            localStorage.removeItem('password');
             this.jolService.resetLoginData();
             this.logInData = this.jolService.loginData;
             this.jolService.isLogin = false;

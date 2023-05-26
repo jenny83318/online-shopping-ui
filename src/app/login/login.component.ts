@@ -33,10 +33,14 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
 
   constructor(private jolService: JolService, private router: Router, private dialog: MatDialog) { }
   ngOnInit() {
-    if (sessionStorage.getItem('isRember') == "true") {
-      this.account = sessionStorage.getItem('account');
-      this.password = sessionStorage.getItem('password');
-      this.isRember = true;
+    if(localStorage.getItem('rember') != undefined){
+      var rember = JSON.parse(localStorage.getItem('rember'))
+      console.log('rember',rember);
+      if (rember.isRember) {
+        this.account = rember.account;
+        this.password = rember.password;
+        this.isRember = rember.isRember;
+      }
     }
   }
 
@@ -53,14 +57,13 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
     } else if (this.password == "" || this.password == "undefined") {
       alert('請輸入密碼')
     } else {
-      sessionStorage.setItem('isRember', this.isRember.toString());
-      if (this.isRember) {
-        sessionStorage.setItem('account', this.account);
-        sessionStorage.setItem('password', this.password);
-      }
+      var json = {isRember: this.isRember, account: this.account, password: this.password}
+      localStorage.setItem('rember', JSON.stringify(json));
+      localStorage.setItem('account', this.account);
+      localStorage.setItem('password', this.password);
       const body = {
         password: this.password,
-        token: sessionStorage.getItem('token'),
+        token: localStorage.getItem('token'),
         type: ""
       };
       let request = new Request("LogIn", this.account, body);
@@ -72,7 +75,7 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
           this.jolService.loginData.password = this.password;
           this.jolService.isLogin = true;
           this.jolService.loginData.token = res.token;
-          sessionStorage.setItem('token', res.token);
+          localStorage.setItem('token', res.token);
           this.router.navigate(['/']);
         } else {
           alert(res.msg);
