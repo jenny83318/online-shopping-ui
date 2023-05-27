@@ -13,7 +13,7 @@ export class JolService {
   cartNum:number = 0
   wishNum:number = 0
   isHeaderCheck = false;
-  isWishBlock:boolean= false;
+  
   constructor(private httpClient: HttpClient) { }
 
   getData(url: string, request: Request) {

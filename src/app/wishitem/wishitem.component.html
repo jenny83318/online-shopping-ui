@@ -8,38 +8,21 @@
     </div>
     <div class="cart">
         <ul class="cartWrap">
-            <li class="items" *ngFor="let c of cartList; let i = index" [ngClass]="i % 2 == 0 ? 'even' : 'odd'">
+            <li class="items" *ngFor="let cart of cartList; let i = index" [ngClass]="i % 2 == 0 ? 'even' : 'odd'">
                 <div class="infoWrap">
                     <div class="cartSection">
-                        <img class="img" [src]="c.img[0]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'" class="itemImg" (load)="onLoadImg(i)"/>
+                        <img class="img" [src]="cart.img[0]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'" class="itemImg" (load)="onLoadImg(i)"/>
                         <p class="itemNumber ">#QUE-007544-002</p>
-                        <h3>{{ c.name }}</h3>
-                        <p class="param">尺寸: {{c.size}} &nbsp; &nbsp;</p>
+                        <h3>{{ cart.name }}</h3>
+                        <p class="param">尺寸: {{cart.size}} &nbsp; &nbsp;</p>
                         <div style="display: flex;">
-                        <!-- <p class="param">數量:</p>
-                        <div class="center container">
-                            <div class="button col col-1">
-                              <button id="plus-btn" class="minusbtn" (click)="changeQty(false,c.cartId)" >
-                                <i class="fas fa-minus plusBtn"></i>
-                            </button>
-                            </div>
-                            <div class="number col col-2">
-                              <p class="param" id="count" style="margin: 0;">{{ c.qty }}</p>
-                            </div>
-                            <div class="button col col-1">
-                              <button id="plus-btn" class="minusbtn" (click)="changeQty(true,c.cartId)" >
-                                <i class="fas fa-plus plusBtn"></i>
-                              </button>
-                            </div>
-                        </div> -->
-                        <!-- <p class="param"> 價格: ${{c.price}}</p> -->
                         <p class="stockStatus param">現貨</p>
                         </div>
                     </div>
                     <div class="prodTotal cartSection">
-                        <p style="margin-right: 20px;">${{ c.price }}</p>
-                        <button class="remove"><i class="fa fa-shopping-bag" style="font-size: 25px; padding: 10px;"></i></button>
-                        <button class="remove" (click)="deleteCartItem(c.cartId)"><i class="fa fa-trash-alt" style="font-size: 25px; padding: 10px;"></i></button>
+                        <p style="margin-right: 20px;">${{ cart.price }}</p>
+                        <button (click)="addCart(cart)"><i class="fa fa-shopping-bag" style="font-size: 25px; padding: 10px;"></i></button>
+                        <button (click)="deleteCartItem(cart.cartId)"><i class="fa fa-trash-alt" style="font-size: 25px; padding: 10px;"></i></button>
                     </div>
                 </div>
             </li>
@@ -49,24 +32,5 @@
         <img src="assets/img/cart1.png">
         <h5 style="font-size: 15px;">收藏清單目前尚無商品</h5>
     </div>
-    <!-- <div class="promoCode">
-        <label for="promo">Have A Promo Code?</label><input type="text" name="promo" placholder="Enter Code" />
-        <a href="#" class="btn"></a>
-    </div> -->
-    <!-- <div class="subtotal cf" *ngIf="!ishidden">
-        <ul>
-            <li class="totalRow">
-                <span class="label">商品總金額</span><span class="value">${{sum}}</span>
-            </li>
-
-            <li class="totalRow">
-                <span class="label">運費</span><span class="value">$60</span>
-            </li>
-            <li class="totalRow final">
-                <span class="label">總金額</span><span class="value">${{sum+60 }}</span>
-            </li>
-            <li class="totalRow"><a href="#" class="btn continue">結帳</a></li>
-        </ul>
-    </div> -->
 </div>
 <app-footer></app-footer>

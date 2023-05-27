@@ -158,7 +158,6 @@ img {
   .items {
     display: block;
     width: 100%;
-    vertical-align: middle;
     padding: 1.5em;
 
     border-bottom: 1px solid #fafafa;
@@ -280,24 +279,6 @@ img {
 
 }
 
-a.remove {
-  text-decoration: none;
-  font-family: $fontSans;
-  color: #ffffff;
-  font-weight: bold;
-  background: #e0e0e0;
-  padding: .5em;
-  font-size: .75em;
-  display: inline-block;
-  border-radius: 100%;
-  line-height: .85;
-  @include transition(all, .25s, linear);
-
-  &:hover {
-    background: #f30;
-  }
-}
-
 .promoCode {
   border: 2px solid #efefef;
   float: left;
@@ -383,7 +364,6 @@ a.remove {
 
   .promoCode & {
     font-size: .85em;
-    paddding: .5em 2em;
   }
 }
 

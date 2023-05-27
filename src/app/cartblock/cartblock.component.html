@@ -1,7 +1,7 @@
-<div class="loading_box" *ngIf="!isblock">
-    <img src="assets/img/cart1.png">
+<div class="loading_box" *ngIf="message == 'cart'">
+   <img src="assets/img/cart1.png">
 </div>
-<div class="loading_box" *ngIf="isblock">
+<div class="loading_box" *ngIf="message == 'wish'">
   <img src="assets/img/heart.png">
 </div>
 

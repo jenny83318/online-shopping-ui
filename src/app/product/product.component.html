@@ -24,7 +24,7 @@
           />
         </div>
         <div class="outerWrapper">
-        <div (click)="addCart(false)"><button class="wishBtn"> <i class="fa fa-heart"></i></button></div>
+        <div (click)="addCart(false)"><button class="wishBtn"><i [class]="heartClass"></i></button></div>
           <ul class="header">
             <li>{{ prod.name }}</li>
             <li>NT${{ prod.price }}</li>

@@ -8,11 +8,10 @@ import { JolService } from '../service/JolService.service';
 })
 export class CartblockComponent implements OnInit {
 isblock:boolean = false;
-  constructor(private jolService:JolService) { }
+message = "Loading...";
+  constructor() { }
 
   ngOnInit(): void {
-    this.isblock = this.jolService.isWishBlock;
-    console.log('this.isblock',this.isblock)
   }
 
 }

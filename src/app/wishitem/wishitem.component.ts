@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environment';
 import { Request } from '../model/Request';
 import { JolService } from './../service/JolService.service';
 import { Router } from '@angular/router';
-import { BlockuiComponent } from './../blockui/blockui.component';
+import { CartblockComponent } from '../cartblock/cartblock.component';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageComponent } from '../message/message.component';
@@ -14,7 +14,7 @@ import { MessageComponent } from '../message/message.component';
 })
 export class WishitemComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
-  block = BlockuiComponent;
+  block =CartblockComponent;
   loginData: any;
   cartList:any;
   sum:number =0;
@@ -46,7 +46,7 @@ export class WishitemComponent implements OnInit {
             this.ishidden = true;
             this.blockUI.stop();
           }
-          this.jolService.setCartNum(this.cartList.length);
+          this.jolService.setWishNum(this.cartList.length);
           this.sum = 0
           this.cartList.forEach((cart: any) => {
             cart.img = [];
@@ -85,6 +85,32 @@ export class WishitemComponent implements OnInit {
       } 
     });
   }
+
+  addCart(cart:any) {
+    if(this.loginData.account != ''){
+        this.blockUI.start('cart');
+        const body = {
+          type: 'ADD',
+          prodId: cart.prodId,
+          qty: 1,
+          size: 'M',
+          isCart: true,
+        };
+        let request = new Request('JOLCartInfo', this.loginData.account, body);
+        console.log('request', request);
+        this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
+          console.log('res', res);
+          this.jolService.setCartNum(res.cartList.length);
+        });
+        setTimeout(() => {
+          this.blockUI.stop();
+        }, 700);
+      
+    }else{
+      this.router.navigate(['/login'], { skipLocationChange: true });
+    }
+  }
+
 
   changeQty(isPlus: boolean, cartId:any) {
     this.cartList.forEach((cart: any) =>{

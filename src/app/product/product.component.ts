@@ -1,6 +1,5 @@
 import { JolService } from './../service/JolService.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { BlockuiComponent } from './../blockui/blockui.component';
 import { CartblockComponent } from '../cartblock/cartblock.component';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { SizeComponent } from '../size/size.component';
@@ -24,6 +23,7 @@ export class ProductComponent implements OnInit {
   qty: number = 1;
   size: any = '';
   sizeList:any;
+  heartClass:any='far fa-heart';
   constructor(private dialog: MatDialog, private jolService: JolService, private router:Router) {}
 
   ngOnInit() {
@@ -33,6 +33,7 @@ export class ProductComponent implements OnInit {
     this.sizeList = this.prod.size.split(",");
     console.log('this.sizeList', this.sizeList)
     console.log('this.prod', this.prod);
+    this.checkWish();
   }
 
   changeQty(isPlus: boolean) {
@@ -47,15 +48,34 @@ export class ProductComponent implements OnInit {
   showSizeInfo() {
     this.dialog.open(SizeComponent);
   }
+
+  checkWish(){
+    const body = {
+      type: 'OTHER',
+      prodId: this.prod.prodId,
+      qty: this.qty,
+      size: this.size,
+      isCart: false,
+    };
+    let request = new Request('JOLCartInfo', this.loginData.account, body);
+    console.log('request', request);
+    this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
+      if(res.cartList.length > 0){
+        this.heartClass = 'fa fa-heart';
+      }else{
+        this.heartClass = 'far fa-heart';
+      }
+      console.log('wish',res)
+    });
+  }
   addCart( isCart:boolean) {
-    this.jolService.isWishBlock = isCart ? false : true;
     if(this.loginData.account != ''){
-      if (this.size == '') {
+      if (this.size == '' && isCart) {
         this.dialog.open(MessageComponent, {
           data: { msg: '請選擇尺寸'},
         });
       } else {
-        this.blockUI.start('');
+        this.blockUI.start(isCart ? 'cart':'wish');
         const body = {
           type: 'ADD',
           prodId: this.prod.prodId,
@@ -66,6 +86,7 @@ export class ProductComponent implements OnInit {
         let request = new Request('JOLCartInfo', this.loginData.account, body);
         console.log('request', request);
         this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
+          this.heartClass = res.code == 333 ? 'far fa-heart':"fa fa-heart"
           console.log('res', res);
           if(isCart){
             this.jolService.setCartNum(res.cartList.length);
