@@ -14,8 +14,8 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class LoginComponent implements OnInit, ErrorStateMatcher {
 
-  account: any;
-  password: any;
+  // account: any;
+  // password: any;
   signUpData:any = {
     account:"",
     password:"",
@@ -30,17 +30,20 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
   isCheck:boolean = false;
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   matcher = new MyErrorStateMatcher();
-
+  loginData:any ={account:"", password:"", token:""};
   constructor(private jolService: JolService, private router: Router, private dialog: MatDialog) { }
   ngOnInit() {
     if(localStorage.getItem('rember') != undefined){
       var rember = JSON.parse(localStorage.getItem('rember'))
       console.log('rember',rember);
       if (rember.isRember) {
-        this.account = rember.account;
-        this.password = rember.password;
+        this.loginData.account = rember.account;
+        this.loginData.password = rember.password;
         this.isRember = rember.isRember;
       }
+    }
+    if(localStorage.getItem('loginData') != null){
+      this.logOut();
     }
   }
 
@@ -52,30 +55,27 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
     this.isRember = true;
   }
   logIn() {
-    if (this.account == "" || this.account == "undefined") {
+    if (this.loginData.account == "" || this.loginData.account == "undefined") {
       alert('請輸入帳號')
-    } else if (this.password == "" || this.password == "undefined") {
+    } else if (this.loginData.password == "" || this.loginData.password == "undefined") {
       alert('請輸入密碼')
     } else {
-      var json = {isRember: this.isRember, account: this.account, password: this.password}
-      localStorage.setItem('rember', JSON.stringify(json));
-      localStorage.setItem('account', this.account);
-      localStorage.setItem('password', this.password);
+      var rember = {isRember: this.isRember, account: this.loginData.account, password: this.loginData.password}
+      localStorage.setItem('rember', JSON.stringify(rember));
       const body = {
-        password: this.password,
-        token: localStorage.getItem('token'),
+        password: this.loginData.password,
+        token: this.loginData.token,
         type: ""
       };
-      let request = new Request("LogIn", this.account, body);
+      let request = new Request("LogIn", this.loginData.account, body);
       console.log('request', request)
       this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
         console.log('res', res);
         if (res.code == 200) {
-          this.jolService.loginData.account = this.account;
-          this.jolService.loginData.password = this.password;
           this.jolService.isLogin = true;
-          this.jolService.loginData.token = res.token;
-          localStorage.setItem('token', res.token);
+          this.loginData.token = res.token;
+          this.jolService.loginData = this.loginData
+          localStorage.setItem('loginData', JSON.stringify(this.loginData));
           this.router.navigate(['/']);
         } else {
           alert(res.msg);
@@ -83,6 +83,25 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
         }
       });
     }
+  }
+
+  logOut(){
+    var data = JSON.parse(localStorage.getItem('loginData'));
+    const body = {
+      type: 'CLEAN',
+      password: data.password,
+      token: data.token,
+    };
+    let request = new Request( 'LogIn', data.account, body);
+    console.log('request', request);
+    this.jolService
+      .getData(environment.JOLSERVER, request)
+      .subscribe((res) => {
+        if (res.code == 200) {
+          localStorage.removeItem('loginData');
+          this.jolService.isLogin = false;
+        }
+      });
   }
 
   signUp(){

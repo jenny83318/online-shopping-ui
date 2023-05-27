@@ -71,9 +71,10 @@
             <button mat-menu-item class="menuItem" (click)="logOut()">登出</button>
           </mat-menu>
         </li>
-        <li class="flex items-center">
+        <li class="flex items-center" (click)="toWishItem()">
           <button>
             <i class="text-blueGray-400 fa fa-heart text-lg leading-lg customLink" style="font-size: 1.5rem"></i>
+           <span class="wish-count" *ngIf="wishCount > 0"> {{wishCount}}</span>
           </button>
           <button class="lg:hidden inline-block ml-2">願望清單</button>
         </li>

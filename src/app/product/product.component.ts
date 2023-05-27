@@ -47,7 +47,8 @@ export class ProductComponent implements OnInit {
   showSizeInfo() {
     this.dialog.open(SizeComponent);
   }
-  addCart() {
+  addCart( isCart:boolean) {
+    this.jolService.isWishBlock = isCart ? false : true;
     if(this.loginData.account != ''){
       if (this.size == '') {
         this.dialog.open(MessageComponent, {
@@ -60,13 +61,17 @@ export class ProductComponent implements OnInit {
           prodId: this.prod.prodId,
           qty: this.qty,
           size: this.size,
-          isCart: true,
+          isCart: isCart,
         };
         let request = new Request('JOLCartInfo', this.loginData.account, body);
         console.log('request', request);
         this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
           console.log('res', res);
-          this.jolService.setCartNum(res.cartList.length);
+          if(isCart){
+            this.jolService.setCartNum(res.cartList.length);
+          }else{
+            this.jolService.setWishNum(res.cartList.length);
+          }
         });
         setTimeout(() => {
           this.blockUI.stop();

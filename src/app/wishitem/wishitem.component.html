@@ -3,7 +3,7 @@
 <app-header></app-header>
 <div class="wrap cf">
     <div class="heading cf">
-        <h1>Shopping Cart</h1>
+        <h1>Wish</h1>
         <a href="#" class="continue">繼續購物</a>
     </div>
     <div class="cart">
@@ -16,7 +16,7 @@
                         <h3>{{ c.name }}</h3>
                         <p class="param">尺寸: {{c.size}} &nbsp; &nbsp;</p>
                         <div style="display: flex;">
-                        <p class="param">數量:</p>
+                        <!-- <p class="param">數量:</p>
                         <div class="center container">
                             <div class="button col col-1">
                               <button id="plus-btn" class="minusbtn" (click)="changeQty(false,c.cartId)" >
@@ -31,16 +31,15 @@
                                 <i class="fas fa-plus plusBtn"></i>
                               </button>
                             </div>
-                        </div>
-                        <p class="param">  X &nbsp; &nbsp; ${{c.price}}</p>
+                        </div> -->
+                        <!-- <p class="param"> 價格: ${{c.price}}</p> -->
                         <p class="stockStatus param">現貨</p>
                         </div>
                     </div>
                     <div class="prodTotal cartSection">
-                        <p>${{ c.qty * c.price }}</p>
-                    </div>
-                    <div class="cartSection removeWrap">
-                        <button class="remove" (click)="deleteCartItem(c.cartId)"><i class="fa fa-trash-alt" style="font-size: 20px;"></i></button>
+                        <p style="margin-right: 20px;">${{ c.price }}</p>
+                        <button class="remove"><i class="fa fa-shopping-bag" style="font-size: 25px; padding: 10px;"></i></button>
+                        <button class="remove" (click)="deleteCartItem(c.cartId)"><i class="fa fa-trash-alt" style="font-size: 25px; padding: 10px;"></i></button>
                     </div>
                 </div>
             </li>
@@ -48,13 +47,13 @@
     </div>
     <div class="imgContainer" *ngIf="ishidden">
         <img src="assets/img/cart1.png">
-        <h5 style="font-size: 15px;">購物車目前尚無商品</h5>
+        <h5 style="font-size: 15px;">收藏清單目前尚無商品</h5>
     </div>
     <!-- <div class="promoCode">
         <label for="promo">Have A Promo Code?</label><input type="text" name="promo" placholder="Enter Code" />
         <a href="#" class="btn"></a>
     </div> -->
-    <div class="subtotal cf" *ngIf="!ishidden">
+    <!-- <div class="subtotal cf" *ngIf="!ishidden">
         <ul>
             <li class="totalRow">
                 <span class="label">商品總金額</span><span class="value">${{sum}}</span>
@@ -68,6 +67,6 @@
             </li>
             <li class="totalRow"><a href="#" class="btn continue">結帳</a></li>
         </ul>
-    </div>
+    </div> -->
 </div>
 <app-footer></app-footer>

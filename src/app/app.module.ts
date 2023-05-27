@@ -13,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SearchComponent } from './search/search.component';
 import { CartblockComponent } from './cartblock/cartblock.component';
+import { WishitemComponent } from './wishitem/wishitem.component';
 
 
 

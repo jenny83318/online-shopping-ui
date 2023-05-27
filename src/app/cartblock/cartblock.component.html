@@ -1,3 +1,7 @@
-<div class="loading_box">
+<div class="loading_box" *ngIf="!isblock">
     <img src="assets/img/cart1.png">
-  </div>
+</div>
+<div class="loading_box" *ngIf="isblock">
+  <img src="assets/img/heart.png">
+</div>
+

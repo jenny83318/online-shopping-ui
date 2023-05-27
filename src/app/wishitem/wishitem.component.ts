@@ -8,11 +8,11 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageComponent } from '../message/message.component';
 @Component({
-  selector: 'app-cartitem',
-  templateUrl: './cartitem.component.html',
-  styleUrls: ['./cartitem.component.scss'],
+  selector: 'app-wishitem',
+  templateUrl: './wishitem.component.html',
+  styleUrls: ['./wishitem.component.scss']
 })
-export class CartitemComponent implements OnInit {
+export class WishitemComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
   block = BlockuiComponent;
   loginData: any;
@@ -31,7 +31,7 @@ export class CartitemComponent implements OnInit {
     if (this.loginData.account != '') {
       const body = {
         type: 'SELECT',
-        isCart: true,
+        isCart: false,
       };
       let request = new Request('JOLCartInfo', this.loginData.account, body);
       console.log('request', request);
@@ -40,6 +40,7 @@ export class CartitemComponent implements OnInit {
         .subscribe((res) => {
           this.blockUI.start('讀取中');
           this.cartList = res.cartList;
+          console.log('this.cartList',this.cartList)
           if(this.cartList.length == 0){
             this.sum == 0;
             this.ishidden = true;
@@ -59,6 +60,8 @@ export class CartitemComponent implements OnInit {
       this.router.navigate(['/login'], { skipLocationChange: true });
     }
   }
+
+  
 
   deleteCartItem(cartId :any){
     const dialogRef = this.dialog.open(MessageComponent, { data: { msg: '您確定要刪除?', isConfirm:true } });

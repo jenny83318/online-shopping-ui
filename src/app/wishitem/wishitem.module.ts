@@ -1,8 +1,8 @@
 import { MessageModule } from './../message/message.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CartitemComponent } from './cartitem.component';
-import { CartitemRoutingModule } from './cartitem.routing.module';
+import { WishitemComponent } from './wishitem.component';
+import { CartitemRoutingModule } from './wishitem.routing.module';
 import { MatToolbarModule} from '@angular/material/toolbar';
 import { MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
@@ -31,9 +31,9 @@ import { BlockUIModule } from 'ng-block-ui';
    })
   ],
   declarations: [
-    CartitemComponent
+    WishitemComponent
 
   ],
-  exports: [CartitemComponent ]
+  exports: [WishitemComponent ]
 })
-export class CartItemModule { }
+export class WishItemModule { }
