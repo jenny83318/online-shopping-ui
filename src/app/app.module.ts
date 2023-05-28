@@ -14,6 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { SearchComponent } from './search/search.component';
 import { CartblockComponent } from './cartblock/cartblock.component';
 import { WishitemComponent } from './wishitem/wishitem.component';
+import { CartdetailComponent } from './cartdetail/cartdetail.component';
 
 
 
@@ -25,7 +26,8 @@ import { WishitemComponent } from './wishitem/wishitem.component';
       BlockuiComponent,
       AppComponent,
       SearchComponent,
-      CartblockComponent
+      CartblockComponent,
+      CartdetailComponent
    ],
    imports: [
 	 BrowserModule,

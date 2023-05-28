@@ -24,7 +24,7 @@
           />
         </div>
         <div class="outerWrapper">
-        <div (click)="addCart(false)"><button class="wishBtn"><i [class]="heartClass"></i></button></div>
+        <div (click)="changeIcon()"><button class="wishBtn"><i [class]="heartClass"></i></button></div>
           <ul class="header">
             <li>{{ prod.name }}</li>
             <li>NT${{ prod.price }}</li>
@@ -66,7 +66,7 @@
             <div class="btnWrapper">
               <button style="width: 100%">立即結帳</button>
             </div>
-            <div class="btnWrapper cart" (click)="addCart(true)">
+            <div class="btnWrapper cart" (click)="addCartWish(true)">
               <button style="width: 100%">加入購物車</button>
             </div>
           </div>
