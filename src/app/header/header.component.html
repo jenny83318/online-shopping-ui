@@ -39,30 +39,30 @@
         <li class="flex items-center customLink">Catwalk</li>
       </ul>
       <ul class="rightUl rightUl-lg">
-        <li class="flex items-center search">
+        <li class="flex items-center search liIcon">
           <input type="text" class="search-input" />
           <button class="customLink" (click)="search()">
             <img src="assets/img/search.png" style="width: 30px; margin-right: 5px" />
           </button>
         </li>
-        <li class="flex items-center" (click)="toCartItem()">
-          <button class="cart-icon">
-            <img src="assets/img/cartIcon.png" style="width: 33px; height:30px;margin-right: 5px" />
+        <li class="flex items-center liIcon" (click)="toCartItem()">
+          <button class="cart-icon" style="padding-right: 20px;">
+            <img src="assets/img/cartIcon.png" style="width: 25px; height:24px" />
             <span class="cart-count" *ngIf="cartCount > 0">{{
               cartCount
               }}</span>
           </button>
-          <button class="lg:hidden inline-block ml-2">購物清單</button>
+          <button class="lg:hidden inline-block">購物清單</button>
         </li>
-        <li class="flex items-center" *ngIf="!isLogin" (click)="toLogIn()">
-          <button class="customLink">
-            <i class="far fa-user" style="font-size: 1.5rem; color: black; margin-right: 5px"></i>
+        <li class="flex items-center liIcon" *ngIf="!isLogin" (click)="toLogIn()">
+          <button class="" style="padding-right: 15px;">
+            <i class="far fa-user" style="font-size: 1.5rem; color: black;"></i>
           </button>
           <button class="lg:hidden inline-block ml-2">登入會員</button>
         </li>
-        <li class="flex items-center" *ngIf="isLogin" mat-button [matMenuTriggerFor]="menu">
-          <button class="customLink">
-            <i class="far fa-user" style="font-size: 1.5rem; color: black; margin-right: 5px"></i>
+        <li class="flex items-center liIcon" *ngIf="isLogin" mat-button [matMenuTriggerFor]="menu">
+          <button class="" style="padding-right: 15px;">
+            <i class="far fa-user" style="font-size: 1.5rem; color: black;"></i>
           </button>
           <button class="lg:hidden inline-block ml-2">
             {{ logInData.account }}
@@ -77,9 +77,9 @@
             </button>
           </mat-menu>
         </li>
-        <li class="flex items-center" (click)="toWishItem()">
-          <button class="cart-icon" style="margin-bottom: -4px;">
-            <i class="far fa-heart" style="font-size: 1.55rem; color: black"></i>
+        <li class="flex items-center liIcon" (click)="toWishItem()">
+          <button class="cart-icon" style="margin-bottom: -4px;padding-right: 10px;">
+            <i class="far fa-heart" style="font-size: 1.5rem; color: black"></i>
             <span class="wish-count" *ngIf="wishCount > 0">
               {{ wishCount }}</span>
           </button>

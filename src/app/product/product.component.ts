@@ -89,7 +89,9 @@ export class ProductComponent implements OnInit {
           data: { msg: '請選擇尺寸' },
         });
       } else {
-        this.blockUI.start(isCart ? 'cart' : 'wish');
+        if(isCart){
+          this.blockUI.start('cart');
+        }
         const body = {
           type: 'ADD',
           prodId: this.prod.prodId,
@@ -100,7 +102,9 @@ export class ProductComponent implements OnInit {
         let request = new Request('JOLCartInfo', this.loginData.account, body);
         console.log('request', request);
         this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
-          this.heartClass = res.code == 333 ? 'far fa-heart' : "fa fa-heart"
+          if(isCart == false){
+            this.heartClass = res.code == 333 ?'far fa-heart' : "fa fa-heart";
+          }
           console.log('res', res);
           if (isCart) {
             this.jolService.setCartNum(res.cartList.length);
@@ -137,7 +141,11 @@ export class ProductComponent implements OnInit {
     if (this.heartClass == 'far fa-heart') {
       this.jolService.setWishNum(this.jolService.wishNum - 1);
     } else {
+      this.blockUI.start('wish');
       this.jolService.setWishNum(this.jolService.wishNum + 1);
+      setTimeout(() => {
+        this.blockUI.stop();
+      }, 700);
     }
   }
   tabChanged(event: any) {

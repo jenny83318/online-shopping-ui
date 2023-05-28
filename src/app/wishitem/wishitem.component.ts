@@ -7,6 +7,7 @@ import { CartblockComponent } from '../cartblock/cartblock.component';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageComponent } from '../message/message.component';
+import { CartdetailComponent } from '../cartdetail/cartdetail.component'; 
 @Component({
   selector: 'app-wishitem',
   templateUrl: './wishitem.component.html',
@@ -87,28 +88,33 @@ export class WishitemComponent implements OnInit {
   }
 
   addCart(cart:any) {
-    if(this.loginData.account != ''){
-        this.blockUI.start('cart');
-        const body = {
-          type: 'ADD',
-          prodId: cart.prodId,
-          qty: 1,
-          size: 'M',
-          isCart: true,
-        };
-        let request = new Request('JOLCartInfo', this.loginData.account, body);
-        console.log('request', request);
-        this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
-          console.log('res', res);
-          this.jolService.setCartNum(res.cartList.length);
-        });
-        setTimeout(() => {
-          this.blockUI.stop();
-        }, 700);
-      
-    }else{
-      this.router.navigate(['/login'], { skipLocationChange: true });
-    }
+    const dialogRef = this.dialog.open(CartdetailComponent,{ data:cart.size})
+    dialogRef.afterClosed().subscribe(isConfirm => {
+      if(isConfirm){
+        if(this.loginData.account != ''){
+            this.blockUI.start('cart');
+            const body = {
+              type: 'ADD',
+              prodId: cart.prodId,
+              qty: 1,
+              size: 'M',
+              isCart: true,
+            };
+            let request = new Request('JOLCartInfo', this.loginData.account, body);
+            console.log('request', request);
+            this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
+              console.log('res', res);
+              this.jolService.setCartNum(res.cartList.length);
+            });
+            setTimeout(() => {
+              this.blockUI.stop();
+            }, 700);
+          
+        }else{
+          this.router.navigate(['/login'], { skipLocationChange: true });
+        }
+      }
+    });
   }
 
 

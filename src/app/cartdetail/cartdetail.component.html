@@ -1,12 +1,39 @@
 <section class="popCon">
     <div class="popBox">
-      <ul>
-        <li>
-          <img style="width: 670px;"src="/assets/img/size.png">
+      <!-- <p class="param">尺寸: {{c.size}} &nbsp; &nbsp;</p> -->
+      尺寸:
+      <ul class="sizeWrapper" *ngFor="let s of sizeList">
+        <li
+          class="size"
+          (click)="chooseSize(s)"
+          [class.selected]="size === s"
+        >
+          <button>{{ s }}</button>
         </li>
+       
       </ul>
-      <div class="BtnBox">
-        <button mat-button class="" (click)="close()" >關閉</button>
+      <div style="display: flex;">
+        數量:
+        <div class="center container">
+          <div class="button col col-1">
+            <button id="plus-btn" class="minusbtn" (click)="changeQty(false)" >
+              <i class="fas fa-minus plusBtn"></i>
+          </button>
+          </div>
+          <div class="number col col-2">
+            <p class="param" id="count" style="margin: 0;">{{qty }}</p>
+          </div>
+          <div class="button col col-1">
+            <button id="plus-btn" class="minusbtn" (click)="changeQty(true)" >
+              <i class="fas fa-plus plusBtn"></i>
+            </button>
+          </div>
       </div>
+    </div>
+    <p *ngIf="isShow" style="color:red">請選擇尺寸</p>
+    <div class="BtnBoxHalf">
+      <button mat-button class="" (click)="close()" >取消</button>
+      <button mat-button class="" (click)="confirm()" >確定</button>
+    </div>
     </div>
   </section>
