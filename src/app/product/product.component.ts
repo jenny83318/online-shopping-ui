@@ -32,9 +32,7 @@ export class ProductComponent implements OnInit {
     window.scrollTo(0, 0);
     this.loginData = this.jolService.loginData;
     this.prod = this.jolService.prod;
-    this.sizeList = this.prod.size.split(",");
-    console.log('this.sizeList', this.sizeList)
-    console.log('this.prod', this.prod);
+    this.sizeList = this.prod.sizeInfo.split(",");
     this.checkWish();
   }
 
@@ -62,13 +60,12 @@ export class ProductComponent implements OnInit {
 
   checkWish() {
     const body = {
-      type: 'OTHER',
       prodId: this.prod.prodId,
       qty: this.qty,
       size: this.size,
       isCart: false,
     };
-    let request = new Request('JOLCartInfo', this.loginData.account, body);
+    let request = new Request('JOLCartInfo', this.loginData.account, 'OTHER', body);
     console.log('request', request);
     this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
       if (res.cartList.length > 0) {
@@ -79,7 +76,6 @@ export class ProductComponent implements OnInit {
         this.heartClass = 'far fa-heart';
         this.isWish = false;
       }
-      console.log('wish', res)
     });
   }
   addCartWish(isCart: boolean) {
@@ -89,32 +85,7 @@ export class ProductComponent implements OnInit {
           data: { msg: '請選擇尺寸' },
         });
       } else {
-        if(isCart){
-          this.blockUI.start('cart');
-        }
-        const body = {
-          type: 'ADD',
-          prodId: this.prod.prodId,
-          qty: this.qty,
-          size: this.size,
-          isCart: isCart,
-        };
-        let request = new Request('JOLCartInfo', this.loginData.account, body);
-        console.log('request', request);
-        this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
-          if(isCart == false){
-            this.heartClass = res.code == 333 ?'far fa-heart' : "fa fa-heart";
-          }
-          console.log('res', res);
-          if (isCart) {
-            this.jolService.setCartNum(res.cartList.length);
-          } else {
-            this.jolService.setWishNum(res.cartList.length);
-          }
-        });
-        setTimeout(() => {
-          this.blockUI.stop();
-        }, 700);
+        this.jolService.addCartWish(this.prod.prodId, this.qty, this.size, isCart);
       }
 
     } else {
@@ -128,7 +99,7 @@ export class ProductComponent implements OnInit {
       isCart: true,
       cartId: cartId
     };
-    let request = new Request('JOLCartInfo', this.loginData.account, body);
+    let request = new Request('JOLCartInfo', this.loginData.account, 'DELETE', body);
     console.log('request', request);
     this.jolService
       .getData(environment.JOLSERVER, request)

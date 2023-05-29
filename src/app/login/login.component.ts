@@ -65,9 +65,8 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
       const body = {
         password: this.loginData.password,
         token: this.loginData.token,
-        type: ""
       };
-      let request = new Request("LogIn", this.loginData.account, body);
+      let request = new Request("LogIn", this.loginData.account,'', body);
       console.log('request', request)
       this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
         console.log('res', res);
@@ -88,11 +87,10 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
   logOut(){
     var data = JSON.parse(localStorage.getItem('loginData'));
     const body = {
-      type: 'CLEAN',
       password: data.password,
       token: data.token,
     };
-    let request = new Request( 'LogIn', data.account, body);
+    let request = new Request( 'LogIn', data.account,'CLEAN', body);
     console.log('request', request);
     this.jolService
       .getData(environment.JOLSERVER, request)
@@ -110,7 +108,6 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
     if(this.isCheck){
 
       const body =  {
-        type: "ADD",
         email:this.signUpData.email,
         password: this.signUpData.password,
         address: this.signUpData.address,
@@ -118,7 +115,7 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
         phone:this.signUpData.phone,
         status:"1"
       }
-      let request = new Request("JOLCustomerInfo",this.signUpData.account,body);
+      let request = new Request("JOLCustomerInfo",this.signUpData.account, 'ADD',body);
       console.log('request', request)
       this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
         console.log('res',res);

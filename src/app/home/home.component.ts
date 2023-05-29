@@ -28,8 +28,7 @@ export class HomeComponent implements OnInit {
 
   getProductData() {
     this.blockUI.start('讀取中');
-    const body = { type: "ALL" }
-    let request = new Request("JOLProductInfo", "jenny83318", body);
+    let request = new Request("JOLProductInfo", "jenny83318",'ALL', {});
     console.log('request', request)
     this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
       this.prodList = res.productList

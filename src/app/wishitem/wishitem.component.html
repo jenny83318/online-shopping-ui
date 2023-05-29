@@ -8,13 +8,13 @@
     </div>
     <div class="cart">
         <ul class="cartWrap">
-            <li class="items" *ngFor="let cart of cartList; let i = index" [ngClass]="i % 2 == 0 ? 'even' : 'odd'">
+            <li class="items" *ngFor="let cart of wishList; let i = index" [ngClass]="i % 2 == 0 ? 'even' : 'odd'">
                 <div class="infoWrap">
                     <div class="cartSection">
                         <img class="img" [src]="cart.img[0]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'" class="itemImg" (load)="onLoadImg(i)"/>
                         <p class="itemNumber ">#QUE-007544-002</p>
                         <h3>{{ cart.name }}</h3>
-                        <p class="param">尺寸: {{cart.size}} &nbsp; &nbsp;</p>
+                        <p class="param">尺寸: {{cart.sizeInfo}} &nbsp; &nbsp;</p>
                         <div style="display: flex;">
                         <p class="stockStatus param">現貨</p>
                         </div>
@@ -22,7 +22,7 @@
                     <div class="prodTotal cartSection">
                         <p style="margin-right: 20px;">${{ cart.price }}</p>
                         <button (click)="addCart(cart)"><i class="fa fa-shopping-bag" style="font-size: 25px; padding: 10px;"></i></button>
-                        <button (click)="deleteCartItem(cart.cartId)"><i class="fa fa-trash-alt" style="font-size: 25px; padding: 10px;"></i></button>
+                        <button (click)="deleteWishItem(cart.cartId)"><i class="fa fa-trash-alt" style="font-size: 25px; padding: 10px;"></i></button>
                     </div>
                 </div>
             </li>

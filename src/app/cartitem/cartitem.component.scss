@@ -1,10 +1,4 @@
-// @import "compass/css3";
 @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic|Montserrat:400,700);
-@import '~@fortawesome/fontawesome-free/css/all.css';
-@import '~@fortawesome/fontawesome-free/css/fontawesome.css';
-@import '~@fortawesome/fontawesome-free/css/solid.css';
-@import '~@fortawesome/fontawesome-free/css/regular.css';
-@import '~@fortawesome/fontawesome-free/css/brands.css';
 $fontSans : 'Montserrat',
 sans-serif;
 $fontSerif : 'Droid Serif',
@@ -61,26 +55,6 @@ img {
 
 }
 
-.projTitle {
-  font-family: $fontSans;
-  font-weight: bold;
-  text-align: center;
-  font-size: 2em;
-  padding: 1em 0;
-  border-bottom: 1px solid #dadada;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-
-  span {
-    font-family: $fontSerif;
-    font-weight: normal;
-    font-style: italic;
-    text-transform: lowercase;
-    color: #777;
-
-  }
-}
-
 // CART HEADER
 .heading {
   padding: 1em 0;
@@ -131,7 +105,7 @@ img {
   }
 }
 
-// TABLE HEADING 
+// TABLE HEADING
 
 .tableHead {
   display: table;
@@ -280,24 +254,6 @@ img {
 
 }
 
-a.remove {
-  text-decoration: none;
-  font-family: $fontSans;
-  color: #ffffff;
-  font-weight: bold;
-  background: #e0e0e0;
-  padding: .5em;
-  font-size: .75em;
-  display: inline-block;
-  border-radius: 100%;
-  line-height: .85;
-  @include transition(all, .25s, linear);
-
-  &:hover {
-    background: #f30;
-  }
-}
-
 .promoCode {
   border: 2px solid #efefef;
   float: left;
@@ -428,12 +384,6 @@ a.remove {
     width: 98%;
     padding: 2% 0;
   }
-
-  .projTitle {
-    font-size: 1.5em;
-    padding: 10% 5%;
-  }
-
   .heading {
     padding: 1em;
     font-size: 90%;
@@ -504,7 +454,7 @@ a.remove {
   margin-bottom: px;
   flex-wrap: nowrap;
   margin: -5px 30px 5px 10px;
-	
+
 }
 .param{
   font-size: 15px;

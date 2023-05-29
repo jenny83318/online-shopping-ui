@@ -11,13 +11,14 @@ export class CartdetailComponent implements OnInit {
   size:any=''
   sizeList:any=[]
   isShow:boolean = false;
+  order:any = {size:"", qty:0, isConfirm:false};
   ngOnInit(): void {
     this.sizeList = this.data.split(',');
   }
   constructor( public dialogRef: MatDialogRef<CartdetailComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
- 
+
   close(){
-    this.dialogRef.close(false);
+    this.dialogRef.close(this.order);
   }
   changeQty(isPlus: boolean) {
     this.qty = isPlus ? (this.qty += 1) : this.qty <= 1 ? 1 : (this.qty -= 1);
@@ -31,7 +32,10 @@ export class CartdetailComponent implements OnInit {
     if (this.size == '') {
       this.isShow = true;
     }else{
-      this.dialogRef.close(true);
+      this.order.size = this.size;
+      this.order.qty = this.qty;
+      this.order.isConfirm = true;
+      this.dialogRef.close(this.order);
     }
   }
 }

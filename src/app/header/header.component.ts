@@ -49,10 +49,9 @@ export class HeaderComponent implements OnInit {
       console.log(' this.logInData', this.logInData)
       const body = {
         password: this.logInData.password,
-        token: this.logInData.token,
-        type: '',
+        token: this.logInData.token
       };
-      let request = new Request('LogIn', this.logInData.account, body);
+      let request = new Request('LogIn', this.logInData.account, '', body);
       console.log('request', request);
       this.jolService
         .getData(environment.JOLSERVER, request)
@@ -84,11 +83,10 @@ export class HeaderComponent implements OnInit {
   logOut() {
     if (this.jolService.loginData.account != '') {
       const body = {
-        type: 'CLEAN',
         password: this.logInData.password,
         token: this.logInData.token,
       };
-      let request = new Request( 'LogIn', this.jolService.loginData.account, body);
+      let request = new Request( 'LogIn', this.jolService.loginData.account, 'CLEAN', body);
       console.log('request', request);
       this.jolService
         .getData(environment.JOLSERVER, request)
@@ -109,10 +107,7 @@ export class HeaderComponent implements OnInit {
   }
 
   getCartData() {
-    const body = {
-      type: 'ALL'
-    };
-    let request = new Request('JOLCartInfo', this.logInData.account, body);
+    let request = new Request('JOLCartInfo', this.logInData.account, 'ALL', {});
     console.log('request', request);
     this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
       this.jolService.cartNum = res.cartList.filter((c:any)=>c.cart == true).length;
