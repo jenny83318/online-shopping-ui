@@ -3,25 +3,13 @@
 <div class="LoginPageContainer">
   <div class="LoginPageInnerContainer">
     <div class="ImageContianer">
-      <img
-        class="img"
-        [src]="this.prod.img[0]"
-        onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
-      />
-      <img
-        class="img"
-        [src]="this.prod.img[1]"
-        onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
-      />
+      <img class="img" [src]="this.prod.img[0]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'" />
+      <img class="img" [src]="this.prod.img[1]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'" />
     </div>
     <div class="LoginFormContainer">
       <div class="LoginFormInnerContainer">
         <div class="upImage">
-          <img
-            class="img"
-            [src]="this.prod.img[0]"
-            onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
-          />
+          <img class="img" [src]="this.prod.img[0]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'"/>
         </div>
         <div class="outerWrapper">
         <div (click)="changeIcon()"><button class="wishBtn"><i [class]="heartClass"></i></button></div>
@@ -29,34 +17,20 @@
             <li>{{ prod.name }}</li>
             <li>NT${{ prod.price }}</li>
           </ul>
-
           <ul class="sizeWrapper" *ngFor="let s of sizeList">
-            <li
-              class="size"
-              (click)="chooseSize(s)"
-              [class.selected]="size === s"
-            >
+            <li class="size" (click)="chooseSize(s)" [class.selected]="size === s">
               <button>{{ s }}</button>
             </li>
-           
           </ul>
           <div class="center container">
             <div class="button col col-1">
-              <button
-                id="minus-btn"
-                class="minusbtn"
-                (click)="changeQty(false)"
-              >
-                -
-              </button>
+              <button id="minus-btn" class="minusbtn" (click)="changeQty(false)"> - </button>
             </div>
             <div class="number col col-2">
               <h1 id="count">{{ qty }}</h1>
             </div>
             <div class="button col col-1">
-              <button id="plus-btn" class="btn" (click)="changeQty(true)">
-                +
-              </button>
+              <button id="plus-btn" class="btn" (click)="changeQty(true)"> + </button>
             </div>
           </div>
           <div>
@@ -68,10 +42,7 @@
             </div>
           </div>
           <div>
-            <mat-tab-group
-              animationDuration="0ms"
-              (selectedTabChange)="tabChanged($event)"
-            >
+            <mat-tab-group animationDuration="0ms" (selectedTabChange)="tabChanged($event)">
               <mat-tab label="商品資訊">
                 <div class="tabContent">
                   <p>
@@ -113,11 +84,7 @@
           </div>
         </div>
         <div class="upImage">
-          <img
-            class="img"
-            [src]="this.prod.img[1]"
-            onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
-          />
+          <img class="img" [src]="this.prod.img[1]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'" />
         </div>
       </div>
     </div>

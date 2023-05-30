@@ -8,36 +8,24 @@
         <i class="fas fa-bars"></i>
       </button>
     </div>
-    <div class="lg:flex flex-grow items-center" [ngClass]="{ hidden: !navbarOpen, block: navbarOpen }"
-      id="example-navbar-warning">
-      <ul class="leftUrl">
+    <div class="lg:flex flex-grow items-center" [ngClass]="{ hidden: !navbarOpen, block: navbarOpen }" id="example-navbar-warning">
+      <ul>
         <li class="flex items-center">
           <button mat-button [matMenuTriggerFor]="menu1" class="customLink">
             所有商品
           </button>
           <mat-menu #menu1="matMenu">
-            <button mat-menu-item class="menuItem">上身</button>
-            <hr />
-            <button mat-menu-item class="menuItem">下身</button>
-            <hr />
-            <button mat-menu-item class="menuItem">連身</button>
-            <hr />
+            <button mat-menu-item class="menuItem">上身</button><hr />
+            <button mat-menu-item class="menuItem">下身</button> <hr />
+            <button mat-menu-item class="menuItem">連身</button> <hr />
             <button mat-menu-item class="menuItem">鞋包配件</button>
           </mat-menu>
         </li>
       </ul>
-      <ul class="leftUrl">
-        <li class="flex items-center customLink">熱銷商品</li>
-      </ul>
-      <ul class="leftUrl">
-        <li class="flex items-center customLink">運動系列</li>
-      </ul>
-      <ul class="leftUrl">
-        <li class="flex items-center customLink">居家系列</li>
-      </ul>
-      <ul class="leftUrl">
-        <li class="flex items-center customLink">Catwalk</li>
-      </ul>
+      <ul><li class="flex items-center customLink">熱銷商品</li></ul>
+      <ul><li class="flex items-center customLink">運動系列</li></ul>
+      <ul><li class="flex items-center customLink">居家系列</li></ul>
+      <ul><li class="flex items-center customLink">Catwalk</li></ul>
       <ul class="rightUl rightUl-lg">
         <li class="flex items-center search liIcon">
           <input type="text" class="search-input" />
@@ -61,27 +49,18 @@
           <button class="lg:hidden inline-block ml-2">登入會員</button>
         </li>
         <li class="flex items-center liIcon" *ngIf="isLogin" mat-button [matMenuTriggerFor]="menu">
-          <button class="" style="padding-right: 15px;">
-            <i class="far fa-user" style="font-size: 1.5rem; color: black;"></i>
-          </button>
-          <button class="lg:hidden inline-block ml-2">
-            {{ logInData.account }}
-          </button>
+          <button class="" style="padding-right: 15px;"><i class="far fa-user" style="font-size: 1.5rem; color: black;"></i></button>
+          <button class="lg:hidden inline-block ml-2">{{ logInData.account }} </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item class="menuItem">會員管理</button>
-            <hr />
-            <button mat-menu-item class="menuItem">訂單管理</button>
-            <hr />
-            <button mat-menu-item class="menuItem" (click)="logOut()">
-              登出
-            </button>
+            <button mat-menu-item class="menuItem">會員管理</button> <hr />
+            <button mat-menu-item class="menuItem">訂單管理</button>  <hr />
+            <button mat-menu-item class="menuItem" (click)="logOut()">登出</button>
           </mat-menu>
         </li>
         <li class="flex items-center liIcon" (click)="toWishItem()">
           <button class="cart-icon" style="margin-bottom: -4px;padding-right: 10px;">
             <i class="far fa-heart" style="font-size: 1.5rem; color: black"></i>
-            <span class="wish-count" *ngIf="wishCount > 0">
-              {{ wishCount }}</span>
+            <span class="wish-count" *ngIf="wishCount > 0">{{ wishCount }}</span>
           </button>
           <button class="lg:hidden inline-block ml-2">願望清單</button>
         </li>

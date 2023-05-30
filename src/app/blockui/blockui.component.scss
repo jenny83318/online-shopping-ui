@@ -11,9 +11,7 @@
   margin-top: 42vh;
   text-align: center;
 }
-.loading_card img{
-  width: 80px;
-}
+
 .loading_card p{
   color: #656565;
   letter-spacing: .5px;
@@ -22,6 +20,7 @@
   z-index: 1100;
   margin-top: 5px;
 }
+
 @keyframes ldio {
   0% { opacity: 1 }
   100% { opacity: 0 }

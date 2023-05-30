@@ -1,6 +1,5 @@
 <block-ui [template]="block"></block-ui>
 <app-header></app-header>
-<app-header></app-header>
 <div class="wrap cf">
     <div class="heading cf">
         <h1>Wish</h1>
@@ -11,7 +10,7 @@
             <li class="items" *ngFor="let cart of wishList; let i = index" [ngClass]="i % 2 == 0 ? 'even' : 'odd'">
                 <div class="infoWrap">
                     <div class="cartSection">
-                        <img class="img" [src]="cart.img[0]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'" class="itemImg" (load)="onLoadImg(i)"/>
+                        <img class="img itemImg" [src]="cart.img[0]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'" (load)="onLoadImg(i)"/>
                         <p class="itemNumber ">#QUE-007544-002</p>
                         <h3>{{ cart.name }}</h3>
                         <p class="param">尺寸: {{cart.sizeInfo}} &nbsp; &nbsp;</p>

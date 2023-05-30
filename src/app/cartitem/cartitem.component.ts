@@ -47,6 +47,7 @@ export class CartitemComponent implements OnInit {
           this.jolService.setCartNum(this.cartList.length);
           this.sum = 0
           this.cartList.forEach((cart: any) => {
+            cart.isCheck = false;
             cart.img = [];
             cart.img = cart.imgUrl.split(',');
             cart.isOnload = false;

@@ -1,8 +1,10 @@
 @import url("./../../assets/styles/tailwind.css");
+
 .customLink {
   &:hover {
     color: #000000;
   }
+
   color: #000000;
   padding: 0.5rem 0.75rem;
   display: flex;
@@ -11,6 +13,7 @@
   text-transform: uppercase;
   font-weight: bold;
 }
+
 .navbar {
   top: 0;
   position: fixed;
@@ -49,6 +52,7 @@
     justify-content: start;
   }
 }
+
 .homelink {
   color: #374151;
   font-size: 0.875rem;
@@ -135,11 +139,12 @@ button:focus {
   outline: none;
 }
 
-.menuItem{
+.menuItem {
   padding-left: 10px;
   font-size: 1.0rem;
 }
-.search{
+
+.search {
   margin-right: -150px;
 }
 
@@ -158,16 +163,18 @@ button:focus {
   border-radius: 50%;
   font-size: 12px;
 }
-.wish-count{
+
+.wish-count {
   position: absolute;
-    top: -12px;
-    right: -1px;
-    background-color: #a06262;
-    color: white;
-    width: 20px;
-    border-radius: 50%;
-    font-size: 12px;
+  top: -12px;
+  right: -1px;
+  background-color: #a06262;
+  color: white;
+  width: 20px;
+  border-radius: 50%;
+  font-size: 12px;
 }
-.liIcon{
-padding-bottom: 15px;
+
+.liIcon {
+  padding-bottom: 15px;
 }

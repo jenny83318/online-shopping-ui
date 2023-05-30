@@ -1,10 +1,4 @@
-// @import "compass/css3";
 @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic|Montserrat:400,700);
-@import '~@fortawesome/fontawesome-free/css/all.css';
-@import '~@fortawesome/fontawesome-free/css/fontawesome.css';
-@import '~@fortawesome/fontawesome-free/css/solid.css';
-@import '~@fortawesome/fontawesome-free/css/regular.css';
-@import '~@fortawesome/fontawesome-free/css/brands.css';
 $fontSans : 'Montserrat',
 sans-serif;
 $fontSerif : 'Droid Serif',
@@ -131,7 +125,7 @@ img {
   }
 }
 
-// TABLE HEADING 
+// TABLE HEADING
 
 .tableHead {
   display: table;
@@ -247,7 +241,7 @@ img {
       }
 
       .itemImg {
-        width: 8em;
+        width: 9em;
         display: inline;
         padding-right: 1em;
       }
@@ -445,7 +439,7 @@ img {
 
         &.prodTotal,
         &.removeWrap {
-          display: none;
+          display: unset;
         }
 
         .itemImg {
@@ -465,15 +459,18 @@ img {
     text-align: center;
   }
 }
-.imgContainer{
+
+.imgContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-    img{
-      width: 300px;
-    }
+
+  img {
+    width: 300px;
+  }
 }
+
 .container {
   display: flex;
   border: 1px solid gray;
@@ -485,19 +482,22 @@ img {
   margin-bottom: px;
   flex-wrap: nowrap;
   margin: -5px 30px 5px 10px;
-	
+
 }
-.param{
+
+.param {
   font-size: 15px;
 }
-.plusBtn{
+
+.plusBtn {
   font-size: 9px;
   color: #8e8e8e;
 }
 
-.minusbtn{
+.minusbtn {
   padding: 5px;
 }
-button:focus{
+
+button:focus {
   outline: none;
 }

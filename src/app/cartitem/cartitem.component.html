@@ -1,73 +1,78 @@
 <block-ui [template]="block"></block-ui>
 <app-header></app-header>
-<app-header></app-header>
 <div class="wrap cf">
-    <div class="heading cf">
-        <h1>Shopping Cart</h1>
-        <a href="#" class="continue">繼續購物</a>
-    </div>
-    <div class="cart">
-        <ul class="cartWrap">
-            <li class="items" *ngFor="let c of cartList; let i = index" [ngClass]="i % 2 == 0 ? 'even' : 'odd'">
-                <div class="infoWrap">
-                    <div class="cartSection">
-                        <img class="img" [src]="c.img[0]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'" class="itemImg" (load)="onLoadImg(i)"/>
-                        <p class="itemNumber ">#QUE-007544-002</p>
-                        <h3>{{ c.name }}</h3>
-                        <p class="param">尺寸: {{c.size}} &nbsp; &nbsp;</p>
-                        <div style="display: flex;">
-                        <p class="param">數量:</p>
-                        <div class="center container">
-                            <div class="button col col-1">
-                              <button id="plus-btn" class="minusbtn" (click)="changeQty(false,c.cartId)" >
-                                <i class="fas fa-minus plusBtn"></i>
-                            </button>
-                            </div>
-                            <div class="number col col-2">
-                              <p class="param" id="count" style="margin: 0;">{{ c.qty }}</p>
-                            </div>
-                            <div class="button col col-1">
-                              <button id="plus-btn" class="minusbtn" (click)="changeQty(true,c.cartId)" >
-                                <i class="fas fa-plus plusBtn"></i>
-                              </button>
-                            </div>
-                        </div>
-                        <p class="param">  X &nbsp; &nbsp; ${{c.price}}</p>
-                        <p class="stockStatus param">現貨</p>
-                        </div>
-                    </div>
-                    <div class="prodTotal cartSection">
-                        <p>${{ c.qty * c.price }}</p>
-                    </div>
-                    <div class="cartSection removeWrap">
-                        <button class="remove" (click)="deleteCartItem(c.cartId)"><i class="fa fa-trash-alt" style="font-size: 20px;"></i></button>
-                    </div>
+  <div class="heading cf">
+    <h1>Shopping Cart</h1>
+    <a href="#" class="continue">繼續購物</a>
+  </div>
+  <div class="cart">
+    <ul class="cartWrap">
+      <li class="items" *ngFor="let c of cartList; let i = index" [ngClass]="i % 2 == 0 ? 'even' : 'odd'">
+        <div class="infoWrap">
+          <div>
+            <mat-checkbox class="example-margin" [(ngModel)]="c.isCheck">
+            </mat-checkbox>
+          </div>
+          <div class="cartSection">
+            <img class="img itemImg" [src]="c.img[0]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
+              (load)="onLoadImg(i)" />
+            <p class="itemNumber ">#QUE-007544-002</p>
+            <h3>{{ c.name }}</h3>
+            <p class="paragraph">尺寸: {{c.size}} &nbsp; &nbsp;</p>
+            <div class="qtyWrapper">
+              <p class="paragraph">數量:</p>
+              <div class="center container">
+                <div>
+                  <button id="plus-btn" class="countBtn" (click)="changeQty(false,c.cartId)">
+                    <i class="fas fa-minus icon"></i>
+                  </button>
                 </div>
-            </li>
-        </ul>
-    </div>
-    <div class="imgContainer" *ngIf="ishidden">
-        <img src="assets/img/cart.png">
-        <h5 style="font-size: 15px;">購物車目前尚無商品</h5>
-    </div>
-    <!-- <div class="promoCode">
-        <label for="promo">Have A Promo Code?</label><input type="text" name="promo" placholder="Enter Code" />
-        <a href="#" class="btn"></a>
-    </div> -->
-    <div class="subtotal cf" *ngIf="!ishidden">
-        <ul>
-            <li class="totalRow">
-                <span class="label">商品總金額</span><span class="value">${{sum}}</span>
-            </li>
-
-            <li class="totalRow">
-                <span class="label">運費</span><span class="value">$60</span>
-            </li>
-            <li class="totalRow final">
-                <span class="label">總金額</span><span class="value">${{sum+60 }}</span>
-            </li>
-            <li class="totalRow"><a href="#" class="btn continue">結帳</a></li>
-        </ul>
-    </div>
+                <div>
+                  <p class="paragraph" id="count" style="margin: 0;">{{ c.qty }}</p>
+                </div>
+                <div>
+                  <button id="plus-btn" class="countBtn" (click)="changeQty(true,c.cartId)">
+                    <i class="fas fa-plus icon"></i>
+                  </button>
+                </div>
+              </div>
+              <p class="paragraph"> X &nbsp; &nbsp; ${{c.price}}</p>
+              <p class="stockStatus paragraph">現貨</p>
+            </div>
+          </div>
+          <div class="prodTotal cartSection">
+            <p>${{ c.qty * c.price }}</p>
+          </div>
+          <div class="cartSection removeWrap">
+            <button class="remove" (click)="deleteCartItem(c.cartId)"><i class="fa fa-trash-alt"
+                style="font-size: 20px;"></i></button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="imgContainer" *ngIf="ishidden">
+    <img src="assets/img/cart.png">
+    <h5 style="font-size: 15px;">購物車目前尚無商品</h5>
+  </div>
+  <div class="promoCode">
+    <label for="promo">折扣碼
+    </label><input type="text" name="promo" placholder="請輸入折扣碼" />
+    <a href="" class="btn"></a>
+  </div>
+  <div class="subtotal cf" *ngIf="!ishidden">
+    <ul>
+      <li class="totalRow">
+        <span class="label">商品總金額</span><span class="value">${{sum}}</span>
+      </li>
+      <li class="totalRow">
+        <span class="label">運費</span><span class="value">$60</span>
+      </li>
+      <li class="totalRow final">
+        <span class="label">總金額</span><span class="value">${{sum+60 }}</span>
+      </li>
+      <li class="totalRow"><a href="#" class="btn continue">結帳</a></li>
+    </ul>
+  </div>
 </div>
 <app-footer></app-footer>

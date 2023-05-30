@@ -222,7 +222,7 @@ img {
       }
 
       .itemImg {
-        width: 8em;
+        width: 9em;
         display: inline;
         padding-right: 1em;
       }
@@ -384,6 +384,7 @@ img {
     width: 98%;
     padding: 2% 0;
   }
+
   .heading {
     padding: 1em;
     font-size: 90%;
@@ -414,7 +415,7 @@ img {
 
         &.prodTotal,
         &.removeWrap {
-          display: none;
+          display: unset;
         }
 
         .itemImg {
@@ -434,15 +435,21 @@ img {
     text-align: center;
   }
 }
-.imgContainer{
+.qtyWrapper{
+  display: flex;
+}
+
+.imgContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-    img{
-      width: 300px;
-    }
+
+  img {
+    width: 300px;
+  }
 }
+
 .container {
   display: flex;
   border: 1px solid gray;
@@ -456,17 +463,20 @@ img {
   margin: -5px 30px 5px 10px;
 
 }
-.param{
+
+.paragraph {
   font-size: 15px;
 }
-.plusBtn{
+
+.icon {
   font-size: 9px;
   color: #8e8e8e;
 }
 
-.minusbtn{
+.countBtn {
   padding: 5px;
 }
-button:focus{
+
+button:focus {
   outline: none;
 }

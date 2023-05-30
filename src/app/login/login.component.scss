@@ -15,7 +15,7 @@
 
 .LoginPageInnerContainer .ImageContianer {
   width: 25%;
-  background-color:#f2e8c0;
+  background-color: #f2e8c0;
   min-height: 100%;
   padding: 5%;
   display: flex;
@@ -38,7 +38,8 @@
   -o-background-size: cover;
   background-size: cover;
 }
-.signUpContainer{
+
+.signUpContainer {
   margin-top: 80px;
 }
 
@@ -167,19 +168,20 @@
 
 @media only screen and (max-width: 1200px) {
   .LoginPageInnerContainer .ImageContianer {
-      width: 50%;
+    width: 50%;
   }
 }
 
 @media only screen and (max-width: 800px) {
   .LoginPageInnerContainer .ImageContianer {
-      display: none;
+    display: none;
   }
 
   .LoginFormContainer {
-      justify-content: center;
+    justify-content: center;
   }
 }
+
 .LoginPageContainer::-webkit-scrollbar {
   width: 5px;
 }
@@ -196,7 +198,7 @@
   background: #4520ff;
 }
 
-input:focus{
+input:focus {
   outline: none;
 }
 
@@ -209,11 +211,12 @@ input:focus{
 .example-full-width {
   width: 100%;
 }
+
 input:focus {
- outline: none;
- border:none;
+  outline: none;
+  border: none;
 }
 
-.label{
+.label {
   font-size: 15px;
 }

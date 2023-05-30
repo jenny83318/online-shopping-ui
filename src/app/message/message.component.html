@@ -9,7 +9,6 @@
       <div class="BtnBox"  *ngIf="! isConfirm">
         <button mat-button class="" (click)="close()" >確認</button>
       </div>
-      <!-- 這裡放置需要根據條件顯示的內容 -->
     <div class="BtnBoxHalf" *ngIf="isConfirm">
       <button mat-button class="" (click)="cancel()" >取消</button>
       <button mat-button class="" (click)="confirm()" >確定</button>

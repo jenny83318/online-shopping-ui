@@ -12,7 +12,10 @@ import { FooterModule } from '../footer/footer.module';
 import { BlockuiComponent } from './../blockui/blockui.component';
 import { CartblockComponent } from '../cartblock/cartblock.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { BlockUIModule } from 'ng-block-ui';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   imports: [
@@ -26,6 +29,8 @@ import { BlockUIModule } from 'ng-block-ui';
     FooterModule,
     CartitemRoutingModule,
     FontAwesomeModule,
+    MatCheckboxModule,
+    FormsModule,
     BlockUIModule.forRoot({
       template:CartblockComponent,
    })

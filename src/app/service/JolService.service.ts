@@ -66,20 +66,6 @@ export class JolService {
     }, 700);
   }
 
-  // deleteCartWish(cartId :any){
-  //       const body = {
-  //         isCart: true,
-  //         cartId:cartId
-  //       };
-  //       let request = new Request('JOLCartInfo', this.loginData.account,'DELETE', body);
-  //       console.log('request', request);
-  //       this.getData(environment.JOLSERVER, request)
-  //         .subscribe((res) => {
-  //           if(res.code == 200){
-  //             this.getCartData();
-  //           }
-  //         });
-  //     }
 
   sortByKey(array: any, key: any, flag: boolean) {
     var sortArray = array.sort(function (a: any, b: any) {
