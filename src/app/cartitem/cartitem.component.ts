@@ -16,9 +16,22 @@ export class CartitemComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
   block = BlockuiComponent;
   loginData: any;
+  payment:any;
+  delivery:any;
+  deliverFee:number = 0;
   cartList: any;
   sum: number = 0;
   ishidden: boolean = false;
+  deliveryOpt: any = [
+    {value: 'delivery', viewValue: '宅配'},
+    {value: 'convenient', viewValue: '7-11超商取貨'},
+    {value: 'take', viewValue: '自取'},
+  ];
+  paymentOpt: any = [
+    {value: 'creditCard', viewValue: '信用卡刷卡'},
+    {value: 'bank', viewValue: '銀行轉帳'},
+    {value: 'electric', viewValue: '電子支付'},
+  ];
   constructor(private jolService: JolService, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -80,7 +93,9 @@ export class CartitemComponent implements OnInit {
       }
     });
   }
-
+  submit(){
+    this.router.navigate(['/order'], { skipLocationChange: true });
+  }
 
   changeQty(isPlus: boolean, cartId: any) {
     this.cartList.forEach((cart: any) => {
@@ -89,6 +104,14 @@ export class CartitemComponent implements OnInit {
         this.countSum();
       }
     })
+  }
+
+  changeDelivery(){
+    if(this.delivery == 'delivery'){
+      this.deliverFee = 80;
+    }else if(this.delivery == 'convenient') {
+      this.deliverFee = 60
+    }
   }
 
   countSum() {

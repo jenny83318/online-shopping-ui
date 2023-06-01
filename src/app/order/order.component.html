@@ -1,0 +1,113 @@
+<block-ui [template]="block"></block-ui>
+<app-header></app-header>
+<div class="wrap cf">
+  <div class="heading cf">
+    <h3>訂購人資訊 </h3>
+  </div>
+  <div class="cart">
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>訂購人姓名</mat-label>
+        <input matInput class="input" name="account" [(ngModel)]="custData.name">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>國碼</mat-label>
+        <mat-select>
+          <mat-option value="永和區"> (台灣及離島) </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>手機</mat-label>
+        <input matInput class="input" [(ngModel)]="custData.phone">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>縣市</mat-label>
+        <mat-select>
+          <mat-option value="永和區"> 台北市 </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>地區</mat-label>
+        <mat-select>
+          <mat-option value="永和區"> 永和區 </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>地址</mat-label>
+        <input matInput class="input" [(ngModel)]="custData.address">
+      </mat-form-field>
+    </div>
+    <div class="heading cf">
+      <h3>收件人資訊 </h3>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>收件人姓名</mat-label>
+        <input matInput class="input" [(ngModel)]="loginData.account">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>國碼</mat-label>
+        <mat-select>
+          <mat-option value="永和區"> (台灣及離島) </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>手機</mat-label>
+        <input matInput class="input"  [(ngModel)]="loginData.account">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>縣市</mat-label>
+        <mat-select>
+          <mat-option value="永和區"> 台北市 </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>地區</mat-label>
+        <mat-select>
+          <mat-option value="永和區"> 永和區 </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>地址</mat-label>
+        <input matInput class="input" [(ngModel)]="loginData.account">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="imgContainer" *ngIf="ishidden">
+    <img src="assets/img/cart.png">
+    <h5 style="font-size: 15px;">購物車目前尚無商品</h5>
+  </div>
+  <div class="promoCode">
+    <mat-form-field>
+      <mat-label>電子發票</mat-label>
+      <mat-select>
+        <mat-option value="0"> 電子發票 E-invoice </mat-option>
+        <mat-option value="1"> 電子發票 手機載具 </mat-option>
+        <mat-option value="2"> 捐贈發票</mat-option>
+        <mat-option value="3"> 統編發票(公司戶)</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>載具</mat-label>
+      <input matInput class="input" name="account" [(ngModel)]="loginData.account">
+    </mat-form-field>
+  </div>
+  <div class="subtotal cf" *ngIf="!ishidden">
+    <ul>
+      <li class="totalRow"><a href="#" class="btn continue">結帳</a></li>
+    </ul>
+  </div>
+</div>
+<app-footer></app-footer>

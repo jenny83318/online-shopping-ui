@@ -9,10 +9,10 @@
     <ul class="cartWrap">
       <li class="items" *ngFor="let c of cartList; let i = index" [ngClass]="i % 2 == 0 ? 'even' : 'odd'">
         <div class="infoWrap">
-          <div>
+          <!-- <div>
             <mat-checkbox class="example-margin" [(ngModel)]="c.isCheck">
             </mat-checkbox>
-          </div>
+          </div> -->
           <div class="cartSection">
             <img class="img itemImg" [src]="c.img[0]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
               (load)="onLoadImg(i)" />
@@ -42,10 +42,7 @@
           </div>
           <div class="prodTotal cartSection">
             <p>${{ c.qty * c.price }}</p>
-          </div>
-          <div class="cartSection removeWrap">
-            <button class="remove" (click)="deleteCartItem(c.cartId)"><i class="fa fa-trash-alt"
-                style="font-size: 20px;"></i></button>
+            <button class="remove" (click)="deleteCartItem(c.cartId)"><i class="fa fa-trash-alt"style="font-size: 20px;"></i></button>
           </div>
         </div>
       </li>
@@ -55,7 +52,31 @@
     <img src="assets/img/cart.png">
     <h5 style="font-size: 15px;">購物車目前尚無商品</h5>
   </div>
+  <!-- <div class="">
+
+</div> -->
+<!-- <div class="">
+
+</div> -->
   <div class="promoCode">
+    <label for="promo">配送方式  </label>
+    <mat-form-field>
+      <mat-label>請選擇配送方式</mat-label>
+      <mat-select  [(ngModel)]="delivery" (selectionChange)="changeDelivery()">
+        <mat-option *ngFor="let d of deliveryOpt" [value]="d.value">
+          {{d.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <label for="promo">付款方式  </label>
+    <mat-form-field>
+      <mat-label>請選擇付款方式</mat-label>
+      <mat-select [(ngModel)]="payment">
+        <mat-option *ngFor="let p of paymentOpt" [value]="p.value">
+          {{p.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <label for="promo">折扣碼
     </label><input type="text" name="promo" placholder="請輸入折扣碼" />
     <a href="" class="btn"></a>
@@ -66,12 +87,12 @@
         <span class="label">商品總金額</span><span class="value">${{sum}}</span>
       </li>
       <li class="totalRow">
-        <span class="label">運費</span><span class="value">$60</span>
+        <span class="label">運費</span><span class="value">${{deliverFee}}</span>
       </li>
       <li class="totalRow final">
-        <span class="label">總金額</span><span class="value">${{sum+60 }}</span>
+        <span class="label">總金額</span><span class="value">${{sum+deliverFee }}</span>
       </li>
-      <li class="totalRow"><a href="#" class="btn continue">結帳</a></li>
+      <li class="totalRow"><button  class="btn continue" (click)="submit()">下一步</button></li>
     </ul>
   </div>
 </div>

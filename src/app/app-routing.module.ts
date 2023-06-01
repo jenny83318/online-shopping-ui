@@ -1,4 +1,3 @@
-import { HomeComponent } from './home/home.component';
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
@@ -8,6 +7,7 @@ const routes: Routes = [
   { path: 'product', loadChildren: () => import('./product/product.module').then(m => m.ProductModule) },
   { path: 'cartitem', loadChildren: () => import('./cartitem/cartitem.module').then(m => m.CartItemModule) },
   { path: 'wishitem', loadChildren: () => import('./wishitem/wishitem.module').then(m => m.WishItemModule) },
+  { path: 'order', loadChildren: () => import('./order/order.module').then(m => m.OrderModule) },
   { path: "**", redirectTo: "", pathMatch: "full" },
 ];
 

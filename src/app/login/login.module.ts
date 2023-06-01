@@ -8,6 +8,8 @@ import { LoginRoutingModule } from './login.routing.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import {MatInputModule} from '@angular/material/input';
     MatCheckboxModule,
     MatButtonModule,
     LoginRoutingModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule
   ]
 })
 export class LoginModule { }
