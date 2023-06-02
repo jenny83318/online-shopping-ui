@@ -8,39 +8,39 @@
     <div>
       <mat-form-field class="example-full-width">
         <mat-label>訂購人姓名</mat-label>
-        <input matInput class="input" name="account" [(ngModel)]="custData.name">
+        <input matInput class="input" name="account" [(ngModel)]="odr.name">
       </mat-form-field>
     </div>
     <div>
-      <mat-form-field>
-        <mat-label>國碼</mat-label>
-        <mat-select>
-          <mat-option value="永和區"> (台灣及離島) </mat-option>
-        </mat-select>
-      </mat-form-field>
       <mat-form-field class="example-full-width">
         <mat-label>手機</mat-label>
-        <input matInput class="input" [(ngModel)]="custData.phone">
+        <input matInput class="input" [(ngModel)]="odr.phone">
       </mat-form-field>
     </div>
     <div>
       <mat-form-field>
         <mat-label>縣市</mat-label>
-        <mat-select>
-          <mat-option value="永和區"> 台北市 </mat-option>
+        <mat-select [(ngModel)]="odr.city" (selectionChange)="changeCity()">
+          <mat-option *ngFor="let a of addressList" [value]="a.code"> {{a.name}} </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
         <mat-label>地區</mat-label>
-        <mat-select>
-          <mat-option value="永和區"> 永和區 </mat-option>
+        <mat-select [(ngModel)]="odr.district">
+          <mat-option *ngFor="let d of districtList" [value]="d.code"> {{d.code}} {{d.name}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
     <div>
       <mat-form-field class="example-full-width">
         <mat-label>地址</mat-label>
-        <input matInput class="input" [(ngModel)]="custData.address">
+        <input matInput class="input" [(ngModel)]="odr.address">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>email</mat-label>
+        <input matInput class="input" [(ngModel)]="odr.email">
       </mat-form-field>
     </div>
     <div class="heading cf">
@@ -49,39 +49,33 @@
     <div>
       <mat-form-field class="example-full-width">
         <mat-label>收件人姓名</mat-label>
-        <input matInput class="input" [(ngModel)]="loginData.account">
+        <input matInput class="input" [(ngModel)]="send.name">
       </mat-form-field>
     </div>
     <div>
-      <mat-form-field>
-        <mat-label>國碼</mat-label>
-        <mat-select>
-          <mat-option value="永和區"> (台灣及離島) </mat-option>
-        </mat-select>
-      </mat-form-field>
       <mat-form-field class="example-full-width">
         <mat-label>手機</mat-label>
-        <input matInput class="input"  [(ngModel)]="loginData.account">
+        <input matInput class="input"  [(ngModel)]="send.phone">
       </mat-form-field>
     </div>
     <div>
       <mat-form-field>
         <mat-label>縣市</mat-label>
-        <mat-select>
-          <mat-option value="永和區"> 台北市 </mat-option>
+        <mat-select [(ngModel)]="send.city" (selectionChange)="changeCity()">
+          <mat-option *ngFor="let a of addressList" [value]="a.code"> {{a.name}} </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
         <mat-label>地區</mat-label>
-        <mat-select>
-          <mat-option value="永和區"> 永和區 </mat-option>
+        <mat-select  [(ngModel)]="send.district" >
+          <mat-option *ngFor="let d of districtList" [value]="d.code"> {{d.code}} {{d.name}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
     <div>
       <mat-form-field class="example-full-width">
         <mat-label>地址</mat-label>
-        <input matInput class="input" [(ngModel)]="loginData.account">
+        <input matInput class="input" [(ngModel)]="send.address">
       </mat-form-field>
     </div>
   </div>
@@ -101,12 +95,12 @@
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <mat-label>載具</mat-label>
-      <input matInput class="input" name="account" [(ngModel)]="loginData.account">
+      <input matInput class="input" name="account" [(ngModel)]="odr.vehicle">
     </mat-form-field>
   </div>
   <div class="subtotal cf" *ngIf="!ishidden">
     <ul>
-      <li class="totalRow"><a href="#" class="btn continue">結帳</a></li>
+      <li class="totalRow"><a href="#" class="btn continue" (click)="checkOut()">結帳</a></li>
     </ul>
   </div>
 </div>
