@@ -46,7 +46,7 @@ img {
 
 
 .wrap {
-  width: 85%;
+  width: 60%;
   max-width: 1300px;
   margin: 0 auto;
   padding: 5% 0;
@@ -57,7 +57,7 @@ img {
 
 // CART HEADER
 .heading {
-  padding: 1em 0;
+  padding: 0.5em 0;
   border-bottom: 1px solid #D0D0D0;
 
   h1 {
@@ -258,7 +258,7 @@ img {
 .promoCode {
   border: 2px solid #efefef;
   float: left;
-  width: 35%;
+  width: 250px;
   padding: 2%;
 
   label {
@@ -277,7 +277,6 @@ img {
     font-size: 1em;
     padding: .5em;
     float: left;
-    border: 1px solid #dadada;
 
     &:active,
     &:focus {
@@ -387,11 +386,11 @@ img {
   }
 
   .heading {
-    padding: 1em;
     font-size: 90%;
   }
 
   .cart {
+    margin-left: 20px;
     .items {
 
       .cartSection {
@@ -426,7 +425,10 @@ img {
     }
   }
 
-  .promoCode,
+  .promoCode{
+    width: 250px;
+    margin-left: 20px;
+  }
   .subtotal {
     width: 100%;
   }
@@ -485,3 +487,23 @@ img {
 button:focus {
   outline: none;
 }
+
+.title{
+  font-size: 25px;
+  color: #904507;
+  margin-right: 50px;
+}
+
+.addr{
+  width: 500px !important;
+  font-size: 16px;
+}
+
+.titleContainer{
+  display: flex;
+}
+
+.formContext{
+  font-size: 16px;
+}
+

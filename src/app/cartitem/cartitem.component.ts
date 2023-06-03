@@ -46,7 +46,6 @@ export class CartitemComponent implements OnInit {
         isCart: true
       };
       let request = new Request('JOLCartInfo', this.loginData.account, 'SELECT', body);
-      console.log('request', request);
       this.jolService
         .getData(environment.JOLSERVER, request)
         .subscribe((res) => {
@@ -64,7 +63,6 @@ export class CartitemComponent implements OnInit {
             cart.img = [];
             cart.img = cart.imgUrl.split(',');
             cart.isOnload = false;
-            console.log('cart.qty* cart.price', cart.qty * cart.price)
             this.sum += cart.qty * cart.price;
           });
           this.jolService.sortByKey(this.cartList, "updateDt", true);
@@ -83,7 +81,6 @@ export class CartitemComponent implements OnInit {
           cartId: cartId
         };
         let request = new Request('JOLCartInfo', this.loginData.account, 'DELETE', body);
-        console.log('request', request);
         this.jolService.getData(environment.JOLSERVER, request)
           .subscribe((res) => {
             if (res.code == 200) {
@@ -94,6 +91,10 @@ export class CartitemComponent implements OnInit {
     });
   }
   submit(){
+    this.jolService.totAmt = this.sum+ this.deliverFee;
+    this.jolService.payment = this.payment;
+    this.jolService.delivery = this.delivery;
+    this.jolService.cartList = this.cartList;
     this.router.navigate(['/order'], { skipLocationChange: true });
   }
 

@@ -20,6 +20,9 @@ export class JolService {
   cartNum: number = 0
   wishNum: number = 0
   isHeaderCheck = false;
+  totAmt:number = 0;
+  delivery:any="";
+  payment:any=""
   cartList:any=[];
   sum:number=0;
   constructor(private httpClient: HttpClient, private router: Router) { }

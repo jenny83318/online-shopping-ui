@@ -1,11 +1,11 @@
 <block-ui [template]="block"></block-ui>
 <app-header></app-header>
 <div class="wrap cf">
+  <div class="cart">
   <div class="heading cf">
     <h1>Shopping Cart</h1>
     <a href="#" class="continue">繼續購物</a>
   </div>
-  <div class="cart">
     <ul class="cartWrap">
       <li class="items" *ngFor="let c of cartList; let i = index" [ngClass]="i % 2 == 0 ? 'even' : 'odd'">
         <div class="infoWrap">
@@ -47,6 +47,7 @@
         </div>
       </li>
     </ul>
+    <hr>
   </div>
   <div class="imgContainer" *ngIf="ishidden">
     <img src="assets/img/cart.png">
@@ -58,7 +59,7 @@
 <!-- <div class="">
 
 </div> -->
-  <div class="promoCode">
+  <div class="promoCode"  *ngIf="!ishidden">
     <label for="promo">配送方式  </label>
     <mat-form-field>
       <mat-label>請選擇配送方式</mat-label>

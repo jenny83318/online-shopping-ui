@@ -1,30 +1,31 @@
 <block-ui [template]="block"></block-ui>
 <app-header></app-header>
 <div class="wrap cf">
-  <div class="heading cf">
-    <h3>訂購人資訊 </h3>
-  </div>
   <div class="cart">
+  <div class="heading cf titleContainer">
+    <h3 class="title">訂購人資訊 </h3>
+    <mat-checkbox [(ngModel)]="isSame"  (ngModelChange)="setSendData()">同步更新會員資料</mat-checkbox>
+  </div>
     <div>
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="example-full-width formContext" style="margin-top: 10px;">
         <mat-label>訂購人姓名</mat-label>
         <input matInput class="input" name="account" [(ngModel)]="odr.name">
       </mat-form-field>
     </div>
     <div>
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="example-full-width formContext">
         <mat-label>手機</mat-label>
         <input matInput class="input" [(ngModel)]="odr.phone">
       </mat-form-field>
     </div>
     <div>
-      <mat-form-field>
+      <mat-form-field class="formContext">
         <mat-label>縣市</mat-label>
         <mat-select [(ngModel)]="odr.city" (selectionChange)="changeCity()">
           <mat-option *ngFor="let a of addressList" [value]="a.code"> {{a.name}} </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field class="formContext">
         <mat-label>地區</mat-label>
         <mat-select [(ngModel)]="odr.district">
           <mat-option *ngFor="let d of districtList" [value]="d.code"> {{d.code}} {{d.name}}</mat-option>
@@ -32,50 +33,51 @@
       </mat-form-field>
     </div>
     <div>
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="example-full-width addr">
         <mat-label>地址</mat-label>
         <input matInput class="input" [(ngModel)]="odr.address">
       </mat-form-field>
     </div>
     <div>
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="example-full-width addr" style="margin-bottom: 30px;">
         <mat-label>email</mat-label>
         <input matInput class="input" [(ngModel)]="odr.email">
       </mat-form-field>
     </div>
-    <div class="heading cf">
-      <h3>收件人資訊 </h3>
+    <div class="heading cf titleContainer">
+      <h3  class="title">收件人資訊 </h3>
+      <mat-checkbox [(ngModel)]="isSame"  (ngModelChange)="setSendData()">同訂購人資料</mat-checkbox>
     </div>
     <div>
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="example-full-width formContext" style="margin-top: 10px;">
         <mat-label>收件人姓名</mat-label>
         <input matInput class="input" [(ngModel)]="send.name">
       </mat-form-field>
     </div>
     <div>
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="example-full-width formContext">
         <mat-label>手機</mat-label>
         <input matInput class="input"  [(ngModel)]="send.phone">
       </mat-form-field>
     </div>
     <div>
-      <mat-form-field>
+      <mat-form-field class="formContext">
         <mat-label>縣市</mat-label>
         <mat-select [(ngModel)]="send.city" (selectionChange)="changeCity()">
           <mat-option *ngFor="let a of addressList" [value]="a.code"> {{a.name}} </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field class="formContext">
         <mat-label>地區</mat-label>
         <mat-select  [(ngModel)]="send.district" >
           <mat-option *ngFor="let d of districtList" [value]="d.code"> {{d.code}} {{d.name}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
-    <div>
-      <mat-form-field class="example-full-width">
+    <div >
+      <mat-form-field class="example-full-width addr" style="margin-top: 20px;">
         <mat-label>地址</mat-label>
-        <input matInput class="input" [(ngModel)]="send.address">
+        <input matInput class="input addr" [(ngModel)]="send.address">
       </mat-form-field>
     </div>
   </div>
@@ -84,23 +86,20 @@
     <h5 style="font-size: 15px;">購物車目前尚無商品</h5>
   </div>
   <div class="promoCode">
-    <mat-form-field>
+    <mat-form-field class="formContext">
       <mat-label>電子發票</mat-label>
-      <mat-select>
-        <mat-option value="0"> 電子發票 E-invoice </mat-option>
-        <mat-option value="1"> 電子發票 手機載具 </mat-option>
-        <mat-option value="2"> 捐贈發票</mat-option>
-        <mat-option value="3"> 統編發票(公司戶)</mat-option>
+      <mat-select  [(ngModel)]="odr.vehicleType">
+        <mat-option *ngFor="let v of vehicleOpt" [value]="v.value">{{v.viewValue}} </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="example-full-width formContext">
       <mat-label>載具</mat-label>
       <input matInput class="input" name="account" [(ngModel)]="odr.vehicle">
     </mat-form-field>
   </div>
   <div class="subtotal cf" *ngIf="!ishidden">
     <ul>
-      <li class="totalRow"><a href="#" class="btn continue" (click)="checkOut()">結帳</a></li>
+      <li class="totalRow" style="margin-top: 100px;"><button class="btn continue" (click)="checkOut()">結帳</button></li>
     </ul>
   </div>
 </div>
