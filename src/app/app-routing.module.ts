@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'wishitem', loadChildren: () => import('./wishitem/wishitem.module').then(m => m.WishItemModule) },
   { path: 'order', loadChildren: () => import('./order/order.module').then(m => m.OrderModule) },
   { path: 'orderlist', loadChildren: () => import('./orderlist/orderlist.module').then(m => m.OrderlistModule) },
+  { path: 'orderdetail', loadChildren: () => import('./orderdetail/orderdetail.module').then(m => m.OrderdetailModule) },
   { path: "**", redirectTo: "", pathMatch: "full" },
 ];
 

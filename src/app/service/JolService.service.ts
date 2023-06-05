@@ -24,6 +24,7 @@ export class JolService {
   delivery:any="";
   payment:any=""
   cartList:any=[];
+  orderData:any;
   sum:number=0;
   constructor(private httpClient: HttpClient, private router: Router) { }
 

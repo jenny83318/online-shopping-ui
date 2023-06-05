@@ -66,7 +66,7 @@ img {
     float: left;
   }
 
-  a.continue {
+  button.continue {
 
     &:link,
     &:visited {
@@ -431,7 +431,7 @@ img {
     width: 100%;
   }
 
-  a.btn.continue {
+  button.btn.continue {
     width: 100%;
     text-align: center;
   }
@@ -489,7 +489,7 @@ table {
   width: 100%;
 }
 .mat-row:nth-child(even) {
-  background-color: #fdf3e5; /* 灰色背景 */
+  background-color: #f8f7f5; /* 灰色背景 */
 }
 
 .mat-row:nth-child(odd) {
@@ -501,3 +501,8 @@ table {
   border-radius: 3px;
   padding: 3px;
 }
+.itemImg {
+    width: 9em;
+    padding: 10px 5px;
+    float: left;
+  }

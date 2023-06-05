@@ -1,15 +1,14 @@
 import { MessageModule } from '../message/message.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OrderlistComponent } from './orderlist.component';
+import { OrderdetailComponent } from './orderdetail.component';
+import { OrderdetailRoutingModule } from './orderdetail.routing.module';
 import { MatToolbarModule} from '@angular/material/toolbar';
 import { MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDialogModule} from '@angular/material/dialog';
 import { HeaderModule } from '../header/header.module';
 import { FooterModule } from '../footer/footer.module';
-import { OrderlistRoutingModule } from './orderlist.routing.module';
-import { CartblockComponent } from '../cartblock/cartblock.component';
 import { BlockuiComponent } from '../blockui/blockui.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -23,6 +22,7 @@ import { MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -35,7 +35,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     FooterModule,
     FontAwesomeModule,
     MatCheckboxModule,
-    OrderlistRoutingModule,
+    OrderdetailRoutingModule,
     FormsModule,
     MatInputModule,
     MatSelectModule,
@@ -49,9 +49,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
    })
   ],
   declarations: [
-    OrderlistComponent
+    OrderdetailComponent
 
   ],
-  exports: [OrderlistComponent ]
+  exports: [OrderdetailComponent ]
 })
-export class OrderlistModule { }
+export class OrderdetailModule { }
