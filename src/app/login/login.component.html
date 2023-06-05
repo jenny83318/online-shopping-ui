@@ -83,18 +83,18 @@
             </mat-form-field>
           </div>
           <div class="inputContainer">
-          <mat-form-field>
-            <mat-label>縣市</mat-label>
-            <mat-select>
-              <mat-option value="永和區"> 台北市 </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>地區</mat-label>
-            <mat-select>
-              <mat-option value="永和區"> 永和區 </mat-option>
-            </mat-select>
-          </mat-form-field>
+            <mat-form-field class="formContext">
+              <mat-label>縣市</mat-label>
+              <mat-select [(ngModel)]="signUpData.city" name="city" (selectionChange)="changeCity()">
+                <mat-option *ngFor="let a of addressList" [value]="a.code"> {{a.name}} </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="formContext">
+              <mat-label>地區</mat-label>
+              <mat-select name="district" [(ngModel)]="signUpData.district">
+                <mat-option *ngFor="let d of districtList" [value]="d.code"> {{d.code}} {{d.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
         </div>
           <div class="inputContainer">
             <mat-form-field class="example-full-width">

@@ -53,7 +53,7 @@
           <button class="lg:hidden inline-block ml-2">{{ logInData.account }} </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item class="menuItem">會員管理</button> <hr />
-            <button mat-menu-item class="menuItem">訂單管理</button>  <hr />
+            <button mat-menu-item class="menuItem" (click)="toOrderList()">訂單管理</button>  <hr />
             <button mat-menu-item class="menuItem" (click)="logOut()">登出</button>
           </mat-menu>
         </li>

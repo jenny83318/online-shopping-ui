@@ -137,4 +137,7 @@ export class HeaderComponent implements OnInit {
   toWishItem(){
     this.router.navigate(['/wishitem'], { skipLocationChange: true });
   }
+  toOrderList(){
+    this.router.navigate(['/orderlist'], { skipLocationChange: true });
+  }
 }

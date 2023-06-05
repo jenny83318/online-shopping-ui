@@ -2,83 +2,94 @@
 <app-header></app-header>
 <div class="wrap cf">
   <div class="cart">
-  <div class="heading cf titleContainer">
-    <h3 class="title">訂購人資訊 </h3>
-    <mat-checkbox [(ngModel)]="isSame"  (ngModelChange)="setSendData()">同步更新會員資料</mat-checkbox>
-  </div>
+    <div class="heading cf titleContainer">
+      <h3 class="title">訂購人資訊 </h3>
+      <mat-checkbox [(ngModel)]="isUpdate">同步更新會員資料</mat-checkbox>
+    </div>
     <div>
       <mat-form-field class="example-full-width formContext" style="margin-top: 10px;">
         <mat-label>訂購人姓名</mat-label>
-        <input matInput class="input" name="account" [(ngModel)]="odr.name">
+        <input matInput class="input" name="account" [(ngModel)]="odr.orderName">
       </mat-form-field>
+      <p class="errorMsg" *ngIf="isOrderName">訂購人姓名欄位不可空白</p>
     </div>
     <div>
       <mat-form-field class="example-full-width formContext">
         <mat-label>手機</mat-label>
-        <input matInput class="input" [(ngModel)]="odr.phone">
+        <input matInput class="input" [(ngModel)]="odr.orderPhone">
       </mat-form-field>
+      <p class="errorMsg" *ngIf="isOrderPhone">手機欄位不可空白</p>
     </div>
     <div>
       <mat-form-field class="formContext">
         <mat-label>縣市</mat-label>
-        <mat-select [(ngModel)]="odr.city" (selectionChange)="changeCity()">
+        <mat-select [(ngModel)]="odr.orderCity" (selectionChange)="changeCity('order')">
           <mat-option *ngFor="let a of addressList" [value]="a.code"> {{a.name}} </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="formContext">
         <mat-label>地區</mat-label>
-        <mat-select [(ngModel)]="odr.district">
+        <mat-select [(ngModel)]="odr.orderDistrict">
           <mat-option *ngFor="let d of districtList" [value]="d.code"> {{d.code}} {{d.name}}</mat-option>
         </mat-select>
       </mat-form-field>
+      <p class="errorMsg" *ngIf="isOrderCity">請選擇縣市</p>
+      <p class="errorMsg" *ngIf="isOrderDistrict">請選擇地區</p>
     </div>
     <div>
       <mat-form-field class="example-full-width addr">
         <mat-label>地址</mat-label>
-        <input matInput class="input" [(ngModel)]="odr.address">
+        <input matInput class="input" [(ngModel)]="odr.orderAddress">
       </mat-form-field>
+      <p class="errorMsg" *ngIf="isOrderAddress">地址欄位不可空白</p>
     </div>
     <div>
-      <mat-form-field class="example-full-width addr" style="margin-bottom: 30px;">
+      <mat-form-field class="example-full-width addr">
         <mat-label>email</mat-label>
         <input matInput class="input" [(ngModel)]="odr.email">
       </mat-form-field>
+      <p class="errorMsg email" *ngIf="isEmail">email欄位不可空白</p>
     </div>
     <div class="heading cf titleContainer">
-      <h3  class="title">收件人資訊 </h3>
-      <mat-checkbox [(ngModel)]="isSame"  (ngModelChange)="setSendData()">同訂購人資料</mat-checkbox>
+      <h3 class="title">收件人資訊 </h3>
+      <mat-checkbox [(ngModel)]="isSame" (ngModelChange)="setSendData()">同訂購人資料</mat-checkbox>
     </div>
     <div>
       <mat-form-field class="example-full-width formContext" style="margin-top: 10px;">
         <mat-label>收件人姓名</mat-label>
-        <input matInput class="input" [(ngModel)]="send.name">
+        <input matInput class="input" [(ngModel)]="odr.sendName">
       </mat-form-field>
+      <p class="errorMsg" *ngIf="isSendName">收件人姓名欄位不可空白</p>
     </div>
     <div>
       <mat-form-field class="example-full-width formContext">
         <mat-label>手機</mat-label>
-        <input matInput class="input"  [(ngModel)]="send.phone">
+        <input matInput class="input" [(ngModel)]="odr.sendPhone">
       </mat-form-field>
+      <p class="errorMsg" *ngIf="isSendPhone">手機欄位不可空白</p>
     </div>
     <div>
       <mat-form-field class="formContext">
         <mat-label>縣市</mat-label>
-        <mat-select [(ngModel)]="send.city" (selectionChange)="changeCity()">
+        <mat-select [(ngModel)]="odr.sendCity" (selectionChange)="changeCity('send')">
           <mat-option *ngFor="let a of addressList" [value]="a.code"> {{a.name}} </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="formContext">
         <mat-label>地區</mat-label>
-        <mat-select  [(ngModel)]="send.district" >
+        <mat-select [(ngModel)]="odr.sendDistrict">
           <mat-option *ngFor="let d of districtList" [value]="d.code"> {{d.code}} {{d.name}}</mat-option>
         </mat-select>
       </mat-form-field>
+      <p class="errorMsg" *ngIf="isSendCity">請選擇收件縣市</p>
+      <p class="errorMsg" *ngIf="isSendDistrict">請選擇收件地區</p>
     </div>
-    <div >
+    <div>
       <mat-form-field class="example-full-width addr" style="margin-top: 20px;">
         <mat-label>地址</mat-label>
-        <input matInput class="input addr" [(ngModel)]="send.address">
+        <input matInput class="input addr" [(ngModel)]="odr.sendAddress">
       </mat-form-field>
+      <p class="errorMsg" *ngIf="isSendAddress">地址欄位不可空白</p>
     </div>
   </div>
   <div class="imgContainer" *ngIf="ishidden">
@@ -88,14 +99,16 @@
   <div class="promoCode">
     <mat-form-field class="formContext">
       <mat-label>電子發票</mat-label>
-      <mat-select  [(ngModel)]="odr.vehicleType">
-        <mat-option *ngFor="let v of vehicleOpt" [value]="v.value">{{v.viewValue}} </mat-option>
+      <mat-select [(ngModel)]="odr.vehicleType">
+        <mat-option *ngFor="let v of vehicleOpt" [value]="v.viewValue">{{v.viewValue}} </mat-option>
       </mat-select>
     </mat-form-field>
+    <p class="errorMsg" *ngIf="isVehicleType">請選擇發票方式</p>
     <mat-form-field class="example-full-width formContext">
       <mat-label>載具</mat-label>
       <input matInput class="input" name="account" [(ngModel)]="odr.vehicle">
     </mat-form-field>
+    <p class="errorMsg" *ngIf="isVehicle">請填寫載具</p>
   </div>
   <div class="subtotal cf" *ngIf="!ishidden">
     <ul>

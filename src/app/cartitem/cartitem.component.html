@@ -2,10 +2,10 @@
 <app-header></app-header>
 <div class="wrap cf">
   <div class="cart">
-  <div class="heading cf">
-    <h1>Shopping Cart</h1>
-    <a href="#" class="continue">繼續購物</a>
-  </div>
+    <div class="heading cf">
+      <h1>Shopping Cart</h1>
+      <a href="#" class="continue">繼續購物</a>
+    </div>
     <ul class="cartWrap">
       <li class="items" *ngFor="let c of cartList; let i = index" [ngClass]="i % 2 == 0 ? 'even' : 'odd'">
         <div class="infoWrap">
@@ -42,7 +42,8 @@
           </div>
           <div class="prodTotal cartSection">
             <p>${{ c.qty * c.price }}</p>
-            <button class="remove" (click)="deleteCartItem(c.cartId)"><i class="fa fa-trash-alt"style="font-size: 20px;"></i></button>
+            <button class="remove" (click)="deleteCartItem(c.cartId)"><i class="fa fa-trash-alt"
+                style="font-size: 20px;"></i></button>
           </div>
         </div>
       </li>
@@ -53,27 +54,21 @@
     <img src="assets/img/cart.png">
     <h5 style="font-size: 15px;">購物車目前尚無商品</h5>
   </div>
-  <!-- <div class="">
-
-</div> -->
-<!-- <div class="">
-
-</div> -->
-  <div class="promoCode"  *ngIf="!ishidden">
-    <label for="promo">配送方式  </label>
+  <div class="promoCode" *ngIf="!ishidden">
+    <label for="promo">配送方式 </label>
     <mat-form-field>
       <mat-label>請選擇配送方式</mat-label>
-      <mat-select  [(ngModel)]="delivery" (selectionChange)="changeDelivery()">
-        <mat-option *ngFor="let d of deliveryOpt" [value]="d.value">
+      <mat-select [(ngModel)]="delivery" (selectionChange)="changeDelivery()">
+        <mat-option *ngFor="let d of deliveryOpt" [value]="d.viewValue">
           {{d.viewValue}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <label for="promo">付款方式  </label>
+    <label for="promo">付款方式 </label>
     <mat-form-field>
       <mat-label>請選擇付款方式</mat-label>
       <mat-select [(ngModel)]="payment">
-        <mat-option *ngFor="let p of paymentOpt" [value]="p.value">
+        <mat-option *ngFor="let p of paymentOpt" [value]="p.viewValue">
           {{p.viewValue}}
         </mat-option>
       </mat-select>
@@ -93,7 +88,7 @@
       <li class="totalRow final">
         <span class="label">總金額</span><span class="value">${{sum+deliverFee }}</span>
       </li>
-      <li class="totalRow"><button  class="btn continue" (click)="submit()">下一步</button></li>
+      <li class="totalRow"><button class="btn continue" (click)="submit()">下一步</button></li>
     </ul>
   </div>
 </div>

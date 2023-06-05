@@ -7,15 +7,16 @@ import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/fo
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MessageComponent } from '../message/message.component';
 import {MatDialog} from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, ErrorStateMatcher {
-
-  // account: any;
-  // password: any;
+  addressList:any = [];
+  districtList:any = [];
   signUpData:any = {
     account:"",
     password:"",
@@ -23,7 +24,9 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
     email:"",
     address:"",
     phone:"",
-    userName:""
+    userName:"",
+    city:"",
+    district:""
   }
   isRember: boolean = false;
   isSignUp: boolean = false;
@@ -31,8 +34,12 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   matcher = new MyErrorStateMatcher();
   loginData:any ={account:"", password:"", token:""};
-  constructor(private jolService: JolService, private router: Router, private dialog: MatDialog) { }
+  constructor(private jolService: JolService, private router: Router, private dialog: MatDialog, private http: HttpClient) { }
   ngOnInit() {
+    this.http.get('assets/json/address.json').subscribe((res) => {
+      this.addressList = res;
+      this.districtList = this.addressList[1].district;
+    });
     if(localStorage.getItem('rember') != undefined){
       var rember = JSON.parse(localStorage.getItem('rember'))
       console.log('rember',rember);
@@ -113,6 +120,8 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
         address: this.signUpData.address,
         name: this.signUpData.userName,
         phone:this.signUpData.phone,
+        city: this.signUpData.city,
+        district: this.signUpData.district,
         status:"1"
       }
       let request = new Request("JOLCustomerInfo",this.signUpData.account, 'ADD',body);
@@ -148,9 +157,18 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
       this.dialog.open(MessageComponent, { data:{msg:"手機不可為空" }});
     }else if(this.signUpData.address == ''){
       this.dialog.open(MessageComponent, { data:{msg:"地址不可為空" }});
+    } else if(this.signUpData.city == ''){
+      this.dialog.open(MessageComponent, { data:{msg:"請選擇縣市" }});
+    } else if(this.signUpData.district == ''){
+      this.dialog.open(MessageComponent, { data:{msg:"請選擇地區" }});
     }else{
       this.isCheck = true;
     }
+  }
+  changeCity() {
+    this.districtList = this.addressList.filter(
+      (a: any) => a.code ==  this.signUpData.city
+    )[0].district;
   }
 }
 

@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'cartitem', loadChildren: () => import('./cartitem/cartitem.module').then(m => m.CartItemModule) },
   { path: 'wishitem', loadChildren: () => import('./wishitem/wishitem.module').then(m => m.WishItemModule) },
   { path: 'order', loadChildren: () => import('./order/order.module').then(m => m.OrderModule) },
+  { path: 'orderlist', loadChildren: () => import('./orderlist/orderlist.module').then(m => m.OrderlistModule) },
   { path: "**", redirectTo: "", pathMatch: "full" },
 ];
 

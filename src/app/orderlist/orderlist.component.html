@@ -1,0 +1,50 @@
+<block-ui [template]="block"></block-ui>
+<app-header></app-header>
+<div class="wrap cf">
+  <div class="cart">
+    <div class="heading cf">
+      <h1>訂單管理</h1>
+      <a href="#" class="continue">繼續購物</a>
+    </div>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="orderNo">
+          <th mat-header-cell *matHeaderCellDef>訂單編號</th>
+          <td mat-cell *matCellDef="let element">#JOL-000{{element.orderNo}} </td>
+        </ng-container>
+        <ng-container matColumnDef="orderTime">
+          <th mat-header-cell *matHeaderCellDef>訂單時間</th>
+          <td mat-cell *matCellDef="let element"> {{element.orderTime | date:'yyyy-MM-dd'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="totalAmt">
+          <th mat-header-cell *matHeaderCellDef> 訂單金額 </th>
+          <td mat-cell *matCellDef="let element"> $ {{element.totalAmt}} </td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> 訂單狀態 </th>
+          <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
+        <ng-container matColumnDef="payBy">
+          <th mat-header-cell *matHeaderCellDef> 付款方式 </th>
+          <td mat-cell *matCellDef="let element"> {{element.payBy}} </td>
+        </ng-container>
+        <ng-container matColumnDef="deliveryWay">
+          <th mat-header-cell *matHeaderCellDef> 配送方式 </th>
+          <td mat-cell *matCellDef="let element"> {{element.deliveryWay}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                     showFirstLastButtons
+                     aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
+    <hr>
+  </div>
+  <div class="imgContainer" *ngIf="ishidden">
+    <img src="assets/img/cart.png">
+    <h5 style="font-size: 15px;">訂單目前尚無商品</h5>
+  </div>
+</div>
+<app-footer></app-footer>

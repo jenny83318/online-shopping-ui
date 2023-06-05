@@ -46,7 +46,7 @@ img {
 
 
 .wrap {
-  width: 60%;
+  width: 85%;
   max-width: 1300px;
   margin: 0 auto;
   padding: 5% 0;
@@ -57,7 +57,7 @@ img {
 
 // CART HEADER
 .heading {
-  padding: 0.5em 0;
+  padding: 1em 0;
   border-bottom: 1px solid #D0D0D0;
 
   h1 {
@@ -132,7 +132,7 @@ img {
   .items {
     display: block;
     width: 100%;
-    padding: 0.5em;
+    padding: 1.5em;
 
     border-bottom: 1px solid #fafafa;
 
@@ -258,7 +258,7 @@ img {
 .promoCode {
   border: 2px solid #efefef;
   float: left;
-  width: 250px;
+  width: 35%;
   padding: 2%;
 
   label {
@@ -277,6 +277,7 @@ img {
     font-size: 1em;
     padding: .5em;
     float: left;
+    border: 1px solid #dadada;
 
     &:active,
     &:focus {
@@ -386,11 +387,11 @@ img {
   }
 
   .heading {
+    padding: 1em;
     font-size: 90%;
   }
 
   .cart {
-    margin-left: 20px;
     .items {
 
       .cartSection {
@@ -425,10 +426,7 @@ img {
     }
   }
 
-  .promoCode{
-    width: 250px;
-    margin-left: 20px;
-  }
+  .promoCode,
   .subtotal {
     width: 100%;
   }
@@ -487,30 +485,6 @@ img {
 button:focus {
   outline: none;
 }
-
-.title{
-  font-size: 25px;
-  color: #904507;
-  margin-right: 50px;
+table {
+  width: 100%;
 }
-
-.addr{
-  width: 500px !important;
-  font-size: 16px;
-}
-
-.titleContainer{
-  display: flex;
-}
-
-.formContext{
-  font-size: 16px;
-}
-.errorMsg{
-  font-weight: bolder;
-  color:red;
-}
-.email{
-  margin-bottom: 30px;
-}
-
