@@ -55,7 +55,6 @@ export class WishitemComponent implements OnInit {
             console.log('cart.qty* cart.price',wish.qty* wish.price)
             this.sum += wish.qty* wish.price;
           });
-          this.jolService.sortByKey(this.wishList, "updateDt",true);
         });
     } else {
       this.router.navigate(['/login'], { skipLocationChange: true });

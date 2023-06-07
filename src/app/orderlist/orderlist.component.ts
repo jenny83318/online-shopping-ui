@@ -8,6 +8,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 
 @Component({
   selector: 'app-orderlist',
@@ -42,10 +43,12 @@ export class OrderlistComponent implements OnInit {
 
   getOrderData() {
     if (this.loginData.account != '') {
+      this.blockUI.start('讀取中');
       let request = new Request('JOLOrderInfo', this.loginData.account, 'SELECT', {});
       this.jolService
         .getData(environment.JOLSERVER, request)
         .subscribe((res) => {
+          this.blockUI.stop();
           console.log('order',res.orderList)
           if(res.orderList.length > 0){
             this.orderList = res.orderList;

@@ -8,6 +8,9 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import { HttpClient } from '@angular/common/http';
+
+
 @Component({
   selector: 'app-orderdetail',
   templateUrl: './orderdetail.component.html',
@@ -16,31 +19,67 @@ import {MatTableDataSource} from '@angular/material/table';
 export class OrderdetailComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
   block = BlockuiComponent;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  sum:number = 0;
   loginData: any;
   orderData:any;
   detailList:any =[];
   panelOpenState = false;
-  displayedColumns: string[] = ['prodId','img','prodName', 'qty', 'price', 'status','cancel'];
+  displayedColumns: string[] = ['prodId','img','prodName', 'qty', 'price','subTotal' ,'status','cancel'];
   dataSource:any;
+  cityData:any = [];
+  districtList:any =[];
+  city:any;
+  district:any;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private jolService: JolService, private router: Router, private dialog: MatDialog) { }
+  constructor(private jolService: JolService, private router: Router, private dialog: MatDialog, private http: HttpClient) { }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.loginData = this.jolService.loginData;
     this.orderData = this.jolService.orderData;
-    this.detailList = this.orderData.orderDetail;
-    this.detailList.forEach((d: any) => {
-      d.img = [];
-      d.img = d.imgUrl.split(',');
+    this.http.get('assets/json/address.json').subscribe((res:any) => {
+      this.cityData = res.filter((a:any) => a.code == this.orderData.sendCity)[0];
+      this.city = this.cityData.name;
+      this.districtList = this.cityData.district;
+      console.log('this.districtList',this.districtList)
+      this.district = this.districtList.filter((d:any)=> d.code == this.orderData.sendDistrict)[0].name;
     });
-    this.dataSource =new MatTableDataSource<any>(this.detailList);
-    this.dataSource.paginator = this.paginator;
-    console.log('orderData', this.orderData)
+    this.getOrderDetail(this.orderData.orderNo);
   }
 
+  getOrderDetail(orderNo:any) {
+    if (this.loginData.account != '') {
+      this.blockUI.start("讀取中");
+      const body = {orderNo:orderNo}
+      let request = new Request('JOLOrderDetailInfo', this.loginData.account, 'SELECT', body);
+      this.jolService
+        .getData(environment.JOLSERVER, request)
+        .subscribe((res) => {
+          console.log('res.detailList', res.detailList)
+          if(res.detailList.length > 0){
+            this.detailList = res.detailList;
+            this.sum = 0;
+            this.detailList.forEach((d: any) => {
+              this.sum += d.price * d.qty;
+              d.img = [];
+              d.img = d.imgUrl.split(',');
+            });
+            this.orderData.deliveryFee = this.orderData.totalAmt - this.sum;
+            this.dataSource =new MatTableDataSource<any>(this.detailList);
+            this.dataSource.paginator = this.paginator;
+            this.blockUI.stop();
+          }else{
+            this.blockUI.stop();
+          }
+        });
+    } else {
+      this.router.navigate(['/login'], { skipLocationChange: true });
+    }
+  }
 
   toOrderList(){
     this.router.navigate(['/orderlist'], { skipLocationChange: true });
@@ -48,5 +87,13 @@ export class OrderdetailComponent implements OnInit {
 
   padZeros(value: number, length: number): string {
     return value.toString().padStart(length, '0');
+  }
+
+  onLoadImg(index: any) {
+    console.log('index',index)
+    if (index == this.detailList.length - 1) {
+      this.blockUI.stop();
+
+    }
   }
 }

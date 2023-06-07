@@ -23,14 +23,14 @@ export class CartitemComponent implements OnInit {
   sum: number = 0;
   ishidden: boolean = false;
   deliveryOpt: any = [
-    { value: 'delivery', viewValue: '宅配' },
-    { value: 'convenient', viewValue: '7-11超商取貨' },
-    { value: 'take', viewValue: '自取' },
+    {viewValue: '宅配', fee: 80 },
+    {viewValue: '7-11超商取貨', fee:60 },
+    {viewValue: '自取', fee:0 },
   ];
   paymentOpt: any = [
-    { value: 'creditCard', viewValue: '信用卡刷卡' },
-    { value: 'bank', viewValue: '銀行轉帳' },
-    { value: 'electric', viewValue: '電子支付' },
+    {viewValue: '信用卡刷卡' },
+    {viewValue: '銀行轉帳' },
+    {viewValue: '電子支付' },
   ];
   constructor(private jolService: JolService, private router: Router, private dialog: MatDialog) { }
 
@@ -38,6 +38,10 @@ export class CartitemComponent implements OnInit {
     window.scrollTo(0, 0);
     this.loginData = this.jolService.loginData;
     this.getCartData();
+  }
+
+  ngOnDestroy(): void {
+   this.updateCartItem();
   }
 
   getCartData() {
@@ -65,7 +69,6 @@ export class CartitemComponent implements OnInit {
             cart.isOnload = false;
             this.sum += cart.qty * cart.price;
           });
-          this.jolService.sortByKey(this.cartList, "updateDt", true);
         });
     } else {
       this.router.navigate(['/login'], { skipLocationChange: true });
@@ -90,6 +93,23 @@ export class CartitemComponent implements OnInit {
       }
     });
   }
+
+  updateCartItem() {
+    this.cartList.forEach((cart:any) => {
+      const body = {
+        cartId:cart.cartId,
+        prodId: cart.prodId,
+        qty: cart.qty,
+        size: cart.size,
+        isCart: true,
+      };
+      let request = new Request('JOLCartInfo', this.loginData.account, 'UPDATE', body);
+      this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
+        console.log('UPDATE CART', res);
+      });
+    });
+  }
+
   submit() {
     if (this.delivery == undefined) {
       this.dialog.open(MessageComponent, { data: { msg: '請選擇配送方式' } });
@@ -114,11 +134,7 @@ export class CartitemComponent implements OnInit {
   }
 
   changeDelivery() {
-    if (this.delivery == 'delivery') {
-      this.deliverFee = 80;
-    } else if (this.delivery == 'convenient') {
-      this.deliverFee = 60
-    }
+    this.deliverFee = this.deliveryOpt.filter((d:any)=> d.viewValue == this.delivery)[0].fee;
   }
 
   countSum() {

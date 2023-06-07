@@ -12,7 +12,7 @@
                     <div class="cartSection">
                         <img class="img itemImg" [src]="cart.img[0]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'" (load)="onLoadImg(i)"/>
                         <p class="itemNumber ">#QUE-007544-002</p>
-                        <h3>{{ cart.name }}</h3>
+                        <h3>{{ cart.prodName }}</h3>
                         <p class="param">尺寸: {{cart.sizeInfo}} &nbsp; &nbsp;</p>
                         <div style="display: flex;">
                         <p class="stockStatus param">現貨</p>

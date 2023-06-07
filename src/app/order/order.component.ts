@@ -81,8 +81,10 @@ export class OrderComponent implements OnInit {
   }
 
   getCustData() {
+    this.blockUI.start('讀取中');
     let request = new Request('JOLCustomerInfo', this.loginData.account, 'SELECT', {});
     this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
+      this.blockUI.stop();
       if (res.custList.length > 0) {
         this.custData = res.custList[0];
         this.odr.orderName = this.custData.name;
@@ -95,6 +97,7 @@ export class OrderComponent implements OnInit {
       console.log('custData', this.custData);
     });
   }
+
   checkOut() {
     this.checkForm();
     if (this.isCheck) {

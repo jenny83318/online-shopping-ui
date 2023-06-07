@@ -12,14 +12,16 @@
           <div class="inputContainer">
             <mat-form-field class="example-full-width">
               <mat-label class="label" style="font-size: 15px;"><img src="assets/img/PCShort.gif" class="labelIcon">帳號*</mat-label>
-              <input matInput class="input" placeholder="請輸入您的帳號" name="account" [(ngModel)]="loginData.account">
+              <input matInput class="input" placeholder="請輸入您的帳號" name="account" [(ngModel)]="loginData.account" (change)="checkLoginData()">
             </mat-form-field>
+            <div *ngIf="isLoginAcc" class="errorMag">帳號不可為空</div>
           </div>
           <div class="inputContainer">
             <mat-form-field class="example-full-width">
               <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">密碼*</mat-label>
-              <input type="password" matInput class="input" placeholder="請輸入您的帳號" name="password" [(ngModel)]="loginData.password">
+              <input type="password" matInput class="input" placeholder="請輸入您的帳號" name="password" [(ngModel)]="loginData.password" (change)="checkLoginData()">
             </mat-form-field>
+            <div *ngIf="isLoginPW" class="errorMag">密碼不可為空</div>
           </div>
           <div class="OptionsContainer">
             <div class="checkboxContainer">
@@ -28,6 +30,7 @@
             </div>
             <a href="#" class="ForgotPasswordLink">忘記密碼?</a>
           </div>
+          <div *ngIf="isLoginError" class="errorMag" style="padding-top:40px ;">{{loginMsg}}</div>
           <button class="LoginButton" (click)="logIn()">登入</button>
           <button class="SignUpButton" (click)="showSignUp()">註冊會員</button>
         </form>
@@ -42,32 +45,38 @@
           <div class="inputContainer">
             <mat-form-field class="example-full-width">
               <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">姓名*</mat-label>
-              <input matInput class="input" placeholder="請輸入您的姓名" name="userName" [(ngModel)]="signUpData.userName">
+              <input matInput class="input" placeholder="請輸入您的姓名" name="userName" [(ngModel)]="signUpData.userName" (change)="checkSignData()">
             </mat-form-field>
+            <div *ngIf="isAccount" class="errorMag">姓名不可為空</div>
           </div>
           <div class="inputContainer">
             <mat-form-field class="example-full-width">
               <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">帳號*</mat-label>
-              <input matInput class="input" placeholder="請輸入您的帳號" name="account" [(ngModel)]="signUpData.account">
+              <input matInput class="input" placeholder="請輸入您的帳號" name="account" [(ngModel)]="signUpData.account" (change)="checkSignData()">
             </mat-form-field>
+            <div *ngIf="isAccount" class="errorMag">帳號不可為空</div>
           </div>
           <div class="inputContainer">
             <mat-form-field class="example-full-width">
               <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">密碼*</mat-label>
-              <input type="password" matInput class="input" placeholder="請輸入您的密碼" name="password" [(ngModel)]="signUpData.password">
+              <input type="password" matInput class="input" placeholder="請輸入您的密碼" name="password" [(ngModel)]="signUpData.password" (change)="checkSignData()">
             </mat-form-field>
+            <div *ngIf="isPassword" class="errorMag">密碼不可為空</div>
           </div>
           <div class="inputContainer">
             <mat-form-field class="example-full-width">
               <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">再次輸入密碼*</mat-label>
-              <input type="password" matInput class="input" placeholder="請再次輸入您的密碼" name="repassword" [(ngModel)]="signUpData.repassword">
+              <input type="password" matInput class="input" placeholder="請再次輸入您的密碼" name="repassword" [(ngModel)]="signUpData.repassword" (change)="checkSignData()">
             </mat-form-field>
+            <div *ngIf="isRepassword && signUpData.repassword ==''" class="errorMag">再次輸入密碼不可為空</div>
+            <div *ngIf="isRepassword && signUpData.repassword != signUpData.password" class="errorMag">兩次密碼輸入不同，請重新輸入</div>
           </div>
           <div class="inputContainer">
             <mat-form-field class="example-full-width">
               <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">手機</mat-label>
-              <input matInput class="input" placeholder="請輸入您的手機" name="phone" [(ngModel)]="signUpData.phone">
+              <input matInput class="input" placeholder="請輸入您的手機" name="phone" [(ngModel)]="signUpData.phone" (change)="checkSignData()">
             </mat-form-field>
+            <div *ngIf="isPhone" class="errorMag">手機不可為空</div>
           </div>
           <div class="inputContainer">
             <mat-form-field class="example-full-width">
@@ -78,7 +87,7 @@
                 請輸入正確的email
               </mat-error>
               <mat-error *ngIf="emailFormControl.hasError('required')">
-                信箱欄位<strong>必填</strong>
+                email不可為空
               </mat-error>
             </mat-form-field>
           </div>
@@ -91,16 +100,19 @@
             </mat-form-field>
             <mat-form-field class="formContext">
               <mat-label>地區</mat-label>
-              <mat-select name="district" [(ngModel)]="signUpData.district">
+              <mat-select name="district" [(ngModel)]="signUpData.district" (selectionChange)="checkSignData()">
                 <mat-option *ngFor="let d of districtList" [value]="d.code"> {{d.code}} {{d.name}}</mat-option>
               </mat-select>
             </mat-form-field>
+            <div *ngIf="isCity" class="errorMag">請選擇縣市</div>
+            <div *ngIf="isDistrict" class="errorMag">請選擇地區</div>
         </div>
           <div class="inputContainer">
             <mat-form-field class="example-full-width">
               <mat-label class="label"><img src="assets/img/PCShort.gif" class="labelIcon">地址</mat-label>
-              <input matInput class="input" placeholder="請輸入您的寄送地址" name="name" [(ngModel)]="signUpData.address">
+              <input matInput class="input" placeholder="請輸入您的寄送地址" name="name" [(ngModel)]="signUpData.address" (change)="checkSignData()">
             </mat-form-field>
+            <div *ngIf="isAddress" class="errorMag">地址不可為空</div>
           </div>
           <button class="LoginButton" (click)="signUp()">註冊</button>
           <button class="SignUpButton" (click)="showSignUp()">登入會員</button>
