@@ -56,6 +56,7 @@ export class OrderdetailComponent implements OnInit {
       this.blockUI.start("讀取中");
       const body = {orderNo:orderNo}
       let request = new Request('JOLOrderDetailInfo', this.loginData.account, 'SELECT', body);
+      console.log('request', request)
       this.jolService
         .getData(environment.JOLSERVER, request)
         .subscribe((res) => {

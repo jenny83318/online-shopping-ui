@@ -6,7 +6,8 @@ import { Router } from '@angular/router';
 import { BlockuiComponent } from './../blockui/blockui.component';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { MatDialog } from '@angular/material/dialog';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
+declare const TPDirect: any;
 
 @Component({
   selector: 'app-order',
@@ -59,16 +60,23 @@ export class OrderComponent implements OnInit {
   isSendAddress: boolean = false;
   isVehicleType: boolean = false;
   isVehicle: boolean = false;
-
   vehicleOpt: any = [
-    { value: 'eInvoice', viewValue: '電子發票 E-invoice' },
-    { value: 'phone', viewValue: '電子發票 手機載具' },
-    { value: 'donate', viewValue: '捐贈發票' },
-    { value: 'company', viewValue: '統編發票(公司戶)' },
+    { viewValue: '電子發票 E-invoice' },
+    { viewValue: '電子發票 手機載具' },
+    { viewValue: '捐贈發票' },
+    { viewValue: '統編發票(公司戶)' },
   ];
-  constructor( private jolService: JolService, private router: Router, private http: HttpClient) { }
+
+  donateOpt: any = [
+    { viewValue: '財團法人創世社會福利基金會' },
+    { viewValue: '財團法人癌症關懷基金會' },
+    { viewValue: '財團法人台灣兒童暨家庭扶助基金會' }
+
+  ];
+  constructor(private jolService: JolService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
+
     window.scrollTo(0, 0);
     this.cartList = this.jolService.cartList;
     console.log('cartList', this.cartList);
@@ -101,7 +109,7 @@ export class OrderComponent implements OnInit {
   checkOut() {
     this.checkForm();
     if (this.isCheck) {
-      if(this.isUpdate){
+      if (this.isUpdate) {
         this.updateCustData();
       }
       this.odr.totalAmt = this.jolService.totAmt;
@@ -119,6 +127,7 @@ export class OrderComponent implements OnInit {
       this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
         if (res.code == 200) {
           if (res.orderList.length > 0) {
+            this.toLinepay(this.jolService, this.http);
             this.cartList.forEach((cart: any, index: any) => {
               const detailBody = {
                 orderNo: res.orderList[0].orderNo,
@@ -152,6 +161,53 @@ export class OrderComponent implements OnInit {
     }
   }
 
+  toLinepay( jolService:JolService, http:HttpClient) {
+    var account = this.loginData.account;
+    TPDirect.linePay.getPrime(function (result:any) {
+      console.log("result : ", result)
+      console.log('prime', result.prime)
+      var partnerKey = "partner_aqVYKm8K3d34f1uZhQDK0GZpXmsWaGlPtBhrnoGnpjiRXQGlvUQDeuWA";
+      var prime = result.prime;
+      if (result.status == 0) {
+        var pay = {
+          prime: prime,
+          partner_key: partnerKey,
+          merchant_id: "jenny83318_LINEPAY",
+          details: "TapPay Test",
+          amount: 1000,
+          cardholder: {
+            phone_number: "+886911788163",
+            name: "王小明",
+            email: "jenny83318@gmail.com",
+            zip_code: "100",
+            address: "台北市天龍區芝麻街1號1樓",
+            national_id: "A123456789"
+          },
+          remember: true
+        }
+        console.log('payData', pay)
+
+        const body = pay
+        let request = new Request(
+          'JOLPayInfo',
+          account,
+          'SELECT',
+          body
+        );
+        console.log('PAY request', request);
+        // var url = "https://sandbox.tappaysdk.com:443/tpc/payment/pay-by-prime";
+        // var partnerKey = "partner_aqVYKm8K3d34f1uZhQDK0GZpXmsWaGlPtBhrnoGnpjiRXQGlvUQDeuWA";
+        // var httpHeaders = { headers: new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8'). set(  "x-api-key", partnerKey )};
+        // http.post<any>(url, pay, httpHeaders).subscribe((res:any) => {
+        //     console.log('Pay res', res)
+
+        //   });
+        jolService.getData(environment.JOLSERVER, request).subscribe((res:any) => {
+          console.log('Pay res', res)
+        });
+      }
+    })
+  }
   deleteCart(cartId: number, isEnd: boolean) {
     const body = {
       isCart: true,
@@ -191,21 +247,21 @@ export class OrderComponent implements OnInit {
     }
   }
 
-  updateCustData(){
-    const body =  {
-      email:this.odr.email,
+  updateCustData() {
+    const body = {
+      email: this.odr.email,
       password: this.loginData.password,
       address: this.odr.orderAddress,
       name: this.odr.orderName,
-      phone:this.odr.orderPhone,
+      phone: this.odr.orderPhone,
       city: this.odr.orderCity,
       district: this.odr.orderDistrict,
-      status:"1"
+      status: "1"
     }
-    let request = new Request("JOLCustomerInfo",this.loginData.account, 'UPDATE',body);
+    let request = new Request("JOLCustomerInfo", this.loginData.account, 'UPDATE', body);
     console.log('request', request)
     this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
-      console.log('updateCustData',res);
+      console.log('updateCustData', res);
     });
   }
   setSendData() {
@@ -235,13 +291,13 @@ export class OrderComponent implements OnInit {
     this.isEmail = this.odr.email == "" ? true : false;
     this.isOrderName = this.odr.orderName == "" ? true : false;
     this.isOrderPhone = this.odr.orderPhone == "" ? true : false;
-    this.isOrderCity = this.odr.orderCity == "" || this.odr.orderCity == null? true : false;
-    this.isOrderDistrict = this.odr.orderDistrict == "" || this.odr.orderDistrict == null? true : false;
+    this.isOrderCity = this.odr.orderCity == "" || this.odr.orderCity == null ? true : false;
+    this.isOrderDistrict = this.odr.orderDistrict == "" || this.odr.orderDistrict == null ? true : false;
     this.isOrderAddress = this.odr.orderAddress == "" ? true : false;
     this.isSendName = this.odr.sendName == "" ? true : false;
     this.isSendPhone = this.odr.sendPhone == "" ? true : false;
     this.isSendCity = this.odr.sendCity == "" || this.odr.sendCity == null ? true : false;
-    this.isSendDistrict = this.odr.sendDistrict == "" || this.odr.sendDistrict == null? true : false;
+    this.isSendDistrict = this.odr.sendDistrict == "" || this.odr.sendDistrict == null ? true : false;
     this.isSendAddress = this.odr.sendAddress == "" ? true : false;
     this.isVehicleType = this.odr.vehicleType == "" ? true : false;
     this.isVehicle = this.odr.vehicleType != "捐贈發票" && this.odr.vehicle == '' ? true : false;

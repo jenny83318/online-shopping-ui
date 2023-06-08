@@ -29,7 +29,8 @@ export class JolService {
   constructor(private httpClient: HttpClient, private router: Router) { }
 
   getData(url: string, request: Request) {
-    var httpHeaders = { headers: new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' }) };
+    var partnerKey = "partner_aqVYKm8K3d34f1uZhQDK0GZpXmsWaGlPtBhrnoGnpjiRXQGlvUQDeuWA";
+    var httpHeaders = { headers: new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' ,  "x-api-key": partnerKey }) };
     return this.httpClient.post<any>(url, request, httpHeaders);
   }
   resetLoginData() {

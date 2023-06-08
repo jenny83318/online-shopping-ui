@@ -104,11 +104,18 @@
       </mat-select>
     </mat-form-field>
     <p class="errorMsg" *ngIf="isVehicleType">請選擇發票方式</p>
-    <mat-form-field class="example-full-width formContext">
+    <mat-form-field class="example-full-width formContext" *ngIf="odr.vehicleType != '捐贈發票' && odr.vehicleType !=''" >
       <mat-label>載具</mat-label>
       <input matInput class="input" name="account" [(ngModel)]="odr.vehicle">
     </mat-form-field>
     <p class="errorMsg" *ngIf="isVehicle">請填寫載具</p>
+
+    <mat-form-field class="formContext" *ngIf="odr.vehicleType == '捐贈發票'">
+      <mat-label>捐贈單位</mat-label>
+      <mat-select [(ngModel)]="odr.vehicle">
+        <mat-option *ngFor="let d of donateOpt" [value]="d.viewValue">{{d.viewValue}} </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
   <div class="subtotal cf" *ngIf="!ishidden">
     <ul>

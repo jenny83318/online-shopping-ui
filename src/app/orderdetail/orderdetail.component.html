@@ -59,8 +59,8 @@
     </div>
     <div class="orderInfo">
       <div class="column">
-       <p class="title">訂單日期</p>
-       <p>{{orderData.orderTime | date:"YYYY-MM-dd"}}</p>
+        <p class="title">訂單日期</p>
+        <p>{{orderData.orderTime | date:"YYYY-MM-dd"}}</p>
       </div>
       <div class="column">
         <p class="title">訂單狀態</p>
@@ -112,20 +112,22 @@
     </div>
     <div>
       <div class="columnFull">
-        <p class="title">收件人</p>
+        <p class="titleFull">收件人</p>
         <p>{{orderData.orderName}}</p>
       </div>
       <div class="columnFull">
-        <p class="title">收件人手機</p>
+        <p class="titleFull">收件人手機</p>
         <p>{{orderData.orderPhone}}</p>
       </div>
       <div class="columnFull">
-        <p class="title">配送地址</p>
+        <p class="titleFull">配送地址</p>
         <p>{{orderData.sendDistrict}} {{city}}{{district}}{{orderData.orderAddress}}</p>
       </div>
       <div class="columnFull">
-        <p class="title">發票資訊</p>
-        <p>{{orderData.vehicleType}} {{orderData.vehicle}}</p>
+        <p class="titleFull">發票資訊</p>
+        <p>{{orderData.vehicleType}}</p><br>
+        <p *ngIf="orderData.vehicleType != '捐贈發票'">載具: {{orderData.vehicle}}</p>
+        <p *ngIf="orderData.vehicleType == '捐贈發票'">捐贈單位: {{orderData.vehicle}}</p>
       </div>
     </div>
   </div>
