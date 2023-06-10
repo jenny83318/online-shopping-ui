@@ -57,8 +57,11 @@ img {
 
 // CART HEADER
 .heading {
-  padding: 1em 0;
+  padding: 0.7em 0;
   border-bottom: 1px solid #D0D0D0;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  background-color: #e3eee7;
 
   h1 {
     font-family: $fontSerif;
@@ -66,6 +69,10 @@ img {
     float: left;
   }
 
+  P{
+    margin: 5px 0 5px;
+    font-size: 15px;
+  }
   button.continue {
 
     &:link,

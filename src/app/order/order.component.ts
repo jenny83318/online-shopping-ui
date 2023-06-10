@@ -300,7 +300,7 @@ export class OrderComponent implements OnInit {
     this.isSendDistrict = this.odr.sendDistrict == "" || this.odr.sendDistrict == null ? true : false;
     this.isSendAddress = this.odr.sendAddress == "" ? true : false;
     this.isVehicleType = this.odr.vehicleType == "" ? true : false;
-    this.isVehicle = this.odr.vehicleType != "捐贈發票" && this.odr.vehicle == '' ? true : false;
+    this.isVehicle = this.odr.vehicle == '' ? true : false;
     if (this.isEmail || this.isOrderName || this.isOrderPhone || this.isOrderCity || this.isOrderDistrict
       || this.isOrderAddress || this.isSendName || this.isSendPhone || this.isSendCity || this.isSendDistrict
       || this.isSendAddress || this.isVehicle || this.isVehicleType) {
