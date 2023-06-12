@@ -92,11 +92,14 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
     if (!this.isCheckLogin) {
       var rember = { isRember: this.isRember, account: this.loginData.account, password: this.loginData.password }
       localStorage.setItem('rember', JSON.stringify(rember));
+      var loginData = JSON.parse(localStorage.getItem('loginData'));
+      var token  = loginData != null ? loginData.token : this.loginData.token
       const body = {
         password: this.loginData.password,
-        token: this.loginData.token,
+        token: token
       };
       let request = new Request("LogIn", this.loginData.account, '', body);
+      console.log('loginReq', request)
       this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
         console.log('res', res);
         if (res.code == 200) {
@@ -105,7 +108,21 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
           this.jolService.loginData = this.loginData
           localStorage.setItem('loginData', JSON.stringify(this.loginData));
           this.router.navigate(['/']);
-        } else {
+        } else if(res.code == 777){
+          this.logOut();
+          this.loginData.token = "";
+          let req = new Request("LogIn", this.loginData.account, '', body);
+          this.jolService.getData(environment.JOLSERVER, req).subscribe(res => {
+            if (res.code == 200) {
+            this.jolService.isLogin = true;
+            this.loginData.token = res.token;
+            this.jolService.loginData = this.loginData
+            localStorage.setItem('loginData', JSON.stringify(this.loginData));
+            this.router.navigate(['/']);
+            }
+          });
+        }
+        else {
           this.isLoginError = true;
           this.loginMsg = res.msg;
           this.jolService.isLogin = false;

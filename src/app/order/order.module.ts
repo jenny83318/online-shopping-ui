@@ -19,6 +19,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatSelectModule,
     MatFormFieldModule,
     HttpClientModule,
+    NgxPayPalModule,
     BlockUIModule.forRoot({
       template:BlockuiComponent,
    })

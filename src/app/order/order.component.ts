@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone  } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Request } from '../model/Request';
 import { JolService } from './../service/JolService.service';
@@ -7,7 +7,9 @@ import { BlockuiComponent } from './../blockui/blockui.component';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 declare const TPDirect: any;
+declare const paypal:any;
 
 @Component({
   selector: 'app-order',
@@ -15,6 +17,7 @@ declare const TPDirect: any;
   styleUrls: ['./order.component.scss'],
 })
 export class OrderComponent implements OnInit {
+
   @BlockUI() blockUI!: NgBlockUI;
   block = BlockuiComponent;
   loginData: any;
@@ -24,7 +27,9 @@ export class OrderComponent implements OnInit {
   isSame: boolean = false;
   districtList: any = [];
   addressList: any = [];
+  itemList:any = [];
   custData: any;
+  payPalConfig?: IPayPalConfig;
   odr: any = {
     email: "",
     totalAmt: 0,
@@ -46,7 +51,7 @@ export class OrderComponent implements OnInit {
     payBy: "",
   }
   //check
-  isCheck: boolean = true;
+  isCheck: boolean = false;
   isEmail: boolean = false;
   isOrderName: boolean = false;
   isOrderPhone: boolean = false;
@@ -73,7 +78,7 @@ export class OrderComponent implements OnInit {
     { viewValue: '財團法人台灣兒童暨家庭扶助基金會' }
 
   ];
-  constructor(private jolService: JolService, private router: Router, private http: HttpClient) { }
+  constructor(private jolService: JolService, private router: Router, private http: HttpClient, private ngZone: NgZone) { }
 
   ngOnInit(): void {
 
@@ -106,8 +111,8 @@ export class OrderComponent implements OnInit {
     });
   }
 
-  checkOut() {
-    this.checkForm();
+  checkOut(status:any) {
+    var statusName = status =="COMPLETED" ? "已付款" : "待付款"
     if (this.isCheck) {
       if (this.isUpdate) {
         this.updateCustData();
@@ -116,6 +121,7 @@ export class OrderComponent implements OnInit {
       this.odr.deliveryWay = this.jolService.delivery;
       this.odr.vehicle = this.odr.vehicle == undefined ? "" : this.odr.vehicle
       this.odr.payBy = this.jolService.payment;
+      this.odr.status = statusName;
       const body = this.odr;
       let request = new Request(
         'JOLOrderInfo',
@@ -127,14 +133,14 @@ export class OrderComponent implements OnInit {
       this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
         if (res.code == 200) {
           if (res.orderList.length > 0) {
-            this.toLinepay(this.jolService, this.http);
+            // this.toLinepay(this.jolService, this.http);
             this.cartList.forEach((cart: any, index: any) => {
               const detailBody = {
                 orderNo: res.orderList[0].orderNo,
                 prodId: cart.prodId,
                 qty: cart.qty,
                 price: cart.price,
-                status: '待確認',
+                status: '準備中',
               };
               let request = new Request(
                 'JOLOrderDetailInfo',
@@ -307,7 +313,83 @@ export class OrderComponent implements OnInit {
       this.isCheck = false;
     } else {
       this.isCheck = true;
+      this.initConfig();
     }
   }
 
+
+  initConfig(): void {
+    console.log("this.jolService.totAmt",String(this.jolService.totAmt))
+    var total = 0
+    this.cartList.forEach((c:any)=>{
+      total += c.qty*c.price;
+      this.itemList.push({
+        name: c.prodName,
+        quantity: c.qty,
+        category: 'PHYSICAL_GOODS',
+        unit_amount: {
+          currency_code: 'USD',
+          value: String(c.price),
+        }
+      })
+    })
+    this.payPalConfig = {
+    currency: 'USD',
+    clientId: 'AQ2bKcocci4jZXDPtc692oi00O44UDYhCI66EzlY13ls8gVhmNf5-Ai92GG4UcLBn0O-wZAcG4UdYgj8',
+    createOrderOnClient: (data) => <ICreateOrderRequest>{
+      intent: 'CAPTURE',
+      purchase_units: [
+        {
+          amount: {
+            currency_code: 'USD',
+            value: String(this.jolService.totAmt),
+            breakdown: {
+              item_total: {
+                currency_code: 'USD',
+                value:String(total)
+              },
+              shipping:{
+                currency_code: 'USD',
+                value:String(this.jolService.totAmt-total)
+              }
+            }
+          },
+          items: this.itemList
+        }
+      ]
+    },
+    advanced: {
+      commit: 'true'
+    },
+    style: {
+      label: 'paypal',
+      layout: 'vertical'
+    },
+    onApprove: (data, actions) => {
+      console.log('onApprove - transaction was approved, but not authorized', data, actions);
+      actions.order.get().then(details => {
+        console.log('onApprove - you can get full order details inside onApprove: ', details);
+      });
+    },
+    onClientAuthorization: (data) => {
+      console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+      console.log('orderStatus', data.status)
+      this.ngZone.run(() => {
+        this.checkOut(data.status);
+      });
+    },
+    onCancel: (data, actions) => {
+      console.log('OnCancel', data, actions);
+      this.ngZone.run(() => {
+        this.router.navigate(['/orderlist'], { skipLocationChange: true });
+      });
+    },
+    onError: err => {
+      console.log('OnError', err);
+    },
+    onClick: (data, actions) => {
+      console.log('onClick', data, actions);
+    },
+  };
+  }
 }

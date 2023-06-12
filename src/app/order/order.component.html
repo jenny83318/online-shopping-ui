@@ -108,7 +108,7 @@
       <mat-label>載具</mat-label>
       <input matInput class="input" name="account" [(ngModel)]="odr.vehicle">
     </mat-form-field>
-    <p class="errorMsg" *ngIf="isVehicle && odr.vehicleType !='捐贈發票'">請填寫載具</p>
+    <p class="errorMsg" *ngIf="isVehicle && odr.vehicleType !='捐贈發票' && !isVehicleType">請填寫載具</p>
 
     <mat-form-field class="formContext" *ngIf="odr.vehicleType == '捐贈發票'">
       <mat-label>捐贈單位</mat-label>
@@ -116,11 +116,14 @@
         <mat-option *ngFor="let d of donateOpt" [value]="d.viewValue">{{d.viewValue}} </mat-option>
       </mat-select>
     </mat-form-field>
-    <p class="errorMsg" *ngIf="isVehicle">請選擇捐贈單位</p>
+    <p class="errorMsg" *ngIf="isVehicle && !isVehicleType">請選擇捐贈單位</p>
   </div>
   <div class="subtotal cf" *ngIf="!ishidden">
     <ul>
-      <li class="totalRow" style="margin-top: 100px;"><button class="btn continue" (click)="checkOut()">結帳</button></li>
+      <!-- <li class="totalRow" style="margin-top: 100px;"><div id="paypal-button-container"><button class="btn continue" (click)="checkOut()">結帳</button></div></li> -->
+      <li class="totalRow" style="margin-top: 100px;">
+        <button class="btn continue" (click)="checkForm()" *ngIf="!isCheck">結帳</button>
+        <ngx-paypal [config]="payPalConfig"></ngx-paypal></li>
     </ul>
   </div>
 </div>
