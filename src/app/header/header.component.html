@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg">
   <div class="container">
-    <div class="wrapper" (click)="toHome()">
-      <a class="homelink">
+    <div class="wrapper">
+      <a class="homelink" (click)="toHome()">
         <img src="assets/img/JOLBoutique-logo.png" style="width: 200px" />
       </a>
       <button class="navbar-toggle" type="button" (click)="setNavbarOpen()">
@@ -15,20 +15,20 @@
             所有商品
           </button>
           <mat-menu #menu1="matMenu">
-            <button mat-menu-item class="menuItem">上身</button><hr />
-            <button mat-menu-item class="menuItem">下身</button> <hr />
-            <button mat-menu-item class="menuItem">連身</button> <hr />
-            <button mat-menu-item class="menuItem">鞋包配件</button>
+            <button mat-menu-item class="menuItem" (click)="toProductList('category', '1')">上身</button><hr />
+            <button mat-menu-item class="menuItem" (click)="toProductList('category', '2')">下身</button> <hr />
+            <button mat-menu-item class="menuItem" (click)="toProductList('category', '3')">連身</button> <hr />
+            <button mat-menu-item class="menuItem" (click)="toProductList('category', '4')">鞋包配件</button>
           </mat-menu>
         </li>
       </ul>
-      <ul><li class="flex items-center customLink">熱銷商品</li></ul>
-      <ul><li class="flex items-center customLink">運動系列</li></ul>
-      <ul><li class="flex items-center customLink">居家系列</li></ul>
+      <ul (click)="toProductList('series', 'new')"><li class="flex items-center customLink">最新商品</li></ul>
+      <ul (click)="toProductList('series', 'sales')"><li class="flex items-center customLink">熱銷商品</li></ul>
+      <ul (click)="toProductList('series', 'sport')"><li class="flex items-center customLink">運動系列</li></ul>
       <ul><li class="flex items-center customLink">Catwalk</li></ul>
       <ul class="rightUl rightUl-lg">
         <li class="flex items-center search liIcon">
-          <input type="text" class="search-input" />
+          <input type="text" class="search-input" [(ngModel)]="keyWord" />
           <button class="customLink" (click)="search()">
             <img src="assets/img/search.png" style="width: 35px; height:33px;margin-right: 5px" />
           </button>

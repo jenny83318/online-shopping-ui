@@ -74,9 +74,6 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
         this.isRember = rember.isRember;
       }
     }
-    // if (localStorage.getItem('loginData') != null) {
-    //   this.logOut();
-    // }
   }
 
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {

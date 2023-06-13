@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
   isLogin: boolean = false;
   cartCount: number = 0;
   wishCount:number = 0;
+  keyWord:any;
   constructor(
     private dialog: MatDialog,
     private router: Router,
@@ -114,14 +115,14 @@ export class HeaderComponent implements OnInit {
       this.jolService.wishNum = res.cartList.filter((c:any)=>c.cart == false).length;
       this.cartCount = this.jolService.cartNum;
       this.wishCount = this.jolService.wishNum;
-      console.log('this.cartCount',this.cartCount)
-      console.log('this.wishCount',this.wishCount)
-
-      console.log('res', res);
     });
   }
   search() {
-    this.dialog.open(SearchComponent);
+    if(this.keyWord == undefined || this.keyWord.trim() == ""){
+      this.dialog.open(MessageComponent, { data: { msg: '請輸入要搜尋的內容' } });
+    }else{
+      this.jolService.getProductData("OTHER", {selectType:"keyWord", keyWord: this.keyWord})
+    }
   }
 
   toLogIn() {
@@ -139,5 +140,8 @@ export class HeaderComponent implements OnInit {
   }
   toOrderList(){
     this.router.navigate(['/orderlist'], { skipLocationChange: true });
+  }
+  toProductList(selectType:any, keyWord:any ){
+    this.jolService.getProductData("OTHER",{selectType: selectType, keyWord:keyWord});
   }
 }

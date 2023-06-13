@@ -1,0 +1,15 @@
+<block-ui [template]="block"></block-ui>
+<app-header></app-header>
+<div>ProductList</div>
+<section class="header">
+  <section class="section">
+    <div class="imgDiv">
+      <div class="flex flex-wrap">
+        <div class="imgWrapper" *ngFor="let prod of prodList">
+          <app-card [prod]="prod" (messageEvent)="loadImageFinish($event)"></app-card>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+<app-footer></app-footer>

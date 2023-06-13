@@ -7,15 +7,14 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import {MatDialog} from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-productlist',
+  templateUrl: './productlist.component.html',
+  styleUrls: ['./productlist.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class ProductlistComponent implements OnInit {
 
   @BlockUI() blockUI!: NgBlockUI;
   block = BlockuiComponent;
-
   isBlock:boolean = false;
   prodList: any = [];
   isOpen: boolean = false;
@@ -23,22 +22,11 @@ export class HomeComponent implements OnInit {
   constructor(private jolService: JolService,public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.getProductData()
-  }
-
-  getProductData() {
-    this.blockUI.start('讀取中');
-    let request = new Request("JOLProductInfo", "jenny83318",'ALL', {});
-    console.log('request', request)
-    this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
-      this.prodList = res.productList
+    console.log('this.prodList', this.jolService.prodList)
+    this.prodList = this.jolService.prodList
+    this.jolService.prodListChange.subscribe((prodList) => {
+      this.prodList = prodList;
       console.log('this.prodList', this.prodList)
-      this.prodList.forEach((prod: any) => {
-        prod.img = [];
-        prod.img = prod.imgUrl.split(',');
-        prod.imgUrl =prod.img[0];
-        prod.isOnload =false;
-      });
     });
   }
   loadImageFinish(msg: string) {

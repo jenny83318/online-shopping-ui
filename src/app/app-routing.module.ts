@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'order', loadChildren: () => import('./order/order.module').then(m => m.OrderModule) },
   { path: 'orderlist', loadChildren: () => import('./orderlist/orderlist.module').then(m => m.OrderlistModule) },
   { path: 'orderdetail', loadChildren: () => import('./orderdetail/orderdetail.module').then(m => m.OrderdetailModule) },
+  { path: 'productlist', loadChildren: () => import('./productlist/productlist.module').then(m => m.ProductlistModule) },
   { path: "**", redirectTo: "", pathMatch: "full" },
 ];
 

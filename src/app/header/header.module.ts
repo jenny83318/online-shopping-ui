@@ -7,10 +7,12 @@ import { MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDialogModule} from '@angular/material/dialog';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     MatToolbarModule,
     MatIconModule,
     MatMenuModule,

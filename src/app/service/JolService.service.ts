@@ -14,6 +14,7 @@ export class JolService {
   block = CartblockComponent;
   cartChange = new EventEmitter<number>();
   wishChange = new EventEmitter<number>();
+  prodListChange = new EventEmitter<any>();
   isLogin: boolean = false;
   loginData: any = { account: "", password: "", token: "" };
   prod: any;
@@ -26,6 +27,8 @@ export class JolService {
   cartList:any=[];
   orderData:any;
   sum:number=0;
+  prodList:any = [];
+
   constructor(private httpClient: HttpClient, private router: Router) { }
 
   getData(url: string, request: Request) {
@@ -44,7 +47,10 @@ export class JolService {
     this.wishNum = wishNum;
     this.wishChange.emit(this.wishNum);
   }
-
+  setProdList(prodList:any) {
+    this.prodList = prodList;
+    this.prodListChange.emit(this.prodList);
+  }
 
   addCartWish(prodId: any, qty: number, size: any, isCart: boolean,) {
     if (isCart) {
@@ -69,6 +75,25 @@ export class JolService {
     setTimeout(() => {
       this.blockUI.stop();
     }, 700);
+  }
+
+  getProductData( type:any, body:any) {
+    this.blockUI.start('讀取中');
+    let request = new Request("JOLProductInfo", "jenny83318", type, body);
+    console.log('request', request)
+    this.getData(environment.JOLSERVER, request).subscribe(res => {
+      this.blockUI.stop();
+      var prodList = res.productList
+      console.log('prodList',this.prodList)
+      prodList.forEach((prod: any) => {
+        prod.img = [];
+        prod.img = prod.imgUrl.split(',');
+        prod.imgUrl =prod.img[0];
+        prod.isOnload =false;
+      });
+      this.setProdList(prodList);
+      this.router.navigate(['/productlist'], { skipLocationChange: true });
+    });
   }
 
 
