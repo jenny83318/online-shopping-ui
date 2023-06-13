@@ -32,6 +32,16 @@
   height: auto;
   margin-top: auto;
 }
+.imgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  img {
+    width: 300px;
+  }
+}
 
 
 @media (min-width: 210px) {

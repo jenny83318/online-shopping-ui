@@ -8,6 +8,10 @@
         <div class="imgWrapper" *ngFor="let prod of prodList">
           <app-card [prod]="prod" (messageEvent)="loadImageFinish($event)"></app-card>
         </div>
+        <div class="imgContainer" *ngIf="prodList.length == 0">
+          <img src="assets/img/cart.png">
+          <h5 style="font-size: 15px;">查無任何商品</h5>
+        </div>
       </div>
     </div>
   </section>
