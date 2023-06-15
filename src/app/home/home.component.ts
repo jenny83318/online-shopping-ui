@@ -23,6 +23,9 @@ export class HomeComponent implements OnInit {
   constructor(private jolService: JolService,public dialog: MatDialog) { }
 
   ngOnInit() {
+    if(localStorage.getItem('isToPay') != null ){
+      localStorage.removeItem('isToPay');
+    }
     this.getProductData()
   }
 

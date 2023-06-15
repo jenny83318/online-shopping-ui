@@ -1,15 +1,14 @@
-import { Component, OnInit, NgZone  } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Request } from '../model/Request';
+import { StripeRequest } from '../model/StripeRequest';
 import { JolService } from './../service/JolService.service';
 import { Router } from '@angular/router';
 import { BlockuiComponent } from './../blockui/blockui.component';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { MatDialog } from '@angular/material/dialog';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
-declare const TPDirect: any;
-declare const paypal:any;
+import { loadStripe } from '@stripe/stripe-js';
 
 @Component({
   selector: 'app-order',
@@ -17,7 +16,7 @@ declare const paypal:any;
   styleUrls: ['./order.component.scss'],
 })
 export class OrderComponent implements OnInit {
-
+  paymentHandler: any = null;
   @BlockUI() blockUI!: NgBlockUI;
   block = BlockuiComponent;
   loginData: any;
@@ -25,9 +24,10 @@ export class OrderComponent implements OnInit {
   ishidden: boolean = false;
   isUpdate: boolean = false;
   isSame: boolean = false;
+  isPayPal: boolean = false;
   districtList: any = [];
   addressList: any = [];
-  itemList:any = [];
+  itemList: any = [];
   custData: any;
   payPalConfig?: IPayPalConfig;
   odr: any = {
@@ -78,10 +78,10 @@ export class OrderComponent implements OnInit {
     { viewValue: '財團法人台灣兒童暨家庭扶助基金會' }
 
   ];
+  stripePromise = loadStripe(environment.STRIPEKEY);
   constructor(private jolService: JolService, private router: Router, private http: HttpClient, private ngZone: NgZone) { }
 
   ngOnInit(): void {
-
     window.scrollTo(0, 0);
     this.cartList = this.jolService.cartList;
     console.log('cartList', this.cartList);
@@ -111,8 +111,9 @@ export class OrderComponent implements OnInit {
     });
   }
 
-  checkOut(status:any) {
-    var statusName = status =="COMPLETED" ? "已付款" : "待付款"
+  checkOut() {
+    this.checkForm();
+    // var statusName = status =="COMPLETED" ? "已付款" : "待付款"
     if (this.isCheck) {
       if (this.isUpdate) {
         this.updateCustData();
@@ -121,7 +122,7 @@ export class OrderComponent implements OnInit {
       this.odr.deliveryWay = this.jolService.delivery;
       this.odr.vehicle = this.odr.vehicle == undefined ? "" : this.odr.vehicle
       this.odr.payBy = this.jolService.payment;
-      this.odr.status = statusName;
+      this.odr.status = "待付款";
       const body = this.odr;
       let request = new Request(
         'JOLOrderInfo',
@@ -130,13 +131,12 @@ export class OrderComponent implements OnInit {
         body
       );
       console.log('request', request);
-      this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
-        if (res.code == 200) {
-          if (res.orderList.length > 0) {
-            // this.toLinepay(this.jolService, this.http);
+      this.jolService.getData(environment.JOLSERVER, request).subscribe((rs) => {
+        if (rs.code == 200) {
+          if (rs.orderList.length > 0) {
             this.cartList.forEach((cart: any, index: any) => {
               const detailBody = {
-                orderNo: res.orderList[0].orderNo,
+                orderNo: rs.orderList[0].orderNo,
                 prodId: cart.prodId,
                 qty: cart.qty,
                 price: cart.price,
@@ -154,66 +154,27 @@ export class OrderComponent implements OnInit {
                 .subscribe((res) => {
                   if (res.code == 200) {
                     var isEnd = index == this.cartList.length - 1 ? true : false;
-                    this.deleteCart(cart.cartId, isEnd);
+                    // this.deleteCart(cart.cartId, isEnd);
                   }
                 });
             });
+            // 支付工具
+            if (this.odr.payBy == 'Paypal') {
+              this.isPayPal = true;
+              this.Paypal(rs.orderList[0].orderNo);
+            }
+            if (this.odr.payBy == 'Stripe Pay') {
+              this.StripePay(rs.orderList[0].orderNo);
+            }
           }
         }
-        console.log('res', res);
+        console.log('res', rs);
       });
     } else {
 
     }
   }
 
-  toLinepay( jolService:JolService, http:HttpClient) {
-    var account = this.loginData.account;
-    TPDirect.linePay.getPrime(function (result:any) {
-      console.log("result : ", result)
-      console.log('prime', result.prime)
-      var partnerKey = "partner_aqVYKm8K3d34f1uZhQDK0GZpXmsWaGlPtBhrnoGnpjiRXQGlvUQDeuWA";
-      var prime = result.prime;
-      if (result.status == 0) {
-        var pay = {
-          prime: prime,
-          partner_key: partnerKey,
-          merchant_id: "jenny83318_LINEPAY",
-          details: "TapPay Test",
-          amount: 1000,
-          cardholder: {
-            phone_number: "+886911788163",
-            name: "王小明",
-            email: "jenny83318@gmail.com",
-            zip_code: "100",
-            address: "台北市天龍區芝麻街1號1樓",
-            national_id: "A123456789"
-          },
-          remember: true
-        }
-        console.log('payData', pay)
-
-        const body = pay
-        let request = new Request(
-          'JOLPayInfo',
-          account,
-          'SELECT',
-          body
-        );
-        console.log('PAY request', request);
-        // var url = "https://sandbox.tappaysdk.com:443/tpc/payment/pay-by-prime";
-        // var partnerKey = "partner_aqVYKm8K3d34f1uZhQDK0GZpXmsWaGlPtBhrnoGnpjiRXQGlvUQDeuWA";
-        // var httpHeaders = { headers: new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8'). set(  "x-api-key", partnerKey )};
-        // http.post<any>(url, pay, httpHeaders).subscribe((res:any) => {
-        //     console.log('Pay res', res)
-
-        //   });
-        jolService.getData(environment.JOLSERVER, request).subscribe((res:any) => {
-          console.log('Pay res', res)
-        });
-      }
-    })
-  }
   deleteCart(cartId: number, isEnd: boolean) {
     const body = {
       isCart: true,
@@ -246,7 +207,8 @@ export class OrderComponent implements OnInit {
           this.cartList = res.cartList;
           console.log('this.cartList.length', this.cartList.length)
           this.jolService.setCartNum(this.cartList.length);
-          this.router.navigate(['/orderlist'], { skipLocationChange: true });
+          this.jolService.orderDetail = this.cartList;
+          // this.router.navigate(['/orderlist'], { skipLocationChange: true });
         });
     } else {
       this.router.navigate(['/login'], { skipLocationChange: true });
@@ -313,16 +275,15 @@ export class OrderComponent implements OnInit {
       this.isCheck = false;
     } else {
       this.isCheck = true;
-      this.initConfig();
     }
   }
 
 
-  initConfig(): void {
-    console.log("this.jolService.totAmt",String(this.jolService.totAmt))
+  Paypal(orderNo: any) {
+    console.log("this.jolService.totAmt", String(this.jolService.totAmt))
     var total = 0
-    this.cartList.forEach((c:any)=>{
-      total += c.qty*c.price;
+    this.cartList.forEach((c: any) => {
+      total += c.qty * c.price;
       this.itemList.push({
         name: c.prodName,
         quantity: c.qty,
@@ -334,62 +295,87 @@ export class OrderComponent implements OnInit {
       })
     })
     this.payPalConfig = {
-    currency: 'USD',
-    clientId: 'AQ2bKcocci4jZXDPtc692oi00O44UDYhCI66EzlY13ls8gVhmNf5-Ai92GG4UcLBn0O-wZAcG4UdYgj8',
-    createOrderOnClient: (data) => <ICreateOrderRequest>{
-      intent: 'CAPTURE',
-      purchase_units: [
-        {
-          amount: {
-            currency_code: 'USD',
-            value: String(this.jolService.totAmt),
-            breakdown: {
-              item_total: {
-                currency_code: 'USD',
-                value:String(total)
-              },
-              shipping:{
-                currency_code: 'USD',
-                value:String(this.jolService.totAmt-total)
+      currency: 'USD',
+      clientId: 'AQ2bKcocci4jZXDPtc692oi00O44UDYhCI66EzlY13ls8gVhmNf5-Ai92GG4UcLBn0O-wZAcG4UdYgj8',
+      createOrderOnClient: (data) => <ICreateOrderRequest>{
+        intent: 'CAPTURE',
+        purchase_units: [
+          {
+            amount: {
+              currency_code: 'USD',
+              value: String(this.jolService.totAmt),
+              breakdown: {
+                item_total: {
+                  currency_code: 'USD',
+                  value: String(total)
+                },
+                shipping: {
+                  currency_code: 'USD',
+                  value: String(this.jolService.totAmt - total)
+                }
               }
-            }
-          },
-          items: this.itemList
-        }
-      ]
-    },
-    advanced: {
-      commit: 'true'
-    },
-    style: {
-      label: 'paypal',
-      layout: 'vertical'
-    },
-    onApprove: (data, actions) => {
-      console.log('onApprove - transaction was approved, but not authorized', data, actions);
-      actions.order.get().then(details => {
-        console.log('onApprove - you can get full order details inside onApprove: ', details);
-      });
-    },
-    onClientAuthorization: (data) => {
-      console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-      console.log('orderStatus', data.status)
-      this.ngZone.run(() => {
-        this.checkOut(data.status);
-      });
-    },
-    onCancel: (data, actions) => {
-      console.log('OnCancel', data, actions);
-      this.ngZone.run(() => {
-        this.router.navigate(['/orderlist'], { skipLocationChange: true });
-      });
-    },
-    onError: err => {
-      console.log('OnError', err);
-    },
-    onClick: (data, actions) => {
-      console.log('onClick', data, actions);
-    },
-  };
+            },
+            items: this.itemList
+          }
+        ]
+      },
+      advanced: {
+        commit: 'true'
+      },
+      style: {
+        label: 'paypal',
+        layout: 'vertical'
+      },
+      onApprove: (data, actions) => {
+        console.log('onApprove - transaction was approved, but not authorized', data, actions);
+        actions.order.get().then(details => {
+          console.log('onApprove - you can get full order details inside onApprove: ', details);
+        });
+      },
+      onClientAuthorization: (data) => {
+        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+        console.log('orderStatus', data.status)
+        this.ngZone.run(() => {
+          this.jolService.updateOrderStatus({ orderNo: orderNo, status: "已付款" });
+          this.router.navigate(['/orderlist'], { skipLocationChange: true })
+        });
+      },
+      onCancel: (data, actions) => {
+        console.log('OnCancel', data, actions);
+        this.ngZone.run(() => {
+          this.router.navigate(['/'], { skipLocationChange: true });
+        });
+      },
+      onError: err => {
+        console.log('OnError', err);
+      },
+      onClick: (data, actions) => {
+        console.log('onClick', data, actions);
+      },
+    };
   }
+
+  async StripePay(orderNo: any) {
+    var prodName = "";
+    this.cartList.forEach((c: any,index:any) => {
+      prodName += c.prodName
+      if(index != this.cartList.length -1){
+        prodName +=  "、"
+      }
+    })
+    const stripe = await this.stripePromise;
+    let request = new StripeRequest(Math.round(this.jolService.totAmt * 100) , prodName , 'hkd', "http://localhost:4200/orderlist", "http://localhost:4200", 1);
+    this.blockUI.start('讀取中');
+    this.jolService
+      .getPaymentData(environment.STRIPE, request)
+      .subscribe((res) => {
+        this.blockUI.stop();
+        localStorage.setItem('isToPay', orderNo);
+        stripe.redirectToCheckout({
+          sessionId: res.id,
+        });
+        console.log('StripePay res', res)
+      });
+  }
+
 }

@@ -8,7 +8,8 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
+import { PaymentComponent } from '../payment/payment.component';
+
 
 @Component({
   selector: 'app-orderlist',
@@ -23,7 +24,7 @@ export class OrderlistComponent implements OnInit {
   cartList:any = [];
   ishidden: boolean = false;
   panelOpenState = false;
-  displayedColumns: string[] = ['orderNo', 'orderTime', 'totalAmt', 'status','payBy', 'deliveryWay','detail', 'cancel'];
+  displayedColumns: string[] = ['orderNo', 'orderTime', 'totalAmt', 'status','payBy', 'deliveryWay','detail', 'cancel','repay'];
   dataSource:any;
   paymentOpt: any = [
     { value: 'creditCard', viewValue: '信用卡刷卡' },
@@ -38,7 +39,22 @@ export class OrderlistComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.loginData = this.jolService.loginData;
-    this.getOrderData();
+    if(this.loginData.account == '' && localStorage.getItem('loginData') != null){
+      this.loginData = JSON.parse(localStorage.getItem('loginData')) ;
+      this.jolService.loginData = this.loginData;
+    }
+    console.log("Back to orderNo", localStorage.getItem('isToPay') )
+    if(localStorage.getItem('isToPay') != null ){
+      this.jolService.updateOrderStatus({orderNo:Number(localStorage.getItem('isToPay')), status:"已付款"});
+      localStorage.removeItem('isToPay');
+      this.jolService.orderUpdate.subscribe((status) => {
+        if(status == 'finish'){
+          this.getOrderData();
+        }
+      });
+    }else{
+      this.getOrderData();
+    }
   }
 
   getOrderData() {
@@ -61,6 +77,10 @@ export class OrderlistComponent implements OnInit {
     } else {
       this.router.navigate(['/login'], { skipLocationChange: true });
     }
+  }
+
+  repay( order:any){
+    this.dialog.open(PaymentComponent, { data: order });
   }
 
   toOrderDrtail(orderNo:number){

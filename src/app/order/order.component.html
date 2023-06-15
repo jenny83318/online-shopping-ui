@@ -120,9 +120,9 @@
   </div>
   <div class="subtotal cf" *ngIf="!ishidden">
     <ul>
-      <!-- <li class="totalRow" style="margin-top: 100px;"><div id="paypal-button-container"><button class="btn continue" (click)="checkOut()">結帳</button></div></li> -->
       <li class="totalRow" style="margin-top: 100px;">
-        <button class="btn continue" (click)="checkForm()" *ngIf="!isCheck">結帳</button>
+        <button class="btn continue" *ngIf="!isPayPal" (click)="checkOut()">結帳</button>
+        <!-- <button class="btn continue" (click)="checkOut()">PAY Stripe</button> -->
         <ngx-paypal [config]="payPalConfig"></ngx-paypal></li>
     </ul>
   </div>

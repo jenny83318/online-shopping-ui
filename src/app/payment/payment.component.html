@@ -1,0 +1,17 @@
+
+<section class="popCon">
+  <div class="popBox">
+    <img src="/assets/img/JOLBoutique-logo.png" class="logo">
+    <ul>
+      <li class="BtnBox">
+        <button (click)="StripePay()" *ngIf="! isPayPal">Stripe Pay</button>
+      </li>
+      <li>
+        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+      </li>
+    </ul>
+    <div class="BtnBox">
+      <button mat-button class="" (click)="cancel()" >取消</button>
+    </div>
+  </div>
+</section>

@@ -1,5 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Request } from '../model/Request';
+import { StripeRequest } from '../model/StripeRequest';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { CartblockComponent } from '../cartblock/cartblock.component';
@@ -15,6 +16,7 @@ export class JolService {
   cartChange = new EventEmitter<number>();
   wishChange = new EventEmitter<number>();
   prodListChange = new EventEmitter<any>();
+  orderUpdate = new EventEmitter<any>();
   isLogin: boolean = false;
   loginData: any = { account: "", password: "", token: "" };
   prod: any;
@@ -25,9 +27,11 @@ export class JolService {
   delivery:any="";
   payment:any=""
   cartList:any=[];
+  orderDetail:any =[];
   orderData:any;
   sum:number=0;
   prodList:any = [];
+  isToPay:boolean = false;
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
@@ -36,6 +40,11 @@ export class JolService {
     var httpHeaders = { headers: new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' ,  "x-api-key": partnerKey }) };
     return this.httpClient.post<any>(url, request, httpHeaders);
   }
+  getPaymentData(url: string, request: StripeRequest) {
+    var httpHeaders = { headers: new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8'}) };
+    return this.httpClient.post<any>(url, request, httpHeaders);
+  }
+
   resetLoginData() {
     this.loginData = { account: "", password: "", token: "" };
   }
@@ -79,7 +88,7 @@ export class JolService {
 
   getProductData( type:any, body:any) {
     this.blockUI.start('讀取中');
-    let request = new Request("JOLProductInfo", "jenny83318", type, body);
+    let request = new Request("JOLProductInfo", this.loginData.account, type, body);
     console.log('request', request)
     this.getData(environment.JOLSERVER, request).subscribe(res => {
       this.blockUI.stop();
@@ -96,6 +105,15 @@ export class JolService {
     });
   }
 
+  updateOrderStatus(body:any){
+    this.blockUI.start('讀取中');
+    let request = new Request("JOLOrderInfo", this.loginData.account, "OTHER", body);
+    console.log('request', request)
+    this.getData(environment.JOLSERVER, request).subscribe(res => {
+      this.blockUI.stop();
+      this.orderUpdate.emit("finish");
+    });
+  }
 
   sortByKey(array: any, key: any, flag: boolean) {
     var sortArray = array.sort(function (a: any, b: any) {

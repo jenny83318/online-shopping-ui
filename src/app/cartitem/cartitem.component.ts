@@ -28,9 +28,8 @@ export class CartitemComponent implements OnInit {
     {viewValue: '自取', fee:0 },
   ];
   paymentOpt: any = [
-    {viewValue: '信用卡刷卡' },
-    {viewValue: '銀行轉帳' },
-    {viewValue: '電子支付' },
+    {viewValue: 'Paypal' },
+    {viewValue: 'Stripe Pay' },
   ];
   constructor(private jolService: JolService, private router: Router, private dialog: MatDialog) { }
 

@@ -26,7 +26,7 @@ import { CartdetailComponent } from './cartdetail/cartdetail.component';
       SearchComponent,
       CartblockComponent,
       CartdetailComponent
-  ],
+   ],
    imports: [
 	 BrowserModule,
 	 HttpClientModule,

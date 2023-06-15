@@ -30,12 +30,12 @@
         </ng-container>
         <ng-container matColumnDef="deliveryWay">
           <th mat-header-cell *matHeaderCellDef> 配送方式 </th>
-          <td mat-cell *matCellDef="let element"> {{element.deliveryWay}} 
+          <td mat-cell *matCellDef="let element"> {{element.deliveryWay}}
           </td>
         </ng-container>
         <ng-container matColumnDef="detail">
           <th mat-header-cell *matHeaderCellDef>訂單明細</th>
-          <td mat-cell *matCellDef="let element">  
+          <td mat-cell *matCellDef="let element">
             <button class="detailBtn" (click)="toOrderDrtail(element.orderNo)">
             明細
           </button>
@@ -43,9 +43,17 @@
         </ng-container>
         <ng-container matColumnDef="cancel">
           <th mat-header-cell *matHeaderCellDef>取消訂單</th>
-          <td mat-cell *matCellDef="let element">  
+          <td mat-cell *matCellDef="let element">
             <button class="detailBtn">
             取消
+          </button>
+        </td>
+        </ng-container>
+        <ng-container matColumnDef="repay">
+          <th mat-header-cell *matHeaderCellDef>重新付款</th>
+          <td mat-cell *matCellDef="let element">
+            <button class="detailBtn" *ngIf="element.status =='待付款'" (click)="repay(element)">
+            付款
           </button>
         </td>
         </ng-container>
