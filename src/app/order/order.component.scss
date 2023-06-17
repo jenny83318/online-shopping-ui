@@ -514,3 +514,15 @@ button:focus {
   margin-bottom: 30px;
 }
 
+.stripe
+{
+  width:180px;
+  outline: none;
+  border-radius: 10px;
+  img{
+    border-radius: 7px;
+  }
+  img:hover{
+    opacity: 0.7;
+  }
+}

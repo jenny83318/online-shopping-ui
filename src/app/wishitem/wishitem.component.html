@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <div class="prodTotal cartSection">
-                        <p style="margin-right: 20px;">${{ cart.price }}</p>
+                        <p style="margin-right: 20px;">${{ cart.price | number }}</p>
                         <button (click)="addCart(cart)"><i class="fa fa-shopping-bag" style="font-size: 25px; padding: 10px;"></i></button>
                         <button (click)="deleteWishItem(cart.cartId)"><i class="fa fa-trash-alt" style="font-size: 25px; padding: 10px;"></i></button>
                     </div>

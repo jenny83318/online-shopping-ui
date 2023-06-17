@@ -60,9 +60,9 @@ export class HeaderComponent implements OnInit {
           console.log('res', res);
           if (res.code == 200) {
             this.isLogin = true;
+            this.logInData.email = res.email;
             this.jolService.loginData = this.logInData;
             this.jolService.isLogin = true;
-            this.jolService.loginData.token = res.token;
             this.getCartData();
             this.jolService.cartChange.subscribe((count) => {
               this.cartCount = count;

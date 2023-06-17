@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
   loginData: any = {
     account: "",
     password: "",
-    token: ""
+    token: "",
+    email:""
   };
   signUpData: any = {
     account: "",
@@ -102,6 +103,7 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
         if (res.code == 200) {
           this.jolService.isLogin = true;
           this.loginData.token = res.token;
+          this.loginData.email = res.email;
           this.jolService.loginData = this.loginData
           localStorage.setItem('loginData', JSON.stringify(this.loginData));
           this.router.navigate(['/']);
@@ -113,6 +115,7 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
             if (res.code == 200) {
             this.jolService.isLogin = true;
             this.loginData.token = res.token;
+            this.loginData.email = res.email;
             this.jolService.loginData = this.loginData
             localStorage.setItem('loginData', JSON.stringify(this.loginData));
             this.router.navigate(['/']);
@@ -123,6 +126,7 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
           this.isLoginError = true;
           this.loginMsg = res.msg;
           this.jolService.isLogin = false;
+          this.logOut();
         }
       });
     }

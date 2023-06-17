@@ -81,3 +81,15 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.stripe
+{
+  outline: none;
+  border-radius: 10px;
+  border: 0.5px solid grey;
+  img{ 
+    border-radius: 7px;
+  }
+  img:hover{
+    opacity: 0.5;
+  }
+}

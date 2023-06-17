@@ -106,8 +106,12 @@ export class PaymentComponent implements OnInit {
       onCancel: (data, actions) => {
         console.log('OnCancel', data, actions);
         this.ngZone.run(() => {
-          this.cancel();
-          this.router.navigate(['/'], { skipLocationChange: true });
+          this.jolService.orderUpdate.subscribe((status) => {
+            if(status == 'finish'){
+              this.cancel();
+              this.router.navigate(['/'], { skipLocationChange: true });
+            }
+          });
         });
       },
       onError: err => {

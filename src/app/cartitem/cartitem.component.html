@@ -36,12 +36,12 @@
                   </button>
                 </div>
               </div>
-              <p class="paragraph"> X &nbsp; &nbsp; ${{c.price}}</p>
+              <p class="paragraph"> X &nbsp; &nbsp; ${{c.price | number}}</p>
               <p class="stockStatus paragraph">現貨</p>
             </div>
           </div>
           <div class="prodTotal cartSection">
-            <p>${{ c.qty * c.price }}</p>
+            <p>${{ c.qty * c.price | number }}</p>
             <button class="remove" (click)="deleteCartItem(c.cartId)"><i class="fa fa-trash-alt"
                 style="font-size: 20px;"></i></button>
           </div>
@@ -80,13 +80,13 @@
   <div class="subtotal cf" *ngIf="!ishidden">
     <ul>
       <li class="totalRow">
-        <span class="label">商品總金額</span><span class="value">${{sum}}</span>
+        <span class="label">商品總金額</span><span class="value">${{sum | number}}</span>
       </li>
       <li class="totalRow">
-        <span class="label">運費</span><span class="value">${{deliverFee}}</span>
+        <span class="label">運費</span><span class="value">${{deliverFee | number}}</span>
       </li>
       <li class="totalRow final">
-        <span class="label">總金額</span><span class="value">${{sum+deliverFee }}</span>
+        <span class="label">總金額</span><span class="value">${{sum+deliverFee | number }}</span>
       </li>
       <li class="totalRow"><button class="btn continue" (click)="submit()">下一步</button></li>
     </ul>

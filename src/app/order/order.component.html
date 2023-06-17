@@ -4,32 +4,32 @@
   <div class="cart">
     <div class="heading cf titleContainer">
       <h3 class="title">訂購人資訊 </h3>
-      <mat-checkbox [(ngModel)]="isUpdate">同步更新會員資料</mat-checkbox>
+      <mat-checkbox [(ngModel)]="isUpdate" [disabled]="isDisable">同步更新會員資料</mat-checkbox>
     </div>
     <div>
       <mat-form-field class="example-full-width formContext" style="margin-top: 10px;">
         <mat-label>訂購人姓名</mat-label>
-        <input matInput class="input" name="account" [(ngModel)]="odr.orderName">
+        <input matInput class="input" name="account" [(ngModel)]="odr.orderName" [disabled]="isDisable">
       </mat-form-field>
       <p class="errorMsg" *ngIf="isOrderName">訂購人姓名欄位不可空白</p>
     </div>
     <div>
       <mat-form-field class="example-full-width formContext">
         <mat-label>手機</mat-label>
-        <input matInput class="input" [(ngModel)]="odr.orderPhone">
+        <input matInput class="input" [(ngModel)]="odr.orderPhone" [disabled]="isDisable">
       </mat-form-field>
       <p class="errorMsg" *ngIf="isOrderPhone">手機欄位不可空白</p>
     </div>
     <div>
       <mat-form-field class="formContext">
         <mat-label>縣市</mat-label>
-        <mat-select [(ngModel)]="odr.orderCity" (selectionChange)="changeCity('order')">
+        <mat-select [(ngModel)]="odr.orderCity" (selectionChange)="changeCity('order')" [disabled]="isDisable">
           <mat-option *ngFor="let a of addressList" [value]="a.code"> {{a.name}} </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="formContext">
         <mat-label>地區</mat-label>
-        <mat-select [(ngModel)]="odr.orderDistrict">
+        <mat-select [(ngModel)]="odr.orderDistrict" [disabled]="isDisable">
           <mat-option *ngFor="let d of districtList" [value]="d.code"> {{d.code}} {{d.name}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -39,45 +39,45 @@
     <div>
       <mat-form-field class="example-full-width addr">
         <mat-label>地址</mat-label>
-        <input matInput class="input" [(ngModel)]="odr.orderAddress">
+        <input matInput class="input" [(ngModel)]="odr.orderAddress" [disabled]="isDisable">
       </mat-form-field>
       <p class="errorMsg" *ngIf="isOrderAddress">地址欄位不可空白</p>
     </div>
     <div>
       <mat-form-field class="example-full-width addr">
         <mat-label>email</mat-label>
-        <input matInput class="input" [(ngModel)]="odr.email">
+        <input matInput class="input" [(ngModel)]="odr.email" [disabled]="isDisable">
       </mat-form-field>
       <p class="errorMsg email" *ngIf="isEmail">email欄位不可空白</p>
     </div>
     <div class="heading cf titleContainer">
       <h3 class="title">收件人資訊 </h3>
-      <mat-checkbox [(ngModel)]="isSame" (ngModelChange)="setSendData()">同訂購人資料</mat-checkbox>
+      <mat-checkbox [(ngModel)]="isSame" (ngModelChange)="setSendData()" [disabled]="isDisable">同訂購人資料</mat-checkbox>
     </div>
     <div>
       <mat-form-field class="example-full-width formContext" style="margin-top: 10px;">
         <mat-label>收件人姓名</mat-label>
-        <input matInput class="input" [(ngModel)]="odr.sendName">
+        <input matInput class="input" [(ngModel)]="odr.sendName" [disabled]="isDisable">
       </mat-form-field>
       <p class="errorMsg" *ngIf="isSendName">收件人姓名欄位不可空白</p>
     </div>
     <div>
       <mat-form-field class="example-full-width formContext">
         <mat-label>手機</mat-label>
-        <input matInput class="input" [(ngModel)]="odr.sendPhone">
+        <input matInput class="input" [(ngModel)]="odr.sendPhone" [disabled]="isDisable">
       </mat-form-field>
       <p class="errorMsg" *ngIf="isSendPhone">手機欄位不可空白</p>
     </div>
     <div>
       <mat-form-field class="formContext">
         <mat-label>縣市</mat-label>
-        <mat-select [(ngModel)]="odr.sendCity" (selectionChange)="changeCity('send')">
+        <mat-select [(ngModel)]="odr.sendCity" (selectionChange)="changeCity('send')" [disabled]="isDisable">
           <mat-option *ngFor="let a of addressList" [value]="a.code"> {{a.name}} </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="formContext">
         <mat-label>地區</mat-label>
-        <mat-select [(ngModel)]="odr.sendDistrict">
+        <mat-select [(ngModel)]="odr.sendDistrict" [disabled]="isDisable">
           <mat-option *ngFor="let d of districtList" [value]="d.code"> {{d.code}} {{d.name}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -87,7 +87,7 @@
     <div>
       <mat-form-field class="example-full-width addr" style="margin-top: 20px;">
         <mat-label>地址</mat-label>
-        <input matInput class="input addr" [(ngModel)]="odr.sendAddress">
+        <input matInput class="input addr" [(ngModel)]="odr.sendAddress" [disabled]="isDisable">
       </mat-form-field>
       <p class="errorMsg" *ngIf="isSendAddress">地址欄位不可空白</p>
     </div>
@@ -99,20 +99,20 @@
   <div class="promoCode">
     <mat-form-field class="formContext">
       <mat-label>電子發票</mat-label>
-      <mat-select [(ngModel)]="odr.vehicleType">
+      <mat-select [(ngModel)]="odr.vehicleType" [disabled]="isDisable">
         <mat-option *ngFor="let v of vehicleOpt" [value]="v.viewValue">{{v.viewValue}} </mat-option>
       </mat-select>
     </mat-form-field>
     <p class="errorMsg" *ngIf="isVehicleType">請選擇發票方式</p>
-    <mat-form-field class="example-full-width formContext" *ngIf="odr.vehicleType != '捐贈發票' && odr.vehicleType !=''" >
+    <mat-form-field class="example-full-width formContext" *ngIf="odr.vehicleType != '捐贈發票' && odr.vehicleType !=''"  >
       <mat-label>載具</mat-label>
-      <input matInput class="input" name="account" [(ngModel)]="odr.vehicle">
+      <input matInput class="input" name="account" [(ngModel)]="odr.vehicle" [disabled]="isDisable">
     </mat-form-field>
     <p class="errorMsg" *ngIf="isVehicle && odr.vehicleType !='捐贈發票' && !isVehicleType">請填寫載具</p>
 
     <mat-form-field class="formContext" *ngIf="odr.vehicleType == '捐贈發票'">
       <mat-label>捐贈單位</mat-label>
-      <mat-select [(ngModel)]="odr.vehicle">
+      <mat-select [(ngModel)]="odr.vehicle" [disabled]="isDisable">
         <mat-option *ngFor="let d of donateOpt" [value]="d.viewValue">{{d.viewValue}} </mat-option>
       </mat-select>
     </mat-form-field>
@@ -121,9 +121,11 @@
   <div class="subtotal cf" *ngIf="!ishidden">
     <ul>
       <li class="totalRow" style="margin-top: 100px;">
-        <button class="btn continue" *ngIf="!isPayPal" (click)="checkOut()">結帳</button>
-        <!-- <button class="btn continue" (click)="checkOut()">PAY Stripe</button> -->
-        <ngx-paypal [config]="payPalConfig"></ngx-paypal></li>
+        <button class="btn continue" *ngIf="!isPayPal && !isStripe" (click)="checkOut()">結帳</button>
+        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+        <button (click)="StripePay()" *ngIf="isStripe" class="stripe"><img src="/assets/img/Stripe.jpg"></button>
+      </li>
+
     </ul>
   </div>
 </div>

@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { PaymentComponent } from '../payment/payment.component';
+import { MessageComponent } from '../message/message.component';
 
 
 @Component({
@@ -43,8 +44,7 @@ export class OrderlistComponent implements OnInit {
       this.loginData = JSON.parse(localStorage.getItem('loginData')) ;
       this.jolService.loginData = this.loginData;
     }
-    console.log("Back to orderNo", localStorage.getItem('isToPay') )
-    if(localStorage.getItem('isToPay') != null ){
+    if(localStorage.getItem('isToPay') != null && localStorage.getItem('isToPay') != "undefined" ){
       this.jolService.updateOrderStatus({orderNo:Number(localStorage.getItem('isToPay')), status:"已付款"});
       localStorage.removeItem('isToPay');
       this.jolService.orderUpdate.subscribe((status) => {
@@ -65,7 +65,6 @@ export class OrderlistComponent implements OnInit {
         .getData(environment.JOLSERVER, request)
         .subscribe((res) => {
           this.blockUI.stop();
-          console.log('order',res.orderList)
           if(res.orderList.length > 0){
             this.orderList = res.orderList;
             this.dataSource =new MatTableDataSource<any>(this.orderList);
@@ -77,6 +76,20 @@ export class OrderlistComponent implements OnInit {
     } else {
       this.router.navigate(['/login'], { skipLocationChange: true });
     }
+  }
+
+  cancelOrder(orderNo:any){
+    const dialogRef = this.dialog.open(MessageComponent, { data: { msg: '您確定要取消訂單?', isConfirm: true } });
+    dialogRef.afterClosed().subscribe(isConfirm => {
+      if (isConfirm) {
+        this.jolService.updateOrderStatus({orderNo:orderNo, status:"已取消"});
+      }
+      this.jolService.orderUpdate.subscribe((status) => {
+        if(status == 'finish'){
+          this.getOrderData();
+        }
+      });
+    });
   }
 
   repay( order:any){

@@ -15,7 +15,7 @@
         <div (click)="changeIcon()"><button class="wishBtn"><i [class]="heartClass"></i></button></div>
           <ul class="header">
             <li>{{ prod.name }}</li>
-            <li>NT${{ prod.price }}</li>
+            <li>NT${{ prod.price | number }}</li>
           </ul>
           <ul class="sizeWrapper" *ngFor="let s of sizeList">
             <li class="size" (click)="chooseSize(s)" [class.selected]="size === s">

@@ -25,10 +25,13 @@ export class OrderComponent implements OnInit {
   isUpdate: boolean = false;
   isSame: boolean = false;
   isPayPal: boolean = false;
+  isStripe :boolean = false;
+  isDisable:boolean = false;
   districtList: any = [];
   addressList: any = [];
   itemList: any = [];
   custData: any;
+  orderNo:any ="";
   payPalConfig?: IPayPalConfig;
   odr: any = {
     email: "",
@@ -134,6 +137,7 @@ export class OrderComponent implements OnInit {
       this.jolService.getData(environment.JOLSERVER, request).subscribe((rs) => {
         if (rs.code == 200) {
           if (rs.orderList.length > 0) {
+            this.orderNo = rs.orderList[0].orderNo
             this.cartList.forEach((cart: any, index: any) => {
               const detailBody = {
                 orderNo: rs.orderList[0].orderNo,
@@ -141,6 +145,7 @@ export class OrderComponent implements OnInit {
                 qty: cart.qty,
                 price: cart.price,
                 status: '準備中',
+                size:cart.size
               };
               let request = new Request(
                 'JOLOrderDetailInfo',
@@ -152,19 +157,17 @@ export class OrderComponent implements OnInit {
               this.jolService
                 .getData(environment.JOLSERVER, request)
                 .subscribe((res) => {
-                  if (res.code == 200) {
-                    var isEnd = index == this.cartList.length - 1 ? true : false;
-                    // this.deleteCart(cart.cartId, isEnd);
-                  }
                 });
             });
             // 支付工具
             if (this.odr.payBy == 'Paypal') {
               this.isPayPal = true;
+              this.isDisable = true;
               this.Paypal(rs.orderList[0].orderNo);
             }
             if (this.odr.payBy == 'Stripe Pay') {
-              this.StripePay(rs.orderList[0].orderNo);
+              this.isStripe = true;
+              this.isDisable = true;
             }
           }
         }
@@ -282,7 +285,7 @@ export class OrderComponent implements OnInit {
   Paypal(orderNo: any) {
     console.log("this.jolService.totAmt", String(this.jolService.totAmt))
     var total = 0
-    this.cartList.forEach((c: any) => {
+    this.cartList.forEach((c: any,index:any) => {
       total += c.qty * c.price;
       this.itemList.push({
         name: c.prodName,
@@ -293,6 +296,8 @@ export class OrderComponent implements OnInit {
           value: String(c.price),
         }
       })
+      var isEnd = index == this.cartList.length - 1 ? true : false;
+      this.deleteCart(c.cartId, isEnd);
     })
     this.payPalConfig = {
       currency: 'USD',
@@ -355,22 +360,27 @@ export class OrderComponent implements OnInit {
     };
   }
 
-  async StripePay(orderNo: any) {
+  async StripePay() {
     var prodName = "";
     this.cartList.forEach((c: any,index:any) => {
       prodName += c.prodName
       if(index != this.cartList.length -1){
         prodName +=  "、"
       }
+      var isEnd = index == this.cartList.length - 1 ? true : false;
+      this.deleteCart(c.cartId, isEnd);
     })
+
     const stripe = await this.stripePromise;
     let request = new StripeRequest(Math.round(this.jolService.totAmt * 100) , prodName , 'hkd', "http://localhost:4200/orderlist", "http://localhost:4200", 1);
+    console.log('StripePay req', request)
     this.blockUI.start('讀取中');
     this.jolService
       .getPaymentData(environment.STRIPE, request)
       .subscribe((res) => {
         this.blockUI.stop();
-        localStorage.setItem('isToPay', orderNo);
+        localStorage.setItem('isToPay', this.orderNo);
+        console.log('isToPay',this.orderNo )
         stripe.redirectToCheckout({
           sessionId: res.id,
         });

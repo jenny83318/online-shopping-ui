@@ -27,7 +27,7 @@ export class OrderdetailComponent implements OnInit {
   orderData:any;
   detailList:any =[];
   panelOpenState = false;
-  displayedColumns: string[] = ['prodId','img','prodName', 'qty', 'price','subTotal' ,'status'];
+  displayedColumns: string[] = ['prodId','img','prodName','size', 'qty', 'price','subTotal' ,'status'];
   dataSource:any;
   cityData:any = [];
   districtList:any =[];
