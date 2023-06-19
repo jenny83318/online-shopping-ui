@@ -2,11 +2,31 @@
   <div class="container">
     <div class="wrapper">
       <a class="homelink" (click)="toHome()">
-        <img src="assets/img/JOLBoutique-logo.png" style="width: 200px" />
+        <img src="assets/img/JOLBoutique-logo.png" class="logo" />
       </a>
-      <button class="navbar-toggle" type="button" (click)="setNavbarOpen()">
+      <div class="btnWrapper">
+      <button class="navbar-toggle" style="padding:0 0; margin-right: 15px;" (click)="toCartItem()">
+        <img src="assets/img/cartIcon.png" style="width: 28px; height:29px" />
+        <span class="cartCount" *ngIf="cartCount > 0">{{cartCount}}</span>
+      </button>
+      <button *ngIf="isLogin" class="navbar-toggle" style="padding:0 0;margin-right: 15px;"  mat-button [matMenuTriggerFor]="menu2">
+        <i class="far fa-user" style="font-size: 1.7rem; color: black;"></i>
+      </button>
+      <button *ngIf="!isLogin" class="navbar-toggle" style="padding:0 0;margin-right: 15px;" (click)="checkLogin()">
+        <i class="far fa-user" style="font-size: 1.7rem; color: black;"></i>
+      </button>
+      <mat-menu #menu2="matMenu">
+        <button mat-menu-item class="menuItem"(click)="toMember()">會員管理</button> <hr />
+        <button mat-menu-item class="menuItem" (click)="toOrderList()">訂單管理</button>  <hr />
+        <button mat-menu-item class="menuItem" (click)="logOut()">登出</button>
+      </mat-menu>
+      <button class="navbar-toggle"  style="padding:0 0; margin-right: 15px;" type="button" (click)="toWishItem()">
+        <i class="far fa-heart" style="font-size: 1.8rem; color: black"></i>
+      </button>
+      <button class="navbar-toggle" style="padding:0 0;" type="button" (click)="setNavbarOpen()">
         <i class="fas fa-bars"></i>
       </button>
+    </div>
     </div>
     <div class="lg:flex flex-grow items-center" [ngClass]="{ hidden: !navbarOpen, block: navbarOpen }" id="example-navbar-warning">
       <ul>
@@ -33,36 +53,34 @@
             <img src="assets/img/search.png" style="width: 35px; height:33px;margin-right: 5px" />
           </button>
         </li>
-        <li class="flex items-center liIcon" (click)="toCartItem()">
+        <li class="flex items-center liIcon iconHidden" (click)="toCartItem()">
           <button class="cart-icon" style="padding-right: 20px;">
             <img src="assets/img/cartIcon.png" style="width: 28px; height:29px" />
-            <span class="cart-count" *ngIf="cartCount > 0">{{
-              cartCount
-              }}</span>
+            <span class="cart-count" *ngIf="cartCount > 0">{{cartCount}}</span>
           </button>
           <button class="lg:hidden inline-block">購物清單</button>
         </li>
-        <li class="flex items-center liIcon" *ngIf="!isLogin" (click)="toLogIn()">
+        <li class="flex items-center liIcon iconHidden" *ngIf="!isLogin" (click)="toLogIn()">
           <button class="" style="padding-right: 15px;">
             <i class="far fa-user" style="font-size: 1.7rem; color: black;"></i>
           </button>
           <button class="lg:hidden inline-block ml-2">登入會員</button>
         </li>
-        <li class="flex items-center liIcon" *ngIf="isLogin" mat-button [matMenuTriggerFor]="menu">
+        <li class="flex items-center liIcon iconHidden" *ngIf="isLogin" mat-button [matMenuTriggerFor]="menu">
           <button class="" style="padding-right: 15px;"><i class="far fa-user" style="font-size: 1.7rem; color: black;"></i></button>
           <button class="lg:hidden inline-block ml-2">{{ logInData.account }} </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item class="menuItem">會員管理</button> <hr />
+            <button mat-menu-item class="menuItem" (click)="toMember()">會員管理</button> <hr />
             <button mat-menu-item class="menuItem" (click)="toOrderList()">訂單管理</button>  <hr />
             <button mat-menu-item class="menuItem" (click)="logOut()">登出</button>
           </mat-menu>
         </li>
-        <li class="flex items-center liIcon" (click)="toWishItem()">
+        <li class="flex items-center liIcon iconHidden" style="margin-left: -2px;" (click)="toWishItem()">
           <button class="cart-icon" style="padding-right: 10px;">
             <i class="far fa-heart" style="font-size: 1.8rem; color: black"></i>
             <!-- <span class="wish-count" *ngIf="wishCount > 0">{{ wishCount }}</span> -->
           </button>
-          <button class="lg:hidden inline-block ml-2">願望清單</button>
+          <button class="lg:hidden inline-block ml-2">收藏清單</button>
         </li>
       </ul>
     </div>

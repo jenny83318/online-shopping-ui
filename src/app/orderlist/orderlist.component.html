@@ -4,7 +4,9 @@
   <div class="cart">
     <div class="heading cf">
       <h1>訂單查詢</h1>
+      <div class="btnWrapper">
       <button class="continue" (click)="toProductList()">繼續購物</button>
+    </div>
     </div>
     <div class="mat-elevation-z8" *ngIf="!ishidden">
       <table mat-table [dataSource]="dataSource">

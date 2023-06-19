@@ -1,0 +1,62 @@
+<block-ui [template]="block"></block-ui>
+<app-header></app-header>
+<div class="wrap cf">
+  <div class="cart">
+    <div class="heading cf">
+      <h3 class="title">會員資料</h3>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width formContext" style="margin-top: 10px;">
+        <mat-label>姓名</mat-label>
+        <input matInput class="input" name="account" [(ngModel)]="odr.name" [disabled]="isDisable">
+      </mat-form-field>
+      <p class="errorMsg" *ngIf="isName">姓名欄位不可空白</p>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width formContext">
+        <mat-label>手機</mat-label>
+        <input matInput class="input" [(ngModel)]="odr.phone" [disabled]="isDisable">
+      </mat-form-field>
+      <p class="errorMsg" *ngIf="isPhone">手機欄位不可空白</p>
+    </div>
+    <div>
+      <mat-form-field class="formContext">
+        <mat-label>縣市</mat-label>
+        <mat-select [(ngModel)]="odr.city" (selectionChange)="changeCity()" [disabled]="isDisable">
+          <mat-option *ngFor="let a of addressList" [value]="a.code"> {{a.name}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="formContext">
+        <mat-label>地區</mat-label>
+        <mat-select [(ngModel)]="odr.district" [disabled]="isDisable">
+          <mat-option *ngFor="let d of districtList" [value]="d.code"> {{d.code}} {{d.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <p class="errorMsg" *ngIf="isCity">請選擇縣市</p>
+      <p class="errorMsg" *ngIf="isDistrict">請選擇地區</p>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width addr">
+        <mat-label>地址</mat-label>
+        <input matInput class="input" [(ngModel)]="odr.address" [disabled]="isDisable">
+      </mat-form-field>
+      <p class="errorMsg" *ngIf="isAddress">地址欄位不可空白</p>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width addr">
+        <mat-label>email</mat-label>
+        <input matInput class="input" [(ngModel)]="odr.email" [disabled]="isDisable">
+      </mat-form-field>
+      <p class="errorMsg email" *ngIf="isEmail">email欄位不可空白</p>
+    </div>
+  </div>
+  <div class="subtotal cf" *ngIf="!ishidden">
+    <ul>
+      <li class="totalRow" style="margin-top: 100px;">
+        <button class="btn continue" (click)="updateCustData()">修改會員資料</button>
+      </li>
+
+    </ul>
+  </div>
+</div>
+<app-footer></app-footer>

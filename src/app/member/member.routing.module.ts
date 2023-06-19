@@ -1,9 +1,9 @@
-import {OrderComponent } from './order.component';
+import { MemberComponent } from './member.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', component: OrderComponent }
+  { path: '', component: MemberComponent }
 ];
 
 @NgModule({
@@ -12,4 +12,4 @@ const routes: Routes = [
 
   exports: [RouterModule]
 })
-export class OrderRoutingModule { }
+export class LoginRoutingModule { }

@@ -11,15 +11,6 @@
   align-items: center;
 }
 
-.banner {
-  position: absolute;
-  top: 0;
-  bottom: auto;
-  right: 0;
-  padding-top: 4rem;
-  width: 100%;
-  height: auto;
-}
 
 .section {
   margin-top: -4rem;
@@ -81,6 +72,15 @@
 @media (min-width: 1024px) {
   .imgWrapper {
     width: 25%;
+  }
+  .imgWrapper3 {
+    width: 33%;
+  }
+  .imgWrapper2 {
+    width: 50%;
+  }
+  .imgWrapper1 {
+    width: 100%;
   }
   .imgDiv {
     margin-top: 66%;

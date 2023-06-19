@@ -46,7 +46,7 @@ img {
 
 
 .wrap {
-  width: 85%;
+  width: 60%;
   max-width: 1300px;
   margin: 0 auto;
   padding: 5% 0;
@@ -57,17 +57,13 @@ img {
 
 // CART HEADER
 .heading {
-  padding: 1em 0;
+  padding: 0.5em 0;
   border-bottom: 1px solid #D0D0D0;
 
   h1 {
     font-family: $fontSerif;
     font-size: 2em;
     float: left;
-  }
-
-  .btnWrapper {
-    margin-left: 85%;
   }
 
   button.continue {
@@ -82,7 +78,6 @@ img {
     border-radius: 50px;
     float: right;
     text-align: right;
-    float: right;
     @include transition(all, .25s, linear);
 
     &:after {
@@ -95,7 +90,6 @@ img {
     }
 
     &:hover,
-    &:focus,
     &:active {
       background: #f69679;
 
@@ -133,7 +127,7 @@ img {
   .items {
     display: block;
     width: 100%;
-    padding: 1.5em;
+    padding: 0.5em;
 
     border-bottom: 1px solid #fafafa;
 
@@ -259,7 +253,7 @@ img {
 .promoCode {
   border: 2px solid #efefef;
   float: left;
-  width: 35%;
+  width: 250px;
   padding: 2%;
 
   label {
@@ -278,7 +272,6 @@ img {
     font-size: 1em;
     padding: .5em;
     float: left;
-    border: 1px solid #dadada;
 
     &:active,
     &:focus {
@@ -287,7 +280,7 @@ img {
     }
   }
 
-  a.btn {
+  button.btn {
     float: left;
     width: 15%;
     padding: .75em 0;
@@ -303,22 +296,18 @@ img {
 }
 
 .btn {
-
-  &:link,
-  &:visited {
-    text-decoration: none;
-    font-family: $fontSans;
-    letter-spacing: -.015em;
-    font-size: 1em;
-    padding: 1em 3em;
-    color: #fff;
-    background: #82ca9c;
-    font-weight: bold;
-    border-radius: 50px;
-    float: right;
-    text-align: right;
-    @include transition(all, .25s, linear);
-  }
+  text-decoration: none;
+  font-family: $fontSans;
+  letter-spacing: -.015em;
+  font-size: 1em;
+  padding: 1em 3em;
+  color: #fff;
+  background: #82ca9c;
+  font-weight: bold;
+  border-radius: 50px;
+  float: right;
+  text-align: right;
+  @include transition(all, .25s, linear);
 
   &:after {
     content: "\276f";
@@ -330,7 +319,6 @@ img {
   }
 
   &:hover,
-  &:focus,
   &:active {
     background: #f69679;
 
@@ -350,7 +338,7 @@ img {
   width: 35%;
 
   .totalRow {
-    padding: .5em;
+    // padding: .5em;
     text-align: right;
 
     &.final {
@@ -388,11 +376,12 @@ img {
   }
 
   .heading {
-    padding: 1em;
     font-size: 90%;
   }
 
   .cart {
+    margin-left: 20px;
+
     .items {
 
       .cartSection {
@@ -427,12 +416,16 @@ img {
     }
   }
 
-  .promoCode,
+  .promoCode {
+    width: 250px;
+    margin-left: 20px;
+  }
+
   .subtotal {
     width: 100%;
   }
 
-  a.btn.continue {
+  button.btn.continue {
     width: 100%;
     text-align: center;
   }
@@ -488,25 +481,44 @@ button:focus {
   outline: none;
 }
 
-table {
-  width: 100%;
+.title {
+  font-size: 25px;
+  color: #904507;
+  margin-right: 50px;
 }
 
-.mat-row:nth-child(even) {
-  background-color: #fdf3e5;
-  /* 灰色背景 */
+.addr {
+  width: 500px !important;
+  font-size: 16px;
 }
 
-.mat-row:nth-child(odd) {
-  background-color: #fff;
-  /* 白色背景 */
+.titleContainer {
+  display: flex;
 }
 
-.detailBtn {
-  border: 1px solid #7e7a7a;
-  ;
-  color: #7e7a7a;
-  ;
-  border-radius: 3px;
-  padding: 3px;
+.formContext {
+  font-size: 16px;
+}
+
+.errorMsg {
+  font-weight: bolder;
+  color: red;
+}
+
+.email {
+  margin-bottom: 30px;
+}
+
+.stripe {
+  width: 180px;
+  outline: none;
+  border-radius: 10px;
+
+  img {
+    border-radius: 7px;
+  }
+
+  img:hover {
+    opacity: 0.7;
+  }
 }

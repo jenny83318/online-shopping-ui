@@ -3,16 +3,12 @@
 <div class="wrap cf">
   <div class="cart">
     <div class="heading cf">
-      <h1>Shopping Cart</h1>
-      <a href="#" class="continue">繼續購物</a>
+      <h1>購物車</h1>
+      <button class="continue" (click)="toProductList()">繼續購物</button>
     </div>
     <ul class="cartWrap">
       <li class="items" *ngFor="let c of cartList; let i = index" [ngClass]="i % 2 == 0 ? 'even' : 'odd'">
         <div class="infoWrap">
-          <!-- <div>
-            <mat-checkbox class="example-margin" [(ngModel)]="c.isCheck">
-            </mat-checkbox>
-          </div> -->
           <div class="cartSection">
             <img class="img itemImg" [src]="c.img[0]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
               (load)="onLoadImg(i)" />
@@ -73,9 +69,9 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <label for="promo">折扣碼
+    <!-- <label for="promo">折扣碼
     </label><input type="text" name="promo" placholder="請輸入折扣碼" />
-    <a href="" class="btn"></a>
+    <button href="" class="btn"></button> -->
   </div>
   <div class="subtotal cf" *ngIf="!ishidden">
     <ul>

@@ -108,6 +108,10 @@ export class WishitemComponent implements OnInit {
     })
   }
 
+  toProductList() {
+    this.jolService.getProductData("OTHER", { selectType: "series", keyWord: "new" });
+  }
+  
   countSum(){
     this.sum = 0;
     this.wishList.forEach((wish: any) => {

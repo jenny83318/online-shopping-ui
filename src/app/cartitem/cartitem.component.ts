@@ -19,17 +19,17 @@ export class CartitemComponent implements OnInit {
   payment: any;
   delivery: any;
   deliverFee: number = 0;
-  cartList: any;
+  cartList: any = [];
   sum: number = 0;
   ishidden: boolean = false;
   deliveryOpt: any = [
-    {viewValue: '宅配', fee: 80 },
-    {viewValue: '7-11超商取貨', fee:60 },
-    {viewValue: '自取', fee:0 },
+    { viewValue: '宅配', fee: 80 },
+    { viewValue: '7-11超商取貨', fee: 60 },
+    { viewValue: '自取', fee: 0 },
   ];
   paymentOpt: any = [
-    {viewValue: 'Paypal' },
-    {viewValue: 'Stripe Pay' },
+    { viewValue: 'Paypal' },
+    { viewValue: 'Stripe Pay' },
   ];
   constructor(private jolService: JolService, private router: Router, private dialog: MatDialog) { }
 
@@ -40,7 +40,7 @@ export class CartitemComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-   this.updateCartItem();
+    this.updateCartItem();
   }
 
   getCartData() {
@@ -94,9 +94,9 @@ export class CartitemComponent implements OnInit {
   }
 
   updateCartItem() {
-    this.cartList.forEach((cart:any) => {
+    this.cartList.forEach((cart: any) => {
       const body = {
-        cartId:cart.cartId,
+        cartId: cart.cartId,
         prodId: cart.prodId,
         qty: cart.qty,
         size: cart.size,
@@ -123,6 +123,10 @@ export class CartitemComponent implements OnInit {
     }
   }
 
+  toProductList() {
+    this.jolService.getProductData("OTHER", { selectType: "series", keyWord: "new" });
+  }
+  
   changeQty(isPlus: boolean, cartId: any) {
     this.cartList.forEach((cart: any) => {
       if (cart.cartId == cartId) {
@@ -133,7 +137,7 @@ export class CartitemComponent implements OnInit {
   }
 
   changeDelivery() {
-    this.deliverFee = this.deliveryOpt.filter((d:any)=> d.viewValue == this.delivery)[0].fee;
+    this.deliverFee = this.deliveryOpt.filter((d: any) => d.viewValue == this.delivery)[0].fee;
   }
 
   countSum() {

@@ -72,6 +72,8 @@ export class HeaderComponent implements OnInit {
             });
           } else if(res.code == 777) {
             this.logOut();
+          } else{
+            this.toLogIn();
           }
         });
     }
@@ -143,5 +145,8 @@ export class HeaderComponent implements OnInit {
   }
   toProductList(selectType:any, keyWord:any ){
     this.jolService.getProductData("OTHER",{selectType: selectType, keyWord:keyWord});
+  }
+  toMember(){
+    this.router.navigate(['/member'], { skipLocationChange: true });
   }
 }

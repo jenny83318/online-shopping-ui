@@ -6,12 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>訂單確認通知信</title>
 </head>
-
-<body style=" padding: 10px;">
-  <div style="text-align: center;"><img style="width: 40%; display: inline-block;" src="/src/assets/img/JOLBoutique-logo.png"></div>
+<body style=" padding: 10px; max-width: 500px;">
+  <div style="text-align: center;"><img style="width: 100px; display: inline-block;" src="/src/assets/img/JOLBoutique-logo.png"></div>
     <p>
-        感謝您訂購JOL Boutique的商品，您的訂單編號為#OrderNo，目前狀態為#Status，<br>
-        我們將再確認訂單後盡快為您出貨。以下是您訂購的資料:
+        感謝您訂購JOL Boutique的商品，我們將再確認訂單後盡快為您出貨。<br>
+        以下是您訂購的資料:
     </p>
     <table style='padding-left: 10px; width: 360px;'>
         <tr>
@@ -30,6 +29,10 @@
             <td>訂單日期: &nbsp;</td>
             <td>#OrderDate</td>
         </tr>
+        <tr>
+          <td>訂單運費:</td>
+          <td>$ #DeliveryFee</td>
+      </tr>
         <tr>
             <td>訂單金額:</td>
             <td>$ #OrderAmt</td>

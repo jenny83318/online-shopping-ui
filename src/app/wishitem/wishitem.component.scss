@@ -86,23 +86,21 @@ img {
     float: left;
   }
 
-  a.continue {
+  button.continue {
 
-    &:link,
-    &:visited {
-      text-decoration: none;
-      font-family: $fontSans;
-      letter-spacing: -.015em;
-      font-size: .75em;
-      padding: 1em;
-      color: #fff;
-      background: #82ca9c;
-      font-weight: bold;
-      border-radius: 50px;
-      float: right;
-      text-align: right;
-      @include transition(all, .25s, linear);
-    }
+    text-decoration: none;
+    font-family: $fontSans;
+    letter-spacing: -.015em;
+    font-size: .75em;
+    padding: 1em;
+    color: #fff;
+    background: #82ca9c;
+    font-weight: bold;
+    border-radius: 50px;
+    float: right;
+    text-align: right;
+    @include transition(all, .25s, linear);
+
 
     &:after {
       content: "\276f";
@@ -454,7 +452,7 @@ img {
     width: 100%;
   }
 
-  a.btn.continue {
+  button.btn.continue {
     width: 100%;
     text-align: center;
   }
