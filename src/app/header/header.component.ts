@@ -1,11 +1,10 @@
-import { Component, OnInit, HostListener, Input } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { JolService } from '../service/JolService.service';
 import { environment } from 'src/environments/environment';
 import { Request } from '../model/Request';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageComponent } from '../message/message.component';
-import { SearchComponent } from '../search/search.component';
 
 @Component({
   selector: 'app-header',
@@ -14,12 +13,26 @@ import { SearchComponent } from '../search/search.component';
 })
 export class HeaderComponent implements OnInit {
   navbarOpen = false;
-  title: any = '最新商品';
+  title: any = {
+    all: '全部商品',
+    new: '最新商品',
+    sales: '熱銷商品',
+    sport: '運動系列',
+  };
   logInData: any;
   isLogin: boolean = false;
   cartCount: number = 0;
-  wishCount:number = 0;
-  keyWord:any;
+  wishCount: number = 0;
+  keyWord: any;
+  isChange: boolean = false;
+  changeType: string = '';
+  header: any = {
+    all: { title: '全部商品', change: 'SHOP ALL' },
+    new: { title: '最新商品', change: 'NEW ARRIVAL' },
+    sales: { title: '熱銷商品', change: 'RESOTCK' },
+    sport: { title: '運動系列', change: 'sportswear' },
+  };
+
   constructor(
     private dialog: MatDialog,
     private router: Router,
@@ -47,10 +60,10 @@ export class HeaderComponent implements OnInit {
   checkLogin() {
     if (localStorage.getItem('loginData') != null) {
       this.logInData = JSON.parse(localStorage.getItem('loginData'));
-      console.log(' this.logInData', this.logInData)
+      console.log(' this.logInData', this.logInData);
       const body = {
         password: this.logInData.password,
-        token: this.logInData.token
+        token: this.logInData.token,
       };
       let request = new Request('LogIn', this.logInData.account, '', body);
       console.log('request', request);
@@ -70,9 +83,9 @@ export class HeaderComponent implements OnInit {
             this.jolService.wishChange.subscribe((count) => {
               this.wishCount = count;
             });
-          } else if(res.code == 777) {
+          } else if (res.code == 777) {
             this.logOut();
-          } else{
+          } else {
             this.toLogIn();
           }
         });
@@ -89,7 +102,12 @@ export class HeaderComponent implements OnInit {
         password: this.logInData.password,
         token: this.logInData.token,
       };
-      let request = new Request( 'LogIn', this.jolService.loginData.account, 'CLEAN', body);
+      let request = new Request(
+        'LogIn',
+        this.jolService.loginData.account,
+        'CLEAN',
+        body
+      );
       console.log('request', request);
       this.jolService
         .getData(environment.JOLSERVER, request)
@@ -113,17 +131,36 @@ export class HeaderComponent implements OnInit {
     let request = new Request('JOLCartInfo', this.logInData.account, 'ALL', {});
     console.log('request', request);
     this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
-      this.jolService.cartNum = res.cartList.filter((c:any)=>c.cart == true).length;
-      this.jolService.wishNum = res.cartList.filter((c:any)=>c.cart == false).length;
+      this.jolService.cartNum = res.cartList.filter(
+        (c: any) => c.cart == true
+      ).length;
+      this.jolService.wishNum = res.cartList.filter(
+        (c: any) => c.cart == false
+      ).length;
       this.cartCount = this.jolService.cartNum;
       this.wishCount = this.jolService.wishNum;
     });
   }
   search() {
-    if(this.keyWord == undefined || this.keyWord.trim() == ""){
-      this.dialog.open(MessageComponent, { data: { msg: '請輸入要搜尋的內容' } });
-    }else{
-      this.jolService.getProductData("OTHER", {selectType:"keyWord", keyWord: this.keyWord})
+    if (this.keyWord == undefined || this.keyWord.trim() == '') {
+      this.dialog.open(MessageComponent, {
+        data: { msg: '請輸入要搜尋的內容' },
+      });
+    } else {
+      this.jolService.getProductData('OTHER', {
+        selectType: 'keyWord',
+        keyWord: this.keyWord,
+      });
+    }
+  }
+  changeName(type: any, isChange: boolean) {
+    this.changeType = type;
+    this.isChange = isChange;
+    var header = this.header[type];
+    if (isChange) {
+      this.title[type] = header.change;
+    } else {
+      this.title[type] = header.title;
     }
   }
 
@@ -137,16 +174,19 @@ export class HeaderComponent implements OnInit {
   toCartItem() {
     this.router.navigate(['/cartitem'], { skipLocationChange: true });
   }
-  toWishItem(){
+  toWishItem() {
     this.router.navigate(['/wishitem'], { skipLocationChange: true });
   }
-  toOrderList(){
+  toOrderList() {
     this.router.navigate(['/orderlist'], { skipLocationChange: true });
   }
-  toProductList(selectType:any, keyWord:any ){
-    this.jolService.getProductData("OTHER",{selectType: selectType, keyWord:keyWord});
+  toProductList(selectType: any, keyWord: any) {
+    this.jolService.getProductData('OTHER', {
+      selectType: selectType,
+      keyWord: keyWord,
+    });
   }
-  toMember(){
+  toMember() {
     this.router.navigate(['/member'], { skipLocationChange: true });
   }
 }

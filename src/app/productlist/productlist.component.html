@@ -3,7 +3,7 @@
 <div>ProductList</div>
 <section class="header">
   <section class="section">
-      <div class="flex flex-wrap" style="margin-top:85px">
+    <div class="flex flex-wrap" style="margin-top:85px">
         <div class="imgWrapper"  *ngFor="let prod of prodList">
           <app-card [prod]="prod" [isHover]="isHover" (messageEvent)="loadImageFinish($event)"></app-card>
         </div>

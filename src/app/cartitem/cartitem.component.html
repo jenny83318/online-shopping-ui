@@ -38,8 +38,7 @@
           </div>
           <div class="prodTotal cartSection">
             <p>NT. {{ c.qty * c.price | number }}</p>
-            <button class="remove" (click)="deleteCartItem(c.cartId)"><i class="fa fa-trash-alt"
-                style="font-size: 20px;"></i></button>
+            <button class="remove" (click)="deleteCartItem(c.cartId)">刪除</button>
           </div>
         </div>
       </li>

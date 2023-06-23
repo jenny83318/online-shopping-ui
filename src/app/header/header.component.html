@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg">
   <div class="container">
     <div class="wrapper">
-      <button class="homelink" (click)="toHome()">
-        <img src="assets/img/JOLBoutique-logo.png" class="logo" />
+      <button class="homelink" >
+        <img src="assets/img/JOLBoutique-logo.png" class="logo" (click)="toHome()" />
       </button>
       <div class="btnWrapper">
       <button class="navbar-toggle" style="padding:0 0; margin-right: 15px;" (click)="toCartItem()">
@@ -31,8 +31,8 @@
     <div class="lg:flex flex-grow items-center" [ngClass]="{ hidden: !navbarOpen, block: navbarOpen }" id="example-navbar-warning">
       <ul>
         <li class="flex items-center">
-          <button mat-button [matMenuTriggerFor]="menu1" class="customLink">
-            所有商品
+          <button mat-button [matMenuTriggerFor]="menu1" class="customLink" [ngClass]="isChange && changeType =='all'? 'engTitle':'' " (mouseover)="changeName('all', true)" (mouseleave)="changeName('all', false)">
+           {{title.all}}
           </button>
           <mat-menu #menu1="matMenu">
             <button mat-menu-item class="menuItem" (click)="toProductList('category', '1')">上身</button><hr />
@@ -42,15 +42,15 @@
           </mat-menu>
         </li>
       </ul>
-      <ul (click)="toProductList('series', 'new')"><li class="flex items-center"><button class="customLink">最新商品</button></li></ul>
-      <ul (click)="toProductList('series', 'sales')"><li class="flex items-center"><button class="customLink">熱銷商品</button></li></ul>
-      <ul (click)="toProductList('series', 'sport')"><li class="flex items-center"><button class="customLink">運動系列</button></li></ul>
+      <ul (click)="toProductList('series', 'new')"><li class="flex items-center"><button class="customLink" [ngClass]="isChange && changeType =='new'? 'engTitle':'' " (mouseover)="changeName('new', true)" (mouseleave)="changeName('new', false)">{{title.new}}</button></li></ul>
+      <ul (click)="toProductList('series', 'sales')"><li class="flex items-center"><button class="customLink" [ngClass]="isChange && changeType =='sales'? 'engTitle':'' " (mouseover)="changeName('sales', true)" (mouseleave)="changeName('sales', false)">{{title.sales}}</button></li></ul>
+      <ul (click)="toProductList('series', 'sport')"><li class="flex items-center"><button class="customLink" [ngClass]="isChange && changeType =='sport'? 'engTitle':'' " (mouseover)="changeName('sport', true)" (mouseleave)="changeName('sport', false)">{{title.sport}}</button></li></ul>
       <!-- <ul><li class="flex items-center customLink">Catwalk</li></ul> -->
       <ul class="rightUl rightUl-lg">
         <li class="flex items-center search liIcon">
           <input type="text" class="search-input" [(ngModel)]="keyWord" />
-          <button class="customLink" (click)="search()">
-            <img src="assets/img/search.png" style="width: 35px; height:33px;margin-right: 5px" />
+          <button (click)="search()">
+            <img src="assets/img/search.png" style="width: 35px; height:33px;margin-right: 14px;" />
           </button>
         </li>
         <li class="flex items-center liIcon iconHidden" (click)="toCartItem()">

@@ -133,7 +133,7 @@ img {
     border-bottom: 1px solid #fafafa;
 
     &.even {
-      background:#fffaf2
+      background:#f1f7f1;
     }
 
     .infoWrap {
@@ -473,4 +473,9 @@ img {
 
 button:focus {
   outline: none;
+}
+
+.remove{
+  border: 1px solid black;
+  padding: 5px;
 }
