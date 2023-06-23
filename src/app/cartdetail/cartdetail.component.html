@@ -1,4 +1,5 @@
 <section class="popCon">
+  <img src="/assets/img/JOLBoutique-logo.png" class="logo">
   <div class="popBox">
     尺寸:
     <ul class="sizeWrapper" *ngFor="let s of sizeList">
@@ -26,7 +27,7 @@
     </div>
     <p *ngIf="isShow" style="color:red">請選擇尺寸</p>
     <div class="BtnBox">
-      <button mat-button class="" (click)="close()">取消</button>
+      <button mat-button class="cancelBtn" (click)="close()">取消</button>
       <button mat-button class="" (click)="confirm()">確定</button>
     </div>
   </div>

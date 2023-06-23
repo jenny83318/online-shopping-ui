@@ -1,7 +1,11 @@
+.body{
+  font-family: 'Montserrat', sans-serif;
+}
 .popBox {
+  padding-top: 40px;
   position: relative;
   overflow: inherit;
-  padding: 0px;
+  font-size: 20px;
 
   ul {
     padding: 2px 1px 1px;
@@ -20,13 +24,13 @@
 }
 
 .wrapper {
+  font-size: 20px;
   display: flex;
 }
 
 .container {
   display: flex;
   border: 1px solid gray;
-  background: #ffffff;
   width: 190px;
   padding: 0.1rem;
   justify-content: space-between;
@@ -51,7 +55,7 @@ button:focus {
 .sizeli {
   font-size: 24px;
   padding: 10px;
-  font-family: Rubik;
+  
 }
 
 li.selected {
@@ -63,7 +67,6 @@ li.selected {
   width: 70px;
   display: -webkit-inline-box;
   margin-bottom: 10px;
-  font-family: Rubik;
 }
 
 .BtnBox {
@@ -71,6 +74,7 @@ li.selected {
   padding-top: 30px;
   width: 60%;
   margin-left: -20px;
+  display: flex;
 
   button {
     border: 1px solid black;
@@ -91,4 +95,18 @@ li.selected {
   button:focus {
     outline: none;
   }
+
+  .cancelBtn{
+    margin-right: 25px;
+  }
+ 
 }
+.logo{
+  padding-top: 40px;
+  width: 120px;
+  padding-bottom: 30px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+

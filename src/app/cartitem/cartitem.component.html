@@ -12,9 +12,9 @@
           <div class="cartSection">
             <img class="img itemImg" [src]="c.img[0]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
               (load)="onLoadImg(i)" />
-            <p class="itemNumber ">#QUE-007544-002</p>
+            <p class="itemNumber ">#QUE-{{padZeros(c.prodId,5)}}</p>
             <h3>{{ c.prodName }}</h3>
-            <p class="paragraph">尺寸: {{c.size}} &nbsp; &nbsp;</p>
+            <p class="paragraph">尺寸:&nbsp; {{c.size}} &nbsp; &nbsp;</p>
             <div class="qtyWrapper">
               <p class="paragraph">數量:</p>
               <div class="center container">
@@ -32,12 +32,12 @@
                   </button>
                 </div>
               </div>
-              <p class="paragraph"> X &nbsp; &nbsp; ${{c.price | number}}</p>
-              <p class="stockStatus paragraph">現貨</p>
+              <p class="paragraph">&nbsp; &nbsp;單價 NT. {{c.price | number}}</p>
+              <!-- <p class="stockStatus paragraph">現貨</p> -->
             </div>
           </div>
           <div class="prodTotal cartSection">
-            <p>${{ c.qty * c.price | number }}</p>
+            <p>NT. {{ c.qty * c.price | number }}</p>
             <button class="remove" (click)="deleteCartItem(c.cartId)"><i class="fa fa-trash-alt"
                 style="font-size: 20px;"></i></button>
           </div>

@@ -1,9 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic|Montserrat:400,700);
-$fontSans : 'Montserrat',
-sans-serif;
-$fontSerif : 'Droid Serif',
-serif;
-
+$fontSans: "Montserrat", sans-serif;
+$fontSerif: "Montserrat", sans-serif;
 
 @mixin transition($transition-property, $transition-time, $method) {
   -webkit-transition: $transition-property $transition-time $method;
@@ -17,13 +14,10 @@ serif;
   box-sizing: border-box;
 }
 
-
-
 body {
   color: #333;
   -webkit-font-smoothing: antialiased;
-  font-family: $fontSerif;
-
+  font-family: 'Montserrat', sans-serif;
 }
 
 img {
@@ -44,7 +38,6 @@ img {
   *zoom: 1;
 }
 
-
 .wrap {
   width: 85%;
   max-width: 1300px;
@@ -52,13 +45,12 @@ img {
   padding: 5% 0;
   margin-bottom: 5em;
   margin-top: 60px;
-
 }
 
 // CART HEADER
 .heading {
   padding: 0.7em 0;
-  border-bottom: 1px solid #D0D0D0;
+  border-bottom: 1px solid #d0d0d0;
   margin-top: 30px;
   margin-bottom: 20px;
   background-color: #e3eee7;
@@ -69,42 +61,43 @@ img {
     float: left;
   }
 
-  P{
+  P {
     margin: 5px 0 5px;
-    font-size: 15px;
+    font-weight: bolder;
+    font-size: 20px;
+    padding-left: 15px;
+    font-family: 'Montserrat', sans-serif;
   }
   button.continue {
-
+    font-weight: bolder;
+  font-size: 20px;
+  padding-left: 15px;
+  font-family: 'Montserrat', sans-serif;
     &:link,
     &:visited {
       text-decoration: none;
-      font-family: $fontSans;
-      letter-spacing: -.015em;
-      font-size: .75em;
+      letter-spacing: -0.015em;
+      font-size: 0.75em;
       padding: 1em;
       color: #fff;
-      background: #82ca9c;
       font-weight: bold;
       border-radius: 50px;
       float: right;
       text-align: right;
-      @include transition(all, .25s, linear);
+      @include transition(all, 0.25s, linear);
     }
 
     &:after {
       content: "\276f";
-      padding: .5em;
+      padding: 0.5em;
       position: relative;
       right: 0;
-      @include transition(all, .15s, linear);
-
+      @include transition(all, 0.15s, linear);
     }
 
     &:hover,
     &:focus,
     &:active {
-      background: #f69679;
-
       &:after {
         right: -10px;
       }
@@ -118,7 +111,7 @@ img {
   display: table;
   width: 100%;
   font-family: $fontSans;
-  font-size: .75em;
+  font-size: 0.75em;
 
   li {
     display: table-cell;
@@ -157,28 +150,24 @@ img {
 
       vertical-align: middle;
 
-
       .itemNumber {
-        font-size: .75em;
+        font-size: 0.75em;
         color: #777;
-        margin-bottom: .5em;
+        margin-bottom: 0.5em;
       }
 
       h3 {
-
         font-size: 1em;
         font-family: $fontSans;
         font-weight: bold;
         text-transform: uppercase;
-        letter-spacing: .025em;
-
-
+        letter-spacing: 0.025em;
       }
 
       p {
         display: inline-block;
-        font-size: .85em;
-        margin-right:20px ;
+        font-size: 0.85em;
+        margin-right: 20px;
 
         color: #777777;
         font-family: $fontSans;
@@ -189,17 +178,16 @@ img {
         }
 
         &.stockStatus {
-          color: #82CA9C;
+          color: #82ca9c;
           font-weight: bold;
           padding: 0em 0 0 1em;
           text-transform: uppercase;
           font-size: 15px;
 
           &.out {
-            color: #F69679;
+            color: #f69679;
           }
         }
-
       }
 
       .itemImg {
@@ -217,16 +205,14 @@ img {
           font-weight: bold;
           font-size: 1.25em;
         }
-
       }
 
       input.qty {
         width: 2em;
         text-align: center;
         font-size: 1em;
-        padding: .25em;
-        margin: 1em .5em 0 0;
-
+        padding: 0.25em;
+        margin: 1em 0.5em 0 0;
       }
 
       .itemImg {
@@ -234,11 +220,8 @@ img {
         display: inline;
         padding-right: 1em;
       }
-
-
     }
   }
-
 }
 
 .special {
@@ -248,7 +231,7 @@ img {
   .specialContent {
     padding: 1em 1em 0;
     display: block;
-    margin-top: .5em;
+    margin-top: 0.5em;
     border-top: 1px solid #dadada;
 
     &:before {
@@ -256,10 +239,9 @@ img {
       font-size: 1.5em;
       margin-right: 1em;
       color: #6f6f6f;
-      font-family: helvetica, arial, sans-serif;
+      font-family: 'Montserrat', sans-serif;
     }
   }
-
 }
 
 .promoCode {
@@ -274,29 +256,27 @@ img {
     font-style: italic;
     font-size: 1.15em;
 
-    margin-bottom: .5em;
-    letter-spacing: -.025em;
-
+    margin-bottom: 0.5em;
+    letter-spacing: -0.025em;
   }
 
   input {
     width: 85%;
     font-size: 1em;
-    padding: .5em;
+    padding: 0.5em;
     float: left;
     border: 1px solid #dadada;
 
     &:active,
     &:focus {
       outline: 0;
-
     }
   }
 
   a.btn {
     float: left;
     width: 15%;
-    padding: .75em 0;
+    padding: 0.75em 0;
     border-radius: 0 1em 1em 0;
     text-align: center;
     border: 1px solid #82ca9c;
@@ -309,12 +289,11 @@ img {
 }
 
 .btn {
-
   &:link,
   &:visited {
     text-decoration: none;
     font-family: $fontSans;
-    letter-spacing: -.015em;
+    letter-spacing: -0.015em;
     font-size: 1em;
     padding: 1em 3em;
     color: #fff;
@@ -323,16 +302,15 @@ img {
     border-radius: 50px;
     float: right;
     text-align: right;
-    @include transition(all, .25s, linear);
+    @include transition(all, 0.25s, linear);
   }
 
   &:after {
     content: "\276f";
-    padding: .5em;
+    padding: 0.5em;
     position: relative;
     right: 0;
-    @include transition(all, .15s, linear);
-
+    @include transition(all, 0.15s, linear);
   }
 
   &:hover,
@@ -346,7 +324,7 @@ img {
   }
 
   .promoCode & {
-    font-size: .85em;
+    font-size: 0.85em;
   }
 }
 
@@ -356,7 +334,7 @@ img {
   width: 35%;
 
   .totalRow {
-    padding: .5em;
+    padding: 0.5em;
     text-align: right;
 
     &.final {
@@ -368,26 +346,23 @@ img {
       display: inline-block;
       padding: 0 0 0 1em;
       text-align: right;
-
     }
 
     .label {
       font-family: $fontSans;
-      font-size: .85em;
+      font-size: 0.85em;
       text-transform: uppercase;
       color: #777;
     }
 
     .value {
-
-      letter-spacing: -.025em;
+      letter-spacing: -0.025em;
       width: 35%;
     }
   }
 }
 
-@media only screen and (max-width:39.375em) {
-
+@media only screen and (max-width: 39.375em) {
   .wrap {
     width: 98%;
     padding: 2% 0;
@@ -400,7 +375,6 @@ img {
 
   .cart {
     .items {
-
       .cartSection {
         width: 90%;
         display: block;
@@ -409,15 +383,15 @@ img {
         &.qtyWrap {
           width: 10%;
           text-align: center;
-          padding: .5em 0;
+          padding: 0.5em 0;
           float: right;
 
           &:before {
             content: "QTY";
             display: block;
             font-family: $fontSans;
-            padding: .25em;
-            font-size: .75em;
+            padding: 0.25em;
+            font-size: 0.75em;
           }
         }
 
@@ -443,12 +417,12 @@ img {
     text-align: center;
   }
 }
-.qtyWrapper{
+.qtyWrapper {
   display: flex;
-    align-content: flex-start;
-    justify-content: flex-start;
-    flex-direction: row;
-    flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .imgContainer {
@@ -473,7 +447,6 @@ img {
   margin-bottom: px;
   flex-wrap: nowrap;
   margin: -5px 30px 5px 10px;
-
 }
 
 .paragraph {
@@ -502,41 +475,41 @@ table {
 .mat-row:nth-child(odd) {
   background-color: #fff; /* 白色背景 */
 }
-.detailBtn{
-  border: 1px solid #7e7a7a;;
-  color:#7e7a7a;;
+.detailBtn {
+  border: 1px solid #7e7a7a;
+  color: #7e7a7a;
   border-radius: 3px;
   padding: 3px;
 }
 .itemImg {
-    width: 9em;
-    padding: 10px 5px;
-    float: left;
-  }
-.orderInfo{
- display: flex;
- width: 100%;
+  width: 9em;
+  padding: 10px 5px;
+  float: left;
 }
-.column{
+.orderInfo {
+  display: flex;
+  width: 100%;
+}
+.column {
   width: 50%;
   display: flex;
-  p{
+  p {
     font-size: 14px;
   }
 }
 
-.title{
+.title {
   padding-right: 15px;
 }
 
-.columnFull{
+.columnFull {
   width: 100%;
   display: flex;
-  p{
+  p {
     font-size: 14px;
   }
 }
 
-.titleFull{
+.titleFull {
   width: 12%;
 }

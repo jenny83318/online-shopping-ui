@@ -94,7 +94,7 @@ img {
     font-size: .75em;
     padding: 1em;
     color: #fff;
-    background: #82ca9c;
+    background: #7fd6e1;
     font-weight: bold;
     border-radius: 50px;
     float: right;
@@ -170,14 +170,14 @@ img {
 
 
       .itemNumber {
-        font-size: .75em;
+        font-size: 1em;
         color: #777;
         margin-bottom: .5em;
       }
 
       h3 {
 
-        font-size: 1em;
+        font-size: 1.2em;
         font-family: $fontSans;
         font-weight: bold;
         text-transform: uppercase;
@@ -188,7 +188,7 @@ img {
 
       p {
         display: inline-block;
-        font-size: .85em;
+        font-size: 1.1em;
 
         color: #777777;
         font-family: $fontSans;
@@ -223,7 +223,6 @@ img {
         padding-right: 10px;
 
         p {
-          font-weight: bold;
           font-size: 1.25em;
         }
 
@@ -382,7 +381,7 @@ img {
 
     .label {
       font-family: $fontSans;
-      font-size: .85em;
+      font-size: 1em;
       text-transform: uppercase;
       color: #777;
     }
@@ -498,4 +497,14 @@ img {
 
 button:focus {
   outline: none;
+}
+
+.addBtn{
+  border: 1px solid;
+    text-align: center;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+.btnContainer{
+  width: 100px;
 }

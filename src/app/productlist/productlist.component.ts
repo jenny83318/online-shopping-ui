@@ -19,13 +19,16 @@ export class ProductlistComponent implements OnInit {
   prodList: any = [];
   isOpen: boolean = false;
   isSlide: boolean = false;
+  isHover:boolean = false;
   constructor(private jolService: JolService,public dialog: MatDialog) { }
 
   ngOnInit() {
     console.log('this.prodList', this.jolService.prodList)
     this.prodList = this.jolService.prodList
+    this.isHover =  this.prodList.length > 3 ? true : false;
     this.jolService.prodListChange.subscribe((prodList) => {
       this.prodList = prodList;
+      this.isHover =  this.prodList.length > 3 ? true : false;
       console.log('this.prodList', this.prodList)
     });
   }

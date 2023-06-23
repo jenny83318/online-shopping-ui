@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic|Montserrat:400,700);
 $fontSans : 'Montserrat',
 sans-serif;
-$fontSerif : 'Droid Serif',
+$fontSerif : 'Montserrat',
 serif;
 
 
@@ -15,6 +15,7 @@ serif;
 
 * {
   box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
 }
 
 
@@ -72,12 +73,11 @@ img {
 
   button.continue {
     text-decoration: none;
-    font-family: $fontSans;
+    font-family: 'Montserrat', sans-serif;
     letter-spacing: -.015em;
     font-size: .75em;
     padding: 1em;
     color: #fff;
-    background: #82ca9c;
     font-weight: bold;
     border-radius: 50px;
     float: right;
@@ -97,7 +97,6 @@ img {
     &:hover,
     &:focus,
     &:active {
-      background: #f69679;
 
       &:after {
         right: -10px;
@@ -138,7 +137,7 @@ img {
     border-bottom: 1px solid #fafafa;
 
     &.even {
-      background: #fafafa;
+      background: #fff8e2;
     }
 
     .infoWrap {
@@ -493,7 +492,7 @@ table {
 }
 
 .mat-row:nth-child(even) {
-  background-color: #fdf3e5;
+  background-color: #fff8e2;
   /* 灰色背景 */
 }
 

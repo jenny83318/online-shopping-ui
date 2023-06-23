@@ -1,4 +1,7 @@
 
+  *{
+    font-family: 'Montserrat', sans-serif;
+  }
   .card {
     display: flex;
     flex-direction: column;
@@ -7,8 +10,10 @@
     background-color: #fff;
     margin-bottom: 1.5rem;
     box-shadow: 0 4px 25px rgba(50, 50, 93, 0.1), 0 7px 15px rgba(0, 0, 0, 0.07);
-    border-radius: 0.5rem;
     transition: all 0.15s ease-in-out;
+    button{
+      outline: none;
+    }
     // &:hover {
     //   transform: translateY(-0.85rem);
     // }
@@ -18,11 +23,16 @@
     border: none;
     max-width: 100%;
     height: auto;
-    border-radius: 0.5rem;
   }
   .heading {
     font-size: 1rem;
     font-weight: 600;
-    padding-bottom: 1rem;
+    padding-top: 0.5rem;
     text-align: center;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .price{
+    text-align: center;
+    font-size: 16px;
   }

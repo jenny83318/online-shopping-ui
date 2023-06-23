@@ -1,35 +1,50 @@
 <block-ui [template]="block"></block-ui>
 <app-header></app-header>
 <div class="wrap cf">
-    <div class="heading cf">
-        <h1>收藏清單</h1>
-        <button class="continue" (click)="toProductList()">繼續購物</button>
-    </div>
-    <div class="cart">
-        <ul class="cartWrap">
-            <li class="items" *ngFor="let cart of wishList; let i = index" [ngClass]="i % 2 == 0 ? 'even' : 'odd'">
-                <div class="infoWrap">
-                    <div class="cartSection">
-                        <img class="img itemImg" [src]="cart.img[0]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'" (load)="onLoadImg(i)"/>
-                        <p class="itemNumber ">#QUE-007544-002</p>
-                        <h3>{{ cart.prodName }}</h3>
-                        <p class="param">尺寸: {{cart.sizeInfo}} &nbsp; &nbsp;</p>
-                        <div style="display: flex;">
-                        <p class="stockStatus param">現貨</p>
-                        </div>
-                    </div>
-                    <div class="prodTotal cartSection">
-                        <p style="margin-right: 20px;">${{ cart.price | number }}</p>
-                        <button (click)="addCart(cart)"><i class="fa fa-shopping-bag" style="font-size: 25px; padding: 10px;"></i></button>
-                        <button (click)="deleteWishItem(cart.cartId)"><i class="fa fa-trash-alt" style="font-size: 25px; padding: 10px;"></i></button>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <div class="imgContainer" *ngIf="ishidden">
-        <img src="assets/img/heart.png">
-        <h5 style="font-size: 15px;">收藏清單目前尚無商品</h5>
-    </div>
+  <div class="heading cf">
+    <h1>收藏清單</h1>
+    <button class="continue" (click)="toProductList()">繼續購物</button>
+  </div>
+  <div class="cart">
+    <ul class="cartWrap">
+      <li
+        class="items"
+        *ngFor="let cart of wishList; let i = index"
+        [ngClass]="i % 2 == 0 ? 'even' : 'odd'"
+      >
+        <div class="infoWrap">
+          <div class="cartSection">
+            <img
+              class="img itemImg"
+              [src]="cart.img[0]"
+              onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
+              (load)="onLoadImg(i)"
+            />
+            <p class="itemNumber">#QUE-{{padZeros(cart.prodId,5)}}</p>
+            <h3>{{ cart.prodName }}</h3>
+            <p class="param">尺寸: {{ cart.sizeInfo }} &nbsp; &nbsp;</p>
+            <div style="display: flex">
+              <!-- <p class="stockStatus param">現貨</p> -->
+            </div>
+          </div>
+          <div class="prodTotal cartSection" style="width: 110px">
+            <p style="margin-right: 20px">NT. {{ cart.price | number }}</p>
+            <div class="btnContainer">
+              <div class="addBtn">
+                <button (click)="addCart(cart)">加入購物車</button>
+              </div>
+              <div class="addBtn">
+                <button (click)="deleteWishItem(cart.cartId)">刪除</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="imgContainer" *ngIf="ishidden">
+    <img src="assets/img/heart.png" />
+    <h5 style="font-size: 15px">收藏清單目前尚無商品</h5>
+  </div>
 </div>
 <app-footer></app-footer>

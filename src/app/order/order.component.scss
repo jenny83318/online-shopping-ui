@@ -1,9 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic|Montserrat:400,700);
-$fontSans : 'Montserrat',
-sans-serif;
-$fontSerif : 'Droid Serif',
-serif;
-
+$fontSans: "Montserrat", sans-serif;
+$fontSerif: "Droid Serif", serif;
 
 @mixin transition($transition-property, $transition-time, $method) {
   -webkit-transition: $transition-property $transition-time $method;
@@ -17,13 +14,10 @@ serif;
   box-sizing: border-box;
 }
 
-
-
 body {
   color: #333;
   -webkit-font-smoothing: antialiased;
   font-family: $fontSerif;
-
 }
 
 img {
@@ -44,7 +38,6 @@ img {
   *zoom: 1;
 }
 
-
 .wrap {
   width: 60%;
   max-width: 1300px;
@@ -52,13 +45,12 @@ img {
   padding: 5% 0;
   margin-bottom: 5em;
   margin-top: 60px;
-
 }
 
 // CART HEADER
 .heading {
   padding: 0.5em 0;
-  border-bottom: 1px solid #D0D0D0;
+  border-bottom: 1px solid #d0d0d0;
 
   h1 {
     font-family: $fontSerif;
@@ -66,31 +58,26 @@ img {
     float: left;
   }
 
-  a.continue {
-
-    &:link,
-    &:visited {
-      text-decoration: none;
-      font-family: $fontSans;
-      letter-spacing: -.015em;
-      font-size: .75em;
-      padding: 1em;
-      color: #fff;
-      background: #82ca9c;
-      font-weight: bold;
-      border-radius: 50px;
-      float: right;
-      text-align: right;
-      @include transition(all, .25s, linear);
-    }
+  button.continue {
+    text-decoration: none;
+    font-family: $fontSans;
+    letter-spacing: -0.015em;
+    font-size: 0.75em;
+    padding: 1em;
+    color: #fff;
+    background: #7fd6e1;
+    font-weight: bold;
+    border-radius: 50px;
+    float: right;
+    text-align: right;
+    @include transition(all, 0.25s, linear);
 
     &:after {
       content: "\276f";
-      padding: .5em;
+      padding: 0.5em;
       position: relative;
       right: 0;
-      @include transition(all, .15s, linear);
-
+      @include transition(all, 0.15s, linear);
     }
 
     &:hover,
@@ -111,7 +98,7 @@ img {
   display: table;
   width: 100%;
   font-family: $fontSans;
-  font-size: .75em;
+  font-size: 0.75em;
 
   li {
     display: table-cell;
@@ -150,28 +137,24 @@ img {
 
       vertical-align: middle;
 
-
       .itemNumber {
-        font-size: .75em;
+        font-size: 0.75em;
         color: #777;
-        margin-bottom: .5em;
+        margin-bottom: 0.5em;
       }
 
       h3 {
-
         font-size: 1em;
         font-family: $fontSans;
         font-weight: bold;
         text-transform: uppercase;
-        letter-spacing: .025em;
-
-
+        letter-spacing: 0.025em;
       }
 
       p {
         display: inline-block;
-        font-size: .85em;
-        margin-right:20px ;
+        font-size: 0.85em;
+        margin-right: 20px;
 
         color: #777777;
         font-family: $fontSans;
@@ -182,17 +165,16 @@ img {
         }
 
         &.stockStatus {
-          color: #82CA9C;
+          color: #82ca9c;
           font-weight: bold;
           padding: 0em 0 0 1em;
           text-transform: uppercase;
           font-size: 15px;
 
           &.out {
-            color: #F69679;
+            color: #f69679;
           }
         }
-
       }
 
       .itemImg {
@@ -210,16 +192,14 @@ img {
           font-weight: bold;
           font-size: 1.25em;
         }
-
       }
 
       input.qty {
         width: 2em;
         text-align: center;
         font-size: 1em;
-        padding: .25em;
-        margin: 1em .5em 0 0;
-
+        padding: 0.25em;
+        margin: 1em 0.5em 0 0;
       }
 
       .itemImg {
@@ -227,11 +207,8 @@ img {
         display: inline;
         padding-right: 1em;
       }
-
-
     }
   }
-
 }
 
 .special {
@@ -241,7 +218,7 @@ img {
   .specialContent {
     padding: 1em 1em 0;
     display: block;
-    margin-top: .5em;
+    margin-top: 0.5em;
     border-top: 1px solid #dadada;
 
     &:before {
@@ -252,7 +229,6 @@ img {
       font-family: helvetica, arial, sans-serif;
     }
   }
-
 }
 
 .promoCode {
@@ -267,28 +243,26 @@ img {
     font-style: italic;
     font-size: 1.15em;
 
-    margin-bottom: .5em;
-    letter-spacing: -.025em;
-
+    margin-bottom: 0.5em;
+    letter-spacing: -0.025em;
   }
 
   input {
     width: 85%;
     font-size: 1em;
-    padding: .5em;
+    padding: 0.5em;
     float: left;
 
     &:active,
     &:focus {
       outline: 0;
-
     }
   }
 
-  a.btn {
+  button.btn {
     float: left;
     width: 15%;
-    padding: .75em 0;
+    padding: 0.75em 0;
     border-radius: 0 1em 1em 0;
     text-align: center;
     border: 1px solid #82ca9c;
@@ -301,12 +275,9 @@ img {
 }
 
 .btn {
-
-  &:link,
-  &:visited {
     text-decoration: none;
     font-family: $fontSans;
-    letter-spacing: -.015em;
+    letter-spacing: -0.015em;
     font-size: 1em;
     padding: 1em 3em;
     color: #fff;
@@ -315,16 +286,14 @@ img {
     border-radius: 50px;
     float: right;
     text-align: right;
-    @include transition(all, .25s, linear);
-  }
+    @include transition(all, 0.25s, linear);
 
   &:after {
     content: "\276f";
-    padding: .5em;
+    padding: 0.5em;
     position: relative;
     right: 0;
-    @include transition(all, .15s, linear);
-
+    @include transition(all, 0.15s, linear);
   }
 
   &:hover,
@@ -338,7 +307,7 @@ img {
   }
 
   .promoCode & {
-    font-size: .85em;
+    font-size: 0.85em;
   }
 }
 
@@ -348,7 +317,7 @@ img {
   width: 35%;
 
   .totalRow {
-    padding: .5em;
+    padding: 0.5em;
     text-align: right;
 
     &.final {
@@ -360,26 +329,23 @@ img {
       display: inline-block;
       padding: 0 0 0 1em;
       text-align: right;
-
     }
 
     .label {
       font-family: $fontSans;
-      font-size: .85em;
+      font-size: 0.85em;
       text-transform: uppercase;
       color: #777;
     }
 
     .value {
-
-      letter-spacing: -.025em;
+      letter-spacing: -0.025em;
       width: 35%;
     }
   }
 }
 
-@media only screen and (max-width:39.375em) {
-
+@media only screen and (max-width: 39.375em) {
   .wrap {
     width: 98%;
     padding: 2% 0;
@@ -392,7 +358,6 @@ img {
   .cart {
     margin-left: 20px;
     .items {
-
       .cartSection {
         width: 90%;
         display: block;
@@ -401,15 +366,15 @@ img {
         &.qtyWrap {
           width: 10%;
           text-align: center;
-          padding: .5em 0;
+          padding: 0.5em 0;
           float: right;
 
           &:before {
             content: "QTY";
             display: block;
             font-family: $fontSans;
-            padding: .25em;
-            font-size: .75em;
+            padding: 0.25em;
+            font-size: 0.75em;
           }
         }
 
@@ -425,7 +390,7 @@ img {
     }
   }
 
-  .promoCode{
+  .promoCode {
     width: 250px;
     margin-left: 20px;
   }
@@ -433,17 +398,17 @@ img {
     width: 100%;
   }
 
-  a.btn.continue {
+  button.btn.continue {
     width: 100%;
     text-align: center;
   }
 }
-.qtyWrapper{
+.qtyWrapper {
   display: flex;
-    align-content: flex-start;
-    justify-content: flex-start;
-    flex-direction: row;
-    flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .imgContainer {
@@ -468,7 +433,6 @@ img {
   margin-bottom: px;
   flex-wrap: nowrap;
   margin: -5px 30px 5px 10px;
-
 }
 
 .paragraph {
@@ -488,41 +452,40 @@ button:focus {
   outline: none;
 }
 
-.title{
+.title {
   font-size: 25px;
   color: #904507;
   margin-right: 50px;
 }
 
-.addr{
+.addr {
   width: 500px !important;
   font-size: 16px;
 }
 
-.titleContainer{
+.titleContainer {
   display: flex;
 }
 
-.formContext{
+.formContext {
   font-size: 16px;
 }
-.errorMsg{
+.errorMsg {
   font-weight: bolder;
-  color:red;
+  color: red;
 }
-.email{
+.email {
   margin-bottom: 30px;
 }
 
-.stripe
-{
-  width:180px;
+.stripe {
+  width: 180px;
   outline: none;
   border-radius: 10px;
-  img{
+  img {
     border-radius: 7px;
   }
-  img:hover{
+  img:hover {
     opacity: 0.7;
   }
 }

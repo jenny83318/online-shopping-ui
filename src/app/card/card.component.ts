@@ -4,38 +4,41 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss']
+  styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
-
   @Input() prod: any;
+  @Input() isHover: any;
   @Output() messageEvent = new EventEmitter<string>();
   isOnload: boolean = false;
 
-  constructor( private router: Router, private jolService:JolService) { }
+  constructor(private router: Router, private jolService: JolService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
   mouseOverImg() {
-    const img = new Image();
-    img.src = this.prod.img[1];
-    img.onload = () => {
-      this.prod.imgUrl = this.prod.img[1];
-    };
+    if (this.isHover != false) {
+      const img = new Image();
+      img.src = this.prod.img[1];
+      img.onload = () => {
+        this.prod.imgUrl = this.prod.img[1];
+      };
+    }
   }
 
   mouseLeaveImg() {
-    const img = new Image();
-    img.src = this.prod.img[0];
-    img.onload = () => {
-      this.prod.imgUrl = this.prod.img[0];
-    };
+    if (this.isHover != false) {
+      const img = new Image();
+      img.src = this.prod.img[0];
+      img.onload = () => {
+        this.prod.imgUrl = this.prod.img[0];
+      };
+    }
   }
   onLoadImg() {
     this.messageEvent.emit('load');
   }
 
-  toProduct(){
+  toProduct() {
     this.jolService.prod = this.prod;
     this.router.navigate(['/product'], { skipLocationChange: true });
   }

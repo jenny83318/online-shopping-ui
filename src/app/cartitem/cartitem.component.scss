@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic|Montserrat:400,700);
 $fontSans : 'Montserrat',
 sans-serif;
-$fontSerif : 'Droid Serif',
+$fontSerif : 'Montserrat',
 serif;
 
 
@@ -22,7 +22,7 @@ serif;
 body {
   color: #333;
   -webkit-font-smoothing: antialiased;
-  font-family: $fontSerif;
+  font-family: 'Montserrat', sans-serif;
 
 }
 
@@ -73,7 +73,7 @@ img {
     font-size: .75em;
     padding: 1em;
     color: #fff;
-    background: #82ca9c;
+    background: #7fd6e1;
     font-weight: bold;
     border-radius: 50px;
     float: right;
@@ -133,7 +133,7 @@ img {
     border-bottom: 1px solid #fafafa;
 
     &.even {
-      background: #fafafa;
+      background:#fffaf2
     }
 
     .infoWrap {
@@ -148,14 +148,14 @@ img {
 
 
       .itemNumber {
-        font-size: .75em;
+        font-size: 1em;
         color: #777;
         margin-bottom: .5em;
       }
 
       h3 {
 
-        font-size: 1em;
+        font-size: 1.2em;
         font-family: $fontSans;
         font-weight: bold;
         text-transform: uppercase;
@@ -166,7 +166,7 @@ img {
 
       p {
         display: inline-block;
-        font-size: .85em;
+        font-size: 1em;
         margin-right: 20px;
 
         color: #777777;
@@ -203,7 +203,6 @@ img {
         padding-right: 10px;
 
         p {
-          font-weight: bold;
           font-size: 1.25em;
         }
 
@@ -357,7 +356,7 @@ img {
 
     .label {
       font-family: $fontSans;
-      font-size: .85em;
+      font-size: 1em;
       text-transform: uppercase;
       color: #777;
     }
@@ -401,7 +400,7 @@ img {
             display: block;
             font-family: $fontSans;
             padding: .25em;
-            font-size: .75em;
+            font-size: 1em;
           }
         }
 
@@ -449,7 +448,6 @@ img {
 .container {
   display: flex;
   border: 1px solid gray;
-  background: #ffffff;
   width: 100px;
   padding: rem;
   justify-content: space-between;

@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand-lg">
   <div class="container">
     <div class="wrapper">
-      <a class="homelink" (click)="toHome()">
+      <button class="homelink" (click)="toHome()">
         <img src="assets/img/JOLBoutique-logo.png" class="logo" />
-      </a>
+      </button>
       <div class="btnWrapper">
       <button class="navbar-toggle" style="padding:0 0; margin-right: 15px;" (click)="toCartItem()">
         <img src="assets/img/cartIcon.png" style="width: 28px; height:29px" />
@@ -42,9 +42,9 @@
           </mat-menu>
         </li>
       </ul>
-      <ul (click)="toProductList('series', 'new')"><li class="flex items-center customLink">最新商品</li></ul>
-      <ul (click)="toProductList('series', 'sales')"><li class="flex items-center customLink">熱銷商品</li></ul>
-      <ul (click)="toProductList('series', 'sport')"><li class="flex items-center customLink">運動系列</li></ul>
+      <ul (click)="toProductList('series', 'new')"><li class="flex items-center"><button class="customLink">最新商品</button></li></ul>
+      <ul (click)="toProductList('series', 'sales')"><li class="flex items-center"><button class="customLink">熱銷商品</button></li></ul>
+      <ul (click)="toProductList('series', 'sport')"><li class="flex items-center"><button class="customLink">運動系列</button></li></ul>
       <!-- <ul><li class="flex items-center customLink">Catwalk</li></ul> -->
       <ul class="rightUl rightUl-lg">
         <li class="flex items-center search liIcon">

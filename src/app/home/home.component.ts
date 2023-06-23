@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
     let request = new Request("JOLProductInfo", "jenny83318",'ALL', {});
     console.log('request', request)
     this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
-      this.prodList = res.productList
+      this.prodList = res.productList.slice(0,24);
       console.log('this.prodList', this.prodList)
       this.prodList.forEach((prod: any) => {
         prod.img = [];
