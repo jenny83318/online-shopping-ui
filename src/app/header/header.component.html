@@ -31,7 +31,10 @@
     <div class="lg:flex flex-grow items-center" [ngClass]="{ hidden: !navbarOpen, block: navbarOpen }" id="example-navbar-warning">
       <ul>
         <li class="flex items-center">
-          <button mat-button [matMenuTriggerFor]="menu1" class="customLink" [ngClass]="isChange && changeType =='all'? 'engTitle':'' " (mouseover)="changeName('all', true)" (mouseleave)="changeName('all', false)">
+          <button class="customLink" [ngClass]="isChange && changeType =='all'? 'engTitle':'' " (mouseover)="changeName('all', true)" (mouseleave)="changeName('all', false)" (click)="toProductList('category', '1')">
+            {{title.all}}
+           </button>
+          <!-- <button mat-button [matMenuTriggerFor]="menu1" class="customLink" [ngClass]="isChange && changeType =='all'? 'engTitle':'' " (mouseover)="changeName('all', true)" (mouseleave)="changeName('all', false)">
            {{title.all}}
           </button>
           <mat-menu #menu1="matMenu">
@@ -39,7 +42,7 @@
             <button mat-menu-item class="menuItem" (click)="toProductList('category', '2')">下身</button> <hr />
             <button mat-menu-item class="menuItem" (click)="toProductList('category', '3')">連身</button> <hr />
             <button mat-menu-item class="menuItem" (click)="toProductList('category', '4')">鞋包配件</button>
-          </mat-menu>
+          </mat-menu> -->
         </li>
       </ul>
       <ul (click)="toProductList('series', 'new')"><li class="flex items-center"><button class="customLink" [ngClass]="isChange && changeType =='new'? 'engTitle':'' " (mouseover)="changeName('new', true)" (mouseleave)="changeName('new', false)">{{title.new}}</button></li></ul>

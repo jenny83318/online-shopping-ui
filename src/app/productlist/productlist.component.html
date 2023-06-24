@@ -1,17 +1,31 @@
 <block-ui [template]="block"></block-ui>
 <app-header></app-header>
-<div>ProductList</div>
+<div class="title" *ngIf="type == 'all'">
+  <button><p>全部商品</p></button>
+  <button *ngFor="let i of item.all" [ngClass]="category == i.category ? 'tiltleFocus' : ''"  (click)="toProductList('category', i.category)">
+    <p>{{ i.name }}</p>
+  </button>
+</div>
+<div class="title" *ngIf="type != 'all'">
+  <button class="tiltleFocus" *ngFor="let i of item[type]">
+    <p>{{ i }}</p>
+  </button>
+</div>
 <section class="header">
   <section class="section">
-    <div class="flex flex-wrap" style="margin-top:85px">
-        <div class="imgWrapper"  *ngFor="let prod of prodList">
-          <app-card [prod]="prod" [isHover]="isHover" (messageEvent)="loadImageFinish($event)"></app-card>
-        </div>
-        <div class="imgContainer" *ngIf="prodList.length == 0">
-          <img src="assets/img/cloth.png">
-          <h5 style="font-size: 15px;">查無任何商品</h5>
-        </div>
+    <div class="flex flex-wrap" style="margin-top: 85px">
+      <div class="imgWrapper" *ngFor="let prod of prodList">
+        <app-card
+          [prod]="prod"
+          [isHover]="isHover"
+          (messageEvent)="loadImageFinish($event)"
+        ></app-card>
       </div>
+      <div class="imgContainer" *ngIf="prodList.length == 0">
+        <img src="assets/img/cloth.png" />
+        <h5 style="font-size: 15px">查無任何商品</h5>
+      </div>
+    </div>
   </section>
 </section>
 <app-footer></app-footer>

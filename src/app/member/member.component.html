@@ -8,27 +8,27 @@
     <div>
       <mat-form-field class="example-full-width formContext" style="margin-top: 10px;">
         <mat-label>姓名</mat-label>
-        <input matInput class="input" name="account" [(ngModel)]="odr.name" [disabled]="isDisable">
+        <input matInput class="input" name="account" [(ngModel)]="member.name" [disabled]="isDisable">
       </mat-form-field>
       <p class="errorMsg" *ngIf="isName">姓名欄位不可空白</p>
     </div>
     <div>
       <mat-form-field class="example-full-width formContext">
         <mat-label>手機</mat-label>
-        <input matInput class="input" [(ngModel)]="odr.phone" [disabled]="isDisable">
+        <input matInput class="input" [(ngModel)]="member.phone" [disabled]="isDisable">
       </mat-form-field>
       <p class="errorMsg" *ngIf="isPhone">手機欄位不可空白</p>
     </div>
     <div>
       <mat-form-field class="formContext">
         <mat-label>縣市</mat-label>
-        <mat-select [(ngModel)]="odr.city" (selectionChange)="changeCity()" [disabled]="isDisable">
+        <mat-select [(ngModel)]="member.city" (selectionChange)="changeCity()" [disabled]="isDisable">
           <mat-option *ngFor="let a of addressList" [value]="a.code"> {{a.name}} </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="formContext">
         <mat-label>地區</mat-label>
-        <mat-select [(ngModel)]="odr.district" [disabled]="isDisable">
+        <mat-select [(ngModel)]="member.district" [disabled]="isDisable">
           <mat-option *ngFor="let d of districtList" [value]="d.code"> {{d.code}} {{d.name}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -38,14 +38,14 @@
     <div>
       <mat-form-field class="example-full-width addr">
         <mat-label>地址</mat-label>
-        <input matInput class="input" [(ngModel)]="odr.address" [disabled]="isDisable">
+        <input matInput class="input" [(ngModel)]="member.address" [disabled]="isDisable">
       </mat-form-field>
       <p class="errorMsg" *ngIf="isAddress">地址欄位不可空白</p>
     </div>
     <div>
       <mat-form-field class="example-full-width addr">
         <mat-label>email</mat-label>
-        <input matInput class="input" [(ngModel)]="odr.email" [disabled]="isDisable">
+        <input matInput class="input" [(ngModel)]="member.email" [disabled]="isDisable">
       </mat-form-field>
       <p class="errorMsg email" *ngIf="isEmail">email欄位不可空白</p>
     </div>

@@ -20,13 +20,26 @@ export class ProductlistComponent implements OnInit {
   isOpen: boolean = false;
   isSlide: boolean = false;
   isHover:boolean = false;
+  type:string ='';
+  category:string='';
+  item:any ={all:[{category:'1', name: "上身"},
+  {category:'2', name: "下身"},
+  {category:'3', name: "連身"},
+  {category:'4', name: "鞋包配件"}]
+  , new:['最新商品'], sales:['熱銷商品'],sport:['運動系列'], search:['搜尋商品結果']}
   constructor(private jolService: JolService,public dialog: MatDialog) { }
 
   ngOnInit() {
+    window.scrollTo(0,0)
+    this.type = this.jolService.toProductList;
+    this.category = this.jolService.category;
     console.log('this.prodList', this.jolService.prodList)
     this.prodList = this.jolService.prodList
     this.isHover =  this.prodList.length > 3 ? true : false;
     this.jolService.prodListChange.subscribe((prodList) => {
+      window.scrollTo(0,0)
+      this.type = this.jolService.toProductList;
+      this.category = this.jolService.category;
       this.prodList = prodList;
       this.isHover =  this.prodList.length > 3 ? true : false;
       console.log('this.prodList', this.prodList)
@@ -36,5 +49,12 @@ export class ProductlistComponent implements OnInit {
     if(msg == 'load'){
       this.blockUI.stop();
     }
+  }
+
+  toProductList(selectType: any, keyWord: any) {
+    this.jolService.getProductData('OTHER', {
+      selectType: selectType,
+      keyWord: keyWord,
+    });
   }
 }

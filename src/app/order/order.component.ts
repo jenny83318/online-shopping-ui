@@ -233,6 +233,8 @@ export class OrderComponent implements OnInit {
     console.log('request', request)
     this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
       console.log('updateCustData', res);
+      this.loginData.email = res.custList[0].email;
+      localStorage.setItem('loginData', JSON.stringify(this.loginData));
     });
   }
   setSendData() {
@@ -348,6 +350,7 @@ export class OrderComponent implements OnInit {
       onCancel: (data, actions) => {
         console.log('OnCancel', data, actions);
         this.ngZone.run(() => {
+          this.jolService.sendOrderEmail(orderNo);
           this.router.navigate(['/'], { skipLocationChange: true });
         });
       },

@@ -147,6 +147,7 @@ export class HeaderComponent implements OnInit {
         data: { msg: '請輸入要搜尋的內容' },
       });
     } else {
+      this.jolService.toProductList ='search'
       this.jolService.getProductData('OTHER', {
         selectType: 'keyWord',
         keyWord: this.keyWord,
@@ -181,6 +182,11 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/orderlist'], { skipLocationChange: true });
   }
   toProductList(selectType: any, keyWord: any) {
+    if(selectType =='category'){
+      this.jolService.toProductList ='all'
+    }else{
+      this.jolService.toProductList =keyWord
+    }
     this.jolService.getProductData('OTHER', {
       selectType: selectType,
       keyWord: keyWord,

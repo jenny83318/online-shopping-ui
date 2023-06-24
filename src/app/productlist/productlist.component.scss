@@ -13,7 +13,26 @@
 
 
 .section {
-  margin-top: -4rem;
+  margin-top: -9rem;
+}
+
+.title{
+  margin-top: 7.5rem;
+  margin-bottom: 1rem;
+  margin-left: 45px;
+  font-size: 18px;
+  display: flex;
+  position: relative;
+  z-index: 20;
+  button{
+    padding-right: 30px;
+    outline: none;
+  }
+}
+
+.tiltleFocus{
+    font-weight: bolder;
+    text-decoration: underline;
 }
 
 .imgWrapper {

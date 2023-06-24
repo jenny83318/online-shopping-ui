@@ -31,7 +31,7 @@ export class MemberComponent implements OnInit {
   custData: any;
   orderNo:any ="";
   payPalConfig?: IPayPalConfig;
-  odr: any = {
+  member: any = {
     email: "",
     name: "",
     phone: "",
@@ -52,11 +52,15 @@ export class MemberComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.loginData = this.jolService.loginData;
-    this.getCustData();
-    this.http.get('assets/json/address.json').subscribe((res) => {
-      this.addressList = res;
-      this.districtList = this.addressList[1].district;
-    });
+    if(this.loginData.account != ''){
+      this.getCustData();
+      this.http.get('assets/json/address.json').subscribe((res) => {
+        this.addressList = res;
+        this.districtList = this.addressList[1].district;
+      });
+    }else {
+      this.router.navigate(['/login'], { skipLocationChange: true });
+    }
   }
 
   getCustData() {
@@ -66,27 +70,27 @@ export class MemberComponent implements OnInit {
       this.blockUI.stop();
       if (res.code == 200 && res.custList.length > 0) {
         this.custData = res.custList[0];
-        this.odr.name = this.custData.name;
-        this.odr.phone = this.custData.phone;
-        this.odr.city = this.custData.city;
-        this.odr.district = this.custData.district;
-        this.odr.address = this.custData.address;
-        this.odr.email = this.custData.email;
+        this.member.name = this.custData.name;
+        this.member.phone = this.custData.phone;
+        this.member.city = this.custData.city;
+        this.member.district = this.custData.district;
+        this.member.address = this.custData.address;
+        this.member.email = this.custData.email;
       }
       console.log('custData', this.custData);
     });
   }
 
-
+  
   updateCustData() {
     const body = {
-      email: this.odr.email,
+      email: this.member.email,
       password: this.loginData.password,
-      address: this.odr.address,
-      name: this.odr.name,
-      phone: this.odr.phone,
-      city: this.odr.city,
-      district: this.odr.district,
+      address: this.member.address,
+      name: this.member.name,
+      phone: this.member.phone,
+      city: this.member.city,
+      district: this.member.district,
       status: "1"
     }
     let request = new Request("JOLCustomerInfo", this.loginData.account, 'UPDATE', body);
@@ -94,28 +98,30 @@ export class MemberComponent implements OnInit {
     this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
       if (res.code == 200 && res.custList.length > 0) {
         this.custData = res.custList[0];
-        this.odr.name = this.custData.name;
-        this.odr.phone = this.custData.phone;
-        this.odr.city = this.custData.city;
-        this.odr.district = this.custData.district;
-        this.odr.address = this.custData.address;
-        this.odr.email = this.custData.email;
+        this.member.name = this.custData.name;
+        this.member.phone = this.custData.phone;
+        this.member.city = this.custData.city;
+        this.member.district = this.custData.district;
+        this.member.address = this.custData.address;
+        this.member.email = this.custData.email;
+        this.loginData.email = this.custData.email;
+        localStorage.setItem('loginData', JSON.stringify(this.loginData));
       }
     });
   }
 
   changeCity() {
     this.districtList = this.addressList.filter(
-     (a: any) => a.code == this.odr.city)[0].district;
+     (a: any) => a.code == this.member.city)[0].district;
   }
 
   checkForm() {
-    this.isEmail = this.odr.email == "" ? true : false;
-    this.isName = this.odr.name == "" ? true : false;
-    this.isPhone = this.odr.orderPhone == "" ? true : false;
-    this.isCity = this.odr.orderCity == "" || this.odr.orderCity == null ? true : false;
-    this.isDistrict = this.odr.orderDistrict == "" || this.odr.orderDistrict == null ? true : false;
-    this.isAddress = this.odr.orderAddress == "" ? true : false;
+    this.isEmail = this.member.email == "" ? true : false;
+    this.isName = this.member.name == "" ? true : false;
+    this.isPhone = this.member.orderPhone == "" ? true : false;
+    this.isCity = this.member.orderCity == "" || this.member.orderCity == null ? true : false;
+    this.isDistrict = this.member.orderDistrict == "" || this.member.orderDistrict == null ? true : false;
+    this.isAddress = this.member.orderAddress == "" ? true : false;
     if (this.isEmail || this.isName || this.isPhone || this.isCity || this.isDistrict
       || this.isAddress ) {
       this.isCheck = false;

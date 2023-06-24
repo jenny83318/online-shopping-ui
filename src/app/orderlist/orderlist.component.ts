@@ -25,7 +25,7 @@ export class OrderlistComponent implements OnInit {
   cartList:any = [];
   ishidden: boolean = false;
   panelOpenState = false;
-  displayedColumns: string[] = ['orderNo', 'orderTime', 'totalAmt', 'status','payBy', 'deliveryWay','detail', 'cancel','repay'];
+  displayedColumns: string[] = ['orderNo', 'orderTime', 'totalAmt', 'status','payBy', 'deliveryWay','repay', 'cancel'];
   dataSource:any;
   paymentOpt: any = [
     { value: 'creditCard', viewValue: '信用卡刷卡' },

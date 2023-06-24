@@ -33,6 +33,7 @@ export class OrderdetailComponent implements OnInit {
   districtList:any =[];
   city:any;
   district:any;
+  shipNo:any;
 
 
   constructor(private jolService: JolService, private router: Router, private dialog: MatDialog, private http: HttpClient) { }
@@ -41,6 +42,7 @@ export class OrderdetailComponent implements OnInit {
     window.scrollTo(0, 0);
     this.loginData = this.jolService.loginData;
     this.orderData = this.jolService.orderData;
+    this.getShippingNo();
     this.http.get('assets/json/address.json').subscribe((res:any) => {
       this.cityData = res.filter((a:any) => a.code == this.orderData.sendCity)[0];
       this.city = this.cityData.name;
@@ -96,5 +98,9 @@ export class OrderdetailComponent implements OnInit {
       this.blockUI.stop();
 
     }
+  }
+
+  getShippingNo(){
+   this.shipNo = Math.floor(Math.random() * 90000000) + 10000000;
   }
 }

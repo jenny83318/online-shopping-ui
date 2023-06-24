@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
   constructor(private jolService: JolService, private router: Router, private dialog: MatDialog, private http: HttpClient) { }
 
   ngOnInit() {
+    window.scrollTo(0,0)
     this.http.get('assets/json/address.json').subscribe((res) => {
       this.addressList = res;
       this.districtList = this.addressList[1].district;
