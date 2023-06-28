@@ -173,7 +173,7 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
         if (res.code == 200) {
           this.dialog.open(MessageComponent, { data: { msg: "註冊成功", fun: "" } });
         } else {
-          this.dialog.open(MessageComponent, { data: { msg: "註冊失敗", fun: "" } });
+          this.dialog.open(MessageComponent, { data: { msg: res.msg } });
         }
       });
 

@@ -12,7 +12,7 @@
       <button *ngIf="isLogin" class="navbar-toggle" style="padding:0 0;margin-right: 15px;"  mat-button [matMenuTriggerFor]="menu2">
         <i class="far fa-user" style="font-size: 1.7rem; color: black;"></i>
       </button>
-      <button *ngIf="!isLogin" class="navbar-toggle" style="padding:0 0;margin-right: 15px;" (click)="checkLogin()">
+      <button *ngIf="!isLogin" class="navbar-toggle" style="padding:0 0;margin-right: 15px;"(click)="toLogIn()">
         <i class="far fa-user" style="font-size: 1.7rem; color: black;"></i>
       </button>
       <mat-menu #menu2="matMenu">

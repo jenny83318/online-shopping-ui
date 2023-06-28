@@ -344,7 +344,7 @@ export class OrderComponent implements OnInit {
         console.log('orderStatus', data.status)
         this.ngZone.run(() => {
           this.jolService.updateOrderStatus({ orderNo: orderNo, status: "已付款" });
-          this.router.navigate(['/orderlist'], { skipLocationChange: true })
+         
         });
       },
       onCancel: (data, actions) => {

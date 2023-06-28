@@ -122,6 +122,7 @@ export class JolService {
       this.blockUI.stop();
       this.orderUpdate.emit("finish");
       this.sendOrderEmail(body.orderNo);
+      this.router.navigate(['/orderlist'], { skipLocationChange: true })
     });
   }
 
