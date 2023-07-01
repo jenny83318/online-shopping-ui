@@ -11,7 +11,7 @@ import { CartdetailComponent } from '../cartdetail/cartdetail.component';
 @Component({
   selector: 'app-wishitem',
   templateUrl: './wishitem.component.html',
-  styleUrls: ['./wishitem.component.scss']
+  styleUrls: ['./wishitem.component.scss', './wishitemExtra.component.scss']
 })
 export class WishitemComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;

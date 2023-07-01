@@ -13,7 +13,7 @@ import { loadStripe } from '@stripe/stripe-js';
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.scss'],
+  styleUrls: ['./order.component.scss', './orderExtra.component.scss'],
 })
 export class OrderComponent implements OnInit {
   paymentHandler: any = null;

@@ -60,12 +60,6 @@ img {
   padding: 0.5em 0;
   border-bottom: 1px solid #D0D0D0;
 
-  h1 {
-    font-family: $fontSerif;
-    font-size: 2em;
-    float: left;
-  }
-
   button.continue {
     text-decoration: none;
     font-family: $fontSans;
@@ -100,199 +94,8 @@ img {
   }
 }
 
-// TABLE HEADING
-
-.tableHead {
-  display: table;
-  width: 100%;
-  font-family: $fontSans;
-  font-size: .75em;
-
-  li {
-    display: table-cell;
-    padding: 1em 0;
-    text-align: center;
-
-    &.prodHeader {
-      text-align: left;
-    }
-  }
-}
-
-// CART Items
-
 .cart {
   padding: 1em 0;
-
-  .items {
-    display: block;
-    width: 100%;
-    padding: 0.5em;
-
-    border-bottom: 1px solid #fafafa;
-
-    &.even {
-      background: #fafafa;
-    }
-
-    .infoWrap {
-      display: table;
-      width: 100%;
-    }
-
-    .cartSection {
-      display: table-cell;
-
-      vertical-align: middle;
-
-
-      .itemNumber {
-        font-size: .75em;
-        color: #777;
-        margin-bottom: .5em;
-      }
-
-      h3 {
-
-        font-size: 1em;
-        font-family: $fontSans;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: .025em;
-
-
-      }
-
-      p {
-        display: inline-block;
-        font-size: .85em;
-        margin-right: 20px;
-
-        color: #777777;
-        font-family: $fontSans;
-
-        .quantity {
-          font-weight: bold;
-          color: #333;
-        }
-
-        &.stockStatus {
-          color: #82CA9C;
-          font-weight: bold;
-          padding: 0em 0 0 1em;
-          text-transform: uppercase;
-          font-size: 15px;
-
-          &.out {
-            color: #F69679;
-          }
-        }
-
-      }
-
-      .itemImg {
-        width: 4em;
-
-        float: left;
-      }
-
-      &.qtyWrap,
-      &.prodTotal {
-        text-align: right;
-        padding-right: 10px;
-
-        p {
-          font-weight: bold;
-          font-size: 1.25em;
-        }
-
-      }
-
-      input.qty {
-        width: 2em;
-        text-align: center;
-        font-size: 1em;
-        padding: .25em;
-        margin: 1em .5em 0 0;
-
-      }
-
-      .itemImg {
-        width: 9em;
-        display: inline;
-        padding-right: 1em;
-      }
-
-
-    }
-  }
-
-}
-
-.special {
-  display: block;
-  font-family: $fontSans;
-
-  .specialContent {
-    padding: 1em 1em 0;
-    display: block;
-    margin-top: .5em;
-    border-top: 1px solid #dadada;
-
-    &:before {
-      content: "\21b3";
-      font-size: 1.5em;
-      margin-right: 1em;
-      color: #6f6f6f;
-      font-family: helvetica, arial, sans-serif;
-    }
-  }
-
-}
-
-.promoCode {
-  border: 2px solid #efefef;
-  float: left;
-  width: 250px;
-  padding: 2%;
-
-  label {
-    display: block;
-    width: 100%;
-    font-style: italic;
-    font-size: 1.15em;
-
-    margin-bottom: .5em;
-    letter-spacing: -.025em;
-
-  }
-
-  input {
-    width: 85%;
-    font-size: 1em;
-    padding: .5em;
-    float: left;
-
-    &:active,
-    &:focus {
-      outline: 0;
-
-    }
-  }
-
-  button.btn {
-    float: left;
-    width: 15%;
-    padding: .75em 0;
-    border-radius: 0 1em 1em 0;
-    text-align: center;
-    border: 1px solid #82ca9c;
-
-    &:hover {
-      border: 1px solid #f69679;
-      background: #f69679;
-    }
-  }
 }
 
 .btn {
@@ -327,9 +130,6 @@ img {
     }
   }
 
-  .promoCode & {
-    font-size: .85em;
-  }
 }
 
 /* TOTAL AND CHECKOUT  */
@@ -381,44 +181,6 @@ img {
 
   .cart {
     margin-left: 20px;
-
-    .items {
-
-      .cartSection {
-        width: 90%;
-        display: block;
-        float: left;
-
-        &.qtyWrap {
-          width: 10%;
-          text-align: center;
-          padding: .5em 0;
-          float: right;
-
-          &:before {
-            content: "QTY";
-            display: block;
-            font-family: $fontSans;
-            padding: .25em;
-            font-size: .75em;
-          }
-        }
-
-        &.prodTotal,
-        &.removeWrap {
-          display: unset;
-        }
-
-        .itemImg {
-          width: 25%;
-        }
-      }
-    }
-  }
-
-  .promoCode {
-    width: 250px;
-    margin-left: 20px;
   }
 
   .subtotal {
@@ -429,39 +191,6 @@ img {
     width: 100%;
     text-align: center;
   }
-}
-
-.qtyWrapper {
-  display: flex;
-  align-content: flex-start;
-  justify-content: flex-start;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.imgContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  img {
-    width: 300px;
-  }
-}
-
-.container {
-  display: flex;
-  border: 1px solid gray;
-  background: #ffffff;
-  width: 100px;
-  padding: rem;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: px;
-  flex-wrap: nowrap;
-  margin: -5px 30px 5px 10px;
-
 }
 
 .paragraph {
@@ -507,18 +236,4 @@ button:focus {
 
 .email {
   margin-bottom: 30px;
-}
-
-.stripe {
-  width: 180px;
-  outline: none;
-  border-radius: 10px;
-
-  img {
-    border-radius: 7px;
-  }
-
-  img:hover {
-    opacity: 0.7;
-  }
 }

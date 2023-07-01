@@ -15,7 +15,7 @@ import { MessageComponent } from '../message/message.component';
 @Component({
   selector: 'app-orderlist',
   templateUrl: './orderlist.component.html',
-  styleUrls: ['./orderlist.component.scss'],
+  styleUrls: ['./orderlist.component.scss', './orderlistExtra.component.scss'],
 })
 export class OrderlistComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;

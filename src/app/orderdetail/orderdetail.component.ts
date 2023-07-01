@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-orderdetail',
   templateUrl: './orderdetail.component.html',
-  styleUrls: ['./orderdetail.component.scss']
+  styleUrls: ['./orderdetail.component.scss', './orderdetailExtra.component.scss']
 })
 export class OrderdetailComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;

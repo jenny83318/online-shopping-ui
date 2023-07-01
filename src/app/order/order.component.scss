@@ -91,7 +91,42 @@ img {
     }
   }
 }
+.btn {
+  text-decoration: none;
+  font-family: $fontSans;
+  letter-spacing: -0.015em;
+  font-size: 1em;
+  padding: 1em 3em;
+  color: #fff;
+  background: #82ca9c;
+  font-weight: bold;
+  border-radius: 50px;
+  float: right;
+  text-align: right;
+  @include transition(all, 0.25s, linear);
 
+&:after {
+  content: "\276f";
+  padding: 0.5em;
+  position: relative;
+  right: 0;
+  @include transition(all, 0.15s, linear);
+}
+
+&:hover,
+&:focus,
+&:active {
+  background: #f69679;
+
+  &:after {
+    right: -10px;
+  }
+}
+
+.promoCode & {
+  font-size: 0.85em;
+}
+}
 // TABLE HEADING
 
 .tableHead {
@@ -112,239 +147,6 @@ img {
 }
 
 // CART Items
-
-.cart {
-  padding: 1em 0;
-
-  .items {
-    display: block;
-    width: 100%;
-    padding: 0.5em;
-
-    border-bottom: 1px solid #fafafa;
-
-    &.even {
-      background: #fafafa;
-    }
-
-    .infoWrap {
-      display: table;
-      width: 100%;
-    }
-
-    .cartSection {
-      display: table-cell;
-
-      vertical-align: middle;
-
-      .itemNumber {
-        font-size: 0.75em;
-        color: #777;
-        margin-bottom: 0.5em;
-      }
-
-      h3 {
-        font-size: 1em;
-        font-family: $fontSans;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 0.025em;
-      }
-
-      p {
-        display: inline-block;
-        font-size: 0.85em;
-        margin-right: 20px;
-
-        color: #777777;
-        font-family: $fontSans;
-
-        .quantity {
-          font-weight: bold;
-          color: #333;
-        }
-
-        &.stockStatus {
-          color: #82ca9c;
-          font-weight: bold;
-          padding: 0em 0 0 1em;
-          text-transform: uppercase;
-          font-size: 15px;
-
-          &.out {
-            color: #f69679;
-          }
-        }
-      }
-
-      .itemImg {
-        width: 4em;
-
-        float: left;
-      }
-
-      &.qtyWrap,
-      &.prodTotal {
-        text-align: right;
-        padding-right: 10px;
-
-        p {
-          font-weight: bold;
-          font-size: 1.25em;
-        }
-      }
-
-      input.qty {
-        width: 2em;
-        text-align: center;
-        font-size: 1em;
-        padding: 0.25em;
-        margin: 1em 0.5em 0 0;
-      }
-
-      .itemImg {
-        width: 9em;
-        display: inline;
-        padding-right: 1em;
-      }
-    }
-  }
-}
-
-.special {
-  display: block;
-  font-family: $fontSans;
-
-  .specialContent {
-    padding: 1em 1em 0;
-    display: block;
-    margin-top: 0.5em;
-    border-top: 1px solid #dadada;
-
-    &:before {
-      content: "\21b3";
-      font-size: 1.5em;
-      margin-right: 1em;
-      color: #6f6f6f;
-      font-family: helvetica, arial, sans-serif;
-    }
-  }
-}
-
-.promoCode {
-  border: 2px solid #efefef;
-  float: left;
-  width: 250px;
-  padding: 2%;
-
-  label {
-    display: block;
-    width: 100%;
-    font-style: italic;
-    font-size: 1.15em;
-
-    margin-bottom: 0.5em;
-    letter-spacing: -0.025em;
-  }
-
-  input {
-    width: 85%;
-    font-size: 1em;
-    padding: 0.5em;
-    float: left;
-
-    &:active,
-    &:focus {
-      outline: 0;
-    }
-  }
-
-  button.btn {
-    float: left;
-    width: 15%;
-    padding: 0.75em 0;
-    border-radius: 0 1em 1em 0;
-    text-align: center;
-    border: 1px solid #82ca9c;
-
-    &:hover {
-      border: 1px solid #f69679;
-      background: #f69679;
-    }
-  }
-}
-
-.btn {
-    text-decoration: none;
-    font-family: $fontSans;
-    letter-spacing: -0.015em;
-    font-size: 1em;
-    padding: 1em 3em;
-    color: #fff;
-    background: #82ca9c;
-    font-weight: bold;
-    border-radius: 50px;
-    float: right;
-    text-align: right;
-    @include transition(all, 0.25s, linear);
-
-  &:after {
-    content: "\276f";
-    padding: 0.5em;
-    position: relative;
-    right: 0;
-    @include transition(all, 0.15s, linear);
-  }
-
-  &:hover,
-  &:focus,
-  &:active {
-    background: #f69679;
-
-    &:after {
-      right: -10px;
-    }
-  }
-
-  .promoCode & {
-    font-size: 0.85em;
-  }
-}
-
-/* TOTAL AND CHECKOUT  */
-.subtotal {
-  float: right;
-  width: 35%;
-
-  .totalRow {
-    padding: 0.5em;
-    text-align: right;
-
-    &.final {
-      font-size: 1.25em;
-      font-weight: bold;
-    }
-
-    span {
-      display: inline-block;
-      padding: 0 0 0 1em;
-      text-align: right;
-    }
-
-    .label {
-      font-family: $fontSans;
-      font-size: 0.85em;
-      text-transform: uppercase;
-      color: #777;
-    }
-
-    .value {
-      letter-spacing: -0.025em;
-      width: 35%;
-    }
-  }
-}
-
 @media only screen and (max-width: 39.375em) {
   .wrap {
     width: 98%;
@@ -489,3 +291,4 @@ button:focus {
     opacity: 0.7;
   }
 }
+
