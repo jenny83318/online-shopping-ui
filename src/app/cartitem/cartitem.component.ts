@@ -10,7 +10,7 @@ import { MessageComponent } from '../message/message.component';
 @Component({
   selector: 'app-cartitem',
   templateUrl: './cartitem.component.html',
-  styleUrls: ['./cartitem.component.scss'],
+  styleUrls: ['./cartitem.component.scss','./cartitemExtra.component.scss'],
 })
 export class CartitemComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
