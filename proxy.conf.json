@@ -1,7 +1,7 @@
-{  
+{ 
   "/jolserver": {
-    "target": "http://localhost:6080",
+    "target": "http://139.162.97.43:8080",
     "secure": false,
     "changeOrigin": true
-  } 
+  }
 }
