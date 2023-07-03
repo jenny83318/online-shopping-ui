@@ -48,30 +48,35 @@ export class CartitemComponent implements OnInit {
       const body = {
         isCart: true
       };
-      let request = new Request('JOLCartInfo', this.loginData.account, 'SELECT', body);
+      let request = new Request('JOLCartInfo', this.loginData.account, this.loginData.token, 'SELECT', body);
       this.jolService
         .getData(environment.JOLSERVER, request)
         .subscribe((res) => {
-          this.blockUI.start('讀取中');
-          this.cartList = res.cartList;
-          if (this.cartList.length == 0) {
-            this.sum == 0;
-            this.ishidden = true;
-            this.blockUI.stop();
+          if(res.code == 200){
+
+            this.blockUI.start('讀取中');
+            this.cartList = res.cartList;
+            if (this.cartList.length == 0) {
+              this.sum == 0;
+              this.ishidden = true;
+              this.blockUI.stop();
+            }
+            this.jolService.setCartNum(this.cartList.length);
+            this.sum = 0
+            this.cartList.forEach((cart: any) => {
+              cart.isCheck = false;
+              cart.img = [];
+              cart.img = cart.imgUrl.split(',');
+              cart.isOnload = false;
+              this.sum += cart.qty * cart.price;
+            });
+          }else if (res.code == 666){
+            this.router.navigate(['/login'], { skipLocationChange: true });
           }
-          this.jolService.setCartNum(this.cartList.length);
-          this.sum = 0
-          this.cartList.forEach((cart: any) => {
-            cart.isCheck = false;
-            cart.img = [];
-            cart.img = cart.imgUrl.split(',');
-            cart.isOnload = false;
-            this.sum += cart.qty * cart.price;
           });
-        });
-    } else {
-      this.router.navigate(['/login'], { skipLocationChange: true });
-    }
+        } else {
+          this.router.navigate(['/login'], { skipLocationChange: true });
+        }
   }
 
   deleteCartItem(cartId: any) {
@@ -82,11 +87,13 @@ export class CartitemComponent implements OnInit {
           isCart: true,
           cartId: cartId
         };
-        let request = new Request('JOLCartInfo', this.loginData.account, 'DELETE', body);
+        let request = new Request('JOLCartInfo', this.loginData.account, this.loginData.token ,'DELETE', body);
         this.jolService.getData(environment.JOLSERVER, request)
           .subscribe((res) => {
             if (res.code == 200) {
               this.getCartData();
+            }else if (res.code == 666){
+              this.router.navigate(['/login'], { skipLocationChange: true });
             }
           });
       }
@@ -102,7 +109,7 @@ export class CartitemComponent implements OnInit {
         size: cart.size,
         isCart: true,
       };
-      let request = new Request('JOLCartInfo', this.loginData.account, 'UPDATE', body);
+      let request = new Request('JOLCartInfo', this.loginData.account, this.loginData.token, 'UPDATE', body);
       this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
         console.log('UPDATE CART', res);
       });
@@ -126,7 +133,7 @@ export class CartitemComponent implements OnInit {
   toProductList() {
     this.jolService.getProductData("OTHER", { selectType: "series", keyWord: "new" });
   }
-  
+
   changeQty(isPlus: boolean, cartId: any) {
     this.cartList.forEach((cart: any) => {
       if (cart.cartId == cartId) {

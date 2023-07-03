@@ -65,7 +65,7 @@ export class MemberComponent implements OnInit {
 
   getCustData() {
     this.blockUI.start('讀取中');
-    let request = new Request('JOLCustomerInfo', this.loginData.account, 'SELECT', {});
+    let request = new Request('JOLCustomerInfo', this.loginData.account, this.loginData.token , 'SELECT', {});
     this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
       this.blockUI.stop();
       if (res.code == 200 && res.custList.length > 0) {
@@ -76,12 +76,14 @@ export class MemberComponent implements OnInit {
         this.member.district = this.custData.district;
         this.member.address = this.custData.address;
         this.member.email = this.custData.email;
+      }else if (res.code == 666){
+        this.router.navigate(['/login'], { skipLocationChange: true });
       }
       console.log('custData', this.custData);
     });
   }
 
-  
+
   updateCustData() {
     const body = {
       email: this.member.email,
@@ -93,7 +95,7 @@ export class MemberComponent implements OnInit {
       district: this.member.district,
       status: "1"
     }
-    let request = new Request("JOLCustomerInfo", this.loginData.account, 'UPDATE', body);
+    let request = new Request("JOLCustomerInfo", this.loginData.account, this.loginData.token, 'UPDATE', body);
     console.log('request', request)
     this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
       if (res.code == 200 && res.custList.length > 0) {
@@ -105,7 +107,10 @@ export class MemberComponent implements OnInit {
         this.member.address = this.custData.address;
         this.member.email = this.custData.email;
         this.loginData.email = this.custData.email;
+        this.loginData.tokenExpired = this.custData.tokenExpired;
         localStorage.setItem('loginData', JSON.stringify(this.loginData));
+      }else if (res.code == 666){
+        this.router.navigate(['/login'], { skipLocationChange: true });
       }
     });
   }

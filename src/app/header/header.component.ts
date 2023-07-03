@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JolService } from '../service/JolService.service';
 import { environment } from 'src/environments/environment';
@@ -37,19 +37,19 @@ export class HeaderComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router,
     private jolService: JolService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    console.log('this.jolService.loginData', this.jolService.loginData);
-    this.logInData = this.jolService.loginData;
+    this.logInData = this.jolService.getLoginData();
+    console.log('HOME == this.logInData',this.logInData)
     this.isLogin = this.jolService.isLogin;
     if (this.isLogin == false) {
       this.checkLogin();
     }
     if (this.isLogin) {
-      if(this.jolService.cartNum == 0){
+      if (this.jolService.cartNum == 0) {
         this.getCartData();
-      }else{
+      } else {
         this.cartCount = this.jolService.cartNum;
       }
     }
@@ -62,6 +62,7 @@ export class HeaderComponent implements OnInit {
   }
 
   checkLogin() {
+    console.log('============checkLogin============================')
     if (localStorage.getItem('loginData') != null) {
       this.logInData = JSON.parse(localStorage.getItem('loginData'));
       console.log(' this.logInData', this.logInData);
@@ -69,7 +70,7 @@ export class HeaderComponent implements OnInit {
         password: this.logInData.password,
         token: this.logInData.token,
       };
-      let request = new Request('LogIn', this.logInData.account, '', body);
+      let request = new Request('LogIn', this.logInData.account, '', 'CHECK', body);
       console.log('request', request);
       this.jolService
         .getData(environment.JOLSERVER, request)
@@ -78,11 +79,12 @@ export class HeaderComponent implements OnInit {
           if (res.code == 200) {
             this.isLogin = true;
             this.logInData.email = res.email;
+            this.logInData.tokenExpired = res.tokenExpired;
             this.jolService.loginData = this.logInData;
             this.jolService.isLogin = true;
-            if(this.jolService.cartNum == 0){
+            if (this.jolService.cartNum == 0) {
               this.getCartData();
-            }else{
+            } else {
               this.cartCount = this.jolService.cartNum;
             }
             this.jolService.cartChange.subscribe((count) => {
@@ -91,8 +93,6 @@ export class HeaderComponent implements OnInit {
             this.jolService.wishChange.subscribe((count) => {
               this.wishCount = count;
             });
-          } else if (res.code == 777) {
-            this.logOut();
           } else {
             this.toLogIn();
           }
@@ -112,7 +112,7 @@ export class HeaderComponent implements OnInit {
       };
       let request = new Request(
         'LogIn',
-        this.jolService.loginData.account,
+        this.jolService.loginData.account, '',
         'CLEAN',
         body
       );
@@ -136,17 +136,17 @@ export class HeaderComponent implements OnInit {
   }
 
   getCartData() {
-    let request = new Request('JOLCartInfo', this.logInData.account, 'ALL', {});
+    let request = new Request('JOLCartInfo', this.logInData.account, this.logInData.token, 'ALL', {});
     console.log('request', request);
     this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
-      this.jolService.cartNum = res.cartList.filter(
-        (c: any) => c.cart == true
-      ).length;
-      this.jolService.wishNum = res.cartList.filter(
-        (c: any) => c.cart == false
-      ).length;
-      this.cartCount = this.jolService.cartNum;
-      this.wishCount = this.jolService.wishNum;
+      if (res.code == 200) {
+        this.jolService.cartNum = res.cartList.filter((c: any) => c.cart == true).length;
+        this.jolService.wishNum = res.cartList.filter((c: any) => c.cart == false).length;
+        this.cartCount = this.jolService.cartNum;
+        this.wishCount = this.jolService.wishNum;
+      }else if (res.code == 666){
+        this.router.navigate(['/login'], { skipLocationChange: true });
+      }
     });
   }
   search() {
@@ -155,7 +155,7 @@ export class HeaderComponent implements OnInit {
         data: { msg: '請輸入要搜尋的內容' },
       });
     } else {
-      this.jolService.toProductList ='search'
+      this.jolService.toProductList = 'search'
       this.jolService.getProductData('OTHER', {
         selectType: 'keyWord',
         keyWord: this.keyWord,
@@ -190,10 +190,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/orderlist'], { skipLocationChange: true });
   }
   toProductList(selectType: any, keyWord: any) {
-    if(selectType =='category'){
-      this.jolService.toProductList ='all'
-    }else{
-      this.jolService.toProductList =keyWord
+    if (selectType == 'category') {
+      this.jolService.toProductList = 'all'
+    } else {
+      this.jolService.toProductList = keyWord
     }
     this.jolService.getProductData('OTHER', {
       selectType: selectType,

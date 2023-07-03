@@ -153,21 +153,26 @@ export class PaymentComponent implements OnInit {
     if (this.loginData.account != '') {
       this.blockUI.start("讀取中");
       const body = {orderNo:orderNo}
-      let request = new Request('JOLOrderDetailInfo', this.loginData.account, 'SELECT', body);
+      let request = new Request('JOLOrderDetailInfo', this.loginData.account, this.loginData.token, 'SELECT', body);
       console.log('request', request)
       this.jolService
         .getData(environment.JOLSERVER, request)
         .subscribe((res) => {
-          console.log('res.detailList', res.detailList)
-          if(res.detailList.length > 0){
-            this.detailList = res.detailList;
-            this.blockUI.stop();
-            if(this.order.payBy == 'Paypal'){
-              this.Paypal();
-              this.isPayPal = true;
+          if(res.code == 200){
+
+            console.log('res.detailList', res.detailList)
+            if(res.detailList.length > 0){
+              this.detailList = res.detailList;
+              this.blockUI.stop();
+              if(this.order.payBy == 'Paypal'){
+                this.Paypal();
+                this.isPayPal = true;
+              }
+            }else{
+              this.blockUI.stop();
             }
-          }else{
-            this.blockUI.stop();
+          } else if (res.code == 666) {
+            this.router.navigate(['/login'], { skipLocationChange: true });
           }
         });
     }

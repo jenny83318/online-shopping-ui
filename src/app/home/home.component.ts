@@ -14,15 +14,16 @@ import { MatDialog } from '@angular/material/dialog';
 export class HomeComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
   block = BlockuiComponent;
-
+  loginData: any;
   isBlock: boolean = false;
   prodList: any = [];
   isOpen: boolean = false;
   isSlide: boolean = false;
-  constructor(private jolService: JolService, public dialog: MatDialog) {}
+  constructor(private jolService: JolService, public dialog: MatDialog) { }
 
   ngOnInit() {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
+    this.loginData = this.jolService.getLoginData();
     if (localStorage.getItem('isToPay') != null) {
       localStorage.removeItem('isToPay');
     }
@@ -34,20 +35,22 @@ export class HomeComponent implements OnInit {
       this.prodList = this.jolService.indexProd;
     } else {
       this.blockUI.start('讀取中');
-      let request = new Request('JOLProductInfo', 'jenny83318', 'ALL', {});
+      let request = new Request('JOLProductInfo', this.loginData.account, this.loginData.token, 'ALL', {});
       console.log('request', request);
       this.jolService
         .getData(environment.JOLSERVER, request)
         .subscribe((res) => {
-          this.prodList = res.productList.slice(0, 24);
-          console.log('this.prodList', this.prodList);
-          this.prodList.forEach((prod: any) => {
-            prod.img = [];
-            prod.img = prod.imgUrl.split(',');
-            prod.imgUrl = prod.img[0];
-            prod.isOnload = false;
-          });
-          this.jolService.indexProd = this.prodList;
+          if (res.code == 200) {
+            this.prodList = res.productList.slice(0, 24);
+            console.log('this.prodList', this.prodList);
+            this.prodList.forEach((prod: any) => {
+              prod.img = [];
+              prod.img = prod.imgUrl.split(',');
+              prod.imgUrl = prod.img[0];
+              prod.isOnload = false;
+            });
+            this.jolService.indexProd = this.prodList;
+          }
         });
     }
   }

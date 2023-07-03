@@ -57,26 +57,30 @@ export class OrderdetailComponent implements OnInit {
     if (this.loginData.account != '') {
       this.blockUI.start("讀取中");
       const body = { orderNo: orderNo }
-      let request = new Request('JOLOrderDetailInfo', this.loginData.account, 'SELECT', body);
+      let request = new Request('JOLOrderDetailInfo', this.loginData.account, this.loginData.token, 'SELECT', body);
       console.log('request', request)
       this.jolService
         .getData(environment.JOLSERVER, request)
         .subscribe((res) => {
-          console.log('res.detailList', res.detailList)
-          if (res.detailList.length > 0) {
-            this.detailList = res.detailList;
-            this.sum = 0;
-            this.detailList.forEach((d: any) => {
-              this.sum += d.price * d.qty;
-              d.img = [];
-              d.img = d.imgUrl.split(',');
-            });
-            this.orderData.deliveryFee = this.orderData.totalAmt - this.sum;
-            this.dataSource = new MatTableDataSource<any>(this.detailList);
-            this.dataSource.paginator = this.paginator;
-            this.blockUI.stop();
-          } else {
-            this.blockUI.stop();
+          if (res.code == 200) {
+            console.log('res.detailList', res.detailList)
+            if (res.detailList.length > 0) {
+              this.detailList = res.detailList;
+              this.sum = 0;
+              this.detailList.forEach((d: any) => {
+                this.sum += d.price * d.qty;
+                d.img = [];
+                d.img = d.imgUrl.split(',');
+              });
+              this.orderData.deliveryFee = this.orderData.totalAmt - this.sum;
+              this.dataSource = new MatTableDataSource<any>(this.detailList);
+              this.dataSource.paginator = this.paginator;
+              this.blockUI.stop();
+            } else {
+              this.blockUI.stop();
+            }
+          } else if (res.code == 666) {
+            this.router.navigate(['/login'], { skipLocationChange: true });
           }
         });
     } else {
@@ -86,16 +90,20 @@ export class OrderdetailComponent implements OnInit {
 
   toProduct(prodId: any) {
     this.blockUI.start('讀取中');
-    let request = new Request('JOLProductInfo', this.loginData.account, 'SELECT', { prodId: prodId });
+    let request = new Request('JOLProductInfo', this.loginData.account, this.loginData.token, 'SELECT', { prodId: prodId });
     this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
-      console.log('toProduct,',res)
+      if (res.code == 200) {
+        console.log('toProduct,', res)
         this.blockUI.stop();
         var prod = res.productList[0]
         prod.img = prod.imgUrl.split(',');
         this.jolService.prod = prod;
-        console.log('this.jolService.prod',this.jolService.prod)
+        console.log('this.jolService.prod', this.jolService.prod)
         this.router.navigate(['/product'], { skipLocationChange: true });
-      });
+      } else if (res.code == 666) {
+        this.router.navigate(['/login'], { skipLocationChange: true });
+      }
+    });
   }
 
   toOrderList() {

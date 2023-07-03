@@ -98,17 +98,21 @@ export class OrderComponent implements OnInit {
 
   getCustData() {
     this.blockUI.start('讀取中');
-    let request = new Request('JOLCustomerInfo', this.loginData.account, 'SELECT', {});
+    let request = new Request('JOLCustomerInfo', this.loginData.account, this.loginData.token , 'SELECT', {});
     this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
       this.blockUI.stop();
-      if (res.custList.length > 0) {
-        this.custData = res.custList[0];
-        this.odr.orderName = this.custData.name;
-        this.odr.orderPhone = this.custData.phone;
-        this.odr.orderCity = this.custData.city;
-        this.odr.orderDistrict = this.custData.district;
-        this.odr.orderAddress = this.custData.address;
-        this.odr.email = this.custData.email;
+      if(res.code == 200){
+        if (res.custList.length > 0) {
+          this.custData = res.custList[0];
+          this.odr.orderName = this.custData.name;
+          this.odr.orderPhone = this.custData.phone;
+          this.odr.orderCity = this.custData.city;
+          this.odr.orderDistrict = this.custData.district;
+          this.odr.orderAddress = this.custData.address;
+          this.odr.email = this.custData.email;
+        }
+      }else if (res.code == 666){
+        this.router.navigate(['/login'], { skipLocationChange: true });
       }
       console.log('custData', this.custData);
     });
@@ -130,6 +134,7 @@ export class OrderComponent implements OnInit {
       let request = new Request(
         'JOLOrderInfo',
         this.loginData.account,
+        this.loginData.token,
         'ADD',
         body
       );
@@ -150,6 +155,7 @@ export class OrderComponent implements OnInit {
               let request = new Request(
                 'JOLOrderDetailInfo',
                 this.loginData.account,
+                this.loginData.token,
                 'ADD',
                 detailBody
               );
@@ -157,6 +163,9 @@ export class OrderComponent implements OnInit {
               this.jolService
                 .getData(environment.JOLSERVER, request)
                 .subscribe((res) => {
+                  if (res.code == 666){
+                    this.router.navigate(['/login'], { skipLocationChange: true });
+                  }
                 });
             });
             // 支付工具
@@ -170,6 +179,8 @@ export class OrderComponent implements OnInit {
               this.isDisable = true;
             }
           }
+        }else if (rs.code == 666){
+          this.router.navigate(['/login'], { skipLocationChange: true });
         }
         console.log('res', rs);
       });
@@ -186,6 +197,7 @@ export class OrderComponent implements OnInit {
     let request = new Request(
       'JOLCartInfo',
       this.loginData.account,
+      this.loginData.token,
       'DELETE',
       body
     );
@@ -201,17 +213,21 @@ export class OrderComponent implements OnInit {
       const body = {
         isCart: true
       };
-      let request = new Request('JOLCartInfo', this.loginData.account, 'SELECT', body);
+      let request = new Request('JOLCartInfo', this.loginData.account, this.loginData.token , 'SELECT', body);
       this.blockUI.start('讀取中');
       this.jolService
         .getData(environment.JOLSERVER, request)
         .subscribe((res) => {
           this.blockUI.stop();
-          this.cartList = res.cartList;
-          console.log('this.cartList.length', this.cartList.length)
-          this.jolService.setCartNum(this.cartList.length);
-          this.jolService.orderDetail = this.cartList;
-          // this.router.navigate(['/orderlist'], { skipLocationChange: true });
+          if(res.code == 200){
+            this.cartList = res.cartList;
+            console.log('this.cartList.length', this.cartList.length)
+            this.jolService.setCartNum(this.cartList.length);
+            this.jolService.orderDetail = this.cartList;
+            // this.router.navigate(['/orderlist'], { skipLocationChange: true });
+          }else if (res.code == 666){
+            this.router.navigate(['/login'], { skipLocationChange: true });
+          }
         });
     } else {
       this.router.navigate(['/login'], { skipLocationChange: true });
@@ -229,12 +245,12 @@ export class OrderComponent implements OnInit {
       district: this.odr.orderDistrict,
       status: "1"
     }
-    let request = new Request("JOLCustomerInfo", this.loginData.account, 'UPDATE', body);
+    let request = new Request("JOLCustomerInfo", this.loginData.account, this.loginData.token ,'UPDATE', body);
     console.log('request', request)
     this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
-      console.log('updateCustData', res);
-      this.loginData.email = res.custList[0].email;
-      localStorage.setItem('loginData', JSON.stringify(this.loginData));
+     if (res.code == 666){
+        this.router.navigate(['/login'], { skipLocationChange: true });
+      }
     });
   }
   setSendData() {
@@ -344,7 +360,7 @@ export class OrderComponent implements OnInit {
         console.log('orderStatus', data.status)
         this.ngZone.run(() => {
           this.jolService.updateOrderStatus({ orderNo: orderNo, status: "已付款" });
-         
+
         });
       },
       onCancel: (data, actions) => {

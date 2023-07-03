@@ -33,28 +33,32 @@ export class WishitemComponent implements OnInit {
       const body = {
         isCart: false,
       };
-      let request = new Request('JOLCartInfo', this.loginData.account, 'SELECT', body);
+      let request = new Request('JOLCartInfo', this.loginData.account, this.loginData.token, 'SELECT', body);
       console.log('request', request);
       this.jolService
         .getData(environment.JOLSERVER, request)
         .subscribe((res) => {
-          this.blockUI.start('讀取中');
-          this.wishList = res.cartList;
-          console.log('this.wishList',this.wishList)
-          if(this.wishList.length == 0){
-            this.sum == 0;
-            this.ishidden = true;
-            this.blockUI.stop();
+          if(res.code == 200){
+            this.blockUI.start('讀取中');
+            this.wishList = res.cartList;
+            console.log('this.wishList',this.wishList)
+            if(this.wishList.length == 0){
+              this.sum == 0;
+              this.ishidden = true;
+              this.blockUI.stop();
+            }
+            this.jolService.setWishNum(this.wishList.length);
+            this.sum = 0
+            this.wishList.forEach((wish: any) => {
+              wish.img = [];
+              wish.img = wish.imgUrl.split(',');
+              wish.isOnload =false;
+              console.log('cart.qty* cart.price',wish.qty* wish.price)
+              this.sum += wish.qty* wish.price;
+            });
+          }else if (res.code == 666) {
+            this.router.navigate(['/login'], { skipLocationChange: true });
           }
-          this.jolService.setWishNum(this.wishList.length);
-          this.sum = 0
-          this.wishList.forEach((wish: any) => {
-            wish.img = [];
-            wish.img = wish.imgUrl.split(',');
-            wish.isOnload =false;
-            console.log('cart.qty* cart.price',wish.qty* wish.price)
-            this.sum += wish.qty* wish.price;
-          });
         });
     } else {
       this.router.navigate(['/login'], { skipLocationChange: true });
@@ -71,13 +75,15 @@ export class WishitemComponent implements OnInit {
           isCart: true,
           cartId:wishId
         };
-        let request = new Request('JOLCartInfo', this.loginData.account, 'DELETE' ,body);
+        let request = new Request('JOLCartInfo', this.loginData.account, this.loginData.token ,'DELETE' ,body);
         console.log('request', request);
         this.jolService
           .getData(environment.JOLSERVER, request)
           .subscribe((res) => {
             if(res.code == 200){
               this.getWishData();
+            } else if (res.code == 666) {
+              this.router.navigate(['/login'], { skipLocationChange: true });
             }
             console.log('res',res)
           });
@@ -90,7 +96,7 @@ export class WishitemComponent implements OnInit {
     dialogRef.afterClosed().subscribe(order => {
       if(order.isConfirm){
         if(this.loginData.account != ''){
-          this.jolService.addCartWish(cart.prodId, order.qty, order.size, true);
+          this.jolService.addCartWish(cart.prodId, order.qty, order.size, true, false);
         }else{
           this.router.navigate(['/login'], { skipLocationChange: true });
         }
@@ -111,7 +117,7 @@ export class WishitemComponent implements OnInit {
   toProductList() {
     this.jolService.getProductData("OTHER", { selectType: "series", keyWord: "new" });
   }
-  
+
   countSum(){
     this.sum = 0;
     this.wishList.forEach((wish: any) => {

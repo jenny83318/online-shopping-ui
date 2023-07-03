@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
     account: "",
     password: "",
     token: "",
+    tokenExpired:"",
     email:""
   };
   signUpData: any = {
@@ -97,7 +98,7 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
         password: this.loginData.password,
         token: token
       };
-      let request = new Request("LogIn", this.loginData.account, '', body);
+      let request = new Request("LogIn", this.loginData.account,'', '', body);
       console.log('loginReq', request)
       this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
         console.log('res', res);
@@ -105,23 +106,10 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
           this.jolService.isLogin = true;
           this.loginData.token = res.token;
           this.loginData.email = res.email;
+          this.loginData.tokenExpired = res.tokenExpired;
           this.jolService.loginData = this.loginData
           localStorage.setItem('loginData', JSON.stringify(this.loginData));
           this.router.navigate(['/']);
-        } else if(res.code == 777){
-          this.logOut();
-          this.loginData.token = "";
-          let req = new Request("LogIn", this.loginData.account, '', body);
-          this.jolService.getData(environment.JOLSERVER, req).subscribe(res => {
-            if (res.code == 200) {
-            this.jolService.isLogin = true;
-            this.loginData.token = res.token;
-            this.loginData.email = res.email;
-            this.jolService.loginData = this.loginData
-            localStorage.setItem('loginData', JSON.stringify(this.loginData));
-            this.router.navigate(['/']);
-            }
-          });
         }
         else {
           this.isLoginError = true;
@@ -139,7 +127,7 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
       password: data.password,
       token: data.token,
     };
-    let request = new Request('LogIn', data.account, 'CLEAN', body);
+    let request = new Request('LogIn', data.account,"" , 'CLEAN', body);
     console.log('request', request);
     this.jolService
       .getData(environment.JOLSERVER, request)
@@ -166,7 +154,7 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
         district: this.signUpData.district,
         status: "1"
       }
-      let request = new Request("JOLCustomerInfo", this.signUpData.account, 'ADD', body);
+      let request = new Request("JOLCustomerInfo", this.signUpData.account, "",'ADD', body);
       console.log('request', request)
       this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
         console.log('res', res);

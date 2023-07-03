@@ -65,18 +65,22 @@ export class ProductComponent implements OnInit {
       size: this.size,
       isCart: false,
     };
-    let request = new Request('JOLCartInfo', this.loginData.account, 'OTHER', body);
+    let request = new Request('JOLCartInfo', this.loginData.account,this.loginData.token , 'OTHER', body);
     console.log('request', request);
     this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
-      if (res.cartList.length > 0) {
-        this.cart = res.cartList[0];
-        this.heartClass = 'fa fa-heart';
-        this.isWish = true;
-      } else {
-        this.heartClass = 'far fa-heart';
-        this.isWish = false;
+      if(res.code == 200){
+        if (res.cartList.length > 0) {
+          this.cart = res.cartList[0];
+          this.heartClass = 'fa fa-heart';
+          this.isWish = true;
+        } else {
+          this.heartClass = 'far fa-heart';
+          this.isWish = false;
+        }
+      } else if (res.code == 666) {
+        this.router.navigate(['/login'], { skipLocationChange: true });
       }
-    });
+      });
   }
   addCartWish(isCart: boolean, isRouter:boolean) {
     if (this.loginData.account != '') {
@@ -85,10 +89,7 @@ export class ProductComponent implements OnInit {
           data: { msg: '請選擇尺寸' },
         });
       } else {
-        this.jolService.addCartWish(this.prod.prodId, this.qty, this.size, isCart);
-        if(isRouter){
-          this.router.navigate(['/cartitem'], { skipLocationChange: true });
-        }
+        this.jolService.addCartWish(this.prod.prodId, this.qty, this.size, isCart, isRouter);
       }
 
     } else {
@@ -102,11 +103,14 @@ export class ProductComponent implements OnInit {
       isCart: true,
       cartId: cartId
     };
-    let request = new Request('JOLCartInfo', this.loginData.account, 'DELETE', body);
+    let request = new Request('JOLCartInfo', this.loginData.account, this.loginData.token, 'DELETE', body);
     console.log('request', request);
     this.jolService
       .getData(environment.JOLSERVER, request)
       .subscribe((res) => {
+        if (res.code == 666) {
+          this.router.navigate(['/login'], { skipLocationChange: true });
+        }
       });
   }
 
