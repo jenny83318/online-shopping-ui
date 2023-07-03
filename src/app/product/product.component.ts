@@ -38,7 +38,7 @@ export class ProductComponent implements OnInit {
 
   ngOnDestroy() {
     if (this.heartClass == 'fa fa-heart') {
-      this.addCartWish(false);
+      this.addCartWish(false,false);
     }
     if (this.isWish == true && this.heartClass == 'far fa-heart') {
       this.deleteWishItem(this.cart.cartId)
@@ -78,7 +78,7 @@ export class ProductComponent implements OnInit {
       }
     });
   }
-  addCartWish(isCart: boolean) {
+  addCartWish(isCart: boolean, isRouter:boolean) {
     if (this.loginData.account != '') {
       if (this.size == '' && isCart) {
         this.dialog.open(MessageComponent, {
@@ -86,6 +86,9 @@ export class ProductComponent implements OnInit {
         });
       } else {
         this.jolService.addCartWish(this.prod.prodId, this.qty, this.size, isCart);
+        if(isRouter){
+          this.router.navigate(['/cartitem'], { skipLocationChange: true });
+        }
       }
 
     } else {

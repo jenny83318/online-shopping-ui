@@ -35,9 +35,9 @@
           </div>
           <div>
             <div class="btnWrapper">
-              <button style="width: 100%">立即結帳</button>
+              <button style="width: 100%" (click)="addCartWish(true, true)">立即結帳</button>
             </div>
-            <div class="btnWrapper cart" (click)="addCartWish(true)">
+            <div class="btnWrapper cart" (click)="addCartWish(true, false)">
               <button style="width: 100%">加入購物車</button>
             </div>
           </div>
