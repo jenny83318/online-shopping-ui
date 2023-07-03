@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
     all: { title: '全部商品', change: 'SHOP ALL' },
     new: { title: '最新商品', change: 'NEW ARRIVAL' },
     sales: { title: '熱銷商品', change: 'RESOTCK' },
-    sport: { title: '運動系列', change: 'sportswear' },
+    sport: { title: '運動系列', change: 'SPORTS' },
   };
 
   constructor(
@@ -47,14 +47,18 @@ export class HeaderComponent implements OnInit {
       this.checkLogin();
     }
     if (this.isLogin) {
-      this.getCartData();
-      this.jolService.cartChange.subscribe((count) => {
-        this.cartCount = count;
-      });
-      this.jolService.wishChange.subscribe((count) => {
-        this.wishCount = count;
-      });
+      if(this.jolService.cartNum == 0){
+        this.getCartData();
+      }else{
+        this.cartCount = this.jolService.cartNum;
+      }
     }
+    this.jolService.cartChange.subscribe((count) => {
+      this.cartCount = count;
+    });
+    this.jolService.wishChange.subscribe((count) => {
+      this.wishCount = count;
+    });
   }
 
   checkLogin() {
@@ -76,7 +80,11 @@ export class HeaderComponent implements OnInit {
             this.logInData.email = res.email;
             this.jolService.loginData = this.logInData;
             this.jolService.isLogin = true;
-            this.getCartData();
+            if(this.jolService.cartNum == 0){
+              this.getCartData();
+            }else{
+              this.cartCount = this.jolService.cartNum;
+            }
             this.jolService.cartChange.subscribe((count) => {
               this.cartCount = count;
             });
