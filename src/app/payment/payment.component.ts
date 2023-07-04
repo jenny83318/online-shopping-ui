@@ -172,6 +172,7 @@ export class PaymentComponent implements OnInit {
               this.blockUI.stop();
             }
           } else if (res.code == 666) {
+            this.jolService.resetLoginData();
             this.router.navigate(['/login'], { skipLocationChange: true });
           }
         });

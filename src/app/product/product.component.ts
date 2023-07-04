@@ -78,6 +78,7 @@ export class ProductComponent implements OnInit {
           this.isWish = false;
         }
       } else if (res.code == 666) {
+        this.jolService.resetLoginData();
         this.router.navigate(['/login'], { skipLocationChange: true });
       }
       });
@@ -109,6 +110,7 @@ export class ProductComponent implements OnInit {
       .getData(environment.JOLSERVER, request)
       .subscribe((res) => {
         if (res.code == 666) {
+          this.jolService.resetLoginData();
           this.router.navigate(['/login'], { skipLocationChange: true });
         }
       });

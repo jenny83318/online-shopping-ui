@@ -121,10 +121,8 @@ export class HeaderComponent implements OnInit {
         .getData(environment.JOLSERVER, request)
         .subscribe((res) => {
           if (res.code == 200) {
-            localStorage.removeItem('loginData');
             this.jolService.resetLoginData();
             this.logInData = this.jolService.loginData;
-            this.jolService.isLogin = false;
             this.isLogin = false;
             console.log('res', res);
             this.dialog.open(MessageComponent, { data: { msg: '您已登出' } });
@@ -145,6 +143,7 @@ export class HeaderComponent implements OnInit {
         this.cartCount = this.jolService.cartNum;
         this.wishCount = this.jolService.wishNum;
       }else if (res.code == 666){
+        this.jolService.resetLoginData();
         this.router.navigate(['/login'], { skipLocationChange: true });
       }
     });

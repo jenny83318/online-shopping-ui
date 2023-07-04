@@ -80,6 +80,7 @@ export class OrderdetailComponent implements OnInit {
               this.blockUI.stop();
             }
           } else if (res.code == 666) {
+            this.jolService.resetLoginData();
             this.router.navigate(['/login'], { skipLocationChange: true });
           }
         });
@@ -101,6 +102,7 @@ export class OrderdetailComponent implements OnInit {
         console.log('this.jolService.prod', this.jolService.prod)
         this.router.navigate(['/product'], { skipLocationChange: true });
       } else if (res.code == 666) {
+        this.jolService.resetLoginData();
         this.router.navigate(['/login'], { skipLocationChange: true });
       }
     });

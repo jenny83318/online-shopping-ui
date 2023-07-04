@@ -57,6 +57,7 @@ export class WishitemComponent implements OnInit {
               this.sum += wish.qty* wish.price;
             });
           }else if (res.code == 666) {
+            this.jolService.resetLoginData();
             this.router.navigate(['/login'], { skipLocationChange: true });
           }
         });
@@ -83,6 +84,7 @@ export class WishitemComponent implements OnInit {
             if(res.code == 200){
               this.getWishData();
             } else if (res.code == 666) {
+              this.jolService.resetLoginData();
               this.router.navigate(['/login'], { skipLocationChange: true });
             }
             console.log('res',res)

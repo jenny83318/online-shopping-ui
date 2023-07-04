@@ -76,6 +76,7 @@ export class OrderlistComponent implements OnInit {
               this.ishidden = true
             }
           } else if (res.code == 666) {
+            this.jolService.resetLoginData();
             this.router.navigate(['/login'], { skipLocationChange: true });
           }
         });

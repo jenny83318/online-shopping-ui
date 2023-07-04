@@ -77,6 +77,7 @@ export class MemberComponent implements OnInit {
         this.member.address = this.custData.address;
         this.member.email = this.custData.email;
       }else if (res.code == 666){
+        this.jolService.resetLoginData();
         this.router.navigate(['/login'], { skipLocationChange: true });
       }
       console.log('custData', this.custData);
@@ -112,6 +113,7 @@ export class MemberComponent implements OnInit {
         localStorage.setItem('loginData', JSON.stringify(this.loginData));
         this.dialog.open(MessageComponent, { data: { msg: '會員資料修改成功' } });
       }else if (res.code == 666){
+        this.jolService.resetLoginData();
         this.router.navigate(['/login'], { skipLocationChange: true });
       }
     });
