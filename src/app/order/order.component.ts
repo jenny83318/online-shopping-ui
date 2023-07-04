@@ -398,7 +398,7 @@ export class OrderComponent implements OnInit {
     })
 
     const stripe = await this.stripePromise;
-    let request = new StripeRequest(Math.round(this.jolService.totAmt * 100) , prodName , 'hkd', "https://jol-boutique-6375bd33d0fe.herokuapp.com/orderlist", "https://jol-boutique-6375bd33d0fe.herokuapp.com", 1);
+    let request = new StripeRequest(Math.round(this.jolService.totAmt * 100) , prodName , 'hkd', environment.Heroku_Succ, environment.Heroku_Fail, 1);
     console.log('StripePay req', request)
     this.blockUI.start('讀取中');
     this.jolService
