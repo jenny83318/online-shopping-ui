@@ -68,6 +68,7 @@ export class OrderComponent implements OnInit {
   isSendAddress: boolean = false;
   isVehicleType: boolean = false;
   isVehicle: boolean = false;
+  creditCardNo:any;
   vehicleOpt: any = [
     { viewValue: '電子發票 E-invoice' },
     { viewValue: '電子發票 手機載具' },
@@ -172,10 +173,12 @@ export class OrderComponent implements OnInit {
             if (this.odr.payBy == 'Paypal') {
               this.isPayPal = true;
               this.isDisable = true;
+              this.creditCardNo ="4111 1111 1111 1111"
               this.Paypal(rs.orderList[0].orderNo);
             }
             if (this.odr.payBy == 'Stripe Pay') {
               this.isStripe = true;
+              this.creditCardNo ="4242 4242 4242 4242"
               this.isDisable = true;
             }
           }
@@ -391,7 +394,7 @@ export class OrderComponent implements OnInit {
     })
 
     const stripe = await this.stripePromise;
-    let request = new StripeRequest(Math.round(this.jolService.totAmt * 100) , prodName , 'hkd', "http://localhost:4200/orderlist", "http://localhost:4200", 1);
+    let request = new StripeRequest(Math.round(this.jolService.totAmt * 100) , prodName , 'hkd', "https://jol-boutique-6375bd33d0fe.herokuapp.com/orderlist", "https://jol-boutique-6375bd33d0fe.herokuapp.com", 1);
     console.log('StripePay req', request)
     this.blockUI.start('讀取中');
     this.jolService

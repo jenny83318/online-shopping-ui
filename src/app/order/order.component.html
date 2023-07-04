@@ -125,7 +125,10 @@
         <ngx-paypal [config]="payPalConfig"></ngx-paypal>
         <button (click)="StripePay()" *ngIf="isStripe" class="stripe"><img src="/assets/img/Stripe.jpg"></button>
       </li>
-
+      <li class="totalRow">
+      <p *ngIf="isPayPal || isStripe">測試卡號:{{creditCardNo}}</p>
+      <p *ngIf="isPayPal || isStripe">隨機碼:任意三碼/ 效期:未來日期</p>
+    </li>
     </ul>
   </div>
 </div>

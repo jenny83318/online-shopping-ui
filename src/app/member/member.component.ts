@@ -1,14 +1,14 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Request } from '../model/Request';
-import { StripeRequest } from '../model/StripeRequest';
 import { JolService } from './../service/JolService.service';
 import { Router } from '@angular/router';
 import { BlockuiComponent } from './../blockui/blockui.component';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { HttpClient } from '@angular/common/http';
-import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
-import { loadStripe } from '@stripe/stripe-js';
+import { IPayPalConfig} from 'ngx-paypal';
+import { MatDialog } from '@angular/material/dialog';
+import { MessageComponent } from '../message/message.component';
 
 @Component({
   selector: 'app-member',
@@ -47,7 +47,7 @@ export class MemberComponent implements OnInit {
   isCity: boolean = false;
   isDistrict: boolean = false;
   isAddress: boolean = false;
-  constructor(private jolService: JolService, private router: Router, private http: HttpClient, private ngZone: NgZone) { }
+  constructor(private jolService: JolService, private router: Router, private http: HttpClient,  private dialog: MatDialog) { }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -93,6 +93,7 @@ export class MemberComponent implements OnInit {
       phone: this.member.phone,
       city: this.member.city,
       district: this.member.district,
+      tokenExpired: this.loginData.tokenExpired,
       status: "1"
     }
     let request = new Request("JOLCustomerInfo", this.loginData.account, this.loginData.token, 'UPDATE', body);
@@ -109,6 +110,7 @@ export class MemberComponent implements OnInit {
         this.loginData.email = this.custData.email;
         this.loginData.tokenExpired = this.custData.tokenExpired;
         localStorage.setItem('loginData', JSON.stringify(this.loginData));
+        this.dialog.open(MessageComponent, { data: { msg: '會員資料修改成功' } });
       }else if (res.code == 666){
         this.router.navigate(['/login'], { skipLocationChange: true });
       }
