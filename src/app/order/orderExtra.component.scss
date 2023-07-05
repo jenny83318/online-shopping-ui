@@ -4,34 +4,34 @@ $fontSerif: "Droid Serif", serif;
 
 .cart {
     padding: 1em 0;
-  
+
     .items {
       display: block;
       width: 100%;
       padding: 0.5em;
-  
+
       border-bottom: 1px solid #fafafa;
-  
+
       &.even {
         background: #fafafa;
       }
-  
+
       .infoWrap {
         display: table;
         width: 100%;
       }
-  
+
       .cartSection {
         display: table-cell;
-  
+
         vertical-align: middle;
-  
+
         .itemNumber {
           font-size: 0.75em;
           color: #777;
           margin-bottom: 0.5em;
         }
-  
+
         h3 {
           font-size: 1em;
           font-family: $fontSans;
@@ -39,50 +39,50 @@ $fontSerif: "Droid Serif", serif;
           text-transform: uppercase;
           letter-spacing: 0.025em;
         }
-  
+
         p {
           display: inline-block;
           font-size: 0.85em;
           margin-right: 20px;
-  
+
           color: #777777;
           font-family: $fontSans;
-  
+
           .quantity {
             font-weight: bold;
             color: #333;
           }
-  
+
           &.stockStatus {
             color: #82ca9c;
             font-weight: bold;
             padding: 0em 0 0 1em;
             text-transform: uppercase;
             font-size: 15px;
-  
+
             &.out {
               color: #f69679;
             }
           }
         }
-  
+
         .itemImg {
           width: 4em;
-  
+
           float: left;
         }
-  
+
         &.qtyWrap,
         &.prodTotal {
           text-align: right;
           padding-right: 10px;
-  
+
           p {
             font-weight: bold;
             font-size: 1.25em;
           }
         }
-  
+
         input.qty {
           width: 2em;
           text-align: center;
@@ -90,7 +90,7 @@ $fontSerif: "Droid Serif", serif;
           padding: 0.25em;
           margin: 1em 0.5em 0 0;
         }
-  
+
         .itemImg {
           width: 9em;
           display: inline;
@@ -99,17 +99,17 @@ $fontSerif: "Droid Serif", serif;
       }
     }
   }
-  
+
   .special {
     display: block;
     font-family: $fontSans;
-  
+
     .specialContent {
       padding: 1em 1em 0;
       display: block;
       margin-top: 0.5em;
       border-top: 1px solid #dadada;
-  
+
       &:before {
         content: "\21b3";
         font-size: 1.5em;
@@ -119,35 +119,36 @@ $fontSerif: "Droid Serif", serif;
       }
     }
   }
-  
+
   .promoCode {
     border: 2px solid #efefef;
     float: left;
-    width: 250px;
     padding: 2%;
-  
+    @media (min-width: 39.375em) {
+      width: 35%;
+    }
     label {
       display: block;
       width: 100%;
       font-style: italic;
       font-size: 1.15em;
-  
+
       margin-bottom: 0.5em;
       letter-spacing: -0.025em;
     }
-  
+
     input {
       width: 85%;
       font-size: 1em;
       padding: 0.5em;
       float: left;
-  
+
       &:active,
       &:focus {
         outline: 0;
       }
     }
-  
+
     button.btn {
       float: left;
       width: 15%;
@@ -155,47 +156,67 @@ $fontSerif: "Droid Serif", serif;
       border-radius: 0 1em 1em 0;
       text-align: center;
       border: 1px solid #82ca9c;
-  
+
       &:hover {
         border: 1px solid #f69679;
         background: #f69679;
       }
     }
   }
-  
-  
-  /* TOTAL AND CHECKOUT  */
-  .subtotal {
-    float: right;
-    width: 35%;
-  
-    .totalRow {
-      padding: 0.5em;
-      text-align: right;
-  
-      &.final {
-        font-size: 1.25em;
-        font-weight: bold;
-      }
-  
-      span {
-        display: inline-block;
-        padding: 0 0 0 1em;
-        text-align: right;
-      }
-  
-      .label {
-        font-family: $fontSans;
-        font-size: 0.85em;
-        text-transform: uppercase;
-        color: #777;
-      }
-  
-      .value {
-        letter-spacing: -0.025em;
-        width: 35%;
+
+
+ // CART Items
+@media only screen and (max-width: 39.375em) {
+  .wrap {
+    width: 98%;
+    padding: 2% 0;
+  }
+
+  .heading {
+    font-size: 90%;
+  }
+
+  .cart {
+    margin-left: 20px;
+    .items {
+      .cartSection {
+        width: 90%;
+        display: block;
+        float: left;
+
+        &.qtyWrap {
+          width: 10%;
+          text-align: center;
+          padding: 0.5em 0;
+          float: right;
+
+          &:before {
+            content: "QTY";
+            display: block;
+            font-family: $fontSans;
+            padding: 0.25em;
+            font-size: 0.75em;
+          }
+        }
+
+        &.prodTotal,
+        &.removeWrap {
+          display: unset;
+        }
+
+        .itemImg {
+          width: 25%;
+        }
       }
     }
   }
-  
-  
+
+  .promoCode,
+    .subtotal {
+      width: 100%;
+    }
+  button.btn.continue {
+    width: 100%;
+    text-align: center;
+  }
+}
