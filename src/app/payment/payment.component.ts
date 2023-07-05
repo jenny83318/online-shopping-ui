@@ -134,7 +134,7 @@ export class PaymentComponent implements OnInit {
       }
     })
     const stripe = await this.stripePromise;
-    let request = new StripeRequest(Math.round(this.order.totalAmt * 100) , prodName , 'hkd', environment.SUCCESS_URL, environment.FAIL_URL, 1);
+    let request = new StripeRequest(Math.round(this.order.totalAmt * 100) , prodName , 'hkd', environment.Render_Succ, environment.Render_Fail, 1);
     this.blockUI.start('讀取中');
     this.jolService
       .getPaymentData(environment.STRIPE, request)
