@@ -1,242 +1,246 @@
 .LoginPageInnerContainer .LoginFormContainer .checkbox {
-    width: 15px;
-    height: 15px;
-    margin: 0px;
-    display: block;
-    border: 1px solid #000000;
+  width: 15px;
+  height: 15px;
+  margin: 0px;
+  display: block;
+  border: 1px solid #000000;
+}
+
+.LoginPageInnerContainer .LoginFormContainer .checkboxContainer label {
+  display: block;
+  padding: 0px 5px;
+  color: #000000;
+}
+
+.LoginPageInnerContainer .LoginFormContainer .ForgotPasswordLink {
+  color: #e7483b;
+  text-decoration: none;
+}
+
+
+.LoginFormContainer .upImage {
+  display: none;
+}
+
+@media only screen and (min-width: 1200px) {
+  .LoginPageInnerContainer .LoginFormContainer {
+
+    padding-right: 10%;
+    padding-top: 60px;
   }
-  
-  .LoginPageInnerContainer .LoginFormContainer .checkboxContainer label {
-    display: block;
-    padding: 0px 5px;
-    color: #000000;
+
+  .outerWrapper {
+    width: 40%;
+    margin-top: -20px;
+    margin-left: 40px;
+    position: absolute;
   }
-  
-  .LoginPageInnerContainer .LoginFormContainer .ForgotPasswordLink {
-    color: #e7483b;
-    text-decoration: none;
+}
+
+@media only screen and (max-width: 1200px) {
+  .LoginPageInnerContainer .LoginFormContainer {
+    padding-left: 5%;
+    padding-right: 10%;
+    padding-top: 5%;
   }
-  
-  
-  .LoginFormContainer .upImage {
+
+  .LoginPageInnerContainer .ImageContianer {
+    width: 50%;
+  }
+
+  .outerWrapper {
+    width: 40%;
+    margin-top: -20px;
+    margin-left: 40px;
+    position: absolute;
+  }
+}
+
+@media only screen and (max-width: 935px) {
+  .LoginPageInnerContainer .ImageContianer {
     display: none;
   }
-  
-  @media only screen and (min-width: 1200px) {
-    .LoginPageInnerContainer .LoginFormContainer {
-  
-      padding-right: 10%;
-      padding-top: 60px;
-    }
-  
-    .outerWrapper {
-      width: 40%;
-      margin-top: -20px;
-      margin-left: 40px;
-      position: absolute;
-    }
-  }
-  
-  @media only screen and (max-width: 1200px) {
-    .LoginPageInnerContainer .LoginFormContainer {
-      padding-left: 5%;
-      padding-right: 10%;
-      padding-top: 5%;
-    }
-  
-    .LoginPageInnerContainer .ImageContianer {
-      width: 50%;
-    }
-  
-    .outerWrapper {
-      width: 40%;
-      margin-top: -20px;
-      margin-left: 40px;
-      position: absolute;
-    }
-  }
-@media only screen and (max-width: 935px) {
-    .LoginPageInnerContainer .ImageContianer {
-      display: none;
-    }
-  
-    .LoginPageInnerContainer .LoginFormContainer {
-      padding-right: 0;
-      padding-top: 0;
-      justify-content: center;
-      padding: 0;
-    }
-  
-    .LoginFormContainer .upImage {
-      display: unset;
-    }
-  
-    .outerWrapper {
-      position: relative;
-      margin-left: 20px;
-      width: 80%;
-      margin-top: 30px;
-    }
-  }
-  
-  .LoginPageContainer::-webkit-scrollbar {
-    width: 5px;
-  }
-  
-  .LoginPageContainer::-webkit-scrollbar-track {
-    background: #ffffff;
-  }
-  
-  .LoginPageContainer::-webkit-scrollbar-thumb {
-    background: #2e1f7a;
-  }
-  
-  .LoginPageContainer::-webkit-scrollbar-thumb:hover {
-    background: #4520ff;
-  }
-  
-  input:focus {
-    outline: none;
-  }
-  
-  .example-form {
-    min-width: 150px;
-    max-width: 800px;
-    width: 100%;
-  }
-  
-  .example-full-width {
-    width: 100%;
-  }
-  
-  input:focus {
-    outline: none;
-    border: none;
-  }
-  
-  .label {
-    font-size: 15px;
-  }
-  
-  .price {
-    font-size: 24px;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    color: #a75500;
-    font-weight: 300;
-  }
-  
-  .size {
-    font-size: 24px;
-    padding: 10px;
-    font-family: Rubik;
-  }
-  
-  li.selected {
-    border: 1px solid black;
-    background-color: #ffd95e38;
-  }
-  
-  .sizeWrapper {
-    width: 70px;
-    display: -webkit-inline-box;
-    margin-bottom: 30px;
-    font-family: Rubik;
-  }
-  
-  .btnWrapper {
-    width: 48%;
-    display: -webkit-inline-box;
-    text-align: center;
-    margin-right: 2%;
-    padding: 0.4rem;
-    margin-bottom: 40px;
-    border: 1px solid gray;
-    font-family: Rubik;
-  }
-  
-  .frame {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 400px;
-    height: 400px;
-    margin-top: -200px;
-    margin-left: -200px;
-    border-radius: 2px;
-    box-shadow: 4px 8px 16px 0 rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    background: #fff;
-    color: #333;
-    font-family: 'Open Sans', Helvetica, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  
-  .container {
-    display: flex;
-    border: 1px solid gray;
-    background: #ffffff;
-    width: 98%;
-    padding: 0.1rem;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  h1 {
-    margin: 0;
+
+  .LoginPageInnerContainer .LoginFormContainer {
+    padding-right: 0;
+    padding-top: 0;
+    justify-content: center;
     padding: 0;
-    user-select: none;
   }
-  
-  .col-1 {
-    width: 45%;
+
+  .LoginFormContainer .upImage {
+    display: unset;
   }
-  
-  .col-2 {
-    width: 25%;
+
+  .outerWrapper {
+    position: relative;
+    margin-left: 20px;
+    width: 80%;
+    margin-top: 30px;
   }
-  
-  .col>button,
-  .number {
-    width: 100%;
-    background: #ffffff;
-    border: 0px;
-    text-align: center;
-  }
-  
-  .btn {
-    font-family: sans-serif;
-    font-size: 2em;
-  }
-  
-  .minusbtn {
-    font-size: 3em;
-  }
-  
-  button {
-    color: #000000;
-    user-select: none;
-    outline: none;
-  }
-  
-  .tabContent {
-    width: 100%;
-  }
-  
-  .cart {
-    background-color: #ee9746;
-    border: 1px solid #ee9746;
-  }
-  
-  .wishBtn {
-    color: #000000;
-    margin-left: 90%;
-    -webkit-user-select: none;
-    user-select: none;
-    outline: none;
-    font-size: 30px;
-    margin-bottom: 20px;
-  }
-  
+}
+
+.LoginPageContainer::-webkit-scrollbar {
+  width: 5px;
+}
+
+.LoginPageContainer::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+.LoginPageContainer::-webkit-scrollbar-thumb {
+  background: #2e1f7a;
+}
+
+.LoginPageContainer::-webkit-scrollbar-thumb:hover {
+  background: #4520ff;
+}
+
+input:focus {
+  outline: none;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 800px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+input:focus {
+  outline: none;
+  border: none;
+}
+
+.label {
+  font-size: 15px;
+}
+
+.price {
+  font-size: 24px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  color: #a75500;
+  font-weight: 300;
+}
+
+.size {
+  font-size: 24px;
+  padding: 10px;
+  font-family: Rubik;
+}
+
+li.selected {
+  border: 1px solid black;
+  background-color: #ffd95e38;
+}
+
+.sizeWrapper li {
+  border: 1px solid black;
+}
+
+.sizeWrapper {
+  width: 70px;
+  display: -webkit-inline-box;
+  margin-bottom: 30px;
+  font-family: Rubik;
+}
+
+.btnWrapper {
+  width: 48%;
+  display: -webkit-inline-box;
+  text-align: center;
+  margin-right: 2%;
+  padding: 0.4rem;
+  margin-bottom: 40px;
+  border: 1px solid gray;
+  font-family: Rubik;
+}
+
+.frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  margin-top: -200px;
+  margin-left: -200px;
+  border-radius: 2px;
+  box-shadow: 4px 8px 16px 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background: #fff;
+  color: #333;
+  font-family: 'Open Sans', Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  display: flex;
+  border: 1px solid gray;
+  background: #ffffff;
+  width: 98%;
+  padding: 0.1rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+.col-1 {
+  width: 45%;
+}
+
+.col-2 {
+  width: 25%;
+}
+
+.col>button,
+.number {
+  width: 100%;
+  background: #ffffff;
+  border: 0px;
+  text-align: center;
+}
+
+.btn {
+  font-family: sans-serif;
+  font-size: 2em;
+}
+
+.minusbtn {
+  font-size: 3em;
+}
+
+button {
+  color: #000000;
+  user-select: none;
+  outline: none;
+}
+
+.tabContent {
+  width: 100%;
+}
+
+.cart {
+  background-color: #ee9746;
+  border: 1px solid #ee9746;
+}
+
+.wishBtn {
+  color: #000000;
+  margin-left: 90%;
+  -webkit-user-select: none;
+  user-select: none;
+  outline: none;
+  font-size: 30px;
+  margin-bottom: 20px;
+}

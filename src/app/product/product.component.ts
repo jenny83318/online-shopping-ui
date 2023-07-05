@@ -33,6 +33,9 @@ export class ProductComponent implements OnInit {
     this.loginData = this.jolService.getLoginData();
     this.prod = this.jolService.prod;
     this.sizeList = this.prod.sizeInfo.split(",");
+    if(this.sizeList[0] =='F'){
+      this.size = 'F'
+    }
     this.checkWish();
   }
 
