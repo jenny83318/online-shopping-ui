@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   constructor(private jolService: JolService, public dialog: MatDialog) { }
 
   ngOnInit() {
-    window.scrollTo(0, 0);
+    window.scrollTo({top:0, behavior:'smooth'});
     this.loginData = this.jolService.getLoginData();
     if (localStorage.getItem('isToPay') != null) {
       localStorage.removeItem('isToPay');

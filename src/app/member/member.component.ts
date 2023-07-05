@@ -51,7 +51,7 @@ export class MemberComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this.loginData = this.jolService.loginData;
+    this.loginData = this.jolService.getLoginData();
     if(this.loginData.account != ''){
       this.getCustData();
       this.http.get('assets/json/address.json').subscribe((res) => {
@@ -59,7 +59,7 @@ export class MemberComponent implements OnInit {
         this.districtList = this.addressList[1].district;
       });
     }else {
-      this.router.navigate(['/login'], { skipLocationChange: true });
+      this.router.navigate(['/login'], { skipLocationChange: false });
     }
   }
 
@@ -78,7 +78,7 @@ export class MemberComponent implements OnInit {
         this.member.email = this.custData.email;
       }else if (res.code == 666){
         this.jolService.resetLoginData();
-        this.router.navigate(['/login'], { skipLocationChange: true });
+        this.router.navigate(['/login'], { skipLocationChange: false });
       }
       console.log('custData', this.custData);
     });
@@ -114,7 +114,7 @@ export class MemberComponent implements OnInit {
         this.dialog.open(MessageComponent, { data: { msg: '會員資料修改成功' } });
       }else if (res.code == 666){
         this.jolService.resetLoginData();
-        this.router.navigate(['/login'], { skipLocationChange: true });
+        this.router.navigate(['/login'], { skipLocationChange: false });
       }
     });
   }

@@ -35,7 +35,7 @@ export class CartitemComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this.loginData = this.jolService.loginData;
+    this.loginData = this.jolService.getLoginData();
     this.getCartData();
   }
 
@@ -72,11 +72,11 @@ export class CartitemComponent implements OnInit {
             });
           }else if (res.code == 666){
             this.jolService.resetLoginData();
-            this.router.navigate(['/login'], { skipLocationChange: true });
+            this.router.navigate(['/login'], { skipLocationChange: false });
           }
           });
         } else {
-          this.router.navigate(['/login'], { skipLocationChange: true });
+          this.router.navigate(['/login'], { skipLocationChange: false });
         }
   }
 
@@ -95,7 +95,7 @@ export class CartitemComponent implements OnInit {
               this.getCartData();
             }else if (res.code == 666){
               this.jolService.resetLoginData();
-              this.router.navigate(['/login'], { skipLocationChange: true });
+              this.router.navigate(['/login'], { skipLocationChange: false });
             }
           });
       }
@@ -128,7 +128,7 @@ export class CartitemComponent implements OnInit {
       this.jolService.payment = this.payment;
       this.jolService.delivery = this.delivery;
       this.jolService.cartList = this.cartList;
-      this.router.navigate(['/order'], { skipLocationChange: true });
+      this.router.navigate(['/order'], { skipLocationChange: false });
     }
   }
 

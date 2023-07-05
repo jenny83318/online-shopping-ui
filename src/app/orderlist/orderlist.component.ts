@@ -39,11 +39,7 @@ export class OrderlistComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this.loginData = this.jolService.loginData;
-    if (this.loginData.account == '' && localStorage.getItem('loginData') != null) {
-      this.loginData = JSON.parse(localStorage.getItem('loginData'));
-      this.jolService.loginData = this.loginData;
-    }
+    this.loginData = this.jolService.getLoginData();
     if (localStorage.getItem('isToPay') != null && localStorage.getItem('isToPay') != "undefined") {
       console.log('isToPay', localStorage.getItem('isToPay'))
       this.jolService.updateOrderStatus({ orderNo: Number(localStorage.getItem('isToPay')), status: "已付款" });
@@ -78,11 +74,11 @@ export class OrderlistComponent implements OnInit {
             }
           } else if (res.code == 666) {
             this.jolService.resetLoginData();
-            this.router.navigate(['/login'], { skipLocationChange: true });
+            this.router.navigate(['/login'], { skipLocationChange: false });
           }
         });
     } else {
-      this.router.navigate(['/login'], { skipLocationChange: true });
+      this.router.navigate(['/login'], { skipLocationChange: false });
     }
   }
 

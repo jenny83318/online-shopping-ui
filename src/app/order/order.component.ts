@@ -114,7 +114,7 @@ export class OrderComponent implements OnInit {
         }
       }else if (res.code == 666){
         this.jolService.resetLoginData();
-        this.router.navigate(['/login'], { skipLocationChange: true });
+        this.router.navigate(['/login'], { skipLocationChange: false });
       }
       console.log('custData', this.custData);
     });
@@ -167,7 +167,7 @@ export class OrderComponent implements OnInit {
                 .subscribe((res) => {
                   if (res.code == 666){
                     this.jolService.resetLoginData();
-                    this.router.navigate(['/login'], { skipLocationChange: true });
+                    this.router.navigate(['/login'], { skipLocationChange: false });
                   }
                 });
             });
@@ -186,7 +186,7 @@ export class OrderComponent implements OnInit {
           }
         }else if (rs.code == 666){
           this.jolService.resetLoginData();
-          this.router.navigate(['/login'], { skipLocationChange: true });
+          this.router.navigate(['/login'], { skipLocationChange: false });
         }
         console.log('res', rs);
       });
@@ -232,11 +232,11 @@ export class OrderComponent implements OnInit {
             this.jolService.orderDetail = this.cartList;
           }else if (res.code == 666){
             this.jolService.resetLoginData();
-            this.router.navigate(['/login'], { skipLocationChange: true });
+            this.router.navigate(['/login'], { skipLocationChange: false });
           }
         });
     } else {
-      this.router.navigate(['/login'], { skipLocationChange: true });
+      this.router.navigate(['/login'], { skipLocationChange: false });
     }
   }
 
@@ -256,7 +256,7 @@ export class OrderComponent implements OnInit {
     this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
      if (res.code == 666){
         this.jolService.resetLoginData();
-        this.router.navigate(['/login'], { skipLocationChange: true });
+        this.router.navigate(['/login'], { skipLocationChange: false });
       }
     });
   }
@@ -366,6 +366,7 @@ export class OrderComponent implements OnInit {
         console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
         console.log('orderStatus', data.status)
         this.ngZone.run(() => {
+          localStorage.setItem('isToPay', this.orderNo);
           this.jolService.updateOrderStatus({ orderNo: orderNo, status: "已付款" });
 
         });
@@ -374,7 +375,7 @@ export class OrderComponent implements OnInit {
         console.log('OnCancel', data, actions);
         this.ngZone.run(() => {
           this.jolService.sendOrderEmail(orderNo);
-          this.router.navigate(['/'], { skipLocationChange: true });
+          this.router.navigate(['/'], { skipLocationChange: false });
         });
       },
       onError: err => {

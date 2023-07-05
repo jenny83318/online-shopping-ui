@@ -30,7 +30,7 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     window.scrollTo(0, 0);
-    this.loginData = this.jolService.loginData;
+    this.loginData = this.jolService.getLoginData();
     this.prod = this.jolService.prod;
     this.sizeList = this.prod.sizeInfo.split(",");
     this.checkWish();
@@ -79,7 +79,7 @@ export class ProductComponent implements OnInit {
         }
       } else if (res.code == 666) {
         this.jolService.resetLoginData();
-        this.router.navigate(['/login'], { skipLocationChange: true });
+        this.router.navigate(['/login'], { skipLocationChange: false });
       }
       });
   }
@@ -94,7 +94,7 @@ export class ProductComponent implements OnInit {
       }
 
     } else {
-      this.router.navigate(['/login'], { skipLocationChange: true });
+      this.router.navigate(['/login'], { skipLocationChange: false });
     }
   }
 
@@ -111,7 +111,7 @@ export class ProductComponent implements OnInit {
       .subscribe((res) => {
         if (res.code == 666) {
           this.jolService.resetLoginData();
-          this.router.navigate(['/login'], { skipLocationChange: true });
+          this.router.navigate(['/login'], { skipLocationChange: false });
         }
       });
   }

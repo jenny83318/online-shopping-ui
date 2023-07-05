@@ -144,7 +144,7 @@ export class HeaderComponent implements OnInit {
         this.wishCount = this.jolService.wishNum;
       }else if (res.code == 666){
         this.jolService.resetLoginData();
-        this.router.navigate(['/login'], { skipLocationChange: true });
+        this.router.navigate(['/login'], { skipLocationChange: false });
       }
     });
   }
@@ -173,20 +173,20 @@ export class HeaderComponent implements OnInit {
   }
 
   toLogIn() {
-    this.router.navigate(['/login'], { skipLocationChange: true });
+    this.router.navigate(['/login'], { skipLocationChange: false });
   }
 
   toHome() {
     this.router.navigate(['/']);
   }
   toCartItem() {
-    this.router.navigate(['/cartitem'], { skipLocationChange: true });
+    this.router.navigate(['/cartitem'], { skipLocationChange: false });
   }
   toWishItem() {
-    this.router.navigate(['/wishitem'], { skipLocationChange: true });
+    this.router.navigate(['/wishitem'], { skipLocationChange: false });
   }
   toOrderList() {
-    this.router.navigate(['/orderlist'], { skipLocationChange: true });
+    this.router.navigate(['/orderlist'], { skipLocationChange: false });
   }
   toProductList(selectType: any, keyWord: any) {
     if (selectType == 'category') {
@@ -200,6 +200,6 @@ export class HeaderComponent implements OnInit {
     });
   }
   toMember() {
-    this.router.navigate(['/member'], { skipLocationChange: true });
+    this.router.navigate(['/member'], { skipLocationChange: false });
   }
 }

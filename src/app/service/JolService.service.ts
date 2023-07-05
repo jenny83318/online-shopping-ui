@@ -93,11 +93,11 @@ export class JolService {
           this.setWishNum(res.cartList.length);
         }
         if(isRouter){
-          this.router.navigate(['/cartitem'], { skipLocationChange: true });
+          this.router.navigate(['/cartitem'], { skipLocationChange: false });
         }
       } else if (res.code == 666) {
         this.resetLoginData();
-        this.router.navigate(['/login'], { skipLocationChange: true });
+        this.router.navigate(['/login'], { skipLocationChange: false });
       }
     });
     setTimeout(() => {
@@ -129,7 +129,7 @@ export class JolService {
         this.router.navigate(['/productlist'], { skipLocationChange: true });
       } else if (res.code == 666) {
         this.resetLoginData();
-        this.router.navigate(['/login'], { skipLocationChange: true });
+        this.router.navigate(['/login'], { skipLocationChange: false });
       }
     });
   }
@@ -144,10 +144,10 @@ export class JolService {
       if (res.code == 200) {
         this.orderUpdate.emit("finish");
         this.sendOrderEmail(body.orderNo);
-        this.router.navigate(['/orderlist'], { skipLocationChange: true })
+        this.router.navigate(['/orderlist'], { skipLocationChange: false })
       } else if (res.code == 666) {
         this.resetLoginData();
-        this.router.navigate(['/login'], { skipLocationChange: true });
+        this.router.navigate(['/login'], { skipLocationChange: false });
       }
     });
   }

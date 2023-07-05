@@ -28,7 +28,7 @@ export class PaymentComponent implements OnInit {
      @Inject(MAT_DIALOG_DATA) public order: any, private ngZone: NgZone, private router: Router) { }
 
   ngOnInit() {
-    this.loginData = this.jolService.loginData;
+    this.loginData = this.jolService.getLoginData();
     console.log('this.loginData', this.loginData)
     console.log('this.order', this.order)
     this.getOrderDetail(this.order.orderNo)
@@ -100,7 +100,7 @@ export class PaymentComponent implements OnInit {
             }
           });
           localStorage.setItem('isToPay', this.order.orderNo);
-          this.router.navigate(['/orderlist'], { skipLocationChange: true })
+          window.location.reload();
         });
       },
       onCancel: (data, actions) => {
@@ -109,7 +109,7 @@ export class PaymentComponent implements OnInit {
           this.jolService.orderUpdate.subscribe((status) => {
             if(status == 'finish'){
               this.cancel();
-              this.router.navigate(['/'], { skipLocationChange: true });
+              this.router.navigate(['/'], { skipLocationChange: false });
             }
           });
         });
@@ -173,7 +173,7 @@ export class PaymentComponent implements OnInit {
             }
           } else if (res.code == 666) {
             this.jolService.resetLoginData();
-            this.router.navigate(['/login'], { skipLocationChange: true });
+            this.router.navigate(['/login'], { skipLocationChange: false });
           }
         });
     }
