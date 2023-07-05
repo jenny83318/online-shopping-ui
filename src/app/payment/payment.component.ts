@@ -99,7 +99,7 @@ export class PaymentComponent implements OnInit {
               this.cancel();
             }
           });
-
+          localStorage.setItem('isToPay', this.order.orderNo);
           this.router.navigate(['/orderlist'], { skipLocationChange: true })
         });
       },
