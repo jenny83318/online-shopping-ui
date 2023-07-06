@@ -10,6 +10,12 @@ serif;
     justify-content: flex-start;
     flex-direction: row;
     flex-wrap: wrap;
+    @media (min-width: 446px) {
+      margin-left: 90px;
+    }
+    @media (min-width: 369px) {
+      margin-left: 75px;
+    }
   }
   
   .imgContainer {
@@ -23,15 +29,14 @@ serif;
   }
   
   .container {
+    height: 28px;
     display: flex;
     border: 1px solid gray;
     width: 100px;
-    padding: rem;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: px;
     flex-wrap: nowrap;
-    margin: -5px 30px 5px 10px;
+    margin: -5px 30px 5px -13px;
   
   }
   
@@ -62,7 +67,7 @@ serif;
     float: left;
     padding: 2%;
     @media (min-width: 39.375em) {
-      width: 35%;
+      width: 250px;
     }
     
   

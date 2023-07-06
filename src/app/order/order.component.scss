@@ -41,6 +41,7 @@ img {
   padding: 5% 0;
   margin-bottom: 5em;
   margin-top: 60px;
+  overflow-x: hidden;
 }
 
 // CART HEADER
@@ -88,6 +89,7 @@ img {
   }
 }
 .btn {
+  min-width: 140px;
   text-decoration: none;
   font-family: $fontSans;
   letter-spacing: -0.015em;
@@ -146,6 +148,7 @@ img {
  .subtotal {
   float: right;
   width: 35%;
+  min-width: 250px;
 
   .totalRow {
     padding: 0.5em;
@@ -258,6 +261,10 @@ button:focus {
   border-radius: 10px;
   img {
     border-radius: 7px;
+    border-radius: 7px;
+    background: linear-gradient(to bottom, #fff 0%, #f0f0f0 100%);
+    box-shadow: 3px 5px 3px rgba(0, 0, 0, 0.3);
+    border: 1px solid #ccc;
   }
   img:hover {
     opacity: 0.7;

@@ -8,8 +8,8 @@ export const environment = {
   STRIPE:"/jolserver/api/payment",
   Render_Succ:"https://jol-boutique.onrender.com/orderlist",
   Render_Fail:"https://jol-boutique.onrender.com",
-  SUCCESS_URL:"http://139.162.97.43:9080/orderlist",
-  FAIL_URL:"http://139.162.97.43:9080",
+  SUCCESS_URL:"https://forest-bhfq.com/orderlist",
+  FAIL_URL:"https://forest-bhfq.com",
   STRIPEKEY: 'pk_test_51NIikVB9Nt3grzHaDL44jSn6ycDrs74JlW1iVO7adgmHVJL8dHKSDdwv9athWLV5vya2uOXAP53td2q2eXlClsJL002FlT3ofK',
 };
 

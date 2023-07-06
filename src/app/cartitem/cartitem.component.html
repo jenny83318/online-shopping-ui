@@ -10,11 +10,13 @@
       <li class="items" *ngFor="let c of cartList; let i = index" [ngClass]="i % 2 == 0 ? 'even' : 'odd'">
         <div class="infoWrap">
           <div class="cartSection">
-            <img class="img itemImg" [src]="c.img[0]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
-              (load)="onLoadImg(i)" />
+            <div>
+            <img class="img itemImg" [src]="c.img[0]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'" (load)="onLoadImg(i)" />
+          </div>
+          <div>
             <p class="itemNumber ">#QUE-{{padZeros(c.prodId,5)}}</p>
             <h3>{{ c.prodName }}</h3>
-            <p class="paragraph">尺寸:&nbsp; {{c.size}} &nbsp; &nbsp;</p>
+            <p class="paragraph">尺寸:&nbsp;&nbsp; {{c.size}} &nbsp; &nbsp;</p><br>
             <div class="qtyWrapper">
               <p class="paragraph">數量:</p>
               <div class="center container">
@@ -32,8 +34,9 @@
                   </button>
                 </div>
               </div>
-              <p class="paragraph">&nbsp; &nbsp;單價 NT. {{c.price | number}}</p>
               <!-- <p class="stockStatus paragraph">現貨</p> -->
+              <p class="paragraph" style="margin-left: -12px; margin-top: 10px;">&nbsp; &nbsp;單價:&nbsp;&nbsp; NT. {{c.price | number}}</p>
+            </div>
             </div>
           </div>
           <div class="prodTotal cartSection">

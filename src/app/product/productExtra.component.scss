@@ -57,6 +57,12 @@
 }
 
 @media only screen and (max-width: 935px) {
+  .LoginPageInnerContainer .LoginFormContainer .header {
+    flex-direction: column;
+    li{
+      margin-bottom: 15px;
+    }
+  }
   .LoginPageInnerContainer .ImageContianer {
     display: none;
   }
@@ -66,6 +72,7 @@
     padding-top: 0;
     justify-content: center;
     padding: 0;
+    width: 100%;
   }
 
   .LoginFormContainer .upImage {
@@ -75,25 +82,9 @@
   .outerWrapper {
     position: relative;
     margin-left: 20px;
-    width: 80%;
-    margin-top: 30px;
+    margin-top: 15px;
+    width: 90%;
   }
-}
-
-.LoginPageContainer::-webkit-scrollbar {
-  width: 5px;
-}
-
-.LoginPageContainer::-webkit-scrollbar-track {
-  background: #ffffff;
-}
-
-.LoginPageContainer::-webkit-scrollbar-thumb {
-  background: #2e1f7a;
-}
-
-.LoginPageContainer::-webkit-scrollbar-thumb:hover {
-  background: #4520ff;
 }
 
 input:focus {
@@ -224,6 +215,7 @@ button {
   color: #000000;
   user-select: none;
   outline: none;
+  text-align: center;
 }
 
 .tabContent {
