@@ -9,6 +9,9 @@ import { JolService } from './../service/JolService.service';
 import { environment } from 'src/environments/environment';
 import { StripeRequest } from '../model/StripeRequest';
 import { Request } from '../model/Request';
+import { MessageComponent } from '../message/message.component';
+import { MatDialog } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
@@ -25,7 +28,7 @@ export class PaymentComponent implements OnInit {
   isPayPal:boolean = false;
 
   constructor(private jolService: JolService, public dialogRef: MatDialogRef<PaymentComponent>,
-     @Inject(MAT_DIALOG_DATA) public order: any, private ngZone: NgZone, private router: Router) { }
+     @Inject(MAT_DIALOG_DATA) public order: any, private ngZone: NgZone, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.loginData = this.jolService.getLoginData();
@@ -87,6 +90,8 @@ export class PaymentComponent implements OnInit {
         console.log('onApprove - transaction was approved, but not authorized', data, actions);
         actions.order.get().then(details => {
           console.log('onApprove - you can get full order details inside onApprove: ', details);
+          this.cancel();
+          this.dialog.open(MessageComponent, { data: { msg: '付款未完成，訂單編號: #JOL' + this.padZeros(this.order.orderNo, 5)} })
         });
       },
       onClientAuthorization: (data) => {
@@ -106,15 +111,13 @@ export class PaymentComponent implements OnInit {
       onCancel: (data, actions) => {
         console.log('OnCancel', data, actions);
         this.ngZone.run(() => {
-          this.jolService.orderUpdate.subscribe((status) => {
-            if(status == 'finish'){
-              this.cancel();
-              this.router.navigate(['/'], { skipLocationChange: false });
-            }
-          });
+          this.cancel();
+          this.dialog.open(MessageComponent, { data: { msg: '已取消付款，訂單編號: #JOL' + this.padZeros(this.order.orderNo, 5)} })
         });
       },
       onError: err => {
+        this.cancel();
+        this.dialog.open(MessageComponent, { data: { msg: '付款失敗，訂單編號: #JOL' + this.padZeros(this.order.orderNo,5) }})
         console.log('OnError', err);
       },
       onClick: (data, actions) => {
@@ -181,5 +184,8 @@ export class PaymentComponent implements OnInit {
 
   cancel(){
     this.dialogRef.close();
+  }
+  padZeros(value: number, length: number): string {
+    return value.toString().padStart(length, '0');
   }
 }

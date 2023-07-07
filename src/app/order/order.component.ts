@@ -375,11 +375,16 @@ export class OrderComponent implements OnInit {
         console.log('OnCancel', data, actions);
         this.ngZone.run(() => {
           this.jolService.sendOrderEmail(orderNo);
-          this.router.navigate(['/'], { skipLocationChange: false });
+          localStorage.setItem('isToPay', orderNo);
+          localStorage.setItem('payStatus', 'cancel');
+          this.router.navigate(['/orderlist'], { skipLocationChange: false });
         });
       },
       onError: err => {
         console.log('OnError', err);
+        localStorage.setItem('isToPay', orderNo);
+        localStorage.setItem('payStatus', 'fail');
+        this.router.navigate(['/orderlist'], { skipLocationChange: false });
       },
       onClick: (data, actions) => {
         console.log('onClick', data, actions);

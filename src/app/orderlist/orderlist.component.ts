@@ -40,7 +40,18 @@ export class OrderlistComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.loginData = this.jolService.getLoginData();
-    if (localStorage.getItem('isToPay') != null && localStorage.getItem('isToPay') != "undefined") {
+    if(localStorage.getItem('payStatus') != null && localStorage.getItem('payStatus') != "undefined"){
+      if(localStorage.getItem('payStatus') == 'cancel'){
+        this.dialog.open(MessageComponent, { data: { msg: '取消付款，訂單編號: #JOL' + this.padZeros(parseInt(localStorage.getItem('isToPay')),5)} })
+      }
+      if(localStorage.getItem('payStatus') == 'fail'){
+        this.dialog.open(MessageComponent, { data: { msg: '付款失敗，訂單編號: #JOL' + this.padZeros(parseInt(localStorage.getItem('isToPay')),5)} })
+      }
+      localStorage.removeItem('payStatus');
+      localStorage.removeItem('isToPay');
+      this.getOrderData();
+    }
+    else if (localStorage.getItem('isToPay') != null && localStorage.getItem('isToPay') != "undefined") {
       console.log('isToPay', localStorage.getItem('isToPay'))
       this.jolService.updateOrderStatus({ orderNo: Number(localStorage.getItem('isToPay')), status: "已付款" });
       this.dialog.open(MessageComponent, { data: { msg: '付款成功，訂單編號: #JOL' + this.padZeros(parseInt(localStorage.getItem('isToPay')),5)} })

@@ -128,7 +128,7 @@ export class CartitemComponent implements OnInit {
       this.jolService.payment = this.payment;
       this.jolService.delivery = this.delivery;
       this.jolService.cartList = this.cartList;
-      this.router.navigate(['/order'], { skipLocationChange: false });
+      this.router.navigate(['/order'], { skipLocationChange: true });
     }
   }
 
