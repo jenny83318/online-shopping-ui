@@ -89,7 +89,7 @@ export class OrderComponent implements OnInit {
     window.scrollTo(0, 0);
     this.cartList = this.jolService.cartList;
     console.log('cartList', this.cartList);
-    this.loginData = this.jolService.loginData;
+    this.loginData = this.jolService.getLoginData();
     this.getCustData();
     this.http.get('assets/json/address.json').subscribe((res) => {
       this.addressList = res;
@@ -382,6 +382,7 @@ export class OrderComponent implements OnInit {
       },
       onError: err => {
         console.log('OnError', err);
+        this.jolService.sendOrderEmail(orderNo);
         localStorage.setItem('isToPay', orderNo);
         localStorage.setItem('payStatus', 'fail');
         this.router.navigate(['/orderlist'], { skipLocationChange: false });
