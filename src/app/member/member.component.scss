@@ -42,7 +42,7 @@ img {
 
 
 .wrap {
-  width: 60%;
+  width: 50%;
   max-width: 1300px;
   margin: 0 auto;
   padding: 5% 0;
@@ -95,6 +95,7 @@ img {
 }
 
 .btn {
+  min-width: 200px;
   text-decoration: none;
   font-family: $fontSans;
   letter-spacing: -.015em;

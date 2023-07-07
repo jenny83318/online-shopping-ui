@@ -21,6 +21,11 @@
 .LoginFormContainer .upImage {
   display: none;
 }
+.size {
+  font-size: 24px;
+  padding: 10px;
+  font-family: Rubik;
+}
 
 @media only screen and (min-width: 1200px) {
   .LoginPageInnerContainer .LoginFormContainer {
@@ -57,10 +62,18 @@
 }
 
 @media only screen and (max-width: 935px) {
+  h1{
+    font-size: 1.2rem;
+  }
+  .size{
+    font-size: 1.2rem;
+  }
   .LoginPageInnerContainer .LoginFormContainer .header {
     flex-direction: column;
+    margin-bottom: 15px;
     li{
       margin-bottom: 15px;
+      font-size: 1.3rem;
     }
   }
   .LoginPageInnerContainer .ImageContianer {
@@ -118,19 +131,12 @@ input:focus {
   font-weight: 300;
 }
 
-.size {
-  font-size: 24px;
-  padding: 10px;
-  font-family: Rubik;
-}
-
 li.selected {
-  border: 1px solid black;
   background-color: #ffd95e38;
 }
 
 .sizeWrapper li {
-  border: 1px solid black;
+  border: 1px solid #888181;
 }
 
 .sizeWrapper {
@@ -142,11 +148,13 @@ li.selected {
 
 .btnWrapper {
   width: 48%;
-  display: -webkit-inline-box;
-  text-align: center;
   margin-right: 2%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 0.4rem;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   border: 1px solid gray;
   font-family: Rubik;
 }

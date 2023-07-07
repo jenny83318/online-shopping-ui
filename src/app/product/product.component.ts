@@ -1,5 +1,5 @@
 import { JolService } from './../service/JolService.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit,ViewChild,AfterViewInit } from '@angular/core';
 import { CartblockComponent } from '../cartblock/cartblock.component';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { SizeComponent } from '../size/size.component';
@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 export class ProductComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
   isBlock: boolean = true;
+  @ViewChild('tabContent') tabContent:any;
   block = CartblockComponent;
   loginData: any;
   prod: any;
@@ -38,7 +39,10 @@ export class ProductComponent implements OnInit {
     }
     this.checkWish();
   }
-
+  ngAfterViewInit(){
+    this.tabContent.nativeElement.innerHTML =this.prod.descript;
+    console.log('this.tabContent', this.tabContent.nativeElement)
+  }
   ngOnDestroy() {
     if (this.heartClass == 'fa fa-heart') {
       this.addCartWish(false,false);
