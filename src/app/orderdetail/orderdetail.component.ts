@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,HostListener } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Request } from '../model/Request';
 import { JolService } from './../service/JolService.service';
@@ -34,6 +34,7 @@ export class OrderdetailComponent implements OnInit {
   city: any;
   district: any;
   shipNo: any;
+  isShowElement:boolean =false;
 
 
   constructor(private jolService: JolService, private router: Router, private dialog: MatDialog, private http: HttpClient) { }
@@ -51,7 +52,21 @@ export class OrderdetailComponent implements OnInit {
       this.district = this.districtList.filter((d: any) => d.code == this.orderData.sendDistrict)[0].name;
     });
     this.getOrderDetail(this.orderData.orderNo);
+    this.updateElementVisibility()
   }
+  @HostListener('window:resize', ['$event'])
+  onWindowResize(event: Event) {
+    this.updateElementVisibility();
+  }
+  updateElementVisibility() {
+    const screenWidth = window.innerWidth;
+    if (screenWidth < 768) {
+      this.isShowElement = true;
+    } else {
+      this.isShowElement = false;
+    }
+  }
+
 
   getOrderDetail(orderNo: any) {
     if (this.loginData.account != '') {

@@ -98,6 +98,7 @@ export class PaymentComponent implements OnInit {
         console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
         console.log('orderStatus', data.status)
         this.ngZone.run(() => {
+          this.blockUI.start('讀取中');
           this.jolService.updateOrderStatus({ orderNo: this.order.orderNo, status: "已付款" });
           this.jolService.orderUpdate.subscribe((status) => {
             if(status == 'finish'){
@@ -111,14 +112,18 @@ export class PaymentComponent implements OnInit {
       onCancel: (data, actions) => {
         console.log('OnCancel', data, actions);
         this.ngZone.run(() => {
+          this.blockUI.start('讀取中');
           this.cancel();
           this.dialog.open(MessageComponent, { data: { msg: '已取消付款，訂單編號: #JOL' + this.padZeros(this.order.orderNo, 5)} })
         });
       },
       onError: err => {
+        this.ngZone.run(() => {
         this.cancel();
+        this.blockUI.start('讀取中');
         this.dialog.open(MessageComponent, { data: { msg: '付款失敗，訂單編號: #JOL' + this.padZeros(this.order.orderNo,5) }})
         console.log('OnError', err);
+      });
       },
       onClick: (data, actions) => {
         console.log('onClick', data, actions);

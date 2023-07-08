@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone,HostListener } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Request } from '../model/Request';
 import { StripeRequest } from '../model/StripeRequest';
@@ -68,6 +68,7 @@ export class OrderComponent implements OnInit {
   isSendAddress: boolean = false;
   isVehicleType: boolean = false;
   isVehicle: boolean = false;
+  isShowElement: boolean = false;
   creditCardNo:any;
   vehicleOpt: any = [
     { viewValue: '電子發票 E-invoice' },
@@ -96,6 +97,8 @@ export class OrderComponent implements OnInit {
       this.districtList = this.addressList[1].district;
     });
   }
+
+
 
   getCustData() {
     this.blockUI.start('讀取中');
@@ -363,6 +366,7 @@ export class OrderComponent implements OnInit {
         });
       },
       onClientAuthorization: (data) => {
+        this.blockUI.start('讀取中');
         console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
         console.log('orderStatus', data.status)
         this.ngZone.run(() => {
@@ -372,6 +376,7 @@ export class OrderComponent implements OnInit {
         });
       },
       onCancel: (data, actions) => {
+        this.blockUI.start('讀取中');
         console.log('OnCancel', data, actions);
         this.ngZone.run(() => {
           this.jolService.sendOrderEmail(orderNo);
@@ -381,11 +386,14 @@ export class OrderComponent implements OnInit {
         });
       },
       onError: err => {
+        this.ngZone.run(() => {
+        this.blockUI.start('讀取中');
         console.log('OnError', err);
         this.jolService.sendOrderEmail(orderNo);
         localStorage.setItem('isToPay', orderNo);
         localStorage.setItem('payStatus', 'fail');
         this.router.navigate(['/orderlist'], { skipLocationChange: false });
+      });
       },
       onClick: (data, actions) => {
         console.log('onClick', data, actions);

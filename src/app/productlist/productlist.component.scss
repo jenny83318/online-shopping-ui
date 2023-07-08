@@ -1,3 +1,7 @@
+* {
+  margin: 0px;
+  font-family: 'Montserrat', sans-serif;
+}
 .header {
   position: relative;
   padding-top: 4rem;
@@ -43,8 +47,9 @@
 }
 
 .tiltleFocus{
-    font-weight: bolder;
-    text-decoration: underline;
+  font-weight: 600;
+  text-decoration: underline;
+  color: #b96a32;
 }
 
 .imgWrapper {

@@ -6,7 +6,7 @@
     </div>
     <div class="LoginFormContainer" *ngIf="! isSignUp">
       <div class="LoginFormInnerContainer">
-        <h5 class="header">登入</h5>
+        <h5 class="header">登入會員</h5>
         <form class="example-form">
           <div class="inputContainer">
             <mat-form-field class="example-full-width">
@@ -38,7 +38,7 @@
 
     <div class="LoginFormContainer" *ngIf="isSignUp">
       <div class="LoginFormInnerContainer signUpContainer">
-        <h5 class="header">註冊</h5>
+        <h5 class="header">註冊會員</h5>
         <form class="example-form">
           <div class="inputContainer">
             <mat-form-field class="example-full-width">
@@ -112,7 +112,7 @@
             </mat-form-field>
             <div *ngIf="isAddress" class="errorMag">地址不可為空</div>
           </div>
-          <button class="LoginButton" (click)="signUp()">註冊</button>
+          <button class="LoginButton" (click)="signUp()">註冊會員</button>
           <button class="SignUpButton" (click)="showSignUp()">登入會員</button>
         </form>
       </div>

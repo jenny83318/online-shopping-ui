@@ -4,19 +4,16 @@
   <div class="cart">
     <div class="heading cf">
       <h1>訂單查詢</h1>
-      <div class="btnWrapper">
-      <button class="continue" (click)="toProductList()">繼續購物</button>
     </div>
-    </div>
-    <div class="mat-elevation-z8" *ngIf="!ishidden">
-      <table mat-table [dataSource]="dataSource">
+    <div class="mat-elevation-z8" *ngIf="! isShowElement">
+      <table mat-table [dataSource]="dataSource"> 
         <ng-container matColumnDef="orderTime">
           <th mat-header-cell *matHeaderCellDef>訂單日期</th>
           <td mat-cell *matCellDef="let element"> {{element.orderTime | date:'yyyy-MM-dd'}} </td>
         </ng-container>
         <ng-container matColumnDef="orderNo">
           <th mat-header-cell *matHeaderCellDef>訂單編號</th>
-          <td mat-cell *matCellDef="let element"><button style="text-decoration: underline;" (click)="toOrderDrtail(element.orderNo)">#JOL-{{ padZeros(element.orderNo, 5)}}</button> </td>
+          <td mat-cell *matCellDef="let element"><button class="orderNo" (click)="toOrderDrtail(element.orderNo)">#JOL-{{ padZeros(element.orderNo, 5)}}</button> </td>
         </ng-container>
         <ng-container matColumnDef="totalAmt">
           <th mat-header-cell *matHeaderCellDef> 訂單金額 </th>
@@ -43,7 +40,7 @@
           </button>
         </td>
         </ng-container> -->
-        <ng-container matColumnDef="cancel">
+        <ng-container matColumnDef="cancel"> 
           <th mat-header-cell *matHeaderCellDef>取消訂單</th>
           <td mat-cell *matCellDef="let element">
             <button *ngIf="element.status != '已取消'" class="detailBtn" (click)="cancelOrder(element.orderNo)">取消</button>
@@ -64,6 +61,54 @@
                      showFirstLastButtons
                      aria-label="Select page of periodic elements">
       </mat-paginator>
+    </div>
+    <div *ngIf="isShowElement">
+      <ng-container *ngFor="let o of paginatedOrderList ; index as idx">
+        <div class="smallTable">
+          <div class="orderInfo" [class.evenColumn]="isOddRow(idx)" >
+            <div class="column">
+              <p class="title">訂單編號</p>
+              <p class="cont"><button class="orderNo" (click)="toOrderDrtail(o.orderNo)">#JOL-{{ padZeros(o.orderNo, 5)}}</button></p>
+            </div>
+            <div class="column">
+              <p class="title">訂單金額</p>
+          <p class="cont">${{ o.totalAmt | number}}</p>
+            </div>
+            <div class="column">
+              <p class="title">付款方式</p>
+              <p class="cont">{{ o.payBy}}</p>
+            </div>
+            <div class="column">
+              <p class="title">重新付款</p>
+              <p class="cont" *ngIf="o.status !='待付款'" >-</p>
+              <button class="detailBtn cont" *ngIf="o.status =='待付款'" (click)="repay(o)">
+                付款
+              </button>
+            </div>
+          </div>
+          <div class="orderInfo" [class.evenColumn]="isOddRow(idx)">
+            <div class="column">
+              <p class="title">訂單日期</p>
+              <p class="cont">{{ o.orderTime | date : "YYYY-MM-dd" }}</p>
+            </div>
+            <div class="column">
+              <p class="title">訂單狀態</p>
+              <p class="cont">{{ o.status }}</p>
+            </div>
+            <div class="column">
+              <p class="title">配送方式</p>
+              <p class="cont">{{ o.deliveryWay}}</p>
+            </div>
+            <div class="column">
+              <p class="title">取消訂單</p>
+              <p class="cont" *ngIf="o.status == '已取消'">-</p>
+              <button *ngIf="o.status != '已取消'" class="detailBtn cont" (click)="cancelOrder(o.orderNo)">取消</button>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </ng-container>
+      <mat-paginator [length]="orderList.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
     </div>
     <hr>
   </div>

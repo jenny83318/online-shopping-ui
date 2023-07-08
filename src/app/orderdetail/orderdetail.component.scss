@@ -12,6 +12,7 @@ $fontSerif: "Montserrat", sans-serif;
 
 * {
   box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
 }
 
 body {
@@ -41,15 +42,14 @@ img {
   margin: 0 auto;
   padding: 5% 0;
   margin-bottom: 5em;
-  margin-top: 60px;
+  margin-top: 30px;
 }
 
 // CART HEADER
 .heading {
-  padding: 0.7em 0;
+  padding: 0.3em 0;
   border-bottom: 1px solid #d0d0d0;
-  margin-top: 30px;
-  margin-bottom: 20px;
+  margin-top: 20px;
   background-color: #e3eee7;
 
   h1 {
@@ -60,15 +60,14 @@ img {
 
   P {
     margin: 5px 0 5px;
-    font-weight: bolder;
-    font-size: 20px;
-    padding-left: 15px;
+    font-weight: 500;
+    font-size: 1.1rem;
     font-family: 'Montserrat', sans-serif;
   }
   button.continue {
-    font-weight: bolder;
-  font-size: 20px;
-  padding-left: 15px;
+    font-weight: 500;
+    font-size: 1.1rem;
+    padding-left: 5px;
   font-family: 'Montserrat', sans-serif;
     &:link,
     &:visited {
@@ -162,7 +161,7 @@ img {
 // CART Items
 
 .cart {
-  padding: 1em 0;
+  padding: 0.6em 0;
 
   .items {
     display: block;
@@ -251,7 +250,7 @@ img {
       }
 
       .itemImg {
-        width: 9em;
+        width: 8em;
         display: inline;
         padding-right: 1em;
       }
@@ -276,6 +275,13 @@ img {
       color: #6f6f6f;
       font-family: 'Montserrat', sans-serif;
     }
+  }
+}
+
+.smallTable{
+  display: flex;
+  p{
+    margin-bottom: 5px;
   }
 }
 

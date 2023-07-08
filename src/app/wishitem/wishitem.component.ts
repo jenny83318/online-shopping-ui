@@ -119,7 +119,24 @@ export class WishitemComponent implements OnInit {
   toProductList() {
     this.jolService.getProductData("OTHER", { selectType: "series", keyWord: "new" });
   }
-
+  toProduct(prodId: any) {
+    this.blockUI.start('讀取中');
+    let request = new Request('JOLProductInfo', this.loginData.account, this.loginData.token, 'SELECT', { prodId: prodId });
+    this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
+      if (res.code == 200) {
+        console.log('toProduct,', res)
+        this.blockUI.stop();
+        var prod = res.productList[0]
+        prod.img = prod.imgUrl.split(',');
+        this.jolService.prod = prod;
+        console.log('this.jolService.prod', this.jolService.prod)
+        this.router.navigate(['/product'], { skipLocationChange: false });
+      } else if (res.code == 666) {
+        this.jolService.resetLoginData();
+        this.router.navigate(['/login'], { skipLocationChange: false });
+      }
+    });
+  }
   countSum(){
     this.sum = 0;
     this.wishList.forEach((wish: any) => {

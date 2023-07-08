@@ -2,6 +2,9 @@
   margin: 0px;
   font-family: 'Montserrat', sans-serif;
 }
+body{
+  font-family: 'Montserrat', sans-serif;
+}
 
 .LoginPageContainer {
   height: 100vh;
@@ -50,8 +53,9 @@
 
 .LoginPageInnerContainer .LoginFormContainer .header {
   padding-right: 10%;
-  font-size: 32px;
+  font-size: 26px;
   font-weight: 500;
+  color:#a68181;
 }
 
 .LoginPageInnerContainer .LoginFormContainer .subHeader {
@@ -145,8 +149,8 @@
   cursor: pointer;
 }
 
-.LoginFormContainer .LoginFormInnerContainer .LoginButton:active {
-  background-color: #917c33;
+.LoginFormContainer .LoginFormInnerContainer .LoginButton:hover {
+  background-color: #a38f44;
 }
 
 .LoginFormContainer .LoginFormInnerContainer .SignUpButton {
@@ -163,7 +167,7 @@
   cursor: pointer;
 }
 
-.LoginFormContainer .LoginFormInnerContainer .SignUpButton:active {
+.LoginFormContainer .LoginFormInnerContainer .SignUpButton:hover {
   background-color: #d7c37a;
 }
 

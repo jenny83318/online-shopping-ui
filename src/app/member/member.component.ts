@@ -86,8 +86,10 @@ export class MemberComponent implements OnInit {
 
 
   updateCustData() {
-    const body = {
-      email: this.member.email,
+    this.checkForm();
+    if(this.isCheck){
+      const body = {
+        email: this.member.email,
       password: this.loginData.password,
       address: this.member.address,
       name: this.member.name,
@@ -118,7 +120,8 @@ export class MemberComponent implements OnInit {
       }
     });
   }
-
+}
+  
   changeCity() {
     this.districtList = this.addressList.filter(
      (a: any) => a.code == this.member.city)[0].district;
@@ -127,15 +130,16 @@ export class MemberComponent implements OnInit {
   checkForm() {
     this.isEmail = this.member.email == "" ? true : false;
     this.isName = this.member.name == "" ? true : false;
-    this.isPhone = this.member.orderPhone == "" ? true : false;
-    this.isCity = this.member.orderCity == "" || this.member.orderCity == null ? true : false;
-    this.isDistrict = this.member.orderDistrict == "" || this.member.orderDistrict == null ? true : false;
-    this.isAddress = this.member.orderAddress == "" ? true : false;
+    this.isPhone = this.member.phone == "" ? true : false;
+    this.isCity = this.member.city == "" || this.member.city == null ? true : false;
+    this.isDistrict = this.member.district == "" || this.member.district == null ? true : false;
+    this.isAddress = this.member.address == "" ? true : false;
     if (this.isEmail || this.isName || this.isPhone || this.isCity || this.isDistrict
       || this.isAddress ) {
       this.isCheck = false;
     } else {
       this.isCheck = true;
     }
+    console.log('this.isCheck', this.isCheck)
   }
 }

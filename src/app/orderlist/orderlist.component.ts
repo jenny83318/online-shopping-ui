@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,HostListener } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Request } from '../model/Request';
 import { JolService } from './../service/JolService.service';
@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { BlockuiComponent } from './../blockui/blockui.component';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator,PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { PaymentComponent } from '../payment/payment.component';
 import { MessageComponent } from '../message/message.component';
@@ -24,6 +24,7 @@ export class OrderlistComponent implements OnInit {
   orderList: any = [];
   cartList: any = [];
   ishidden: boolean = false;
+  isShowElement: boolean = false;
   panelOpenState = false;
   displayedColumns: string[] = ['orderNo', 'orderTime', 'totalAmt', 'status', 'payBy', 'deliveryWay', 'repay', 'cancel'];
   dataSource: any;
@@ -32,13 +33,20 @@ export class OrderlistComponent implements OnInit {
     { value: 'bank', viewValue: '銀行轉帳' },
     { value: 'electric', viewValue: '電子支付' },
   ];
-
+  paginatedOrderList: any[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  paginatorPageSize = 5; // 每页显示的项目数量
+  paginatorPageSizeOptions = [5, 10, 20]; // 可供选择的页大小选项
+  oddRowIndexes: number[] = []; 
+
+  pageSize = 5;
+  pageIndex = 0; 
 
   constructor(private jolService: JolService, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
+    this.blockUI.stop();
     this.loginData = this.jolService.getLoginData();
     if(localStorage.getItem('payStatus') != null && localStorage.getItem('payStatus') != "undefined"){
       if(localStorage.getItem('payStatus') == 'cancel'){
@@ -52,6 +60,7 @@ export class OrderlistComponent implements OnInit {
       this.getOrderData();
     }
     else if (localStorage.getItem('isToPay') != null && localStorage.getItem('isToPay') != "undefined") {
+      this.blockUI.stop();
       console.log('isToPay', localStorage.getItem('isToPay'))
       this.jolService.updateOrderStatus({ orderNo: Number(localStorage.getItem('isToPay')), status: "已付款" });
       this.dialog.open(MessageComponent, { data: { msg: '付款成功，訂單編號: #JOL' + this.padZeros(parseInt(localStorage.getItem('isToPay')),5)} })
@@ -64,7 +73,22 @@ export class OrderlistComponent implements OnInit {
     } else {
       this.getOrderData();
     }
+    this.updateElementVisibility()
   }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize(event: Event) {
+    this.updateElementVisibility();
+  }
+  updateElementVisibility() {
+    const screenWidth = window.innerWidth;
+    if (screenWidth < 862) {
+      this.isShowElement = true;
+    } else {
+      this.isShowElement = false;
+    }
+  }
+
 
   getOrderData() {
     if (this.loginData.account != '') {
@@ -78,8 +102,10 @@ export class OrderlistComponent implements OnInit {
           if (res.code == 200) {
             if (res.orderList.length > 0) {
               this.orderList = res.orderList;
+              console.log ('orderList', this.orderList)
               this.dataSource = new MatTableDataSource<any>(this.orderList);
               this.dataSource.paginator = this.paginator;
+              this.updatePaginatedOrderList();
             } else {
               this.ishidden = true
             }
@@ -122,5 +148,24 @@ export class OrderlistComponent implements OnInit {
 
   padZeros(value: number, length: number): string {
     return value.toString().padStart(length, '0');
+  }
+
+
+// 加载当前页面数据
+onPageChange(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
+    this.updatePaginatedOrderList();
+  }
+
+  updatePaginatedOrderList() {
+    const startIndex = this.pageIndex * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.paginatedOrderList = this.orderList.slice(startIndex, endIndex);
+    this.oddRowIndexes = this.paginatedOrderList.map((_, i) => i).filter(index => index % 2 !== 0);
+  }
+  isOddRow(index: number): boolean {
+    console.log('index',index);
+    return index % 2 !== 0;
   }
 }

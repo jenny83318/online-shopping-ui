@@ -226,3 +226,15 @@ serif;
   .btnContainer{
     width: 100px;
   }
+
+  .resize{
+    @media (max-width: 413px) {
+      margin-left: 80px;
+    }
+    @media (max-width: 365px) {
+      margin-left: 60px;
+    }
+    @media (max-width: 306px) {
+      margin-left: 0px;
+    }
+  }

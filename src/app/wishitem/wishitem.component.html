@@ -14,15 +14,11 @@
       >
         <div class="infoWrap">
           <div class="cartSection">
-            <img
-              class="img itemImg"
-              [src]="cart.img[0]"
-              onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
-              (load)="onLoadImg(i)"
-            />
-            <p class="itemNumber">#QUE-{{padZeros(cart.prodId,5)}}</p>
-            <h3>{{ cart.prodName }}</h3>
-            <p class="param">尺寸: {{ cart.sizeInfo }} &nbsp; &nbsp;</p>
+            <button  class="img itemImg" (click)="toProduct(cart.prodId)">
+            <img [src]="cart.img[0]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'"(load)="onLoadImg(i)"/></button>
+            <p><button class="itemNumber" (click)="toProduct(cart.prodId)">#QUE-{{padZeros(cart.prodId,5)}}</button></p>
+            <h3> <button style="text-align: left;" (click)="toProduct(cart.prodId)">{{ cart.prodName }}</button></h3>
+            <p class="param resize">尺寸: {{ cart.sizeInfo }} &nbsp; &nbsp;</p>
             <div style="display: flex">
               <!-- <p class="stockStatus param">現貨</p> -->
             </div>

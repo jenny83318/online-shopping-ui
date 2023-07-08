@@ -14,6 +14,9 @@ export class CartdetailComponent implements OnInit {
   order:any = {size:"", qty:0, isConfirm:false};
   ngOnInit(): void {
     this.sizeList = this.data.split(',');
+    if(this.sizeList[0] =='F'){
+      this.size = 'F'
+    }
   }
   constructor( public dialogRef: MatDialogRef<CartdetailComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 

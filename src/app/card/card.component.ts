@@ -11,12 +11,22 @@ export class CardComponent implements OnInit {
   @Input() isHover: any;
   @Output() messageEvent = new EventEmitter<string>();
   isOnload: boolean = false;
+  isMobile: boolean = false;
 
   constructor(private router: Router, private jolService: JolService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.checkIsMobile();
+  }
+  checkIsMobile() {
+    if (navigator.userAgent.match( /(iPhone|iPod|Android|ios|iOS|iPad|WebOS|Symbian|Windows Phone|Phone)/i)) {
+      this.isMobile = true;
+    } else {
+      this.isMobile = false;
+    }
+  }
   mouseOverImg() {
-    if (this.isHover != false) {
+    if (this.isHover != false && this.isMobile == false) {
       const img = new Image();
       img.src = this.prod.img[1];
       img.onload = () => {
@@ -26,7 +36,7 @@ export class CardComponent implements OnInit {
   }
 
   mouseLeaveImg() {
-    if (this.isHover != false) {
+    if (this.isHover != false && this.isMobile == false) {
       const img = new Image();
       img.src = this.prod.img[0];
       img.onload = () => {
@@ -40,6 +50,6 @@ export class CardComponent implements OnInit {
 
   toProduct() {
     this.jolService.prod = this.prod;
-    this.router.navigate(['/product'], { skipLocationChange: true });
+    this.router.navigate(['/product'], { skipLocationChange: false });
   }
 }

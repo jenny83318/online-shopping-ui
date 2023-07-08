@@ -3,33 +3,37 @@
 <div class="LoginPageContainer">
   <div class="LoginPageInnerContainer">
     <div class="ImageContianer">
+      <button (click)="toImage(this.prod.img[0])">
       <img
         class="img"
         [src]="this.prod.img[0]"
         onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
-      />
+      /></button>
+      <button (click)="toImage(this.prod.img[1])">
       <img
         class="img"
         [src]="this.prod.img[1]"
         onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
-      />
+      /></button>
     </div>
     <div class="LoginFormContainer">
       <div class="LoginFormInnerContainer">
         <div class="upImage">
+          <button (click)="toImage(this.prod.img[0])">
           <img
             class="img"
             [src]="this.prod.img[0]"
             onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
           />
+          </button>
         </div>
         <div class="outerWrapper">
           <div (click)="changeIcon()">
-            <button class="wishBtn"><i [class]="heartClass"></i></button>
+            <button class="wishBtn"><i [class]="heartClass" style="color:#795a5a;"></i></button>
           </div>
           <ul class="header">
             <li>{{ prod.name }}</li>
-            <li>NT. {{ prod.price | number }}</li>
+            <li style="color: #a96032;">NT. {{ prod.price | number }}</li>
           </ul>
           <ul class="sizeWrapper" *ngFor="let s of sizeList">
             <li
@@ -109,11 +113,13 @@
           </div>
         </div>
         <div class="upImage">
+          <button (click)="toImage(this.prod.img[1])">
           <img
             class="img"
             [src]="this.prod.img[1]"
             onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
           />
+          </button>
         </div>
       </div>
     </div>

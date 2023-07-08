@@ -17,6 +17,15 @@ serif;
       margin-left: 75px;
     }
   }
+
+  .resize{
+    @media (max-width: 393px) {
+      margin-left: 75px;
+    }
+    @media (max-width: 368px) {
+      margin-left: 0px;
+    }
+  }
   
   .imgContainer {
     display: flex;

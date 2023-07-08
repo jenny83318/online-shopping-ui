@@ -33,6 +33,11 @@ export class ProductComponent implements OnInit {
     window.scrollTo(0, 0);
     this.loginData = this.jolService.getLoginData();
     this.prod = this.jolService.prod;
+    if(this.prod == undefined ){
+      this.prod = localStorage.getItem('loginData') != null? JSON.parse(localStorage.getItem('prod')) : this.prod;
+    }else{
+      localStorage.setItem('prod', JSON.stringify(this.prod))
+    }
     this.sizeList = this.prod.sizeInfo.split(",");
     if(this.sizeList[0] =='F'){
       this.size = 'F'
@@ -140,5 +145,8 @@ export class ProductComponent implements OnInit {
     if (event.index === 2) {
       this.dialog.open(SizeComponent);
     }
+  }
+  toImage(url:any){
+    window.open(url, '_blank');
   }
 }

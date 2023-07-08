@@ -103,8 +103,12 @@ export class HeaderComponent implements OnInit {
   setNavbarOpen() {
     this.navbarOpen = !this.navbarOpen;
   }
+  setNavbarClose(){
+    this.navbarOpen = false;
+  }
 
   logOut() {
+    this.setNavbarClose();
     if (this.jolService.loginData.account != '') {
       const body = {
         password: this.logInData.password,
@@ -149,6 +153,7 @@ export class HeaderComponent implements OnInit {
     });
   }
   search() {
+    this.setNavbarClose();
     if (this.keyWord == undefined || this.keyWord.trim() == '') {
       this.dialog.open(MessageComponent, {
         data: { msg: '請輸入要搜尋的內容' },
@@ -173,22 +178,28 @@ export class HeaderComponent implements OnInit {
   }
 
   toLogIn() {
+    this.setNavbarClose();
     this.router.navigate(['/login'], { skipLocationChange: false });
   }
 
   toHome() {
+    this.setNavbarClose();
     this.router.navigate(['/']);
   }
   toCartItem() {
+    this.setNavbarClose();
     this.router.navigate(['/cartitem'], { skipLocationChange: false });
   }
   toWishItem() {
+    this.setNavbarClose();
     this.router.navigate(['/wishitem'], { skipLocationChange: false });
   }
   toOrderList() {
+    this.setNavbarClose();
     this.router.navigate(['/orderlist'], { skipLocationChange: false });
   }
   toProductList(selectType: any, keyWord: any) {
+    this.setNavbarClose();
     if (selectType == 'category') {
       this.jolService.toProductList = 'all'
     } else {
@@ -200,6 +211,7 @@ export class HeaderComponent implements OnInit {
     });
   }
   toMember() {
+    this.setNavbarClose();
     this.router.navigate(['/member'], { skipLocationChange: false });
   }
 }

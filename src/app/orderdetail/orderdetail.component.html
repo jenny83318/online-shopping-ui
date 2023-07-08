@@ -3,106 +3,163 @@
 <div class="wrap cf">
   <div class="cart">
     <div class="heading cf">
-      <p>訂單明細 <button class="continue" (click)="toOrderList()" style="float: right;">回訂單查詢</button></p>
-
+      <p>
+        訂單明細
+        <button class="continue" (click)="toOrderList()" style="float: right">
+          回訂單查詢
+        </button>
+      </p>
     </div>
-    <div class="mat-elevation-z8" style="font-family: 'Montserrat', sans-serif;">
+    <div
+      class="mat-elevation-z8"
+      style="font-family: 'Montserrat', sans-serif"
+      *ngIf="isShowElement == false"
+    >
       <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="prodId">
           <th mat-header-cell *matHeaderCellDef>產品編號</th>
-          <td mat-cell *matCellDef="let element"> #QUE{{ padZeros(element.prodId, 4)}} </td>
+          <td mat-cell *matCellDef="let element">
+            <button
+              (click)="toProduct(element.prodId)"
+              class="orderNo"
+            >
+              #QUE{{ padZeros(element.prodId, 4) }}
+            </button>
+          </td>
         </ng-container>
         <ng-container matColumnDef="img">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let element">
             <button (click)="toProduct(element.prodId)">
-            <img class="img itemImg" [src]="element.img[0]"
-              onerror="this.onerror=null; this.src='/assets/img/noImg.png'" />
+              <img
+                class="img itemImg"
+                [src]="element.img[0]"
+                onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
+              />
             </button>
           </td>
         </ng-container>
         <ng-container matColumnDef="prodName">
           <th mat-header-cell *matHeaderCellDef>品名</th>
-          <td mat-cell *matCellDef="let element"><button (click)="toProduct(element.prodId)">{{element.prodName}} </button></td>
+          <td mat-cell *matCellDef="let element">
+            <button (click)="toProduct(element.prodId)">
+              {{ element.prodName }}
+            </button>
+          </td>
         </ng-container>
         <ng-container matColumnDef="size">
           <th mat-header-cell *matHeaderCellDef>尺寸</th>
-          <td mat-cell *matCellDef="let element">{{element.size}} </td>
+          <td mat-cell *matCellDef="let element">{{ element.size }}</td>
         </ng-container>
         <ng-container matColumnDef="qty">
           <th mat-header-cell *matHeaderCellDef>數量</th>
-          <td mat-cell *matCellDef="let element">{{element.qty}} </td>
+          <td mat-cell *matCellDef="let element">{{ element.qty }}</td>
         </ng-container>
         <ng-container matColumnDef="price">
-          <th mat-header-cell *matHeaderCellDef> 單價 </th>
-          <td mat-cell *matCellDef="let element"> $ {{element.price | number}} </td>
+          <th mat-header-cell *matHeaderCellDef>單價</th>
+          <td mat-cell *matCellDef="let element">
+            $ {{ element.price | number }}
+          </td>
         </ng-container>
         <ng-container matColumnDef="subTotal">
-          <th mat-header-cell *matHeaderCellDef> 小計 </th>
-          <td mat-cell *matCellDef="let element"> $ {{element.price * element.qty | number}} </td>
+          <th mat-header-cell *matHeaderCellDef>小計</th>
+          <td mat-cell *matCellDef="let element">
+            $ {{ element.price * element.qty | number }}
+          </td>
         </ng-container>
         <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef> 訂單狀態 </th>
-          <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+          <th mat-header-cell *matHeaderCellDef>訂單狀態</th>
+          <td mat-cell *matCellDef="let element">{{ element.status }}</td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
-      <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons aria-label="Select page of periodic elements">
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 15]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+      >
       </mat-paginator>
     </div>
-    <hr>
+    <div *ngIf="isShowElement">
+      <ng-container *ngFor="let d of detailList">
+        <div class="smallTable">
+          <div>
+            <button (click)="toProduct(d.prodId)">
+              <img
+                class="img itemImg"
+                [src]="d.img[0]"
+                onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
+              />
+            </button>
+          </div>
+          <div>
+            <br />
+            <p> <button class="orderNo" (click)="toProduct(d.prodId)">
+              #QUE{{ padZeros(d.prodId, 5) }}
+            </button></p>
+            <p><button (click)="toProduct(d.prodId)" >{{ d.prodName }}</button></p>
+            <p>尺寸:&nbsp;&nbsp;{{ d.size }}</p>
+            <p>數量:&nbsp;&nbsp;{{ d.qty| number }}</p>
+            <p>單價:&nbsp;&nbsp;$ {{ d.price | number}}</p>
+            <p>小計:&nbsp;&nbsp;$ {{ d.price * d.qty| number}}</p>
+          </div>
+        </div>
+        <hr />
+      </ng-container>
+    </div>
+    <hr />
     <div class="heading cf">
-      <p>訂單資訊 #JOL-{{ padZeros(orderData.orderNo, 5)}}</p>
+      <p>訂單資訊</p>
     </div>
     <div class="orderInfo">
       <div class="column">
         <p class="title">訂單日期</p>
-        <p>{{orderData.orderTime | date:"YYYY-MM-dd"}}</p>
+        <p>{{ orderData.orderTime | date : "YYYY-MM-dd" }}</p>
       </div>
       <div class="column">
         <p class="title">訂單狀態</p>
-        <p>{{orderData.status}}</p>
+        <p>{{ orderData.status }}</p>
       </div>
     </div>
     <div class="orderInfo">
       <div class="column">
         <p class="title">出貨日期</p>
-        <p>{{orderData.orderTime | date:"YYYY-MM-dd"}}</p>
+        <p>{{ orderData.orderTime | date : "YYYY-MM-dd" }}</p>
       </div>
       <div class="column">
         <p class="title">付款方式</p>
-        <p>{{orderData.payBy}}</p>
+        <p>{{ orderData.payBy }}</p>
       </div>
     </div>
     <div class="orderInfo">
       <div class="column">
         <p class="title">出貨單號</p>
-        <p>{{shipNo}}</p>
+        <p>{{ shipNo }}</p>
       </div>
       <div class="column">
         <p class="title">運送方式</p>
-        <p>{{orderData.deliveryWay}}</p>
+        <p>{{ orderData.deliveryWay }}</p>
       </div>
     </div>
     <div class="orderInfo">
       <div class="column">
-        <p class="title"> 商品金額</p>
-        <p>{{this.sum}}元</p>
+        <p class="title">商品金額</p>
+        <p>$ {{ this.sum }}</p>
       </div>
       <div class="column">
         <p class="title">商品運費</p>
-        <p>{{orderData.deliveryFee}}元</p>
+        <p>$ {{ orderData.deliveryFee }}</p>
       </div>
     </div>
     <div class="orderInfo">
       <div class="column">
         <p class="title">折扣金額</p>
-        <p>20元</p>
+        <p>-</p>
       </div>
       <div class="column">
         <p class="title">應付金額</p>
-        <p>{{orderData.totalAmt - 20}}元</p>
+        <p>$ {{ orderData.totalAmt - 20 }}</p>
       </div>
     </div>
     <div class="heading cf">
@@ -111,22 +168,29 @@
     <div>
       <div class="columnFull">
         <p class="titleFull">收件人</p>
-        <p>{{orderData.orderName}}</p>
+        <p>{{ orderData.orderName }}</p>
       </div>
       <div class="columnFull">
         <p class="titleFull">收件人手機</p>
-        <p>{{orderData.orderPhone}}</p>
+        <p>{{ orderData.orderPhone }}</p>
       </div>
       <div class="columnFull">
         <p class="titleFull">配送地址</p>
-        <p>{{orderData.sendDistrict}} {{city}}{{district}}{{orderData.orderAddress}}</p>
+        <p>
+          {{ orderData.sendDistrict }} {{ city }}{{ district
+          }}{{ orderData.orderAddress }}
+        </p>
       </div>
       <div class="columnFull">
         <p class="titleFull">發票資訊</p>
-        <p>{{orderData.vehicleType}}:</p>&nbsp;&nbsp;<br>
-        <p *ngIf="orderData.vehicleType != '捐贈發票'">載具{{orderData.vehicle}}</p>
-        <p *ngIf="orderData.vehicleType == '捐贈發票'">{{orderData.vehicle}}</p>
+        <p *ngIf="orderData.vehicleType != '捐贈發票'">
+          載具{{ orderData.vehicle }}
+        </p>
+        <p *ngIf="orderData.vehicleType == '捐贈發票'">
+          捐贈{{ orderData.vehicle }}
+        </p>
       </div>
     </div>
   </div>
   <app-footer></app-footer>
+</div>

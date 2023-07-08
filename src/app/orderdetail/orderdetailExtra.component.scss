@@ -89,11 +89,13 @@ $fontSerif: "Montserrat", sans-serif;
     }
   
     .heading {
-      padding: 1em;
+      padding: 0.2em;
       font-size: 90%;
+      margin-top: 60px;
     }
   
     .cart {
+      padding: 0.5rem 0;
       .items {
         .cartSection {
           width: 90%;
@@ -211,8 +213,12 @@ $fontSerif: "Montserrat", sans-serif;
     width: 100%;
   }
   .column {
+    margin-top: 10px;
     width: 50%;
+    margin-left: 5px;
     display: flex;
+    flex: 1;
+
     p {
       font-size: 14px;
     }
@@ -225,6 +231,7 @@ $fontSerif: "Montserrat", sans-serif;
   .columnFull {
     width: 100%;
     display: flex;
+    margin-top: 10px;
     p {
       font-size: 14px;
     }
@@ -232,5 +239,11 @@ $fontSerif: "Montserrat", sans-serif;
   
   .titleFull {
     width: 12%;
+    min-width: 100px;
+    margin-left: 5px;
   }
-  
+  .orderNo{
+    color: #be5636;
+    text-decoration: underline;
+    font-weight: 500;
+  }
