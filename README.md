@@ -32,9 +32,9 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 [JOL-Boutique Demo (Render)](https://jol-boutique.onrender.com)
 
 ## Demo page 
-<img src="https://forest-bhfq.com/image/index.gif" style="width:900px" alt="index and product">
-<img src="https://forest-bhfq.com/image/cart.gif" style="width:900px" alt="shoping cart and wish list">
-<img src="https://forest-bhfq.com/image/order.gif" style="width:900px" alt="order and payment">
+<img src="https://forest-bhfq.com/image/index.gif" alt="index and product">
+<img src="https://forest-bhfq.com/image/cart.gif" alt="shoping cart and wish list">
+<img src="https://forest-bhfq.com/image/order.gif" alt="order and payment">
 
 
 
