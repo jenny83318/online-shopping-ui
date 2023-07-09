@@ -145,11 +145,11 @@
     <div class="orderInfo">
       <div class="column">
         <p class="title">商品金額</p>
-        <p>$ {{ this.sum }}</p>
+        <p>$ {{ this.sum | number }}</p>
       </div>
       <div class="column">
         <p class="title">商品運費</p>
-        <p>$ {{ orderData.deliveryFee }}</p>
+        <p>$ {{ orderData.deliveryFee | number }}</p>
       </div>
     </div>
     <div class="orderInfo">
@@ -159,7 +159,7 @@
       </div>
       <div class="column">
         <p class="title">應付金額</p>
-        <p>$ {{ orderData.totalAmt - 20 }}</p>
+        <p>$ {{ orderData.totalAmt - 20 | number }}</p>
       </div>
     </div>
     <div class="heading cf">

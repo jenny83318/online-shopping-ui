@@ -35,6 +35,9 @@ export class ProductComponent implements OnInit {
     this.prod = this.jolService.prod;
     if(this.prod == undefined ){
       this.prod = localStorage.getItem('loginData') != null? JSON.parse(localStorage.getItem('prod')) : this.prod;
+      if(this.prod == null || this.prod == undefined){
+        this.router.navigate(['/'], { skipLocationChange: false });
+      }
     }else{
       localStorage.setItem('prod', JSON.stringify(this.prod))
     }

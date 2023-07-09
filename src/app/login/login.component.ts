@@ -154,12 +154,15 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
         district: this.signUpData.district,
         status: "1"
       }
-      let request = new Request("JOLCustomerInfo", this.signUpData.account, "",'ADD', body);
+      let request = new Request("JOLCustomerInfo", this.signUpData.account, '','ADD', body);
       console.log('request', request)
       this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
         console.log('res', res);
         if (res.code == 200) {
-          this.dialog.open(MessageComponent, { data: { msg: "註冊成功", fun: "" } });
+          const dialogRef = this.dialog.open(MessageComponent, { data: { msg: '註冊成功' } });
+          dialogRef.afterClosed().subscribe(isConfirm => {
+           this.showSignUp();
+          })
         } else {
           this.dialog.open(MessageComponent, { data: { msg: res.msg } });
         }

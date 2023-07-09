@@ -1,6 +1,6 @@
 { 
   "/jolserver": {
-    "target": "http://139.162.97.43:8080",
+    "target": "https://forest-bhfq.com",
     "secure": false,
     "changeOrigin": true
   }

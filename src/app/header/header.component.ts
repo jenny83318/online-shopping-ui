@@ -129,7 +129,12 @@ export class HeaderComponent implements OnInit {
             this.logInData = this.jolService.loginData;
             this.isLogin = false;
             console.log('res', res);
-            this.dialog.open(MessageComponent, { data: { msg: '您已登出' } });
+            // this.dialog.open(MessageComponent, { data: { msg: '您已登出' } });
+            const dialogRef = this.dialog.open(MessageComponent, { data: { msg: '您已登出' } });
+            dialogRef.afterClosed().subscribe(isConfirm => {
+              window.location.reload();
+              this.router.navigate(['/'], { skipLocationChange: false });
+            })
           } else {
             this.dialog.open(MessageComponent, { data: { msg: '登出異常' } });
           }
