@@ -25,3 +25,25 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Demo link
+
+1. use Linode [JOL-Boutique Demo (Linode)](https://forest-bhfq.com)
+   
+2. use Render (The server will automatically shut down if there is no activity for 15 minutes.)[JOL-Boutique Demo (Render)](https://jol-boutique.onrender.com)
+
+## Demo page 
+index and product
+
+<img src="https://forest-bhfq.com/image/index.gif" alt="index and product">
+
+shoping cart and wish list
+
+<img src="https://forest-bhfq.com/image/cart.gif" alt="shoping cart and wish list">
+
+order and payment
+
+<img src="https://forest-bhfq.com/image/order.gif" alt="order and payment">
+
+
+
