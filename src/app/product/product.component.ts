@@ -53,10 +53,10 @@ export class ProductComponent implements OnInit {
   }
   ngOnDestroy() {
     if (this.heartClass == 'fa fa-heart') {
-      this.addCartWish(false,false);
+      this.addCartWish(false,false,true);
     }
     if (this.isWish == true && this.heartClass == 'far fa-heart') {
-      this.deleteWishItem(this.cart.cartId)
+      this.deleteWishItem(this.cart.cartId);
     }
   }
 
@@ -98,14 +98,14 @@ export class ProductComponent implements OnInit {
       }
       });
   }
-  addCartWish(isCart: boolean, isRouter:boolean) {
+  addCartWish(isCart: boolean, isRouter:boolean, ischange:boolean) {
     if (this.loginData.account != '') {
       if (this.size == '' && isCart) {
         this.dialog.open(MessageComponent, {
           data: { msg: '請選擇尺寸' },
         });
       } else {
-        this.jolService.addCartWish(this.prod.prodId, this.qty, this.size, isCart, isRouter);
+        this.jolService.addCartWish(this.prod.prodId, this.qty, this.size, isCart, isRouter, ischange);
       }
 
     } else {
@@ -124,6 +124,7 @@ export class ProductComponent implements OnInit {
     this.jolService
       .getData(environment.JOLSERVER, request)
       .subscribe((res) => {
+        this.jolService.setWishList([]);
         if (res.code == 666) {
           this.jolService.resetLoginData();
           this.router.navigate(['/login'], { skipLocationChange: false });

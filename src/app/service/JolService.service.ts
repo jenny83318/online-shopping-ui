@@ -16,6 +16,7 @@ export class JolService {
   cartChange = new EventEmitter<number>();
   wishChange = new EventEmitter<number>();
   prodListChange = new EventEmitter<any>();
+  wishListChange = new EventEmitter<any>();
   orderUpdate = new EventEmitter<any>();
   isLogin: boolean = false;
   loginData: any = { account: "", password: "", token: "", tokenExpired: "", email: "" };
@@ -31,6 +32,7 @@ export class JolService {
   orderData: any;
   sum: number = 0;
   prodList: any = [];
+  wishList:any =[];
   indexProd: any = [];
   toProductList: string = ''
   category: string = '';
@@ -73,7 +75,13 @@ export class JolService {
     this.prodListChange.emit(this.prodList);
   }
 
-  addCartWish(prodId: any, qty: number, size: any, isCart: boolean, isRouter:boolean) {
+  setWishList(wishList: any) {
+    this.wishList = wishList;
+    this.wishListChange.emit(this.wishList);
+  }
+
+
+  addCartWish(prodId: any, qty: number, size: any, isCart: boolean, isRouter:boolean, isChange:boolean) {
     if (isCart) {
       this.blockUI.start('cart');
     }
@@ -87,6 +95,9 @@ export class JolService {
     console.log('request', request);
     this.getData(environment.JOLSERVER, request).subscribe((res) => {
       if (res.code == 200) {
+        if(isChange){
+          this.setWishList([]);
+        }
         if (isCart) {
           this.setCartNum(res.cartList.length);
         } else {

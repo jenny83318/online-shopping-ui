@@ -20,25 +20,31 @@ export class WishitemComponent implements OnInit {
   wishList:any;
   sum:number =0;
   ishidden:boolean = false;
+  flag:number =1;
   constructor(private jolService: JolService, private router: Router, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.loginData = this.jolService.getLoginData();
-    this.getWishData();
+    this.getWishData(0);
+    this.jolService.wishListChange.subscribe(() => {
+      this.getWishData(this.flag);
+    });
   }
 
-  getWishData() {
-    if (this.loginData.account != '') {
-      const body = {
+  getWishData(flag:number) {
+    if( flag == 0 || this.flag <= 1){
+      if (this.loginData.account != '') {
+        const body = {
         isCart: false,
       };
       let request = new Request('JOLCartInfo', this.loginData.account, this.loginData.token, 'SELECT', body);
       console.log('request', request);
       this.jolService
-        .getData(environment.JOLSERVER, request)
-        .subscribe((res) => {
-          if(res.code == 200){
+      .getData(environment.JOLSERVER, request)
+      .subscribe((res) => {
+        this.flag = flag ==  1 ? 2 : 1;
+        if(res.code == 200){
             this.blockUI.start('讀取中');
             this.wishList = res.cartList;
             console.log('this.wishList',this.wishList)
@@ -46,6 +52,8 @@ export class WishitemComponent implements OnInit {
               this.sum == 0;
               this.ishidden = true;
               this.blockUI.stop();
+            }else{
+              this.ishidden = false;
             }
             this.jolService.setWishNum(this.wishList.length);
             this.sum = 0
@@ -61,12 +69,11 @@ export class WishitemComponent implements OnInit {
             this.router.navigate(['/login'], { skipLocationChange: false });
           }
         });
-    } else {
-      this.router.navigate(['/login'], { skipLocationChange: false });
+      } else {
+        this.router.navigate(['/login'], { skipLocationChange: false });
+      }
     }
   }
-
-
 
   deleteWishItem(wishId :any){
     const dialogRef = this.dialog.open(MessageComponent, { data: { msg: '您確定要刪除?', isConfirm:true } });
@@ -82,7 +89,7 @@ export class WishitemComponent implements OnInit {
           .getData(environment.JOLSERVER, request)
           .subscribe((res) => {
             if(res.code == 200){
-              this.getWishData();
+              this.getWishData(0);
             } else if (res.code == 666) {
               this.jolService.resetLoginData();
               this.router.navigate(['/login'], { skipLocationChange: false });
@@ -98,7 +105,7 @@ export class WishitemComponent implements OnInit {
     dialogRef.afterClosed().subscribe(order => {
       if(order.isConfirm){
         if(this.loginData.account != ''){
-          this.jolService.addCartWish(cart.prodId, order.qty, order.size, true, false);
+          this.jolService.addCartWish(cart.prodId, order.qty, order.size, true, false,false);
         }else{
           this.router.navigate(['/login'], { skipLocationChange: false });
         }
