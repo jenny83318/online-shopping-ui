@@ -53,10 +53,10 @@ export class MemberComponent implements OnInit {
     window.scrollTo(0, 0);
     this.loginData = this.jolService.getLoginData();
     if(this.loginData.account != ''){
-      this.getCustData();
       this.http.get('assets/json/address.json').subscribe((res) => {
         this.addressList = res;
         this.districtList = this.addressList[1].district;
+        this.getCustData();
       });
     }else {
       this.router.navigate(['/login'], { skipLocationChange: false });
@@ -76,6 +76,7 @@ export class MemberComponent implements OnInit {
         this.member.district = this.custData.district;
         this.member.address = this.custData.address;
         this.member.email = this.custData.email;
+        this.changeCity();
       }else if (res.code == 666){
         this.jolService.resetLoginData();
         this.router.navigate(['/login'], { skipLocationChange: false });
@@ -83,7 +84,6 @@ export class MemberComponent implements OnInit {
       console.log('custData', this.custData);
     });
   }
-
 
   updateCustData() {
     this.checkForm();
@@ -121,7 +121,7 @@ export class MemberComponent implements OnInit {
     });
   }
 }
-  
+
   changeCity() {
     this.districtList = this.addressList.filter(
      (a: any) => a.code == this.member.city)[0].district;

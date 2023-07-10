@@ -153,6 +153,8 @@ export class JolService {
   }
 
   sendOrderEmail(orderNo: any) {
+   this.getLoginData();
+    console.log('sendEmail===> ', orderNo, this.loginData.email)
     const body = {
       orderNo: orderNo,
       toEmail: this.loginData.email,
@@ -162,8 +164,9 @@ export class JolService {
       content3: "</table><br><br><p>更詳細的資訊進到JOL Boutique 的會員訂單管理查看，若您有任何需要協助的地方，請與我們<a href='mailto:JOLservice@gmail.com'>客服團隊</a>聯繫。<br><br><br>謝謝您，JOL Boutique團隊 敬上。</p></body></html>"
     }
     let request = new Request("JOLEmailInfo", this.loginData.account, this.loginData.token, 'UPDATE', body);
-    console.log('request', request)
+    console.log('sendEmail request', request)
     this.getData(environment.JOLSERVER, request).subscribe(res => {
+      console.log('sendEmail response', res)
 
     });
   }
