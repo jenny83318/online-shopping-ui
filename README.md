@@ -14,9 +14,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 1. use Linode [JOL-Boutique Demo (Linode)](https://forest-bhfq.com)
    
-2. use Render (The server will automatically shut down if there is no activity for 15 minutes so it will take a few minute to restart the server.)
-  
-   [JOL-Boutique Demo (Render)](https://jol-boutique.onrender.com)
+2. use Render (The server will automatically shut down if there is no activity for 15 minutes so it will take a few minute to restart the server.)[JOL-Boutique Demo (Render)](https://jol-boutique.onrender.com)
 
 ## Demo page 
 index and product
