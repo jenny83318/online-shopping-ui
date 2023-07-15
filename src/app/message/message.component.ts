@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 })
 export class MessageComponent implements OnInit {
   isConfirm:boolean = false;
+  isHome:boolean =false;
+  isShow:boolean =false;
   constructor( public dialogRef: MatDialogRef<MessageComponent>,
     private router: Router,
      @Inject(MAT_DIALOG_DATA) public data: any) { }
@@ -17,11 +19,16 @@ export class MessageComponent implements OnInit {
     if(this.data.isConfirm != undefined){
       this.isConfirm = this.data.isConfirm;
     }
+    this.isHome = this.data.isShow != undefined ? true: false;
   }
   close(){
-    this.dialogRef.close();
-    if(this.data.fun != undefined){
-      this.router.navigate(['/' + this.data.fun]);
+    if(this.isHome){
+      this.dialogRef.close(this.isShow);
+    }else{
+      this.dialogRef.close();
+      if(this.data.fun != undefined){
+        this.router.navigate(['/' + this.data.fun]);
+      }
     }
   }
   confirm() {

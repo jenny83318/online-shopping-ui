@@ -5,6 +5,10 @@
       <li>
         <p>{{data.msg}}</p>
       </li>
+      <li class="noShow" *ngIf="isHome">
+        <input type="checkbox" id="myCheckbox" name="myCheckbox" [(ngModel)]="isShow">
+        <label for="myCheckbox">不再顯示</label>
+      </li>
     </ul>
       <div class="BtnBox"  *ngIf="! isConfirm">
         <button mat-button class="" (click)="close()" >確認</button>

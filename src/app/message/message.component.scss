@@ -1,16 +1,5 @@
-.mat-dialog-container {
-  display: block;
-  padding: 35px 15px 5px;
-  border-radius: 4px;
-  box-sizing: border-box;
-  overflow: auto;
-  outline: 0;
-  width: 100%;
-  height: 100%;
-  min-height: inherit;
-  max-height: inherit;
-}
 .popBox{
+  max-width: 400px;
   position: relative;
   overflow: inherit;
   padding: 0px;
@@ -95,4 +84,11 @@
   position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.noShow{
+  margin-top: 20px;
+  text-align: center;
+  font-size: 17px;
+  font-weight: bolder;
 }
