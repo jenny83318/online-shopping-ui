@@ -12,22 +12,22 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Demo link
 
-1. use Linode [JOL-Boutique Demo (Linode)](https://forest-bhfq.com)
+1. use Linode [JOL-Boutique Demo (Linode)](https://ocean-hcz.com)
    
 2. use Render (The server will automatically shut down if there is no activity for 15 minutes so it will take a few minute to restart the server.)[JOL-Boutique Demo (Render)](https://jol-boutique.onrender.com)
 
 ## Demo page 
 index and product
 
-<img src="https://forest-bhfq.com/image/index.gif" alt="index and product" style="width:820px">
+<img src="https://ocean-hcz.com/image/index.gif" alt="index and product" style="width:820px">
 
 shoping cart and wish list
 
-<img src="https://forest-bhfq.com/image/cart.gif" alt="shoping cart and wish list" style="width:820px">
+<img src="https://ocean-hcz.com/image/cart.gif" alt="shoping cart and wish list" style="width:820px">
 
 order and payment
 
-<img src="https://forest-bhfq.com/image/order.gif" alt="order and payment" style="width:820px">
+<img src="https://ocean-hcz.com/image/order.gif" alt="order and payment" style="width:820px">
 
 
 
