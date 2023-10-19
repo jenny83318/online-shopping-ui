@@ -1,6 +1,6 @@
-{ 
+{
   "/jolserver": {
-    "target": "https://forest-bhfq.com",
+    "target": "",
     "secure": false,
     "changeOrigin": true
   }
