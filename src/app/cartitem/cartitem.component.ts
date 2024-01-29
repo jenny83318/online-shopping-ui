@@ -67,6 +67,8 @@ export class CartitemComponent implements OnInit {
               cart.isCheck = false;
               cart.img = [];
               cart.img = cart.imgUrl.split(',');
+              cart.img[0] = environment.IMG_URL + cart.img[0];
+              cart.img[1] = environment.IMG_URL + cart.img[1];
               cart.isOnload = false;
               this.sum += cart.qty * cart.price;
             });

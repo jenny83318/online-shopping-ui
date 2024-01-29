@@ -133,7 +133,7 @@ export class JolService {
         prodList.forEach((prod: any) => {
           prod.img = [];
           prod.img = prod.imgUrl.split(',');
-          prod.imgUrl = prod.img[0];
+          prod.imgUrl =  environment.IMG_URL + prod.img[0];
           prod.isOnload = false;
         });
         this.setProdList(prodList);

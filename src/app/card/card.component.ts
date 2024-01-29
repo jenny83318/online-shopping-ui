@@ -1,6 +1,7 @@
 import { JolService } from './../service/JolService.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -30,7 +31,7 @@ export class CardComponent implements OnInit {
       const img = new Image();
       img.src = this.prod.img[1];
       img.onload = () => {
-        this.prod.imgUrl = this.prod.img[1];
+        this.prod.imgUrl = environment.IMG_URL + this.prod.img[1];
       };
     }
   }
@@ -40,7 +41,7 @@ export class CardComponent implements OnInit {
       const img = new Image();
       img.src = this.prod.img[0];
       img.onload = () => {
-        this.prod.imgUrl = this.prod.img[0];
+        this.prod.imgUrl =  environment.IMG_URL + this.prod.img[0];
       };
     }
   }

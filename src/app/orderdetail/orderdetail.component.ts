@@ -86,6 +86,8 @@ export class OrderdetailComponent implements OnInit {
                 this.sum += d.price * d.qty;
                 d.img = [];
                 d.img = d.imgUrl.split(',');
+                d.img[0] = environment.IMG_URL + d.img[0];
+                d.img[1] = environment.IMG_URL + d.img[1];
               });
               this.orderData.deliveryFee = this.orderData.totalAmt - this.sum;
               this.dataSource = new MatTableDataSource<any>(this.detailList);

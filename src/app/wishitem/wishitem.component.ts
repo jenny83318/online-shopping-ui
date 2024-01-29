@@ -60,6 +60,8 @@ export class WishitemComponent implements OnInit {
             this.wishList.forEach((wish: any) => {
               wish.img = [];
               wish.img = wish.imgUrl.split(',');
+              wish.img[0] = environment.IMG_URL + wish.img[0];
+              wish.img[1] = environment.IMG_URL + wish.img[1];
               wish.isOnload =false;
               console.log('cart.qty* cart.price',wish.qty* wish.price)
               this.sum += wish.qty* wish.price;
