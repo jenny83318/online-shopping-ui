@@ -20,6 +20,7 @@ export class CardComponent implements OnInit {
     this.checkIsMobile();
     this.prod.img[0] =  ! this.prod.img[0].includes(environment.IMG_URL)? environment.IMG_URL + this.prod.img[0] : this.prod.img[0];
     this.prod.img[1] =  ! this.prod.img[1].includes(environment.IMG_URL)? environment.IMG_URL + this.prod.img[1] : this.prod.img[1];
+    this.prod.imgUrl =  this.prod.img[0];
   }
   checkIsMobile() {
     if (navigator.userAgent.match( /(iPhone|iPod|Android|ios|iOS|iPad|WebOS|Symbian|Windows Phone|Phone)/i)) {
