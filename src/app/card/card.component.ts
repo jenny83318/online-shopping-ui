@@ -18,6 +18,8 @@ export class CardComponent implements OnInit {
 
   ngOnInit() {
     this.checkIsMobile();
+    this.prod.img[0] =  ! this.prod.img[0].includes(environment.IMG_URL)? environment.IMG_URL + this.prod.img[0] : this.prod.img[0];
+    this.prod.img[1] =  ! this.prod.img[1].includes(environment.IMG_URL)? environment.IMG_URL + this.prod.img[1] : this.prod.img[1];
   }
   checkIsMobile() {
     if (navigator.userAgent.match( /(iPhone|iPod|Android|ios|iOS|iPad|WebOS|Symbian|Windows Phone|Phone)/i)) {
@@ -31,7 +33,7 @@ export class CardComponent implements OnInit {
       const img = new Image();
       img.src = this.prod.img[1];
       img.onload = () => {
-        this.prod.imgUrl = environment.IMG_URL + this.prod.img[1];
+        this.prod.imgUrl = this.prod.img[1];
       };
     }
   }
@@ -41,7 +43,7 @@ export class CardComponent implements OnInit {
       const img = new Image();
       img.src = this.prod.img[0];
       img.onload = () => {
-        this.prod.imgUrl =  environment.IMG_URL + this.prod.img[0];
+        this.prod.imgUrl =this.prod.img[0];
       };
     }
   }

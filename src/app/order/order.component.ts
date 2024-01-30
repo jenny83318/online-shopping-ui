@@ -413,7 +413,7 @@ export class OrderComponent implements OnInit {
     })
 
     const stripe = await this.stripePromise;
-    let request = new StripeRequest(Math.round(this.jolService.totAmt * 100) , prodName , 'hkd', environment.Render_Succ, environment.Render_Fail, 1);
+    let request = new StripeRequest(Math.round(this.jolService.totAmt * 100) , prodName , 'hkd', environment.SUCCESS_URL, environment.FAIL_URL, 1);
     console.log('StripePay req', request)
     this.blockUI.start('讀取中');
     this.jolService

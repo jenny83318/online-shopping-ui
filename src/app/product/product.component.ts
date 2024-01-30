@@ -42,8 +42,8 @@ export class ProductComponent implements OnInit {
       localStorage.setItem('prod', JSON.stringify(this.prod))
     }
     this.sizeList = this.prod.sizeInfo.split(",");
-    this.prod.img[0] = environment.IMG_URL + this.prod.img[0];
-    this.prod.img[1] = environment.IMG_URL + this.prod.img[1];
+    this.prod.img[0] = ! this.prod.img[0].includes(environment.IMG_URL)? environment.IMG_URL + this.prod.img[0] : this.prod.img[0];
+    this.prod.img[1] = ! this.prod.img[0].includes(environment.IMG_URL)? environment.IMG_URL + this.prod.img[1] : this.prod.img[1];
     if(this.sizeList[0] =='F'){
       this.size = 'F'
     }
