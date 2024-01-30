@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   JOLSERVER: "/jolserver/api/json",
   STRIPE:"/jolserver/api/payment",
+  MODE:"Linode",
   Render_Succ:"https://jol-boutique.onrender.com/orderlist",
   Render_Fail:"https://jol-boutique.onrender.com",
   SUCCESS_URL:"https://ocean-hcz.com/orderlist",
