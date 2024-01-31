@@ -34,6 +34,7 @@ export class JolService {
   prodList: any = [];
   wishList:any =[];
   indexProd: any = [];
+  allProds:any = [];
   toProductList: string = ''
   category: string = '';
   isToPay: boolean = false;
@@ -198,5 +199,9 @@ export class JolService {
     });
     console.log('sortArray = ', sortArray)
     return sortArray;
+  }
+
+  getImgUrl(imgPath:any){
+    return ! imgPath.includes(environment.IMG_URL)? environment.IMG_URL + imgPath: imgPath
   }
 }

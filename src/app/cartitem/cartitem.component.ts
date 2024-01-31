@@ -67,8 +67,8 @@ export class CartitemComponent implements OnInit {
               cart.isCheck = false;
               cart.img = [];
               cart.img = cart.imgUrl.split(',');
-              cart.img[0] = environment.IMG_URL + cart.img[0];
-              cart.img[1] = environment.IMG_URL + cart.img[1];
+              cart.img[0] = this.jolService.getImgUrl(cart.img[0]);
+              cart.img[1] = this.jolService.getImgUrl(cart.img[1]);
               cart.isOnload = false;
               this.sum += cart.qty * cart.price;
             });
@@ -139,22 +139,8 @@ export class CartitemComponent implements OnInit {
   }
 
   toProduct(prodId: any) {
-    this.blockUI.start('讀取中');
-    let request = new Request('JOLProductInfo', this.loginData.account, this.loginData.token, 'SELECT', { prodId: prodId });
-    this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
-      if (res.code == 200) {
-        console.log('toProduct,', res)
-        this.blockUI.stop();
-        var prod = res.productList[0]
-        prod.img = prod.imgUrl.split(',');
-        this.jolService.prod = prod;
-        console.log('this.jolService.prod', this.jolService.prod)
-        this.router.navigate(['/product'], { skipLocationChange: false });
-      } else if (res.code == 666) {
-        this.jolService.resetLoginData();
-        this.router.navigate(['/login'], { skipLocationChange: false });
-      }
-    });
+    this.jolService.prod = this.jolService.allProds.filter((prod: any) => prod.prodId == prodId)[0];
+    this.router.navigate(['/product']);
   }
 
   changeQty(isPlus: boolean, cartId: any) {
