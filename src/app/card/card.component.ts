@@ -18,8 +18,8 @@ export class CardComponent implements OnInit {
 
   ngOnInit() {
     this.checkIsMobile();
-    this.prod.img[0] =  ! this.prod.img[0].includes(environment.IMG_URL)? environment.IMG_URL + this.prod.img[0] : this.prod.img[0];
-    this.prod.img[1] =  ! this.prod.img[1].includes(environment.IMG_URL)? environment.IMG_URL + this.prod.img[1] : this.prod.img[1];
+    this.prod.img[0] = this.jolService.getImgUrl(this.prod.img[0]);
+    this.prod.img[1] =  this.jolService.getImgUrl(this.prod.img[1]);
     this.prod.imgUrl =  this.prod.img[0];
   }
   checkIsMobile() {

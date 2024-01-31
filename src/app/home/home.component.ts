@@ -48,6 +48,7 @@ export class HomeComponent implements OnInit {
         .getData(environment.JOLSERVER, request)
         .subscribe((res) => {
           if (res.code == 200) {
+            this.jolService.allProds = res.productList;
             this.prodList = res.productList.slice(0, 24);
             console.log('this.prodList', this.prodList);
             this.prodList.forEach((prod: any) => {

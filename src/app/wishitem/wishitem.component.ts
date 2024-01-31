@@ -60,8 +60,8 @@ export class WishitemComponent implements OnInit {
             this.wishList.forEach((wish: any) => {
               wish.img = [];
               wish.img = wish.imgUrl.split(',');
-              wish.img[0] = environment.IMG_URL + wish.img[0];
-              wish.img[1] = environment.IMG_URL + wish.img[1];
+              wish.img[0] = this.jolService.getImgUrl(wish.img[0]);
+              wish.img[1] = this.jolService.getImgUrl(wish.img[1]);
               wish.isOnload =false;
               console.log('cart.qty* cart.price',wish.qty* wish.price)
               this.sum += wish.qty* wish.price;
@@ -129,22 +129,8 @@ export class WishitemComponent implements OnInit {
     this.jolService.getProductData("OTHER", { selectType: "series", keyWord: "new" });
   }
   toProduct(prodId: any) {
-    this.blockUI.start('讀取中');
-    let request = new Request('JOLProductInfo', this.loginData.account, this.loginData.token, 'SELECT', { prodId: prodId });
-    this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
-      if (res.code == 200) {
-        console.log('toProduct,', res)
-        this.blockUI.stop();
-        var prod = res.productList[0]
-        prod.img = prod.imgUrl.split(',');
-        this.jolService.prod = prod;
-        console.log('this.jolService.prod', this.jolService.prod)
-        this.router.navigate(['/product'], { skipLocationChange: false });
-      } else if (res.code == 666) {
-        this.jolService.resetLoginData();
-        this.router.navigate(['/login'], { skipLocationChange: false });
-      }
-    });
+    this.jolService.prod = this.jolService.allProds.filter((prod: any) => prod.prodId == prodId)[0];
+    this.router.navigate(['/product']);
   }
   countSum(){
     this.sum = 0;
