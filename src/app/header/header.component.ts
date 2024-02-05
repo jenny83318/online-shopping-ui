@@ -93,9 +93,7 @@ export class HeaderComponent implements OnInit {
             this.jolService.wishChange.subscribe((count) => {
               this.wishCount = count;
             });
-          } else {
-            this.toLogIn();
-          }
+          } 
         });
     }
   }
