@@ -98,11 +98,11 @@ export class OrderdetailComponent implements OnInit {
             }
           } else if (res.code == 666) {
             this.jolService.resetLoginData();
-            this.router.navigate(['/login'], { skipLocationChange: false });
+            this.router.navigate(['/login']);
           }
         });
     } else {
-      this.router.navigate(['/login'], { skipLocationChange: false });
+      this.router.navigate(['/login']);
     }
   }
 
@@ -112,7 +112,7 @@ export class OrderdetailComponent implements OnInit {
   }
 
   toOrderList() {
-    this.router.navigate(['/orderlist'], { skipLocationChange: false });
+    this.router.navigate(['/orderlist']);
   }
 
   padZeros(value: number, length: number): string {

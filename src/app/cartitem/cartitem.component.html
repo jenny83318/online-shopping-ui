@@ -11,34 +11,37 @@
         <div class="infoWrap">
           <div class="cartSection">
             <div>
-            <button class="img itemImg"  (click)="toProduct(c.prodId)">
-            <img class="" [src]="c.img[0]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'" (load)="onLoadImg(i)"  /></button>
-          </div>
-          <div>
-            
-            <p style="text-decoration: underline;"><button class="itemNumber " (click)="toProduct(c.prodId)">#QUE-{{padZeros(c.prodId,5)}}</button></p> 
-           <h3 (click)="toProduct(c.prodId)"> <button (click)="toProduct(c.prodId)" style="text-align: left;">{{ c.prodName }}</button></h3>
-            <p class="paragraph resize">尺寸:&nbsp;&nbsp; {{c.size}} &nbsp; &nbsp;</p><br>
-            <div class="qtyWrapper">
-              <p class="paragraph">數量:</p>
-              <div class="center container">
-                <div>
-                  <button id="plus-btn" class="countBtn" (click)="changeQty(false,c.cartId)">
-                    <i class="fas fa-minus icon"></i>
-                  </button>
-                </div>
-                <div>
-                  <p class="paragraph" id="count" style="margin: 0;">{{ c.qty }}</p>
-                </div>
-                <div>
-                  <button id="plus-btn" class="countBtn" (click)="changeQty(true,c.cartId)">
-                    <i class="fas fa-plus icon"></i>
-                  </button>
-                </div>
-              </div>
-              <!-- <p class="stockStatus paragraph">現貨</p> -->
-              <p class="paragraph" style="margin-left: -12px; margin-top: 10px;">&nbsp; &nbsp;單價:&nbsp;&nbsp; NT. {{c.price | number}}</p>
+              <button class="img itemImg" (click)="toProduct(c.prodId)">
+                <img class="" [src]="c.img[0]" onerror="this.onerror=null; this.src='/assets/img/noImg.png'"
+                  (load)="onLoadImg(i)" /></button>
             </div>
+            <div>
+              <p style="text-decoration: underline;"><button class="itemNumber "
+                  (click)="toProduct(c.prodId)">#QUE-{{padZeros(c.prodId,5)}}</button></p>
+              <h3 (click)="toProduct(c.prodId)"> <button (click)="toProduct(c.prodId)" style="text-align: left;">{{
+                  c.prodName }}</button></h3>
+              <p class="paragraph resize">尺寸:&nbsp;&nbsp; {{c.size}} &nbsp; &nbsp;</p><br>
+              <div class="qtyWrapper">
+                <p class="paragraph">數量:</p>
+                <div class="center container">
+                  <div>
+                    <button id="plus-btn" class="countBtn" (click)="changeQty(false,c.cartId)">
+                      <i class="fas fa-minus icon"></i>
+                    </button>
+                  </div>
+                  <div>
+                    <p class="paragraph" id="count" style="margin: 0;">{{ c.qty }}</p>
+                  </div>
+                  <div>
+                    <button id="plus-btn" class="countBtn" (click)="changeQty(true,c.cartId)">
+                      <i class="fas fa-plus icon"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- <p class="stockStatus paragraph">現貨</p> -->
+                <p class="paragraph" style="margin-left: -12px; margin-top: 10px;">&nbsp; &nbsp;單價:&nbsp;&nbsp; NT.
+                  {{c.price | number}}</p>
+              </div>
             </div>
           </div>
           <div class="prodTotal cartSection">

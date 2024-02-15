@@ -68,11 +68,11 @@ export class WishitemComponent implements OnInit {
             });
           }else if (res.code == 666) {
             this.jolService.resetLoginData();
-            this.router.navigate(['/login'], { skipLocationChange: false });
+            this.router.navigate(['/login']);
           }
         });
       } else {
-        this.router.navigate(['/login'], { skipLocationChange: false });
+        this.router.navigate(['/login']);
       }
     }
   }
@@ -94,7 +94,7 @@ export class WishitemComponent implements OnInit {
               this.getWishData(0);
             } else if (res.code == 666) {
               this.jolService.resetLoginData();
-              this.router.navigate(['/login'], { skipLocationChange: false });
+              this.router.navigate(['/login']);
             }
             console.log('res',res)
           });
@@ -109,7 +109,7 @@ export class WishitemComponent implements OnInit {
         if(this.loginData.account != ''){
           this.jolService.addCartWish(cart.prodId, order.qty, order.size, true, false,false);
         }else{
-          this.router.navigate(['/login'], { skipLocationChange: false });
+          this.router.navigate(['/login']);
         }
       }
     });

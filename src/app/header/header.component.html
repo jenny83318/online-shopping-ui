@@ -1,54 +1,62 @@
 <nav class="navbar navbar-expand-lg">
   <div class="container">
     <div class="wrapper">
-      <button class="homelink" >
+      <button class="homelink">
         <img src="assets/img/JOLBoutique-logo.png" class="logo" (click)="toHome()" />
       </button>
       <div class="btnWrapper">
-      <button class="navbar-toggle" style="padding:0 0; margin-right: 15px;" (click)="toCartItem()">
-        <img src="assets/img/cartIcon.png" style="width: 28px; height:29px" />
-        <span class="cartCount" *ngIf="cartCount > 0">{{cartCount}}</span>
-      </button>
-      <button *ngIf="isLogin" class="navbar-toggle" style="padding:0 0;margin-right: 15px;"  mat-button [matMenuTriggerFor]="menu2">
-        <i class="far fa-user" style="font-size: 1.7rem; color: black;"></i>
-      </button>
-      <button *ngIf="!isLogin" class="navbar-toggle" style="padding:0 0;margin-right: 15px;"(click)="toLogIn()">
-        <i class="far fa-user" style="font-size: 1.7rem; color: black;"></i>
-      </button>
-      <mat-menu #menu2="matMenu">
-        <button mat-menu-item class="menuItem"(click)="toMember()">會員管理</button> <hr />
-        <button mat-menu-item class="menuItem" (click)="toOrderList()">訂單管理</button>  <hr />
-        <button mat-menu-item class="menuItem" (click)="logOut()">登出</button>
-      </mat-menu>
-      <button class="navbar-toggle"  style="padding:0 0; margin-right: 15px;" type="button" (click)="toWishItem()">
-        <i class="far fa-heart" style="font-size: 1.8rem; color: black"></i>
-      </button>
-      <button class="navbar-toggle" style="padding:0 0;" type="button" (click)="setNavbarOpen()">
-        <i class="fas fa-bars"></i>
-      </button>
+        <button class="navbar-toggle" style="padding:0 0; margin-right: 15px;" (click)="toCartItem()">
+          <img src="assets/img/cartIcon.png" style="width: 28px; height:29px" />
+          <span class="cartCount" *ngIf="cartCount > 0">{{cartCount}}</span>
+        </button>
+        <button *ngIf="isLogin" class="navbar-toggle" style="padding:0 0;margin-right: 15px;" mat-button
+          [matMenuTriggerFor]="menu2">
+          <i class="far fa-user" style="font-size: 1.7rem; color: black;"></i>
+        </button>
+        <button *ngIf="!isLogin" class="navbar-toggle" style="padding:0 0;margin-right: 15px;" (click)="toLogIn()">
+          <i class="far fa-user" style="font-size: 1.7rem; color: black;"></i>
+        </button>
+        <mat-menu #menu2="matMenu">
+          <button mat-menu-item class="menuItem" (click)="toMember()">會員管理</button>
+          <hr />
+          <button mat-menu-item class="menuItem" (click)="toOrderList()">訂單管理</button>
+          <hr />
+          <button mat-menu-item class="menuItem" (click)="logOut()">登出</button>
+        </mat-menu>
+        <button class="navbar-toggle" style="padding:0 0; margin-right: 15px;" type="button" (click)="toWishItem()">
+          <i class="far fa-heart" style="font-size: 1.8rem; color: black"></i>
+        </button>
+        <button class="navbar-toggle" style="padding:0 0;" type="button" (click)="setNavbarOpen()">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
     </div>
-    </div>
-    <div class="lg:flex flex-grow items-center" [ngClass]="{ hidden: !navbarOpen, block: navbarOpen }" id="example-navbar-warning">
+    <div class="lg:flex flex-grow items-center" [ngClass]="{ hidden: !navbarOpen, block: navbarOpen }"
+      id="example-navbar-warning">
       <ul>
         <li class="flex items-center">
-          <button class="customLink" [ngClass]="isChange && changeType =='all'? 'engTitle':'' " (mouseover)="changeName('all', true)" (mouseleave)="changeName('all', false)" (click)="toProductList('category', '1')">
+          <button class="customLink" [ngClass]="isChange && changeType =='all'? 'engTitle':'' "
+            (mouseover)="changeName('all', true)" (mouseleave)="changeName('all', false)"
+            (click)="toProductList('category', '1')">
             {{title.all}}
-           </button>
-          <!-- <button mat-button [matMenuTriggerFor]="menu1" class="customLink" [ngClass]="isChange && changeType =='all'? 'engTitle':'' " (mouseover)="changeName('all', true)" (mouseleave)="changeName('all', false)">
-           {{title.all}}
           </button>
-          <mat-menu #menu1="matMenu">
-            <button mat-menu-item class="menuItem" (click)="toProductList('category', '1')">上身</button><hr />
-            <button mat-menu-item class="menuItem" (click)="toProductList('category', '2')">下身</button> <hr />
-            <button mat-menu-item class="menuItem" (click)="toProductList('category', '3')">連身</button> <hr />
-            <button mat-menu-item class="menuItem" (click)="toProductList('category', '4')">鞋包配件</button>
-          </mat-menu> -->
         </li>
       </ul>
-      <ul (click)="toProductList('series', 'new')"><li class="flex items-center"><button class="customLink" [ngClass]="isChange && changeType =='new'? 'engTitle':'' " (mouseover)="changeName('new', true)" (mouseleave)="changeName('new', false)">{{title.new}}</button></li></ul>
-      <ul (click)="toProductList('series', 'sales')"><li class="flex items-center"><button class="customLink" [ngClass]="isChange && changeType =='sales'? 'engTitle':'' " (mouseover)="changeName('sales', true)" (mouseleave)="changeName('sales', false)">{{title.sales}}</button></li></ul>
-      <ul (click)="toProductList('series', 'sport')"><li class="flex items-center"><button class="customLink" [ngClass]="isChange && changeType =='sport'? 'engTitle':'' " (mouseover)="changeName('sport', true)" (mouseleave)="changeName('sport', false)">{{title.sport}}</button></li></ul>
-      <!-- <ul><li class="flex items-center customLink">Catwalk</li></ul> -->
+      <ul (click)="toProductList('series', 'new')">
+        <li class="flex items-center"><button class="customLink"
+            [ngClass]="isChange && changeType =='new'? 'engTitle':'' " (mouseover)="changeName('new', true)"
+            (mouseleave)="changeName('new', false)">{{title.new}}</button></li>
+      </ul>
+      <ul (click)="toProductList('series', 'sales')">
+        <li class="flex items-center"><button class="customLink"
+            [ngClass]="isChange && changeType =='sales'? 'engTitle':'' " (mouseover)="changeName('sales', true)"
+            (mouseleave)="changeName('sales', false)">{{title.sales}}</button></li>
+      </ul>
+      <ul (click)="toProductList('series', 'sport')">
+        <li class="flex items-center"><button class="customLink"
+            [ngClass]="isChange && changeType =='sport'? 'engTitle':'' " (mouseover)="changeName('sport', true)"
+            (mouseleave)="changeName('sport', false)">{{title.sport}}</button></li>
+      </ul>
       <ul class="rightUl rightUl-lg">
         <li class="flex items-center search liIcon">
           <input type="text" class="search-input" [(ngModel)]="keyWord" />
@@ -70,18 +78,20 @@
           <button class="lg:hidden inline-block ml-2">登入會員</button>
         </li>
         <li class="flex items-center liIcon iconHidden" *ngIf="isLogin" mat-button [matMenuTriggerFor]="menu">
-          <button class="" style="padding-right: 15px;"><i class="far fa-user" style="font-size: 1.7rem; color: black;"></i></button>
+          <button class="" style="padding-right: 15px;"><i class="far fa-user"
+              style="font-size: 1.7rem; color: black;"></i></button>
           <button class="lg:hidden inline-block ml-2">{{ logInData.account }} </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item class="menuItem" (click)="toMember()">會員管理</button> <hr />
-            <button mat-menu-item class="menuItem" (click)="toOrderList()">訂單管理</button>  <hr />
+            <button mat-menu-item class="menuItem" (click)="toMember()">會員管理</button>
+            <hr />
+            <button mat-menu-item class="menuItem" (click)="toOrderList()">訂單管理</button>
+            <hr />
             <button mat-menu-item class="menuItem" (click)="logOut()">登出</button>
           </mat-menu>
         </li>
         <li class="flex items-center liIcon iconHidden" style="margin-left: -2px;" (click)="toWishItem()">
           <button class="cart-icon" style="padding-right: 10px;">
             <i class="far fa-heart" style="font-size: 1.8rem; color: black"></i>
-            <!-- <span class="wish-count" *ngIf="wishCount > 0">{{ wishCount }}</span> -->
           </button>
           <button class="lg:hidden inline-block ml-2">收藏清單</button>
         </li>

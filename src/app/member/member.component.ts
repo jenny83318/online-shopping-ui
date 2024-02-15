@@ -59,7 +59,7 @@ export class MemberComponent implements OnInit {
         this.getCustData();
       });
     }else {
-      this.router.navigate(['/login'], { skipLocationChange: false });
+      this.router.navigate(['/login']);
     }
   }
 
@@ -79,7 +79,7 @@ export class MemberComponent implements OnInit {
         this.changeCity();
       }else if (res.code == 666){
         this.jolService.resetLoginData();
-        this.router.navigate(['/login'], { skipLocationChange: false });
+        this.router.navigate(['/login']);
       }
       console.log('custData', this.custData);
     });
@@ -116,7 +116,7 @@ export class MemberComponent implements OnInit {
         this.dialog.open(MessageComponent, { data: { msg: '會員資料修改成功' } });
       }else if (res.code == 666){
         this.jolService.resetLoginData();
-        this.router.navigate(['/login'], { skipLocationChange: false });
+        this.router.navigate(['/login']);
       }
     });
   }
