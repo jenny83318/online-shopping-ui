@@ -1,7 +1,7 @@
 import { JolService } from './../service/JolService.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -54,6 +54,6 @@ export class CardComponent implements OnInit {
 
   toProduct() {
     this.jolService.prod = this.prod;
-    this.router.navigate(['/product'], { skipLocationChange: false });
+    this.router.navigate(['/product']);
   }
 }

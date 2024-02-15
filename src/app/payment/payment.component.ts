@@ -183,7 +183,7 @@ export class PaymentComponent implements OnInit {
             }
           } else if (res.code == 666) {
             this.jolService.resetLoginData();
-            this.router.navigate(['/login'], { skipLocationChange: false });
+            this.router.navigate(['/login']);
           }
         });
     }

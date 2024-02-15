@@ -10,7 +10,7 @@ import { MessageComponent } from '../message/message.component';
 @Component({
   selector: 'app-cartitem',
   templateUrl: './cartitem.component.html',
-  styleUrls: ['./cartitem.component.scss','./cartitemExtra.component.scss'],
+  styleUrls: ['./cartitem.component.scss', './cartitemExtra.component.scss'],
 })
 export class CartitemComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
@@ -52,8 +52,7 @@ export class CartitemComponent implements OnInit {
       this.jolService
         .getData(environment.JOLSERVER, request)
         .subscribe((res) => {
-          if(res.code == 200){
-
+          if (res.code == 200) {
             this.blockUI.start('讀取中');
             this.cartList = res.cartList;
             if (this.cartList.length == 0) {
@@ -74,11 +73,11 @@ export class CartitemComponent implements OnInit {
             });
           }else if (res.code == 666){
             this.jolService.resetLoginData();
-            this.router.navigate(['/login'], { skipLocationChange: false });
+            this.router.navigate(['/login']);
           }
           });
         } else {
-          this.router.navigate(['/login'], { skipLocationChange: false });
+          this.router.navigate(['/login']);
         }
   }
 
@@ -97,7 +96,7 @@ export class CartitemComponent implements OnInit {
               this.getCartData();
             }else if (res.code == 666){
               this.jolService.resetLoginData();
-              this.router.navigate(['/login'], { skipLocationChange: false });
+              this.router.navigate(['/login']);
             }
           });
       }

@@ -41,31 +41,17 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.logInData = this.jolService.getLoginData();
-    console.log('HOME == this.logInData',this.logInData)
+    console.log('HOME == this.logInData', this.logInData)
     this.isLogin = this.jolService.isLogin;
-    if (this.isLogin == false) {
+    if (!this.isLogin) {
       this.checkLogin();
+    } else {
+      this.getCartData();
     }
-    if (this.isLogin) {
-      if (this.jolService.cartNum == 0) {
-        this.getCartData();
-      } else {
-        this.cartCount = this.jolService.cartNum;
-      }
-    }
-    this.jolService.cartChange.subscribe((count) => {
-      this.cartCount = count;
-    });
-    this.jolService.wishChange.subscribe((count) => {
-      this.wishCount = count;
-    });
   }
 
   checkLogin() {
-    console.log('============checkLogin============================')
-    if (localStorage.getItem('loginData') != null) {
-      this.logInData = JSON.parse(localStorage.getItem('loginData'));
-      console.log(' this.logInData', this.logInData);
+    if (this.logInData.account != "") {
       const body = {
         password: this.logInData.password,
         token: this.logInData.token,
@@ -76,24 +62,16 @@ export class HeaderComponent implements OnInit {
         .getData(environment.JOLSERVER, request)
         .subscribe((res) => {
           console.log('res', res);
-          if (res.code == 200) {
+          if (res.code == 200 && this.logInData.token === res.token) {
             this.isLogin = true;
             this.logInData.email = res.email;
             this.logInData.tokenExpired = res.tokenExpired;
             this.jolService.loginData = this.logInData;
             this.jolService.isLogin = true;
-            if (this.jolService.cartNum == 0) {
-              this.getCartData();
-            } else {
-              this.cartCount = this.jolService.cartNum;
-            }
-            this.jolService.cartChange.subscribe((count) => {
-              this.cartCount = count;
-            });
-            this.jolService.wishChange.subscribe((count) => {
-              this.wishCount = count;
-            });
-          } 
+            this.getCartData();
+          } else {
+            this.jolService.resetLoginData();
+          }
         });
     }
   }
@@ -101,7 +79,7 @@ export class HeaderComponent implements OnInit {
   setNavbarOpen() {
     this.navbarOpen = !this.navbarOpen;
   }
-  setNavbarClose(){
+  setNavbarClose() {
     this.navbarOpen = false;
   }
 
@@ -127,11 +105,10 @@ export class HeaderComponent implements OnInit {
             this.logInData = this.jolService.loginData;
             this.isLogin = false;
             console.log('res', res);
-            // this.dialog.open(MessageComponent, { data: { msg: '您已登出' } });
             const dialogRef = this.dialog.open(MessageComponent, { data: { msg: '您已登出' } });
             dialogRef.afterClosed().subscribe(isConfirm => {
               window.location.reload();
-              this.router.navigate(['/'], { skipLocationChange: false });
+              this.router.navigate(['/']);
             })
           } else {
             this.dialog.open(MessageComponent, { data: { msg: '登出異常' } });
@@ -141,19 +118,27 @@ export class HeaderComponent implements OnInit {
   }
 
   getCartData() {
-    let request = new Request('JOLCartInfo', this.logInData.account, this.logInData.token, 'ALL', {});
-    console.log('request', request);
-    this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
-      if (res.code == 200) {
-        this.jolService.cartNum = res.cartList.filter((c: any) => c.cart == true).length;
-        this.jolService.wishNum = res.cartList.filter((c: any) => c.cart == false).length;
-        this.cartCount = this.jolService.cartNum;
-        this.wishCount = this.jolService.wishNum;
-      }else if (res.code == 666){
-        this.jolService.resetLoginData();
-        this.router.navigate(['/login'], { skipLocationChange: false });
-      }
-    });
+    if (this.jolService.cartStatus) {
+      this.cartCount = this.jolService.cartNum;
+      this.jolService.cartChange.subscribe((count) => {
+        this.cartCount = count;
+      });
+    } else {
+      let request = new Request('JOLCartInfo', this.logInData.account, this.logInData.token, 'ALL', {});
+      console.log('request', request);
+      this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
+        if (res.code == 200) {
+          this.jolService.cartStatus = true;
+          this.jolService.cartNum = res.cartList.filter((c: any) => c.cart == true).length;
+          this.jolService.wishNum = res.cartList.filter((c: any) => c.cart == false).length;
+          this.cartCount = this.jolService.cartNum;
+          this.wishCount = this.jolService.wishNum;
+        } else if (res.code == 666) {
+          this.jolService.resetLoginData();
+          this.router.navigate(['/login']);
+        }
+      });
+    }
   }
   search() {
     this.setNavbarClose();
@@ -182,7 +167,7 @@ export class HeaderComponent implements OnInit {
 
   toLogIn() {
     this.setNavbarClose();
-    this.router.navigate(['/login'], { skipLocationChange: false });
+    this.router.navigate(['/login']);
   }
 
   toHome() {
@@ -191,15 +176,27 @@ export class HeaderComponent implements OnInit {
   }
   toCartItem() {
     this.setNavbarClose();
-    this.router.navigate(['/cartitem'], { skipLocationChange: false });
+    if (this.isLogin == false) {
+      this.router.navigate(['/login']);
+    } else {
+      this.router.navigate(['/cartitem']);
+    }
   }
   toWishItem() {
     this.setNavbarClose();
-    this.router.navigate(['/wishitem'], { skipLocationChange: false });
+    if (this.isLogin == false) {
+      this.router.navigate(['/login']);
+    } else {
+      this.router.navigate(['/wishitem']);
+    }
   }
   toOrderList() {
     this.setNavbarClose();
-    this.router.navigate(['/orderlist'], { skipLocationChange: false });
+    if (this.isLogin == false) {
+      this.router.navigate(['/login']);
+    } else {
+      this.router.navigate(['/orderlist']);
+    }
   }
   toProductList(selectType: any, keyWord: any) {
     this.setNavbarClose();
@@ -215,6 +212,10 @@ export class HeaderComponent implements OnInit {
   }
   toMember() {
     this.setNavbarClose();
-    this.router.navigate(['/member'], { skipLocationChange: false });
+    if (this.isLogin == false) {
+      this.router.navigate(['/login']);
+    } else {
+      this.router.navigate(['/member']);
+    }
   }
 }

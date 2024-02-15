@@ -37,10 +37,10 @@ export class OrderlistComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   paginatorPageSize = 5; // 每页显示的项目数量
   paginatorPageSizeOptions = [5, 10, 20]; // 可供选择的页大小选项
-  oddRowIndexes: number[] = []; 
+  oddRowIndexes: number[] = [];
 
   pageSize = 5;
-  pageIndex = 0; 
+  pageIndex = 0;
 
   constructor(private jolService: JolService, private router: Router, private dialog: MatDialog) { }
 
@@ -111,11 +111,11 @@ export class OrderlistComponent implements OnInit {
             }
           } else if (res.code == 666) {
             this.jolService.resetLoginData();
-            this.router.navigate(['/login'], { skipLocationChange: false });
+            this.router.navigate(['/login']);
           }
         });
     } else {
-      this.router.navigate(['/login'], { skipLocationChange: false });
+      this.router.navigate(['/login']);
     }
   }
 

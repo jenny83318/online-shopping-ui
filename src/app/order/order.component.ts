@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone,HostListener } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Request } from '../model/Request';
 import { StripeRequest } from '../model/StripeRequest';
@@ -25,13 +25,13 @@ export class OrderComponent implements OnInit {
   isUpdate: boolean = false;
   isSame: boolean = false;
   isPayPal: boolean = false;
-  isStripe :boolean = false;
-  isDisable:boolean = false;
+  isStripe: boolean = false;
+  isDisable: boolean = false;
   districtList: any = [];
   addressList: any = [];
   itemList: any = [];
   custData: any;
-  orderNo:any ="";
+  orderNo: any = "";
   payPalConfig?: IPayPalConfig;
   odr: any = {
     email: "",
@@ -69,7 +69,7 @@ export class OrderComponent implements OnInit {
   isVehicleType: boolean = false;
   isVehicle: boolean = false;
   isShowElement: boolean = false;
-  creditCardNo:any;
+  creditCardNo: any;
   vehicleOpt: any = [
     { viewValue: '電子發票 E-invoice' },
     { viewValue: '電子發票 手機載具' },
@@ -102,10 +102,10 @@ export class OrderComponent implements OnInit {
 
   getCustData() {
     this.blockUI.start('讀取中');
-    let request = new Request('JOLCustomerInfo', this.loginData.account, this.loginData.token , 'SELECT', {});
+    let request = new Request('JOLCustomerInfo', this.loginData.account, this.loginData.token, 'SELECT', {});
     this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
       this.blockUI.stop();
-      if(res.code == 200){
+      if (res.code == 200) {
         if (res.custList.length > 0) {
           this.custData = res.custList[0];
           this.odr.orderName = this.custData.name;
@@ -115,9 +115,9 @@ export class OrderComponent implements OnInit {
           this.odr.orderAddress = this.custData.address;
           this.odr.email = this.custData.email;
         }
-      }else if (res.code == 666){
+      } else if (res.code == 666) {
         this.jolService.resetLoginData();
-        this.router.navigate(['/login'], { skipLocationChange: false });
+        this.router.navigate(['/login']);
       }
       console.log('custData', this.custData);
     });
@@ -125,7 +125,6 @@ export class OrderComponent implements OnInit {
 
   checkOut() {
     this.checkForm();
-    // var statusName = status =="COMPLETED" ? "已付款" : "待付款"
     if (this.isCheck) {
       if (this.isUpdate) {
         this.updateCustData();
@@ -155,7 +154,7 @@ export class OrderComponent implements OnInit {
                 qty: cart.qty,
                 price: cart.price,
                 status: '準備中',
-                size:cart.size
+                size: cart.size
               };
               let request = new Request(
                 'JOLOrderDetailInfo',
@@ -168,9 +167,9 @@ export class OrderComponent implements OnInit {
               this.jolService
                 .getData(environment.JOLSERVER, request)
                 .subscribe((res) => {
-                  if (res.code == 666){
+                  if (res.code == 666) {
                     this.jolService.resetLoginData();
-                    this.router.navigate(['/login'], { skipLocationChange: false });
+                    this.router.navigate(['/login']);
                   }
                 });
             });
@@ -178,18 +177,18 @@ export class OrderComponent implements OnInit {
             if (this.odr.payBy == 'Paypal') {
               this.isPayPal = true;
               this.isDisable = true;
-              this.creditCardNo ="4111 1111 1111 1111"
+              this.creditCardNo = "4111 1111 1111 1111"
               this.Paypal(rs.orderList[0].orderNo);
             }
             if (this.odr.payBy == 'Stripe Pay') {
               this.isStripe = true;
-              this.creditCardNo ="4242 4242 4242 4242"
+              this.creditCardNo = "4242 4242 4242 4242"
               this.isDisable = true;
             }
           }
-        }else if (rs.code == 666){
+        } else if (rs.code == 666) {
           this.jolService.resetLoginData();
-          this.router.navigate(['/login'], { skipLocationChange: false });
+          this.router.navigate(['/login']);
         }
         console.log('res', rs);
       });
@@ -222,24 +221,24 @@ export class OrderComponent implements OnInit {
       const body = {
         isCart: true
       };
-      let request = new Request('JOLCartInfo', this.loginData.account, this.loginData.token , 'SELECT', body);
+      let request = new Request('JOLCartInfo', this.loginData.account, this.loginData.token, 'SELECT', body);
       this.blockUI.start('讀取中');
       this.jolService
         .getData(environment.JOLSERVER, request)
         .subscribe((res) => {
           this.blockUI.stop();
-          if(res.code == 200){
+          if (res.code == 200) {
             this.cartList = res.cartList;
             console.log('this.cartList.length', this.cartList.length)
             this.jolService.setCartNum(this.cartList.length);
             this.jolService.orderDetail = this.cartList;
-          }else if (res.code == 666){
+          } else if (res.code == 666) {
             this.jolService.resetLoginData();
-            this.router.navigate(['/login'], { skipLocationChange: false });
+            this.router.navigate(['/login']);
           }
         });
     } else {
-      this.router.navigate(['/login'], { skipLocationChange: false });
+      this.router.navigate(['/login']);
     }
   }
 
@@ -254,12 +253,12 @@ export class OrderComponent implements OnInit {
       district: this.odr.orderDistrict,
       status: "1"
     }
-    let request = new Request("JOLCustomerInfo", this.loginData.account, this.loginData.token ,'UPDATE', body);
+    let request = new Request("JOLCustomerInfo", this.loginData.account, this.loginData.token, 'UPDATE', body);
     console.log('request', request)
     this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
-     if (res.code == 666){
+      if (res.code == 666) {
         this.jolService.resetLoginData();
-        this.router.navigate(['/login'], { skipLocationChange: false });
+        this.router.navigate(['/login']);
       }
     });
   }
@@ -313,7 +312,7 @@ export class OrderComponent implements OnInit {
   Paypal(orderNo: any) {
     console.log("this.jolService.totAmt", String(this.jolService.totAmt))
     var total = 0
-    this.cartList.forEach((c: any,index:any) => {
+    this.cartList.forEach((c: any, index: any) => {
       total += c.qty * c.price;
       this.itemList.push({
         name: c.prodName,
@@ -382,18 +381,18 @@ export class OrderComponent implements OnInit {
           this.jolService.sendOrderEmail(orderNo);
           localStorage.setItem('isToPay', orderNo);
           localStorage.setItem('payStatus', 'cancel');
-          this.router.navigate(['/orderlist'], { skipLocationChange: false });
+          this.router.navigate(['/orderlist']);
         });
       },
       onError: err => {
         this.ngZone.run(() => {
-        this.blockUI.start('讀取中');
-        console.log('OnError', err);
-        this.jolService.sendOrderEmail(orderNo);
-        localStorage.setItem('isToPay', orderNo);
-        localStorage.setItem('payStatus', 'fail');
-        this.router.navigate(['/orderlist'], { skipLocationChange: false });
-      });
+          this.blockUI.start('讀取中');
+          console.log('OnError', err);
+          this.jolService.sendOrderEmail(orderNo);
+          localStorage.setItem('isToPay', orderNo);
+          localStorage.setItem('payStatus', 'fail');
+          this.router.navigate(['/orderlist']);
+        });
       },
       onClick: (data, actions) => {
         console.log('onClick', data, actions);
@@ -403,19 +402,19 @@ export class OrderComponent implements OnInit {
 
   async StripePay() {
     var prodName = "";
-    this.cartList.forEach((c: any,index:any) => {
+    this.cartList.forEach((c: any, index: any) => {
       prodName += c.prodName
-      if(index != this.cartList.length -1){
-        prodName +=  "、"
+      if (index != this.cartList.length - 1) {
+        prodName += "、"
       }
       var isEnd = index == this.cartList.length - 1 ? true : false;
       this.deleteCart(c.cartId, isEnd);
     })
 
     const stripe = await this.stripePromise;
-    let request = new StripeRequest(Math.round(this.jolService.totAmt * 100) , prodName , 'hkd',
-    environment.MODE === "Linode" ? environment.SUCCESS_URL : environment.Render_Succ ,
-    environment.MODE === "Linode" ? environment.FAIL_URL : environment.Render_Fail, 1);
+    let request = new StripeRequest(Math.round(this.jolService.totAmt * 100), prodName, 'hkd',
+      environment.MODE === "Linode" ? environment.SUCCESS_URL : environment.Render_Succ,
+      environment.MODE === "Linode" ? environment.FAIL_URL : environment.Render_Fail, 1);
     console.log('StripePay req', request)
     this.blockUI.start('讀取中');
     this.jolService
@@ -423,7 +422,7 @@ export class OrderComponent implements OnInit {
       .subscribe((res) => {
         this.blockUI.stop();
         localStorage.setItem('isToPay', this.orderNo);
-        console.log('isToPay',this.orderNo )
+        console.log('isToPay', this.orderNo)
         stripe.redirectToCheckout({
           sessionId: res.id,
         });

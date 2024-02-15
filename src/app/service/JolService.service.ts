@@ -22,6 +22,7 @@ export class JolService {
   loginData: any = { account: "", password: "", token: "", tokenExpired: "", email: "" };
   prod: any;
   cartNum: number = 0
+  cartStatus:boolean = false;
   wishNum: number = 0
   isHeaderCheck = false;
   totAmt: number = 0;
@@ -83,9 +84,6 @@ export class JolService {
 
 
   addCartWish(prodId: any, qty: number, size: any, isCart: boolean, isRouter:boolean, isChange:boolean) {
-    if (isCart) {
-      this.blockUI.start('cart');
-    }
     const body = {
       prodId: prodId,
       qty: qty,
@@ -96,6 +94,9 @@ export class JolService {
     console.log('request', request);
     this.getData(environment.JOLSERVER, request).subscribe((res) => {
       if (res.code == 200) {
+        if (isCart) {
+          this.blockUI.start('cart');
+        } 
         if(isChange){
           this.setWishList([]);
         }
@@ -105,11 +106,11 @@ export class JolService {
           this.setWishNum(res.cartList.length);
         }
         if(isRouter){
-          this.router.navigate(['/cartitem'], { skipLocationChange: false });
+          this.router.navigate(['/cartitem']);
         }
       } else if (res.code == 666) {
         this.resetLoginData();
-        this.router.navigate(['/login'], { skipLocationChange: false });
+        this.router.navigate(['/login']);
       }
     });
     setTimeout(() => {
@@ -134,14 +135,14 @@ export class JolService {
         prodList.forEach((prod: any) => {
           prod.img = [];
           prod.img = prod.imgUrl.split(',');
-          prod.imgUrl =  environment.IMG_URL + prod.img[0];
+          prod.imgUrl =  this.getImgUrl(prod.img[0]);
           prod.isOnload = false;
         });
         this.setProdList(prodList);
         this.router.navigate(['/productlist'], { skipLocationChange: true });
       } else if (res.code == 666) {
         this.resetLoginData();
-        this.router.navigate(['/login'], { skipLocationChange: false });
+        this.router.navigate(['/login']);
       }
     });
   }
@@ -156,10 +157,10 @@ export class JolService {
       if (res.code == 200) {
         this.orderUpdate.emit("finish");
         this.sendOrderEmail(body.orderNo);
-        this.router.navigate(['/orderlist'], { skipLocationChange: false })
+        this.router.navigate(['/orderlist'])
       } else if (res.code == 666) {
         this.resetLoginData();
-        this.router.navigate(['/login'], { skipLocationChange: false });
+        this.router.navigate(['/login']);
       }
     });
   }
