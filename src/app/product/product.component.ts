@@ -27,7 +27,7 @@ export class ProductComponent implements OnInit {
   heartClass: any = 'far fa-heart';
   isWish: boolean = false;
   cart: any;
-  isLogin: boolean = false;
+  isReLogin: boolean = false;
   constructor(private dialog: MatDialog, private jolService: JolService, private router: Router) { }
 
   ngOnInit() {
@@ -87,7 +87,7 @@ export class ProductComponent implements OnInit {
     console.log('request', request);
     this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
       if (res.code == 200) {
-        this.isLogin = true;
+        this.isReLogin = true;
         if (res.cartList.length > 0) {
           this.cart = res.cartList[0];
           this.heartClass = 'fa fa-heart';
@@ -97,7 +97,7 @@ export class ProductComponent implements OnInit {
           this.isWish = false;
         }
       } else if (res.code == 666) {
-        this.isLogin = false;
+        this.isReLogin = false;
       }
     });
   }
@@ -135,7 +135,11 @@ export class ProductComponent implements OnInit {
   }
 
   changeIcon() {
-    if (this.isLogin) {
+    if (!this.isReLogin) {
+      this.jolService.reLogin();
+    } else if (!this.jolService.isLogin) {
+      this.router.navigate(['/login']);
+    } else {
       this.heartClass = this.heartClass == 'far fa-heart' ? 'fa fa-heart' : "far fa-heart"
       if (this.heartClass == 'far fa-heart') {
         this.jolService.setWishNum(this.jolService.wishNum - 1);
@@ -146,12 +150,6 @@ export class ProductComponent implements OnInit {
           this.blockUI.stop();
         }, 700);
       }
-    } else {
-      const dialogRef = this.dialog.open(MessageComponent, { data: { msg: '登入逾時，請重新登入' } });
-        dialogRef.afterClosed().subscribe(() => {
-          this.jolService.resetLoginData();
-          this.router.navigate(['/login']);
-        });
     }
   }
   tabChanged(event: any) {

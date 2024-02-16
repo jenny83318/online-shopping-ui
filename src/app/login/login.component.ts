@@ -109,17 +109,7 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
           this.loginData.tokenExpired = res.tokenExpired;
           this.jolService.loginData = this.loginData
           localStorage.setItem('loginData', JSON.stringify(this.loginData));
-          //TODO
-          // if (this.jolService.logBackRequest != undefined) {
-          //   this.jolService.getData(environment.JOLSERVER, this.jolService.logBackRequest).subscribe((res) => {
-          //     this.jolService.setCartNum(res.cartList.length);
-          //     var router = this.jolService.logBackRequest.body?.isCart ? "cartitem" : "wishitem";
-          //     this.router.navigate(['/' + router]);
-          //     this.jolService.logBackRequest = undefined;
-          //   });
-          // } else {
-            this.router.navigate(['/']);
-          // }
+          this.router.navigate(['/']);
         }
         else {
           this.isLoginError = true;

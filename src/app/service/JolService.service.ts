@@ -41,7 +41,6 @@ export class JolService {
   toProductList: string = ''
   category: string = '';
   isToPay: boolean = false;
-  logBackRequest: any;
 
   constructor(private httpClient: HttpClient, private router: Router, private dialog: MatDialog) { }
 
@@ -106,7 +105,6 @@ export class JolService {
           this.router.navigate(['/cartitem']);
         }
       } else if (res.code == 666) {
-        this.logBackRequest = request;
         this.reLogin();
       }
     });
