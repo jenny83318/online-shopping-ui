@@ -15,13 +15,13 @@ import { CartdetailComponent } from '../cartdetail/cartdetail.component';
 })
 export class WishitemComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
-  block =CartblockComponent;
+  block = CartblockComponent;
   loginData: any;
-  wishList:any;
-  sum:number =0;
-  ishidden:boolean = false;
-  flag:number =1;
-  constructor(private jolService: JolService, private router: Router, private dialog: MatDialog) {}
+  wishList: any;
+  sum: number = 0;
+  ishidden: boolean = false;
+  flag: number = 1;
+  constructor(private jolService: JolService, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -32,83 +32,81 @@ export class WishitemComponent implements OnInit {
     });
   }
 
-  getWishData(flag:number) {
-    if( flag == 0 || this.flag <= 1){
+  getWishData(flag: number) {
+    if (flag == 0 || this.flag <= 1) {
       if (this.loginData.account != '') {
         const body = {
-        isCart: false,
-      };
-      let request = new Request('JOLCartInfo', this.loginData.account, this.loginData.token, 'SELECT', body);
-      console.log('request', request);
-      this.jolService
-      .getData(environment.JOLSERVER, request)
-      .subscribe((res) => {
-        this.flag = flag ==  1 ? 2 : 1;
-        if(res.code == 200){
-            this.blockUI.start('讀取中');
-            this.wishList = res.cartList;
-            console.log('this.wishList',this.wishList)
-            if(this.wishList.length == 0){
-              this.sum == 0;
-              this.ishidden = true;
-              this.blockUI.stop();
-            }else{
-              this.ishidden = false;
+          isCart: false,
+        };
+        let request = new Request('JOLCartInfo', this.loginData.account, this.loginData.token, 'SELECT', body);
+        console.log('request', request);
+        this.jolService
+          .getData(environment.JOLSERVER, request)
+          .subscribe((res) => {
+            this.flag = flag == 1 ? 2 : 1;
+            if (res.code == 200) {
+              this.blockUI.start('讀取中');
+              this.wishList = res.cartList;
+              console.log('this.wishList', this.wishList)
+              if (this.wishList.length == 0) {
+                this.sum == 0;
+                this.ishidden = true;
+                this.blockUI.stop();
+              } else {
+                this.ishidden = false;
+              }
+              this.jolService.setWishNum(this.wishList.length);
+              this.sum = 0
+              this.wishList.forEach((wish: any) => {
+                wish.img = [];
+                wish.img = wish.imgUrl.split(',');
+                wish.img[0] = this.jolService.getImgUrl(wish.img[0]);
+                wish.img[1] = this.jolService.getImgUrl(wish.img[1]);
+                wish.isOnload = false;
+                console.log('cart.qty* cart.price', wish.qty * wish.price)
+                this.sum += wish.qty * wish.price;
+              });
+            } else if (res.code == 666) {
+              this.jolService.reLogin();
             }
-            this.jolService.setWishNum(this.wishList.length);
-            this.sum = 0
-            this.wishList.forEach((wish: any) => {
-              wish.img = [];
-              wish.img = wish.imgUrl.split(',');
-              wish.img[0] = this.jolService.getImgUrl(wish.img[0]);
-              wish.img[1] = this.jolService.getImgUrl(wish.img[1]);
-              wish.isOnload =false;
-              console.log('cart.qty* cart.price',wish.qty* wish.price)
-              this.sum += wish.qty* wish.price;
-            });
-          }else if (res.code == 666) {
-            this.jolService.resetLoginData();
-            this.router.navigate(['/login']);
-          }
-        });
+          });
       } else {
         this.router.navigate(['/login']);
       }
     }
   }
 
-  deleteWishItem(wishId :any){
-    const dialogRef = this.dialog.open(MessageComponent, { data: { msg: '您確定要刪除?', isConfirm:true } });
+  deleteWishItem(wishId: any) {
+    const dialogRef = this.dialog.open(MessageComponent, { data: { msg: '您確定要刪除?', isConfirm: true } });
     dialogRef.afterClosed().subscribe(isConfirm => {
       if (isConfirm) {
         const body = {
           isCart: true,
-          cartId:wishId
+          cartId: wishId
         };
-        let request = new Request('JOLCartInfo', this.loginData.account, this.loginData.token ,'DELETE' ,body);
+        let request = new Request('JOLCartInfo', this.loginData.account, this.loginData.token, 'DELETE', body);
         console.log('request', request);
         this.jolService
           .getData(environment.JOLSERVER, request)
           .subscribe((res) => {
-            if(res.code == 200){
+            if (res.code == 200) {
               this.getWishData(0);
             } else if (res.code == 666) {
-              this.jolService.resetLoginData();
-              this.router.navigate(['/login']);
+              this.jolService.reLogin();
             }
-            console.log('res',res)
+            console.log('res', res)
           });
       }
     });
   }
 
-  addCart(cart:any) {
-    const dialogRef = this.dialog.open(CartdetailComponent,{ data:cart.sizeInfo})
+  addCart(cart: any) {
+    const dialogRef = this.dialog.open(CartdetailComponent, { data: cart.sizeInfo })
     dialogRef.afterClosed().subscribe(order => {
-      if(order.isConfirm){
-        if(this.loginData.account != ''){
-          this.jolService.addCartWish(cart.prodId, order.qty, order.size, true, false,false);
-        }else{
+      if (order.isConfirm) {
+        if (this.loginData.account != '') {
+          this.jolService.addCartWish(cart.prodId, order.qty, order.size, true, false, false);
+        } else {
           this.router.navigate(['/login']);
         }
       }
@@ -116,9 +114,9 @@ export class WishitemComponent implements OnInit {
   }
 
 
-  changeQty(isPlus: boolean, cartId:any) {
-    this.wishList.forEach((wish: any) =>{
-      if(wish.cartId == cartId){
+  changeQty(isPlus: boolean, cartId: any) {
+    this.wishList.forEach((wish: any) => {
+      if (wish.cartId == cartId) {
         wish.qty = isPlus ? (wish.qty += 1) : wish.qty <= 1 ? 1 : (wish.qty -= 1);
         this.countSum();
       }
@@ -132,16 +130,15 @@ export class WishitemComponent implements OnInit {
     this.jolService.prod = this.jolService.allProds.filter((prod: any) => prod.prodId == prodId)[0];
     this.router.navigate(['/product']);
   }
-  countSum(){
+  countSum() {
     this.sum = 0;
     this.wishList.forEach((wish: any) => {
-      this.sum += wish.qty* wish.price;
+      this.sum += wish.qty * wish.price;
     })
   }
-  onLoadImg(index:any){
-    if(index == this.wishList.length-1){
+  onLoadImg(index: any) {
+    if (index == this.wishList.length - 1) {
       this.blockUI.stop();
-
     }
   }
 
