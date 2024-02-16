@@ -1,5 +1,5 @@
 import { JolService } from './../service/JolService.service';
-import { Component, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CartblockComponent } from '../cartblock/cartblock.component';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { SizeComponent } from '../size/size.component';
@@ -129,8 +129,7 @@ export class ProductComponent implements OnInit {
       .subscribe((res) => {
         this.jolService.setWishList([]);
         if (res.code == 666) {
-          this.jolService.resetLoginData();
-          this.router.navigate(['/login']);
+          this.jolService.reLogin();
         }
       });
   }
@@ -148,8 +147,11 @@ export class ProductComponent implements OnInit {
         }, 700);
       }
     } else {
-      this.jolService.resetLoginData();
-      this.router.navigate(['/login']);
+      const dialogRef = this.dialog.open(MessageComponent, { data: { msg: '登入逾時，請重新登入' } });
+        dialogRef.afterClosed().subscribe(() => {
+          this.jolService.resetLoginData();
+          this.router.navigate(['/login']);
+        });
     }
   }
   tabChanged(event: any) {

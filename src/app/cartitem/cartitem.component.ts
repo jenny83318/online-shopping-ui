@@ -72,8 +72,7 @@ export class CartitemComponent implements OnInit {
               this.sum += cart.qty * cart.price;
             });
           }else if (res.code == 666){
-            this.jolService.resetLoginData();
-            this.router.navigate(['/login']);
+           this.jolService.reLogin();
           }
           });
         } else {
@@ -95,8 +94,7 @@ export class CartitemComponent implements OnInit {
             if (res.code == 200) {
               this.getCartData();
             }else if (res.code == 666){
-              this.jolService.resetLoginData();
-              this.router.navigate(['/login']);
+              this.jolService.reLogin();
             }
           });
       }

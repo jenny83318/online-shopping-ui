@@ -21,8 +21,8 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
     account: "",
     password: "",
     token: "",
-    tokenExpired:"",
-    email:""
+    tokenExpired: "",
+    email: ""
   };
   signUpData: any = {
     account: "",
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
   constructor(private jolService: JolService, private router: Router, private dialog: MatDialog, private http: HttpClient) { }
 
   ngOnInit() {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
     this.http.get('assets/json/address.json').subscribe((res) => {
       this.addressList = res;
       this.districtList = this.addressList[1].district;
@@ -93,12 +93,12 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
       var rember = { isRember: this.isRember, account: this.loginData.account, password: this.loginData.password }
       localStorage.setItem('rember', JSON.stringify(rember));
       var loginData = JSON.parse(localStorage.getItem('loginData'));
-      var token  = loginData != null ? loginData.token : this.loginData.token
+      var token = loginData != null ? loginData.token : this.loginData.token
       const body = {
         password: this.loginData.password,
         token: token
       };
-      let request = new Request("LogIn", this.loginData.account,'', '', body);
+      let request = new Request("LogIn", this.loginData.account, '', '', body);
       console.log('loginReq', request)
       this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
         console.log('res', res);
@@ -109,7 +109,17 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
           this.loginData.tokenExpired = res.tokenExpired;
           this.jolService.loginData = this.loginData
           localStorage.setItem('loginData', JSON.stringify(this.loginData));
-          this.router.navigate(['/']);
+          //TODO
+          // if (this.jolService.logBackRequest != undefined) {
+          //   this.jolService.getData(environment.JOLSERVER, this.jolService.logBackRequest).subscribe((res) => {
+          //     this.jolService.setCartNum(res.cartList.length);
+          //     var router = this.jolService.logBackRequest.body?.isCart ? "cartitem" : "wishitem";
+          //     this.router.navigate(['/' + router]);
+          //     this.jolService.logBackRequest = undefined;
+          //   });
+          // } else {
+            this.router.navigate(['/']);
+          // }
         }
         else {
           this.isLoginError = true;
@@ -127,7 +137,7 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
       password: data.password,
       token: data.token,
     };
-    let request = new Request('LogIn', data.account,"" , 'CLEAN', body);
+    let request = new Request('LogIn', data.account, "", 'CLEAN', body);
     console.log('request', request);
     this.jolService
       .getData(environment.JOLSERVER, request)
@@ -154,14 +164,14 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
         district: this.signUpData.district,
         status: "1"
       }
-      let request = new Request("JOLCustomerInfo", this.signUpData.account, '','ADD', body);
+      let request = new Request("JOLCustomerInfo", this.signUpData.account, '', 'ADD', body);
       console.log('request', request)
       this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
         console.log('res', res);
         if (res.code == 200) {
           const dialogRef = this.dialog.open(MessageComponent, { data: { msg: '註冊成功' } });
           dialogRef.afterClosed().subscribe(isConfirm => {
-           this.showSignUp();
+            this.showSignUp();
           })
         } else {
           this.dialog.open(MessageComponent, { data: { msg: res.msg } });

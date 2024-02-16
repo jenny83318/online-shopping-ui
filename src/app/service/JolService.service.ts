@@ -6,6 +6,8 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { CartblockComponent } from '../cartblock/cartblock.component';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { MessageComponent } from '../message/message.component';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +24,7 @@ export class JolService {
   loginData: any = { account: "", password: "", token: "", tokenExpired: "", email: "" };
   prod: any;
   cartNum: number = 0
-  cartStatus:boolean = false;
+  cartStatus: boolean = false;
   wishNum: number = 0
   isHeaderCheck = false;
   totAmt: number = 0;
@@ -33,14 +35,15 @@ export class JolService {
   orderData: any;
   sum: number = 0;
   prodList: any = [];
-  wishList:any =[];
+  wishList: any = [];
   indexProd: any = [];
-  allProds:any = [];
+  allProds: any = [];
   toProductList: string = ''
   category: string = '';
   isToPay: boolean = false;
+  logBackRequest: any;
 
-  constructor(private httpClient: HttpClient, private router: Router) { }
+  constructor(private httpClient: HttpClient, private router: Router, private dialog: MatDialog) { }
 
   getData(url: string, request: Request) {
     var partnerKey = "partner_aqVYKm8K3d34f1uZhQDK0GZpXmsWaGlPtBhrnoGnpjiRXQGlvUQDeuWA";
@@ -52,9 +55,9 @@ export class JolService {
     return this.httpClient.post<any>(url, request, httpHeaders);
   }
 
-  getLoginData(){
-    if(this.loginData.account == "" && localStorage.getItem('loginData') != null){
-        this.loginData = JSON.parse(localStorage.getItem('loginData'));
+  getLoginData() {
+    if (this.loginData.account == "" && localStorage.getItem('loginData') != null) {
+      this.loginData = JSON.parse(localStorage.getItem('loginData'));
     }
     return this.loginData;
   }
@@ -83,7 +86,7 @@ export class JolService {
   }
 
 
-  addCartWish(prodId: any, qty: number, size: any, isCart: boolean, isRouter:boolean, isChange:boolean) {
+  addCartWish(prodId: any, qty: number, size: any, isCart: boolean, isToPay: boolean, isChange: boolean) {
     const body = {
       prodId: prodId,
       qty: qty,
@@ -94,23 +97,17 @@ export class JolService {
     console.log('request', request);
     this.getData(environment.JOLSERVER, request).subscribe((res) => {
       if (res.code == 200) {
-        if (isCart) {
-          this.blockUI.start('cart');
-        } 
-        if(isChange){
+        this.blockUI.start('cart');
+        this.setCartNum(res.cartList.length);
+        if (isChange) {
           this.setWishList([]);
         }
-        if (isCart) {
-          this.setCartNum(res.cartList.length);
-        } else {
-          this.setWishNum(res.cartList.length);
-        }
-        if(isRouter){
+        if (isToPay) {
           this.router.navigate(['/cartitem']);
         }
       } else if (res.code == 666) {
-        this.resetLoginData();
-        this.router.navigate(['/login']);
+        this.logBackRequest = request;
+        this.reLogin();
       }
     });
     setTimeout(() => {
@@ -135,14 +132,11 @@ export class JolService {
         prodList.forEach((prod: any) => {
           prod.img = [];
           prod.img = prod.imgUrl.split(',');
-          prod.imgUrl =  this.getImgUrl(prod.img[0]);
+          prod.imgUrl = this.getImgUrl(prod.img[0]);
           prod.isOnload = false;
         });
         this.setProdList(prodList);
         this.router.navigate(['/productlist'], { skipLocationChange: true });
-      } else if (res.code == 666) {
-        this.resetLoginData();
-        this.router.navigate(['/login']);
       }
     });
   }
@@ -152,21 +146,20 @@ export class JolService {
     let request = new Request("JOLOrderInfo", this.loginData.account, this.loginData.token, "OTHER", body);
     console.log('request', request)
     this.getData(environment.JOLSERVER, request).subscribe(res => {
-      console.log('updateOrderStatus res',res)
+      console.log('updateOrderStatus res', res)
       this.blockUI.stop();
       if (res.code == 200) {
         this.orderUpdate.emit("finish");
         this.sendOrderEmail(body.orderNo);
         this.router.navigate(['/orderlist'])
       } else if (res.code == 666) {
-        this.resetLoginData();
-        this.router.navigate(['/login']);
+        this.reLogin();
       }
     });
   }
 
   sendOrderEmail(orderNo: any) {
-   this.getLoginData();
+    this.getLoginData();
     console.log('sendEmail===> ', orderNo, this.loginData.email)
     const body = {
       orderNo: orderNo,
@@ -202,7 +195,15 @@ export class JolService {
     return sortArray;
   }
 
-  getImgUrl(imgPath:any){
-    return ! imgPath.includes(environment.IMG_URL)? environment.IMG_URL + imgPath: imgPath
+  getImgUrl(imgPath: any) {
+    return !imgPath.includes(environment.IMG_URL) ? environment.IMG_URL + imgPath : imgPath
+  }
+
+  reLogin() {
+    const dialogRef = this.dialog.open(MessageComponent, { data: { msg: '登入逾時，請重新登入' } });
+    dialogRef.afterClosed().subscribe(() => {
+      this.resetLoginData();
+      this.router.navigate(['/login']);
+    });
   }
 }

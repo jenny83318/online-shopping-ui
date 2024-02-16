@@ -97,8 +97,7 @@ export class OrderdetailComponent implements OnInit {
               this.blockUI.stop();
             }
           } else if (res.code == 666) {
-            this.jolService.resetLoginData();
-            this.router.navigate(['/login']);
+           this.jolService.reLogin();
           }
         });
     } else {

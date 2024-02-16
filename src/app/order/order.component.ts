@@ -116,8 +116,7 @@ export class OrderComponent implements OnInit {
           this.odr.email = this.custData.email;
         }
       } else if (res.code == 666) {
-        this.jolService.resetLoginData();
-        this.router.navigate(['/login']);
+        this.jolService.reLogin();
       }
       console.log('custData', this.custData);
     });
@@ -168,8 +167,7 @@ export class OrderComponent implements OnInit {
                 .getData(environment.JOLSERVER, request)
                 .subscribe((res) => {
                   if (res.code == 666) {
-                    this.jolService.resetLoginData();
-                    this.router.navigate(['/login']);
+                    this.jolService.reLogin();
                   }
                 });
             });
@@ -187,8 +185,7 @@ export class OrderComponent implements OnInit {
             }
           }
         } else if (rs.code == 666) {
-          this.jolService.resetLoginData();
-          this.router.navigate(['/login']);
+          this.jolService.reLogin();
         }
         console.log('res', rs);
       });
@@ -233,8 +230,7 @@ export class OrderComponent implements OnInit {
             this.jolService.setCartNum(this.cartList.length);
             this.jolService.orderDetail = this.cartList;
           } else if (res.code == 666) {
-            this.jolService.resetLoginData();
-            this.router.navigate(['/login']);
+           this.jolService.reLogin();
           }
         });
     } else {
@@ -257,8 +253,7 @@ export class OrderComponent implements OnInit {
     console.log('request', request)
     this.jolService.getData(environment.JOLSERVER, request).subscribe(res => {
       if (res.code == 666) {
-        this.jolService.resetLoginData();
-        this.router.navigate(['/login']);
+        this.jolService.reLogin();
       }
     });
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Request } from '../model/Request';
 import { JolService } from './../service/JolService.service';
@@ -78,8 +78,7 @@ export class MemberComponent implements OnInit {
         this.member.email = this.custData.email;
         this.changeCity();
       }else if (res.code == 666){
-        this.jolService.resetLoginData();
-        this.router.navigate(['/login']);
+        this.jolService.reLogin();
       }
       console.log('custData', this.custData);
     });
@@ -115,8 +114,7 @@ export class MemberComponent implements OnInit {
         localStorage.setItem('loginData', JSON.stringify(this.loginData));
         this.dialog.open(MessageComponent, { data: { msg: '會員資料修改成功' } });
       }else if (res.code == 666){
-        this.jolService.resetLoginData();
-        this.router.navigate(['/login']);
+        this.jolService.reLogin();
       }
     });
   }
