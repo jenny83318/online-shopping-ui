@@ -109,7 +109,7 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
           this.loginData.tokenExpired = res.tokenExpired;
           this.jolService.loginData = this.loginData
           localStorage.setItem('loginData', JSON.stringify(this.loginData));
-          this.router.navigate(['/']);
+          this.router.navigate(['/' + this.jolService.routerPage]);
         }
         else {
           this.isLoginError = true;
@@ -117,6 +117,7 @@ export class LoginComponent implements OnInit, ErrorStateMatcher {
           this.jolService.isLogin = false;
           this.logOut();
         }
+        this.jolService.routerPage = '';
       });
     }
   }

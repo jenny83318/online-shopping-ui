@@ -174,30 +174,27 @@ export class HeaderComponent implements OnInit {
     this.setNavbarClose();
     this.router.navigate(['/']);
   }
+
   toCartItem() {
     this.setNavbarClose();
-    if (this.isLogin == false) {
-      this.router.navigate(['/login']);
-    } else {
-      this.router.navigate(['/cartitem']);
-    }
+    this.redirectPage("cartitem");
   }
+
   toWishItem() {
     this.setNavbarClose();
-    if (this.isLogin == false) {
-      this.router.navigate(['/login']);
-    } else {
-      this.router.navigate(['/wishitem']);
-    }
+    this.redirectPage("wishitem");
   }
+
   toOrderList() {
     this.setNavbarClose();
-    if (this.isLogin == false) {
-      this.router.navigate(['/login']);
-    } else {
-      this.router.navigate(['/orderlist']);
-    }
+    this.redirectPage("orderlist");
   }
+
+  toMember() {
+    this.setNavbarClose();
+    this.redirectPage("member");
+  }
+
   toProductList(selectType: any, keyWord: any) {
     this.setNavbarClose();
     if (selectType == 'category') {
@@ -210,12 +207,12 @@ export class HeaderComponent implements OnInit {
       keyWord: keyWord,
     });
   }
-  toMember() {
-    this.setNavbarClose();
+
+  redirectPage(path: any) {
     if (this.isLogin == false) {
       this.router.navigate(['/login']);
     } else {
-      this.router.navigate(['/member']);
+      this.router.navigate(['/' + path]);
     }
   }
 }

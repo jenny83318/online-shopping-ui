@@ -41,6 +41,7 @@ export class JolService {
   toProductList: string = ''
   category: string = '';
   isToPay: boolean = false;
+  routerPage: any = "";
 
   constructor(private httpClient: HttpClient, private router: Router, private dialog: MatDialog) { }
 
@@ -49,11 +50,14 @@ export class JolService {
     var httpHeaders = { headers: new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8', "x-api-key": partnerKey }) };
     return this.httpClient.post<any>(url, request, httpHeaders);
   }
+
+  /**Stripe Pay*/
   getPaymentData(url: string, request: StripeRequest) {
     var httpHeaders = { headers: new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' }) };
     return this.httpClient.post<any>(url, request, httpHeaders);
   }
 
+  /**取登入資料 */
   getLoginData() {
     if (this.loginData.account == "" && localStorage.getItem('loginData') != null) {
       this.loginData = JSON.parse(localStorage.getItem('loginData'));
@@ -61,31 +65,39 @@ export class JolService {
     return this.loginData;
   }
 
+  /**重設登入資料 */
   resetLoginData() {
     this.loginData = { account: "", password: "", token: "", email: "" };
     localStorage.removeItem('loginData');
     this.isLogin = false;
   }
+
+  /**設購物車數量 */
   setCartNum(cartNum: number) {
     this.cartNum = cartNum;
     this.cartChange.emit(this.cartNum);
   }
+
+  /**設願望清單數量 */
   setWishNum(wishNum: number) {
     this.wishNum = wishNum;
     this.wishChange.emit(this.wishNum);
   }
+
+  /**存當前產品列 */
   setProdList(prodList: any) {
     this.prodList = prodList;
     this.prodListChange.emit(this.prodList);
   }
 
+  /**設願望清單列 */
   setWishList(wishList: any) {
     this.wishList = wishList;
     this.wishListChange.emit(this.wishList);
   }
 
-
-  addCartWish(prodId: any, qty: number, size: any, isCart: boolean, isToPay: boolean, isChange: boolean) {
+  /**新增購物車或願望清單 */
+  addCartWish(prodId: any, qty: number, size: any, isCart: boolean, isToPay: boolean, isChange: boolean, isWishPage?: boolean) {
     const body = {
       prodId: prodId,
       qty: qty,
@@ -105,6 +117,7 @@ export class JolService {
           this.router.navigate(['/cartitem']);
         }
       } else if (res.code == 666) {
+        this.routerPage = isWishPage ? "wishitem" : "product";
         this.reLogin();
       }
     });
@@ -113,6 +126,7 @@ export class JolService {
     }, 700);
   }
 
+  /**查商品 */
   getProductData(type: any, body: any) {
     if (type == 'OTHER') {
       if (body.selectType == 'category') {
@@ -139,6 +153,7 @@ export class JolService {
     });
   }
 
+  /**更新訂單狀態 */
   updateOrderStatus(body: any) {
     this.blockUI.start('讀取中');
     let request = new Request("JOLOrderInfo", this.loginData.account, this.loginData.token, "OTHER", body);
@@ -156,6 +171,7 @@ export class JolService {
     });
   }
 
+  /**寄送訂單通知信 */
   sendOrderEmail(orderNo: any) {
     this.getLoginData();
     console.log('sendEmail===> ', orderNo, this.loginData.email)
@@ -175,28 +191,12 @@ export class JolService {
     });
   }
 
-  sortByKey(array: any, key: any, flag: boolean) {
-    var sortArray = array.sort(function (a: any, b: any) {
-      var x; var y;
-      if (key != 'statusTime') {
-        x = a[key];
-        y = b[key];
-      } else {
-        a['statusDate'] = a['statusDate'].replaceAll('-', '/');
-        b['statusDate'] = b['statusDate'].replaceAll('-', '/');
-        x = new Date(a['statusDate'] + ' ' + a[key]).getTime();
-        y = new Date(b['statusDate'] + ' ' + b[key]).getTime();
-      }
-      return flag ? ((x < y) ? 1 : ((x > y) ? -1 : 0)) : ((x > y) ? 1 : ((x < y) ? -1 : 0));
-    });
-    console.log('sortArray = ', sortArray)
-    return sortArray;
-  }
-
+  /**圖片URL */
   getImgUrl(imgPath: any) {
     return !imgPath.includes(environment.IMG_URL) ? environment.IMG_URL + imgPath : imgPath
   }
 
+  /**token無效導回登入 */
   reLogin() {
     const dialogRef = this.dialog.open(MessageComponent, { data: { msg: '登入逾時，請重新登入' } });
     dialogRef.afterClosed().subscribe(() => {
