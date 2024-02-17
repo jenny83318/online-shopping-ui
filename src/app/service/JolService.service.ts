@@ -133,24 +133,45 @@ export class JolService {
         this.category = body.keyWord;
       }
     }
-    this.blockUI.start('讀取中');
-    let request = new Request("JOLProductInfo", this.loginData.account, this.loginData.token, type, body);
-    console.log('request', request)
-    this.getData(environment.JOLSERVER, request).subscribe(res => {
-      this.blockUI.stop();
-      if (res.code == 200) {
-        var prodList = res.productList
-        console.log('prodList', this.prodList)
-        prodList.forEach((prod: any) => {
-          prod.img = [];
-          prod.img = prod.imgUrl.split(',');
-          prod.imgUrl = this.getImgUrl(prod.img[0]);
-          prod.isOnload = false;
-        });
-        this.setProdList(prodList);
+    if (this.allProds.length > 0) {
+      if(type == 'OTHER'){
+        var productList = [];
+        if(body.selectType === 'category'){
+          productList = this.allProds.filter((prod:any)=>prod.category === body.keyWord);
+        } else if(body.selectType === 'series'){
+          productList = this.allProds.filter((prod:any)=>prod.series == body.keyWord);
+        } else if(body?.selectType === 'keyWord'){
+          productList = this.allProds.filter((prod:any)=>prod.name.includes(body.keyWord));
+        }
+        this.setProdList(productList);
         this.router.navigate(['/productlist'], { skipLocationChange: true });
       }
-    });
+    } else {
+      this.blockUI.start('讀取中');
+      let request = new Request("JOLProductInfo", this.loginData.account, this.loginData.token, type, body);
+      console.log('request', request)
+      this.getData(environment.JOLSERVER, request).subscribe(res => {
+        this.blockUI.stop();
+        if (res.code == 200) {
+          var prodList = res.productList
+          console.log('prodList', this.prodList)
+          prodList.forEach((prod: any) => {
+            prod.img = [];
+            prod.img = prod.imgUrl.split(',');
+            prod.imgUrl = this.getImgUrl(prod.img[0]);
+            prod.isOnload = false;
+          });
+          if(type == "ALL"){
+            this.allProds = prodList;
+            this.indexProd = prodList.slice(0, 24);
+            this.setProdList(this.indexProd);
+          } else{
+            this.setProdList(prodList);
+            this.router.navigate(['/productlist'], { skipLocationChange: true });
+          }
+        }
+      });
+    }
   }
 
   /**更新訂單狀態 */
