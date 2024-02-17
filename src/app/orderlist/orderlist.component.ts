@@ -141,10 +141,6 @@ export class OrderlistComponent implements OnInit {
     this.router.navigate(['/orderdetail'], { skipLocationChange: true });
   }
 
-  toProductList() {
-    this.jolService.getProductData("OTHER", { selectType: "series", keyWord: "new" });
-  }
-
   padZeros(value: number, length: number): string {
     return value.toString().padStart(length, '0');
   }

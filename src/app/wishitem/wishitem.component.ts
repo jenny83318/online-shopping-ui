@@ -124,7 +124,8 @@ export class WishitemComponent implements OnInit {
   }
 
   toProductList() {
-    this.jolService.getProductData("OTHER", { selectType: "series", keyWord: "new" });
+    this.jolService.toProductList = 'all'
+    this.jolService.getProductData("OTHER", { selectType: "category", keyWord: "1" });
   }
   toProduct(prodId: any) {
     this.jolService.prod = this.jolService.allProds.filter((prod: any) => prod.prodId == prodId)[0];
