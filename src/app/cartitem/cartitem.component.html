@@ -53,11 +53,11 @@
     </ul>
     <hr>
   </div>
-  <div class="imgContainer" *ngIf="ishidden">
+  <div class="imgContainer" *ngIf="isShow">
     <img src="assets/img/cart.png">
     <h5 style="font-size: 15px;">購物車目前尚無商品</h5>
   </div>
-  <div class="promoCode" *ngIf="!ishidden">
+  <div class="promoCode" *ngIf="!isShow">
     <label for="promo">配送方式 </label>
     <mat-form-field>
       <mat-label>請選擇配送方式</mat-label>
@@ -80,7 +80,7 @@
     </label><input type="text" name="promo" placholder="請輸入折扣碼" />
     <button href="" class="btn"></button> -->
   </div>
-  <div class="subtotal cf" *ngIf="!ishidden">
+  <div class="subtotal cf" *ngIf="!isShow">
     <ul>
       <li class="totalRow">
         <span class="label">商品總金額</span><span class="value">${{sum | number}}</span>
