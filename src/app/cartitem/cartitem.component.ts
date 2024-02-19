@@ -21,7 +21,7 @@ export class CartitemComponent implements OnInit {
   deliverFee: number = 0;
   cartList: any = [];
   sum: number = 0;
-  ishidden: boolean = false;
+  isShow: boolean = true;
   deliveryOpt: any = [
     { viewValue: '宅配', fee: 80 },
     { viewValue: '7-11超商取貨', fee: 60 },
@@ -57,8 +57,9 @@ export class CartitemComponent implements OnInit {
             this.cartList = res.cartList;
             if (this.cartList.length == 0) {
               this.sum == 0;
-              this.ishidden = true;
               this.blockUI.stop();
+            } else{
+              this.isShow = false;
             }
             this.jolService.setCartNum(this.cartList.length);
             this.sum = 0
