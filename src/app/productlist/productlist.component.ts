@@ -1,7 +1,5 @@
 import { JolService } from './../service/JolService.service';
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { Request } from '../model/Request';
 import { BlockuiComponent } from './../blockui/blockui.component';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import {MatDialog} from '@angular/material/dialog';
