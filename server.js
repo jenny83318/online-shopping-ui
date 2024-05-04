@@ -15,7 +15,7 @@ app.use(express.static(__dirname + '/dist'));
 
 // 设置代理
 app.use('/jolserver', createProxyMiddleware({
-  target: 'http://139.162.97.43:8080',
+  target: 'http://jol-server.onrender.com',
   changeOrigin: true,
   secure: false,
   pathRewrite: {
