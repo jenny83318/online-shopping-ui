@@ -143,8 +143,8 @@ export class PaymentComponent implements OnInit {
     })
     const stripe = await this.stripePromise;
     let request = new StripeRequest(Math.round(this.order.totalAmt * 100) , prodName , 'hkd',
-    environment.MODE == "Linode" ? environment.SUCCESS_URL : environment.Render_Succ ,
-    environment.MODE == "Linode" ? environment.FAIL_URL : environment.Render_Fail, 1);
+    environment.MODE === "Linode" ? environment.SUCCESS_URL : environment.Render_Succ ,
+    environment.MODE === "Linode" ? environment.FAIL_URL : environment.Render_Fail, 1);
     this.blockUI.start('讀取中');
     this.jolService
       .getPaymentData(environment.STRIPE, request)
