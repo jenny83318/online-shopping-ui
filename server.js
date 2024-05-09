@@ -8,16 +8,20 @@
 
 const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
-const cors =require('cors');
+const cors = require('cors');
 
 const app = express();
 
-app.use(cors({
-  origin: '*'
-}));
-
 app.use(express.static(__dirname + '/dist'));
 
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "DELETE", "UPDATE", "PUT"],
+    credentials: true,
+    // allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'device-remember-token', 'Access-Control-Allow-Origin', 'Origin', 'Accept']
+  })
+);
 // 设置代理
 app.use('/jolserver', createProxyMiddleware({
   target: 'http://jol-server.onrender.com',
