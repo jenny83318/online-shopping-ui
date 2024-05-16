@@ -27,6 +27,7 @@ app.use('/jolserver', createProxyMiddleware({
   target: 'http://jol-server.onrender.com',
   changeOrigin: true,
   secure: false,
+  headers: { 'Access-Control-Allow-Origin': '*' }, // 添加這一行
   pathRewrite: {
     '^/jolserver/api': '/jolserver/api'
   }
