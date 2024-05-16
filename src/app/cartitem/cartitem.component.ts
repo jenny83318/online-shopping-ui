@@ -21,7 +21,7 @@ export class CartitemComponent implements OnInit {
   deliverFee: number = 0;
   cartList: any = [];
   sum: number = 0;
-  isShow: boolean = true;
+  isShow: boolean = false;
   deliveryOpt: any = [
     { viewValue: '宅配', fee: 80 },
     { viewValue: '7-11超商取貨', fee: 60 },
@@ -49,17 +49,16 @@ export class CartitemComponent implements OnInit {
         isCart: true
       };
       let request = new Request('JOLCartInfo', this.loginData.account, this.loginData.token, 'SELECT', body);
+      this.blockUI.start('讀取中');
       this.jolService
         .getData(environment.JOLSERVER, request)
         .subscribe((res) => {
+          this.blockUI.stop();
           if (res.code == 200) {
-            this.blockUI.start('讀取中');
             this.cartList = res.cartList;
             if (this.cartList.length == 0) {
               this.sum == 0;
-              this.blockUI.stop();
-            } else{
-              this.isShow = false;
+              this.isShow = true;
             }
             this.jolService.setCartNum(this.cartList.length);
             this.sum = 0

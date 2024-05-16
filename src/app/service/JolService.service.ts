@@ -109,6 +109,9 @@ export class JolService {
     this.getData(environment.JOLSERVER, request).subscribe((res) => {
       if (res.code == 200) {
         this.blockUI.start('cart');
+        setTimeout(() => {
+          this.blockUI.stop();
+        }, 700);
         this.setCartNum(res.cartList.length);
         if (isChange) {
           this.setWishList([]);
@@ -121,9 +124,6 @@ export class JolService {
         this.reLogin();
       }
     });
-    setTimeout(() => {
-      this.blockUI.stop();
-    }, 700);
   }
 
   /**查商品 */

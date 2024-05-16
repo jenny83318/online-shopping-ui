@@ -28,31 +28,38 @@ export class ProductComponent implements OnInit {
   isWish: boolean = false;
   cart: any;
   isReLogin: boolean = false;
-  constructor(private dialog: MatDialog, private jolService: JolService, private router: Router) { }
+  constructor(
+    private dialog: MatDialog,
+    private jolService: JolService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     window.scrollTo(0, 0);
     this.loginData = this.jolService.getLoginData();
     this.prod = this.jolService.prod;
     if (this.prod == undefined) {
-      this.prod = localStorage.getItem('loginData') != null ? JSON.parse(localStorage.getItem('prod')) : this.prod;
+      this.prod =
+        localStorage.getItem('prod') != null
+          ? JSON.parse(localStorage.getItem('prod'))
+          : this.prod;
       if (this.prod == null || this.prod == undefined) {
         this.router.navigate(['/']);
       }
     } else {
-      localStorage.setItem('prod', JSON.stringify(this.prod))
+      localStorage.setItem('prod', JSON.stringify(this.prod));
     }
-    this.sizeList = this.prod.sizeInfo.split(",");
+    this.sizeList = this.prod.sizeInfo.split(',');
     this.prod.img[0] = this.jolService.getImgUrl(this.prod.img[0]);
     this.prod.img[1] = this.jolService.getImgUrl(this.prod.img[1]);
     if (this.sizeList[0] == 'F') {
-      this.size = 'F'
+      this.size = 'F';
     }
     this.checkWish();
   }
   ngAfterViewInit() {
     this.tabContent.nativeElement.innerHTML = this.prod.descript;
-    console.log('this.tabContent', this.tabContent.nativeElement)
+    console.log('this.tabContent', this.tabContent.nativeElement);
   }
   ngOnDestroy() {
     if (this.heartClass == 'fa fa-heart') {
@@ -77,29 +84,39 @@ export class ProductComponent implements OnInit {
   }
 
   checkWish() {
-    const body = {
-      prodId: this.prod.prodId,
-      qty: this.qty,
-      size: this.size,
-      isCart: false,
-    };
-    let request = new Request('JOLCartInfo', this.loginData.account, this.loginData.token, 'OTHER', body);
-    console.log('request', request);
-    this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
-      if (res.code == 200) {
-        this.isReLogin = true;
-        if (res.cartList.length > 0) {
-          this.cart = res.cartList[0];
-          this.heartClass = 'fa fa-heart';
-          this.isWish = true;
-        } else {
-          this.heartClass = 'far fa-heart';
-          this.isWish = false;
-        }
-      } else if (res.code == 666) {
-        this.isReLogin = false;
-      }
-    });
+    if (this.loginData.account) {
+      const body = {
+        prodId: this.prod.prodId,
+        qty: this.qty,
+        size: this.size,
+        isCart: false,
+      };
+      let request = new Request(
+        'JOLCartInfo',
+        this.loginData.account,
+        this.loginData.token,
+        'OTHER',
+        body
+      );
+      console.log('request', request);
+      this.jolService
+        .getData(environment.JOLSERVER, request)
+        .subscribe((res) => {
+          if (res.code == 200) {
+            this.isReLogin = true;
+            if (res.cartList.length > 0) {
+              this.cart = res.cartList[0];
+              this.heartClass = 'fa fa-heart';
+              this.isWish = true;
+            } else {
+              this.heartClass = 'far fa-heart';
+              this.isWish = false;
+            }
+          } else if (res.code == 666) {
+            this.isReLogin = false;
+          }
+        });
+    }
   }
   addCartWish(isCart: boolean, isRouter: boolean, ischange: boolean) {
     if (this.loginData.account != '') {
@@ -108,9 +125,15 @@ export class ProductComponent implements OnInit {
           data: { msg: '請選擇尺寸' },
         });
       } else {
-        this.jolService.addCartWish(this.prod.prodId, this.qty, this.size, isCart, isRouter, ischange);
+        this.jolService.addCartWish(
+          this.prod.prodId,
+          this.qty,
+          this.size,
+          isCart,
+          isRouter,
+          ischange
+        );
       }
-
     } else {
       this.router.navigate(['/login']);
     }
@@ -120,18 +143,22 @@ export class ProductComponent implements OnInit {
     const body = {
       type: 'DELETE',
       isCart: true,
-      cartId: cartId
+      cartId: cartId,
     };
-    let request = new Request('JOLCartInfo', this.loginData.account, this.loginData.token, 'DELETE', body);
+    let request = new Request(
+      'JOLCartInfo',
+      this.loginData.account,
+      this.loginData.token,
+      'DELETE',
+      body
+    );
     console.log('request', request);
-    this.jolService
-      .getData(environment.JOLSERVER, request)
-      .subscribe((res) => {
-        this.jolService.setWishList([]);
-        if (res.code == 666) {
-          this.jolService.reLogin();
-        }
-      });
+    this.jolService.getData(environment.JOLSERVER, request).subscribe((res) => {
+      this.jolService.setWishList([]);
+      if (res.code == 666) {
+        this.jolService.reLogin();
+      }
+    });
   }
 
   changeIcon() {
@@ -140,7 +167,8 @@ export class ProductComponent implements OnInit {
     } else if (!this.jolService.isLogin) {
       this.router.navigate(['/login']);
     } else {
-      this.heartClass = this.heartClass == 'far fa-heart' ? 'fa fa-heart' : "far fa-heart"
+      this.heartClass =
+        this.heartClass == 'far fa-heart' ? 'fa fa-heart' : 'far fa-heart';
       if (this.heartClass == 'far fa-heart') {
         this.jolService.setWishNum(this.jolService.wishNum - 1);
       } else {
@@ -153,7 +181,7 @@ export class ProductComponent implements OnInit {
     }
   }
   tabChanged(event: any) {
-    console.log('index', event.index)
+    console.log('index', event.index);
     if (event.index === 2) {
       this.dialog.open(SizeComponent);
     }
