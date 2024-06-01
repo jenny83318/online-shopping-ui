@@ -40,18 +40,18 @@ export class WishitemComponent implements OnInit {
         };
         let request = new Request('JOLCartInfo', this.loginData.account, this.loginData.token, 'SELECT', body);
         console.log('request', request);
+        this.blockUI.start('讀取中');
         this.jolService
           .getData(environment.JOLSERVER, request)
           .subscribe((res) => {
+            this.blockUI.stop();
             this.flag = flag == 1 ? 2 : 1;
             if (res.code == 200) {
-              this.blockUI.start('讀取中');
               this.wishList = res.cartList;
               console.log('this.wishList', this.wishList)
               if (this.wishList.length == 0) {
                 this.sum == 0;
                 this.ishidden = true;
-                this.blockUI.stop();
               } else {
                 this.ishidden = false;
               }
