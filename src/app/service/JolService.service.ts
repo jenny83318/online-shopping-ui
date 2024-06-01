@@ -216,7 +216,7 @@ export class JolService {
 
   /**圖片URL */
   getImgUrl(imgPath: any) {
-    return !imgPath.includes(environment.IMG_URL) ? environment.IMG_URL + imgPath : imgPath
+    return !imgPath.includes(environment.IMG_URL) ? environment.IMG_URL + imgPath + '?raw=true' : imgPath
   }
 
   /**token無效導回登入 */
