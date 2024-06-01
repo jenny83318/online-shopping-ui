@@ -4,6 +4,7 @@ import { Request } from '../model/Request';
 import { JolService } from './../service/JolService.service';
 import { Router } from '@angular/router';
 import { CartblockComponent } from '../cartblock/cartblock.component';
+import { BlockuiComponent } from './../blockui/blockui.component';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageComponent } from '../message/message.component';
@@ -15,7 +16,7 @@ import { CartdetailComponent } from '../cartdetail/cartdetail.component';
 })
 export class WishitemComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
-  block = CartblockComponent;
+  block = BlockuiComponent;
   loginData: any;
   wishList: any;
   sum: number = 0;
@@ -107,6 +108,7 @@ export class WishitemComponent implements OnInit {
     dialogRef.afterClosed().subscribe(order => {
       if (order.isConfirm) {
         if (this.loginData.account != '') {
+          this.block = CartblockComponent;
           this.jolService.addCartWish(cart.prodId, order.qty, order.size, true, false, false);
         } else {
           this.router.navigate(['/login']);
