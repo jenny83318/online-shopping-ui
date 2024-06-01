@@ -216,7 +216,6 @@ export class JolService {
 
   /**圖片URL */
   getImgUrl(imgPath: any) {
-    console.log('getImgUrl', !imgPath.includes(environment.IMG_URL) ? environment.IMG_URL + imgPath + '?raw=true' : imgPath)
     return !imgPath.includes(environment.IMG_URL) ? environment.IMG_URL + imgPath + '?raw=true' : imgPath
   }
 
