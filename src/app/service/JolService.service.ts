@@ -108,10 +108,12 @@ export class JolService {
     console.log('request', request);
     this.getData(environment.JOLSERVER, request).subscribe((res) => {
       if (res.code == 200) {
-        this.blockUI.start('cart');
-        setTimeout(() => {
-          this.blockUI.stop();
-        }, 700);
+        if(isCart){
+          this.blockUI.start('cart');
+          setTimeout(() => {
+            this.blockUI.stop();
+          }, 700);
+        }
         this.setCartNum(res.cartList.length);
         if (isChange) {
           this.setWishList([]);
