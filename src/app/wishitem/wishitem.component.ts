@@ -16,7 +16,7 @@ import { CartdetailComponent } from '../cartdetail/cartdetail.component';
 })
 export class WishitemComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
-  block = BlockuiComponent;
+  block:any = BlockuiComponent;
   loginData: any;
   wishList: any;
   sum: number = 0;

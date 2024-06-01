@@ -25,7 +25,7 @@ app.use(
 
 // 设置代理
 app.use('/jolserver', createProxyMiddleware({
-  target: 'http://jol-server.onrender.com',
+  target: 'https://jol-server.onrender.com',
   changeOrigin: true,
   secure: false,
   pathRewrite: {
