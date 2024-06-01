@@ -86,9 +86,11 @@ export class WishitemComponent implements OnInit {
         };
         let request = new Request('JOLCartInfo', this.loginData.account, this.loginData.token, 'DELETE', body);
         console.log('request', request);
+        this.blockUI.start('讀取中');
         this.jolService
           .getData(environment.JOLSERVER, request)
           .subscribe((res) => {
+            this.blockUI.stop();
             if (res.code == 200) {
               this.getWishData(0);
             } else if (res.code == 666) {
