@@ -52,6 +52,7 @@ export class MemberComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.loginData = this.jolService.getLoginData();
+    console.log('this.loginData', this.loginData)
     if(this.loginData.account != ''){
       this.http.get('assets/json/address.json').subscribe((res) => {
         this.addressList = res;
