@@ -1,4 +1,5 @@
-<block-ui [template]="block"></block-ui>
+<block-ui [template]="block" *ngIf='isBlock'></block-ui>
+<block-ui [template]="cartBlock" *ngIf='!isBlock'></block-ui>
 <app-header></app-header>
 <div class="wrap cf">
   <div class="heading cf">

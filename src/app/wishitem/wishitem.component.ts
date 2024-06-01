@@ -16,7 +16,9 @@ import { CartdetailComponent } from '../cartdetail/cartdetail.component';
 })
 export class WishitemComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
-  block:any = BlockuiComponent;
+  block = BlockuiComponent;
+  cartBlock = CartblockComponent
+  isBlock:boolean = true;
   loginData: any;
   wishList: any;
   sum: number = 0;
@@ -41,6 +43,7 @@ export class WishitemComponent implements OnInit {
         };
         let request = new Request('JOLCartInfo', this.loginData.account, this.loginData.token, 'SELECT', body);
         console.log('request', request);
+        this.isBlock= true;
         this.blockUI.start('讀取中');
         this.jolService
           .getData(environment.JOLSERVER, request)
@@ -81,6 +84,7 @@ export class WishitemComponent implements OnInit {
     const dialogRef = this.dialog.open(MessageComponent, { data: { msg: '您確定要刪除?', isConfirm: true } });
     dialogRef.afterClosed().subscribe(isConfirm => {
       if (isConfirm) {
+       this.isBlock= true;
         const body = {
           isCart: true,
           cartId: wishId
@@ -108,7 +112,7 @@ export class WishitemComponent implements OnInit {
     dialogRef.afterClosed().subscribe(order => {
       if (order.isConfirm) {
         if (this.loginData.account != '') {
-          this.block = CartblockComponent;
+          this.isBlock= false;
           this.jolService.addCartWish(cart.prodId, order.qty, order.size, true, false, false);
         } else {
           this.router.navigate(['/login']);
