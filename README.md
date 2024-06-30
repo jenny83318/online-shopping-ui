@@ -12,9 +12,9 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Demo link
 
-1. use Linode [JOL-Boutique Demo (Linode)](https://jol-boutique.imcarpediem.com/)
-   
-2. use Render (The server will automatically shut down if there is no activity for 15 minutes so it will take a few minute to restart the server.)[JOL-Boutique Demo (Render)](https://jol-boutique.onrender.com)
+This website on Render's free plan shuts down after 15 minutes of inactivity, so the first visit after that takes a few minutes to restart.
+
+[JOL-Boutique Demo (Render)](https://jol-boutique.onrender.com)
 
 ## Demo page 
 index and product
